@@ -8,7 +8,7 @@
         O NEGOCIO DE LA ESQUINA <span class="h2-big">GRATIS</span>
       </h2>
       <div class="hr-center background-color1"></div>
-      <form [formGroup]="registerForm">
+      <form [formGroup]="registerForm" (ngSubmit)="submitCommerce()">
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
@@ -52,7 +52,7 @@
               class="color3"
               >Categoría del comercio</label
             >
-            <select formControlName="categoryCommerce">
+            <select formControlName="commerceCategory">
               <option disabled selected>Seleccionar</option>
               <option *ngFor="let category of commerceCategories">{{
                 category
