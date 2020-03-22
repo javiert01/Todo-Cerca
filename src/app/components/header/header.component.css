@@ -1,0 +1,26 @@
+header .header-top{
+	padding: 20px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+header .header-top .col{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 0;
+}
+header .header-top .col .center-button{
+	margin: 0 auto;
+}
+header .header-top .col i{
+	padding-right: 5px;
+}
+header .header-brand{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 20px;
+}
+header .header-brand img{
+	display: block;
+	margin: auto;
+	max-width: 256px;
+}
