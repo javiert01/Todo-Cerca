@@ -49,3 +49,6 @@
 #section-5-registro .mapa iframe{
 	width: 100%;
 }
+agm-map {
+  height: 500px;
+}
