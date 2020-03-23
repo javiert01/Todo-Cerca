@@ -197,10 +197,16 @@
           </div>
         </div>
         <div class="mapa">
+          <div class="form-group">
+            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+          </div>
           <label for="mapa" class="color3">
-            Ubica du dirección en el mapa
+            Ubica tu dirección en el mapa
           </label>
-          <iframe
+          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)" [zoom]="18">
+            <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
+          </agm-map>
+          <!-- <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15959.183312968535!2d-78.48655964999999!3d-0.19238725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sec!4v1584582805316!5m2!1ses-419!2sec"
             height="450"
             frameborder="0"
@@ -208,7 +214,7 @@
             allowfullscreen=""
             aria-hidden="false"
             tabindex="0"
-          ></iframe>
+          ></iframe> -->
         </div>
         <div class="col-1">
           <label class="color3"
