@@ -12,6 +12,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CommerceRegistrationComponent } from './components/commerce-registration/commerce-registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { PipesModule } from "../app/pipes/pipes.module";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PipesModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAswlswB4nSDMpRuWl9MLTJVBLc4x9J7XE',
       libraries: ['places']
