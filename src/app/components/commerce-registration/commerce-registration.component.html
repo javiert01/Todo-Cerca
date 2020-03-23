@@ -12,46 +12,27 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
-            <input
-              type="text"
-              formControlName="ownerName"
-              placeholder="Ingresa tu nombre"
-            />
+            <input type="text" formControlName="ownerName" placeholder="Ingresa tu nombre" />
           </div>
           <div class="col">
             <label class="color3">Apellido</label>
-            <input
-              type="text"
-              formControlName="ownerLastName"
-              placeholder="Ingresa tu apellido"
-            />
+            <input type="text" formControlName="ownerLastName" placeholder="Ingresa tu apellido" />
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label class="color3"
-              >Teléfono celular</label
-            >
+            <label class="color3">Teléfono celular</label>
             <input type="text" formControlName="phone" placeholder="Ej: 0995975573" />
           </div>
           <div class="col">
-            <label class="color3"
-              >Nombre del comercio</label
-            >
-            <input
-              type="text"
-              name="comercio"
-              placeholder="Ingresa el nombre de tu negocio"
-              formControlName="commerceName"
-            />
+            <label class="color3">Nombre del comercio</label>
+            <input type="text" name="comercio" placeholder="Ingresa el nombre de tu negocio"
+              formControlName="commerceName" />
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label
-              class="color3"
-              >Categoría del comercio</label
-            >
+            <label class="color3">Categoría del comercio</label>
             <select formControlName="commerceCategory">
               <option disabled selected>Seleccionar</option>
               <option *ngFor="let category of commerceCategories">{{
@@ -61,18 +42,12 @@
           </div>
           <div class="col">
             <label class="color3" for="horarios">Horarios de atención</label>
-            <input
-              type="text"
-              name="horarios"
-              placeholder="Ej: de 9:00am a 20:00pm"
-            />
+            <input type="text" name="horarios" placeholder="Ej: de 9:00am a 20:00pm" />
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label class="color3"
-              >Provincia</label
-            >
+            <label class="color3">Provincia</label>
             <select formControlName="province">
               <option disabled selected>Seleccionar</option>
               <option [value]="province" *ngFor="let province of provinces">{{
@@ -91,14 +66,9 @@
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label class="color3"
-              >Dirección exacta del comercio</label
-            >
-            <input
-              type="text"
-              formControlName="address"
-              placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
-            />
+            <label class="color3">Dirección exacta del comercio</label>
+            <input type="text" formControlName="address"
+              placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto" />
           </div>
           <div class="col">
             <label class="color3" for="barrio">Elige tu barrio</label>
@@ -114,9 +84,7 @@
               <option value="Chilibulo">Chilibulo</option>
               <option value="Chillogallo">Chillogallo</option>
               <option value="Chimbacalle">Chimbacalle</option>
-              <option value="Ciudadela del Ejército"
-                >Ciudadela del Ejército</option
-              >
+              <option value="Ciudadela del Ejército">Ciudadela del Ejército</option>
               <option value="Ciudadela Ibarra">Ciudadela Ibarra</option>
               <option value="Comité del Pueblo">Comité del Pueblo</option>
               <option value="Conocoto">Conocoto</option>
@@ -198,12 +166,14 @@
         </div>
         <div class="mapa">
           <div class="form-group">
-            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+              class="form-control" #search [formControl]="searchControl">
           </div>
           <label for="mapa" class="color3">
             Ubica tu dirección en el mapa
           </label>
-          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)" [zoom]="18">
+          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
+            [zoom]="18">
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
           <!-- <iframe
@@ -217,44 +187,32 @@
           ></iframe> -->
         </div>
         <div class="col-1">
-          <label class="color3"
-            >Referencia del comercio</label
-          >
-          <input
-            type="text"
-            formControlName="reference"
-            placeholder="Ej: diagonal al redondel."
-          />
+          <label class="color3">Referencia del comercio</label>
+          <input type="text" formControlName="reference" placeholder="Ej: diagonal al redondel." />
         </div>
         <div class="col-1">
           <label class="color3">Breve descripción de tu comercio</label>
-          <textarea
-            formControlName="commerceDescription"
-            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."
-          ></textarea>
+          <textarea formControlName="commerceDescription"
+            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."></textarea>
         </div>
+
         <div class="col-1">
-          <label class="color3 background-color1 white" for="foto"
-            ><i class="fas fa-camera white"></i> Foto de tu local</label
-          >
-          <input type="file" name="" id="foto" />
+          <label class="color3 background-color1 white" for="foto"><i class="fas fa-camera white"></i> Foto de tu
+            local</label>
+          <input type="file" name="" id="foto" (change)="onFileChangedRecibo($event)" />
+          <img *ngIf="reciboURL " [src]="reciboURL | safe: 'resourceUrl'" height="200">
+
         </div>
-        <input
-          type="submit"
-          name=""
-          class="background-color1 white center button center-button"
-          value="REGISTRARSE"
-        />
+
+        <input type="submit" name="" class="background-color1 white center button center-button" (click)="operar()"
+          value="REGISTRARSE" />
       </form>
     </div>
     <h2 class="center color1">
       ¿Deseas buscar un establecimiento cerca?
     </h2>
     <div class="box-hover-container">
-      <a
-        href=""
-        class="button center-button background-disabled white center buscar"
-      >
+      <a href="" class="button center-button background-disabled white center buscar">
         <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
       </a>
       <div class="box arrow-top center">

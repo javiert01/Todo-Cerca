@@ -4,19 +4,32 @@ import {
   ViewChild,
   ElementRef,
   NgZone
-} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CommerceService } from 'src/app/services/commerce.service';
-import { MapsAPILoader } from '@agm/core';
+} from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { CommerceService } from "src/app/services/commerce.service";
+import { MapsAPILoader } from "@agm/core";
+import { HttpClient } from "@angular/common/http";
 
 declare let google: any;
 
 @Component({
-  selector: 'app-commerce-registration',
-  templateUrl: './commerce-registration.component.html',
-  styleUrls: ['./commerce-registration.component.css']
+  selector: "app-commerce-registration",
+  templateUrl: "./commerce-registration.component.html",
+  styleUrls: ["./commerce-registration.component.css"]
 })
 export class CommerceRegistrationComponent implements OnInit {
+  // INICO PARA SUBIR LA IMAGEN
+  imagenSubida = false;
+  reciboURL: any;
+  selectedFile: File;
+  urlImgEmpleado: any;
+  logoTemporal: string = "";
+  // FIN DE VARIABLES PARA SUBIR IMAMGEN
+  // INICIO VARAIBLES PREVIEW IMAGEN
+  public imagePath;
+  imgURL: any;
+  public message: string;
+  // FIN VARAIBLES PREVIEW IMAGEN
   lat = -0.1840506;
   lng = -78.503374;
   markLat;
@@ -24,60 +37,61 @@ export class CommerceRegistrationComponent implements OnInit {
   direccion;
 
   commerceCategories = [
-    'Abarrotes',
-    'Tienda',
-    'Restaurante',
-    'Farmacia',
-    'Víveres/frutería',
-    'Micromercado',
-    'Otros'
+    "Abarrotes",
+    "Tienda",
+    "Restaurante",
+    "Farmacia",
+    "Víveres/frutería",
+    "Micromercado",
+    "Otros"
   ];
 
   provinces = [
-    'Azuay',
-    'Bolívar',
-    'Cañar',
-    'Carchi',
-    'Chimborazo',
-    'Cotopaxi',
-    'El Oro',
-    'Esmeraldas',
-    'Galápagos',
-    'Guayas',
-    'Imbabura',
-    'Loja',
-    'Los Ríos',
-    'Manabí',
-    'Morona Santiago',
-    'Napo',
-    'Orellana',
-    'Pastaza',
-    'Pichincha',
-    'Santa Elena',
-    'Santo Domingo de los Tsáchilas',
-    'Sucumbíos',
-    'Tungurahua',
-    'Zamora Chinchipe'
+    "Azuay",
+    "Bolívar",
+    "Cañar",
+    "Carchi",
+    "Chimborazo",
+    "Cotopaxi",
+    "El Oro",
+    "Esmeraldas",
+    "Galápagos",
+    "Guayas",
+    "Imbabura",
+    "Loja",
+    "Los Ríos",
+    "Manabí",
+    "Morona Santiago",
+    "Napo",
+    "Orellana",
+    "Pastaza",
+    "Pichincha",
+    "Santa Elena",
+    "Santo Domingo de los Tsáchilas",
+    "Sucumbíos",
+    "Tungurahua",
+    "Zamora Chinchipe"
   ];
 
   registerForm: FormGroup;
   commerce;
 
-  @ViewChild('search')
+  @ViewChild("search")
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
 
   constructor(
     private commerceService: CommerceService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
-    this.mapsAPILoader.load().then(() => {
+    /*this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
@@ -96,7 +110,8 @@ export class CommerceRegistrationComponent implements OnInit {
           this.markLng = this.lng;
         });
       });
-    });
+    });*/
+
     this.registerForm = new FormGroup({
       ownerName: new FormControl(null, Validators.required),
       ownerLastName: new FormControl(null, Validators.required),
@@ -120,12 +135,12 @@ export class CommerceRegistrationComponent implements OnInit {
     // console.log($event.coords.lat);
     this.markLat = $event.coords.lat;
     this.markLng = $event.coords.lng;
-    this.registerForm.get('ltd').setValue(this.markLat);
-    this.registerForm.get('lng').setValue(this.markLng);
+    this.registerForm.get("ltd").setValue(this.markLat);
+    this.registerForm.get("lng").setValue(this.markLng);
   }
 
   getAddress(lat: number, lng: number) {
-    console.log('Finding Address');
+    console.log("Finding Address");
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -140,7 +155,7 @@ export class CommerceRegistrationComponent implements OnInit {
             console.log(result.formatted_address);
             this.direccion = rsltAdrComponent[0].short_name;
           } else {
-            alert('No hay dirección disponible en este momento');
+            alert("No hay dirección disponible en este momento");
           }
         }
       });
@@ -164,43 +179,108 @@ export class CommerceRegistrationComponent implements OnInit {
       );
     } else {
       alert(
-        'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
+        "Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente"
       );
     }
   }
 
   submitCommerce() {
     this.commerce = {
-      ownerName: this.registerForm.get('ownerName').value,
-      ownerLastName: this.registerForm.get('ownerLastName').value,
-      phone: this.registerForm.get('phone').value,
-      commerceName: this.registerForm.get('commerceName').value,
-      commerceCategory: this.registerForm.get('commerceCategory').value,
-      hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
-      hourClose: '23:00', // this.registerForm.get('hourClose').value,
-      province: this.registerForm.get('province').value,
-      city: this.registerForm.get('city').value,
-      neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value,
-      address: this.registerForm.get('address').value,
+      ownerName: this.registerForm.get("ownerName").value,
+      ownerLastName: this.registerForm.get("ownerLastName").value,
+      phone: this.registerForm.get("phone").value,
+      commerceName: this.registerForm.get("commerceName").value,
+      commerceCategory: this.registerForm.get("commerceCategory").value,
+      hourOpen: "09:00", // this.registerForm.get('hourOpen').value,
+      hourClose: "23:00", // this.registerForm.get('hourClose').value,
+      province: this.registerForm.get("province").value,
+      city: this.registerForm.get("city").value,
+      neighborhood: "Floresta", // this.registerForm.get('neighborhood').value,
+      address: this.registerForm.get("address").value,
       // tslint:disable-next-line: max-line-length
       location: {
-        type: 'Point',
+        type: "Point",
         coordinates: [
-          this.registerForm.get('lng').value,
-          this.registerForm.get('ltd').value
+          this.registerForm.get("lng").value,
+          this.registerForm.get("ltd").value
         ]
       }, // this.registerForm.get('location').value,
-      reference: this.registerForm.get('reference').value,
-      commerceDescription: this.registerForm.get('commerceDescription').value
+      reference: this.registerForm.get("reference").value,
+      commerceDescription: this.registerForm.get("commerceDescription").value
     };
     console.log(this.commerce);
     this.commerceService.createNewCommerce(this.commerce).subscribe(
       data => {
-        console.log('registro exitoso', data);
+        console.log("registro exitoso", data);
       },
       err => {
         console.error(err);
       }
     );
+  }
+  onFileChangedRecibo(event) {
+    // console.log("Cambio de valor en el bolean: ", this.imagenSubida);
+    this.imagenSubida = true;
+    // console.log("Cambio de valor en el bolean 2: ", this.imagenSubida);
+    this.selectedFile = event.target.files[0];
+    // console.log("OnFileChanged", this.selectedFile);
+    if (event.target.files.length === 0) {
+      return;
+    }
+    const mimeType = event.target.files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Solo se permite subir imágenes!";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = _event => {
+      console.log("Entra al cambio de reviboUrl: ", this.reciboURL);
+      this.reciboURL = reader.result.toString();
+    };
+  }
+  // INICIO GET-SIGNED-REQUEST METODO QUE SE LLAMA DESDE EL BOTON OPERAR
+  getSignedRequest2(commerceName) {
+    // console.log("El archivo selecionado: ", this.selectedFile);
+    let file = {
+      fName_p: "commerce/" + commerceName + "/" + this.selectedFile.name,
+      fType_p: this.selectedFile.type
+    };
+
+    // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
+    return this.http.get<any>(
+      "https://todo-mas-cerca.herokuapp.com/image/upload?fName_p=" +
+        file.fName_p +
+        "&fType_p=" +
+        file.fType_p
+    );
+  }
+  // FIN GET-SIGNED-REQUEST PARA EL BOTON OPERAR
+  // INICIO UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
+  onUpload2(file, signedRequest, url) {
+    this.http.put(signedRequest, file).subscribe(data => {
+      // console.log("La url que se guardaria es: ", url);
+      // console.log("La empresa en donde se guarda es (Antes): ", this.empresa);
+      //this.empresa.logo = url;
+      console.log("El url: ", url);
+      //console.log("La empresa en donde se guarda es (luego): ", this.empresa);
+    });
+  }
+  // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
+  operar() {
+    if (this.imagenSubida) {
+      // console.log("Operar -> Se crea la imagen - creando");
+      // SI CARGA IMAGEN
+      // INICIO-SI-SUBE-IMAGEN
+      // console.log("Empresa Nueva: ", this.empresa);
+      this.getSignedRequest2("testCommerceName").subscribe(data => {
+        // INICIO SE LLAMA AL METODO UPLOAD
+        this.onUpload2(this.selectedFile, data.signedRequest, data.url);
+        // FIN SE LLAMA AL METODO UPLOAD
+        console.log(data.url);
+      });
+      // FIN-SI-SUBE-IMAGEN
+    }
   }
 }

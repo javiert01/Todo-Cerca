@@ -10,6 +10,8 @@ import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { CommerceRegistrationComponent } from "./components/commerce-registration/commerce-registration.component";
 
+import { PipesModule } from "../app/pipes/pipes.module";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +24,7 @@ import { CommerceRegistrationComponent } from "./components/commerce-registratio
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    PipesModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAswlswB4nSDMpRuWl9MLTJVBLc4x9J7XE",
       libraries: ["places"]
