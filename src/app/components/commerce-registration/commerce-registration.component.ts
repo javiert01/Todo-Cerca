@@ -105,9 +105,9 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceCategory: new FormControl(null, Validators.required),
       hourOpen: new FormControl(null, Validators.required),
       hourClose: new FormControl(null, Validators.required),
-      province: new FormControl(null, Validators.required),
+      /* province: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
-      neighborhood: new FormControl(null, Validators.required),
+      neighborhood: new FormControl(null, Validators.required), */
       address: new FormControl(null, Validators.required),
       lng: new FormControl(this.lng, Validators.required),
       ltd: new FormControl(this.lat, Validators.required),
@@ -136,11 +136,13 @@ export class CommerceRegistrationComponent implements OnInit {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            console.log(this.direccion);
-            console.log(result.formatted_address);
-            this.direccion = rsltAdrComponent[0].short_name;
+            this.direccion = result.formatted_address;
+            this.registerForm.get('address').setValue(this.direccion);
+            // console.log(result.formatted_address);
+            /* this.direccion = rsltAdrComponent[0].short_name;
+            console.log(this.direccion); */
           } else {
-            alert('No hay dirección disponible en este momento');
+            alert('No hay dirección disponible en este momento, llenela manualmente');
           }
         }
       });
@@ -159,6 +161,7 @@ export class CommerceRegistrationComponent implements OnInit {
           this.lng = pos.lng;
           this.markLat = pos.lat;
           this.markLng = pos.lng;
+          this.getAddress(this.lat, this.lng);
         },
         () => {}
       );

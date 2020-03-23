@@ -2,6 +2,7 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 						GLOBALES
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 /*Tipogrfias*/
 .roboto{
 	font-family: 'Roboto',sans-serif;
@@ -198,3 +199,74 @@ img{
 	bottom: 0;
 	right: 10px;
 }
+
+/*++++++++++++++++++++++++++++++++++++++++++++++++
+					RESPONSIVE
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+@media only screen and (max-width: 768px){
+	#section-3-registro .col-4-equals{
+		grid-template-columns: 1fr 1fr;
+	}
+	#section-5-registro .col-2-equals{
+		grid-template-columns: 1fr;
+		grid-gap: 5px;
+	}
+	#section-5-registro .col-2-equals .col{
+		margin-top: 10px;
+	}
+}
+@media only screen and (max-width: 550px){
+	header .header-top .col-4-equals{
+		grid-template-columns: 1fr;
+	}
+	.only-mobile{
+		display: block!important;
+	}
+	.only-desktop{
+		display: none;
+	}
+	#section-1-registro .col-2-equals{
+		grid-template-columns: 1fr;
+	}
+	#section-1-registro .col-2-equals .button{
+		margin: 30px auto;
+	}
+	#section-2-registro .col-3-equals{
+		grid-template-columns: 1fr;
+	}
+	#section-4-registro .col-2-equals{
+		grid-template-columns: 1fr;
+	}
+	#section-5-registro label[for="foto"]{
+		margin: auto;
+	}
+	footer .col-3-equals{
+		grid-template-columns: 1fr;
+		justify-content: center;
+		align-items: center;
+	}
+	footer .col-3-equals .col .logo{
+		max-width: 260px;
+	}
+	footer .back-to-top-button{
+		margin: 0 auto;
+	}
+}
+
+@media only screen and (max-width: 375px){
+	h1{
+		font-size: 35px;
+	}
+	h2{
+		font-size: 30px;
+	}
+	h3{
+		font-size: 25px;
+	}
+
+
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
