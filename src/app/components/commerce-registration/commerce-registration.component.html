@@ -29,15 +29,15 @@
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label class="color3"
-              >Teléfono celular</label
-            >
-            <input type="text" formControlName="phone" placeholder="Ej: 0995975573" />
+            <label class="color3">Teléfono celular</label>
+            <input
+              type="text"
+              formControlName="phone"
+              placeholder="Ej: 0995975573"
+            />
           </div>
           <div class="col">
-            <label class="color3"
-              >Nombre del comercio</label
-            >
+            <label class="color3">Nombre del comercio</label>
             <input
               type="text"
               name="comercio"
@@ -48,10 +48,7 @@
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label
-              class="color3"
-              >Categoría del comercio</label
-            >
+            <label class="color3">Categoría del comercio</label>
             <select formControlName="commerceCategory">
               <option disabled selected>Seleccionar</option>
               <option *ngFor="let category of commerceCategories">{{
@@ -59,16 +56,52 @@
               }}</option>
             </select>
           </div>
-          <div class="col">
+          <!--           <div class="col">
             <label class="color3" for="horarios">Horarios de atención</label>
-            <input
-              type="text"
-              name="horarios"
-              placeholder="Ej: de 9:00am a 20:00pm"
-            />
-          </div>
+            <input [owlDateTime]="dt1" placeholder="Hora Inicio" [owlDateTimeTrigger]="dt1" disabled>
+            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
+              <i class="fas fa-clock"></i>
+          </span>
+            <owl-date-time #dt1  pickerType="timer"></owl-date-time>
+          </div> -->
         </div>
         <div class="col-2-equals">
+          <div class="col">
+            <label class="color3" for="horarios">Hora de Inicio</label>
+            <input
+              [owlDateTime]="dt1"
+              placeholder="Hora Inicio"
+              [owlDateTimeTrigger]="dt1"
+              formControlName="hourOpen"
+            />
+            <span
+              class="trigger"
+              style="cursor:pointer"
+              [owlDateTimeTrigger]="dt1"
+            >
+              <i class="fas fa-clock"></i>
+            </span>
+            <owl-date-time #dt1 pickerType="timer"></owl-date-time>
+          </div>
+          <div class="col">
+            <label class="color3" for="horarios">Hora de Finalización</label>
+            <input
+              [owlDateTime]="dt2"
+              placeholder="Hora Finalización"
+              [owlDateTimeTrigger]="dt2"
+              formControlName="hourClose"
+            />
+            <span
+              class="trigger"
+              style="cursor:pointer"
+              [owlDateTimeTrigger]="dt2"
+            >
+              <i class="fas fa-clock"></i>
+            </span>
+            <owl-date-time #dt2 pickerType="timer"></owl-date-time>
+          </div>
+        </div>
+        <!--  <div class="col-2-equals">
           <div class="col">
             <label class="color3"
               >Provincia</label
@@ -88,19 +121,9 @@
               <option value="Quito">Quito</option>
             </select>
           </div>
-        </div>
-        <div class="col-2-equals">
-          <div class="col">
-            <label class="color3"
-              >Dirección exacta del comercio</label
-            >
-            <input
-              type="text"
-              formControlName="address"
-              placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
-            />
-          </div>
-          <div class="col">
+        </div> -->
+
+        <!-- <div class="col">
             <label class="color3" for="barrio">Elige tu barrio</label>
             <select>
               <option disabled selected>Seleccionar</option>
@@ -194,16 +217,30 @@
               <option value="Turubamba">Turubamba</option>
               <option value="Villaflora">Villaflora</option>
             </select>
-          </div>
-        </div>
+          </div> -->
         <div class="mapa">
-          <div class="form-group">
-            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
-          </div>
           <label for="mapa" class="color3">
             Ubica tu dirección en el mapa
           </label>
-          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)" [zoom]="18">
+          <div class="form-group">
+            <input
+              placeholder="Busca un lugar..."
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="off"
+              type="text"
+              class="form-control"
+              #search
+              [formControl]="searchControl"
+            />
+          </div>
+          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">Encuentra mi dirección</button>
+          <agm-map
+            [latitude]="lat"
+            [longitude]="lng"
+            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
+            [zoom]="18"
+          >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
           <!-- <iframe
@@ -217,9 +254,15 @@
           ></iframe> -->
         </div>
         <div class="col-1">
-          <label class="color3"
-            >Referencia del comercio</label
-          >
+          <label class="color3">Dirección exacta del comercio</label>
+          <input
+            type="text"
+            formControlName="address"
+            placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
+          />
+        </div>
+        <div class="col-1">
+          <label class="color3">Referencia del comercio</label>
           <input
             type="text"
             formControlName="reference"
