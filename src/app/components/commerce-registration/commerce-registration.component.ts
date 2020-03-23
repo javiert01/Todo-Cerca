@@ -120,9 +120,9 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceCategory: new FormControl(null, Validators.required),
       hourOpen: new FormControl(null, Validators.required),
       hourClose: new FormControl(null, Validators.required),
-      province: new FormControl(null, Validators.required),
+      /* province: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
-      neighborhood: new FormControl(null, Validators.required),
+      neighborhood: new FormControl(null, Validators.required), */
       address: new FormControl(null, Validators.required),
       lng: new FormControl(this.lng, Validators.required),
       ltd: new FormControl(this.lat, Validators.required),
@@ -151,11 +151,13 @@ export class CommerceRegistrationComponent implements OnInit {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            console.log(this.direccion);
-            console.log(result.formatted_address);
-            this.direccion = rsltAdrComponent[0].short_name;
+            this.direccion = result.formatted_address;
+            this.registerForm.get('address').setValue(this.direccion);
+            // console.log(result.formatted_address);
+            /* this.direccion = rsltAdrComponent[0].short_name;
+            console.log(this.direccion); */
           } else {
-            alert("No hay dirección disponible en este momento");
+            alert('No hay dirección disponible en este momento, llenela manualmente');
           }
         }
       });
@@ -174,6 +176,7 @@ export class CommerceRegistrationComponent implements OnInit {
           this.lng = pos.lng;
           this.markLat = pos.lat;
           this.markLng = pos.lng;
+          this.getAddress(this.lat, this.lng);
         },
         () => {}
       );
@@ -186,18 +189,17 @@ export class CommerceRegistrationComponent implements OnInit {
 
   submitCommerce() {
     this.commerce = {
-      ownerName: this.registerForm.get("ownerName").value,
-      ownerLastName: this.registerForm.get("ownerLastName").value,
-      phone: this.registerForm.get("phone").value,
-      commerceName: this.registerForm.get("commerceName").value,
-      commerceCategory: this.registerForm.get("commerceCategory").value,
-      hourOpen: "09:00", // this.registerForm.get('hourOpen').value,
-      hourClose: "23:00", // this.registerForm.get('hourClose').value,
-      province: this.registerForm.get("province").value,
-      city: this.registerForm.get("city").value,
-      neighborhood: "Floresta", // this.registerForm.get('neighborhood').value,
-      address: this.registerForm.get("address").value,
-      // tslint:disable-next-line: max-line-length
+      ownerName: this.registerForm.get('ownerName').value,
+      ownerLastName: this.registerForm.get('ownerLastName').value,
+      phone: this.registerForm.get('phone').value,
+      commerceName: this.registerForm.get('commerceName').value,
+      commerceCategory: this.registerForm.get('commerceCategory').value,
+      hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
+      hourClose: '23:00', // this.registerForm.get('hourClose').value,
+      /* province: this.registerForm.get('province').value,
+      city: this.registerForm.get('city').value,
+      neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value, */
+      address: this.registerForm.get('address').value,
       location: {
         type: "Point",
         coordinates: [
