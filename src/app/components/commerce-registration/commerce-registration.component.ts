@@ -181,11 +181,10 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceCategory: this.registerForm.get('commerceCategory').value,
       hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
       hourClose: '23:00', // this.registerForm.get('hourClose').value,
-      province: this.registerForm.get('province').value,
+      /* province: this.registerForm.get('province').value,
       city: this.registerForm.get('city').value,
-      neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value,
+      neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value, */
       address: this.registerForm.get('address').value,
-      // tslint:disable-next-line: max-line-length
       location: {
         type: 'Point',
         coordinates: [
