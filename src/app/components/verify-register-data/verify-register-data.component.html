@@ -88,9 +88,9 @@
                     <h6 for="mapa" class="color3">
                         Tu dirección en el mapa
                     </h6>
-                    <agm-map [latitude]="comerceVerify.location.lat" [longitude]="comerceVerify.location.lng"
+                    <agm-map [latitude]="lat" [longitude]="lng"
                         [zoom]="18">
-                        <agm-marker [latitude]="comerceVerify.location.lat" [longitude]="comerceVerify.location.lng">
+                        <agm-marker [latitude]="lat" [longitude]="lng">
                         </agm-marker>
                     </agm-map>
                 </div>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="col-2-equals">
                     <div class="col">
-                        <a href="registro.html" class="volver background-color4 white center button center-button"
+                        <a class="volver background-color4 white center button center-button"
                             (click)="changeRegisterPage()">Volver</a>
                     </div>
                     <div class="col">

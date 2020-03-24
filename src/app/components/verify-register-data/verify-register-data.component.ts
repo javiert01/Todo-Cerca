@@ -10,20 +10,28 @@ import { Router } from "@angular/router";
 })
 export class VerifyRegisterDataComponent implements OnInit {
   comerceVerify: Commerce;
+  lat = -0.1840506;
+  lng = -78.503374;
 
-  constructor(commerceService: CommerceService, public router: Router) {
+  constructor(private commerceService: CommerceService, public router: Router) {
     this.comerceVerify = commerceService.getCommerce();
-    console.log("Comerce verify: ", commerceService.getCommerce());
+    this.lat = this.comerceVerify.location.coordinates[1];
+    this.lng = this.comerceVerify.location.coordinates[0];
   }
 
   ngOnInit(): void {}
 
-
-  getScheduleAttetion() {
-    return `Hora de apertura : ${this.comerceVerify.hourOpen}, hora de cierre ${this.comerceVerify.hourClose}`;
-  }
   postComerce() {
     this.changeThanksPage();
+    this.commerceService.createNewCommerce(this.comerceVerify)
+    .subscribe(
+      (data) => {
+        console.log('registro exitoso', data);
+      },
+      (err) => {
+        console.error(err);
+      }
+    )
   }
   changeThanksPage() {
     this.router.navigate(["/gracias"]);

@@ -23,6 +23,7 @@ declare let google: any;
 export class CommerceRegistrationComponent implements OnInit {
   // INICO PARA SUBIR LA IMAGEN
   imagenSubida = false;
+  imagenSeleccionada = false;
   reciboURL: any;
   selectedFile: File;
   urlImgEmpleado: any;
@@ -108,7 +109,7 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.imgURL = 'https://lh3.googleusercontent.com/proxy/ScRJVAGkFUOo-eIURDcjY0F4yhy2Nhq1sTTM7LqkAu2r5eywdmZfKLPtMTHA9ylpNph_ad8Hd5hdIBb8kp8ovkOBlHtaTFo';
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
@@ -265,20 +266,19 @@ export class CommerceRegistrationComponent implements OnInit {
     }
   }
 
+  parseHour(hour) {
+    let hourString = hour.toString();
+
+    if (hour < 10) {
+      hourString = '0' + hour.toString();
+    }
+    return hourString;
+  }
+
   submitCommerce() {
-    // =========================================================
-    // BEGIN UPLOAD IMAGE AND GET URL
 
-    // =========================================================
-    /*this.operar(
-      this.registerForm.get("commerceName").value +
-        Math.ceil(Math.random() * 1000)
-    );*/
-    // =========================================================
-
-    // END UPLOAD IMAGE AND GET URL
-    // =========================================================
-
+    let hourOpenParse = new Date(this.registerForm.get('hourOpen').value);
+    let hourCloseParse = new Date(this.registerForm.get('hourClose').value);
     this.commerce = {
       ownerName: this.registerForm.get('ownerName').value,
       ownerLastName: this.registerForm.get('ownerLastName').value,
@@ -286,11 +286,10 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceName: this.registerForm.get('commerceName').value,
       category: this.registerForm.get('category').value,
       commercePhoto: this.imgURL,
-      hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
-      hourClose: '23:00', // this.registerForm.get('hourClose').value,
-      /* province: this.registerForm.get('province').value,
+      frequency: this.registerForm.get('frecuency').value,
+      hourOpen: this.parseHour(hourOpenParse.getHours()) + ':' + this.parseHour(hourOpenParse.getMinutes()),
+      hourClose: this.parseHour(hourCloseParse.getHours()) + ':'+ this.parseHour(hourCloseParse.getMinutes()),
       city: this.registerForm.get('city').value,
-      neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value, */
       address: this.registerForm.get('address').value,
       location: {
         type: 'Point',
@@ -298,7 +297,7 @@ export class CommerceRegistrationComponent implements OnInit {
           this.registerForm.get('lng').value,
           this.registerForm.get('ltd').value
         ]
-      }, // this.registerForm.get('location').value,
+      },
       reference: this.registerForm.get('reference').value,
       commerceDescription: this.registerForm.get('commerceDescription').value
     };
@@ -314,8 +313,11 @@ export class CommerceRegistrationComponent implements OnInit {
     this.imagenSubida = true;
     // console.log("Cambio de valor en el bolean 2: ", this.imagenSubida);
     this.selectedFile = event.target.files[0];
+    this.imagenSeleccionada = true;
     // console.log("OnFileChanged", this.selectedFile);
     if (event.target.files.length === 0) {
+      this.imagenSeleccionada = false;
+      this.imgURL = 'https://lh3.googleusercontent.com/proxy/ScRJVAGkFUOo-eIURDcjY0F4yhy2Nhq1sTTM7LqkAu2r5eywdmZfKLPtMTHA9ylpNph_ad8Hd5hdIBb8kp8ovkOBlHtaTFo';
       return;
     }
     const mimeType = event.target.files[0].type;
@@ -352,12 +354,13 @@ export class CommerceRegistrationComponent implements OnInit {
   onUpload2(file, signedRequest, url) {
     this.http.put(signedRequest, file).subscribe(data => {
       // this.empresa.logo = url;
-      console.log('El url: ', url);
       this.imgURL = url;
+      this.submitCommerce();
     });
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
+    name = name.replace(/\s/g, '');
     if (this.imagenSubida) {
       // console.log("Operar -> Se crea la imagen - creando");
       // SI CARGA IMAGEN
