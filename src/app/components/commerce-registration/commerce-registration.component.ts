@@ -259,12 +259,14 @@ export class CommerceRegistrationComponent implements OnInit {
   submitCommerce() {
     // =========================================================
     // BEGIN UPLOAD IMAGE AND GET URL
-    // =========================================================
-    this.operar(
-      this.registerForm.get('commerceName').value +
+
+    //=========================================================
+    /*this.operar(
+      this.registerForm.get("commerceName").value +
         Math.ceil(Math.random() * 1000)
-    );
-    // =========================================================
+    );*/
+    //=========================================================
+
     // END UPLOAD IMAGE AND GET URL
     // =========================================================
 
@@ -291,6 +293,8 @@ export class CommerceRegistrationComponent implements OnInit {
       reference: this.registerForm.get('reference').value,
       commerceDescription: this.registerForm.get('commerceDescription').value
     };
+
+    this.commerceService.setCommerce(this.commerce);
 
     console.log(this.commerce);
     this.commerceService.createNewCommerce(this.commerce).subscribe(

@@ -8,7 +8,7 @@
         O NEGOCIO DE LA ESQUINA <span class="h2-big">GRATIS</span>
       </h2>
       <div class="hr-center background-color1"></div>
-      <form [formGroup]="registerForm" (ngSubmit)="submitCommerce()">
+      <form [formGroup]="registerForm">
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
@@ -248,7 +248,8 @@
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" height="200" />
         </div>
 
-        <input type="submit" name="" class="background-color1 white center button center-button" value="REGISTRARSE" />
+        <input type="submit" name="" class="background-color1 white center button center-button" value="REGISTRARSE"
+          (click)="submitCommerce()" />
       </form>
     </div>
     <h2 class="center color1">

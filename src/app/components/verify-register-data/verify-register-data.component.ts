@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Commerce } from "src/app/models/commerce.model";
+import { CommerceService } from "../../services/commerce.service";
 
 @Component({
   selector: "app-verify-register-data",
@@ -7,45 +8,16 @@ import { Commerce } from "src/app/models/commerce.model";
   styleUrls: ["./verify-register-data.component.css"]
 })
 export class VerifyRegisterDataComponent implements OnInit {
-  fakeCommerce: Commerce;
+  comerceVerify: Commerce;
 
-  constructor() {}
+  constructor(commerceService: CommerceService) {
+    this.comerceVerify = commerceService.getCommerce();
+    console.log("Comerce verify: ", commerceService.getCommerce());
+  }
 
   ngOnInit(): void {}
 
-  loadFakeData() {
-    let ownerName = "Ximena";
-    let ownerLastName = "Arguello";
-    let phone = " 0987676543 ";
-    let commerceName = " Viveres rosa";
-    let commercePhoto = "";
-    let hourOpen = "9:00";
-    let hourClose = "21:00 ";
-    let province = "";
-    let city = "";
-    let neighborhood = "";
-    let address = "Eloy alfaro Oe 12-35 y Amazonas ";
-    let location = "";
-    let reference = " Diagonal al redondel ";
-    let commerceDescription =
-      " Somos una tienda de barrio, donde podrás encontrar todo tipo de alimentos y bebidas. ";
-    let category = "Abarrotes ";
-    this.fakeCommerce = new Commerce(
-      ownerName,
-      ownerLastName,
-      phone,
-      commerceName,
-      commercePhoto,
-      hourOpen,
-      hourClose,
-      province,
-      city,
-      neighborhood,
-      address,
-      location,
-      reference,
-      commerceDescription,
-      category
-    );
+  getScheduleAttetion() {
+    return `Hora de apertura : ${this.comerceVerify.hourOpen}, hora de cierre ${this.comerceVerify.hourClose}`;
   }
 }
