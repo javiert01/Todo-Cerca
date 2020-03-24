@@ -4,13 +4,14 @@ export class Commerce {
   phone: "string";
   commerceName: "string";
   commercePhoto: "string";
+  frequency: "string";
   hourOpen: "string";
   hourClose: "string";
   province: "string";
   city: "string";
   neighborhood: "string";
   address: "string";
-  location: "string";
+  location: any;
   reference: "string";
   commerceDescription: "string";
   category: "string";
@@ -21,6 +22,7 @@ export class Commerce {
     phone,
     commerceName,
     commercePhoto,
+    frequency,
     hourOpen,
     hourClose,
     province,
@@ -37,6 +39,7 @@ export class Commerce {
     this.ownerLastName = ownerLastName;
     this.commerceName = commerceName;
     this.commercePhoto = commercePhoto;
+    this.frequency = frequency;
     this.hourOpen = hourOpen;
     this.hourClose = hourClose;
     this.province = province;

@@ -49,7 +49,7 @@
           <div class="col">
             <label class="color3">Ciudad</label>
             <select formControlName="city" (change)="onSetCityMap($event.target.value)">
-              <option disabled selected>Seleccionar</option>
+              <option selected>Seleccionar</option>
               <option *ngFor="let city of cities">{{
                 city
               }}</option>
@@ -58,7 +58,7 @@
         </div>
         <div class="col-3-equals">
           <div class="col">
-            <label class="color3">Frecuencia</label>
+            <label class="color3">Días de Apertura</label>
             <select formControlName="frecuency">
               <option selected>Seleccionar</option>
               <option *ngFor="let frecuency of frecuencyOptions">{{

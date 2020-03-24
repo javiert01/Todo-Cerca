@@ -1,11 +1,23 @@
 <main>
-    <section id="section-1-confirma">
-        <h3 class="color3 center bebas">
-            Confirma tus datos
-        </h3>
-        <h2 class="color1 center bebas">
-            ANTES DE ENVIARLOS
+  <section id="section-1-confirma">
+    <h3 class="color3 center bebas">
+      Confirma tus datos
+    </h3>
+    <h2 class="color1 center bebas">
+      ANTES DE ENVIARLOS
+    </h2>
+    <div class="hr-center background-color1"></div>
+  </section>
+  <section id="section-2-confirma">
+    <div class="container">
+      <div class="container-confirmacion">
+        <h1 class="color1 center bebas">
+          Verifica que los datos
+        </h1>
+        <h2 class="color2 center bebas">
+          ingresados sean los correctos
         </h2>
+
         <div class="hr-center background-color1"></div>
     </section>
     <section id="section-2-confirma">
@@ -104,6 +116,111 @@
                     </div>
                 </div>
             </div>
+
         </div>
-    </section>
+        <div class="col-2-equals">
+          <div class="col">
+            <h6 class="color3">Teléfono celular</h6>
+            <p class="color3 dato">
+              {{ comerceVerify.phone }}
+            </p>
+          </div>
+          <div class="col">
+            <h6 class="color3">Nombre del comercio</h6>
+            <p class="color3 dato">
+              {{ comerceVerify.commerceName }}
+            </p>
+          </div>
+        </div>
+        <div class="col-2-equals">
+          <div class="col">
+            <h6 class="color3">Categoria del comercio</h6>
+            <p class="color3 dato">
+              {{ comerceVerify.category }}
+            </p>
+          </div>
+          <div class="col">
+            <h6 class="color3">Ciudad</h6>
+            <p class="color3 dato">
+              {{ comerceVerify.city }}
+            </p>
+          </div>
+        </div>
+        <div class="col-3-equals">
+          <div class="col">
+            <h6 class="color3">Días de apertura</h6>
+            <p class="color3 dato">{{comerceVerify.frequency}}</p>
+          </div>
+          <div class="col">
+            <h6 class="color3">Hora de apertura</h6>
+            <p class="color3 dato">{{comerceVerify.hourOpen}}</p>
+          </div>
+          <div class="col">
+            <h6 class="color3">Hora de cierre</h6>
+            <p class="color3 dato">{{comerceVerify.hourClose}}</p>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="col">
+            <h6 class="color3">Direccion exacta del comercio</h6>
+            <p class="color3 dato">
+              {{ comerceVerify.address }}
+            </p>
+          </div>
+        </div>
+        <div class="mapa">
+          <h6 for="mapa" class="color3">
+            Tu dirección en el mapa
+          </h6>
+          <agm-map
+            [latitude]="comerceVerify.location.lat"
+            [longitude]="comerceVerify.location.lng"
+            [zoom]="18"
+          >
+            <agm-marker
+              [latitude]="comerceVerify.location.lat"
+              [longitude]="comerceVerify.location.lng"
+            ></agm-marker>
+          </agm-map>
+        </div>
+        <div class="col-1">
+          <h6 class="color3 regular">Referencia del comercio</h6>
+          <p class="color3 dato">
+            {{ comerceVerify.reference }}
+          </p>
+        </div>
+        <div class="col-1">
+          <h6 class="color3 regular">Breve descripción de tu comercio</h6>
+          <p class="color3 descripcion">
+            {{ comerceVerify.commerceDescription }}
+          </p>
+        </div>
+        <div class="col-1">
+          <h6 class="color3">Foto de tu local</h6>
+          <img
+            src="{{ comerceVerify.commercePhoto }}"
+            alt=""
+            class="foto-local img-center"
+          />
+        </div>
+        <div class="col-2-equals">
+          <div class="col">
+            <a
+              href="registro.html"
+              class="volver background-color4 white center button center-button"
+              >Volver</a
+            >
+          </div>
+          <div class="col">
+            <input
+              type="submit"
+              name=""
+              class="background-color1 white center button center-button"
+              value="REGISTRARSE"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
