@@ -12,6 +12,5 @@ export class CategoryService {
 
   getCategoryList() {
     return this.http.get(`${this.url}/list`);
-    // .pipe(map((val: any) => console.log("map", val)));
   }
 }
