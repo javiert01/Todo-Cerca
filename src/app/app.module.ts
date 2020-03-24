@@ -13,13 +13,15 @@ import { CommerceRegistrationComponent } from './components/commerce-registratio
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PipesModule } from "../app/pipes/pipes.module";
+import { VerifyRegisterDataComponent } from './components/verify-register-data/verify-register-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CommerceRegistrationComponent
+    CommerceRegistrationComponent,
+    VerifyRegisterDataComponent
   ],
   imports: [
     BrowserModule,

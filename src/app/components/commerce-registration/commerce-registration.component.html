@@ -22,26 +22,18 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Teléfono celular</label>
-            <input
-              type="text"
-              formControlName="phone"
-              placeholder="Ej: 0995975573"
-            />
+            <input type="text" formControlName="phone" placeholder="Ej: 0995975573" />
           </div>
           <div class="col">
             <label class="color3">Nombre del comercio</label>
-            <input
-              type="text"
-              name="comercio"
-              placeholder="Ingresa el nombre de tu negocio"
-              formControlName="commerceName"
-            />
+            <input type="text" name="comercio" placeholder="Ingresa el nombre de tu negocio"
+              formControlName="commerceName" />
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Categoría del comercio</label>
-            <select formControlName="commerceCategory">
+            <select formControlName="category">
               <option disabled selected>Seleccionar</option>
               <option *ngFor="let category of commerceCategories">{{
                 category
@@ -60,34 +52,18 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3" for="horarios">Hora de Inicio</label>
-            <input
-              [owlDateTime]="dt1"
-              placeholder="Hora Inicio"
-              [owlDateTimeTrigger]="dt1"
-              formControlName="hourOpen"
-            />
-            <span
-              class="trigger"
-              style="cursor:pointer"
-              [owlDateTimeTrigger]="dt1"
-            >
+            <input [owlDateTime]="dt1" placeholder="Hora Inicio" [owlDateTimeTrigger]="dt1"
+              formControlName="hourOpen" />
+            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt1 pickerType="timer"></owl-date-time>
           </div>
           <div class="col">
             <label class="color3" for="horarios">Hora de Finalización</label>
-            <input
-              [owlDateTime]="dt2"
-              placeholder="Hora Finalización"
-              [owlDateTimeTrigger]="dt2"
-              formControlName="hourClose"
-            />
-            <span
-              class="trigger"
-              style="cursor:pointer"
-              [owlDateTimeTrigger]="dt2"
-            >
+            <input [owlDateTime]="dt2" placeholder="Hora Finalización" [owlDateTimeTrigger]="dt2"
+              formControlName="hourClose" />
+            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt2">
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt2 pickerType="timer"></owl-date-time>
@@ -211,24 +187,13 @@
             Ubica tu dirección en el mapa
           </label>
           <div class="form-group">
-            <input
-              placeholder="Busca un lugar..."
-              autocorrect="off"
-              autocapitalize="off"
-              spellcheck="off"
-              type="text"
-              class="form-control"
-              #search
-              [formControl]="searchControl"
-            />
+            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+              class="form-control" #search [formControl]="searchControl" />
           </div>
-          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">Encuentra mi dirección</button>
-          <agm-map
-            [latitude]="lat"
-            [longitude]="lng"
-            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-            [zoom]="18"
-          >
+          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">Encuentra mi
+            dirección</button>
+          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
+            [zoom]="18">
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
           <!-- <iframe
@@ -243,19 +208,11 @@
         </div>
         <div class="col-1">
           <label class="color3">Dirección exacta del comercio</label>
-          <input
-            type="text"
-            formControlName="address"
-            placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
-          />
+          <input type="text" formControlName="address" placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto" />
         </div>
         <div class="col-1">
           <label class="color3">Referencia del comercio</label>
-          <input
-            type="text"
-            formControlName="reference"
-            placeholder="Ej: diagonal al redondel."
-          />
+          <input type="text" formControlName="reference" placeholder="Ej: diagonal al redondel." />
         </div>
         <div class="col-1">
           <label class="color3">Breve descripción de tu comercio</label>
@@ -271,8 +228,7 @@
 
         </div>
 
-        <input type="submit" name="" class="background-color1 white center button center-button" (click)="operar()"
-          value="REGISTRARSE" />
+        <input type="submit" name="" class="background-color1 white center button center-button" value="REGISTRARSE" />
       </form>
     </div>
     <h2 class="center color1">

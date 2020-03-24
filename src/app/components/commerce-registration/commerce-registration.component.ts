@@ -117,7 +117,7 @@ export class CommerceRegistrationComponent implements OnInit {
       ownerLastName: new FormControl(null, Validators.required),
       phone: new FormControl(null, Validators.required),
       commerceName: new FormControl(null, Validators.required),
-      commerceCategory: new FormControl(null, Validators.required),
+      category: new FormControl(null, Validators.required),
       hourOpen: new FormControl(null, Validators.required),
       hourClose: new FormControl(null, Validators.required),
       /* province: new FormControl(null, Validators.required),
@@ -152,12 +152,14 @@ export class CommerceRegistrationComponent implements OnInit {
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
             this.direccion = result.formatted_address;
-            this.registerForm.get('address').setValue(this.direccion);
+            this.registerForm.get("address").setValue(this.direccion);
             // console.log(result.formatted_address);
             /* this.direccion = rsltAdrComponent[0].short_name;
             console.log(this.direccion); */
           } else {
-            alert('No hay dirección disponible en este momento, llenela manualmente');
+            alert(
+              "No hay dirección disponible en este momento, llenela manualmente"
+            );
           }
         }
       });
@@ -188,18 +190,30 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   submitCommerce() {
+    //=========================================================
+    // BEGIN UPLOAD IMAGE AND GET URL
+    //=========================================================
+    this.operar(
+      this.registerForm.get("commerceName").value +
+        Math.ceil(Math.random() * 1000)
+    );
+    //=========================================================
+    // END UPLOAD IMAGE AND GET URL
+    //=========================================================
+
     this.commerce = {
-      ownerName: this.registerForm.get('ownerName').value,
-      ownerLastName: this.registerForm.get('ownerLastName').value,
-      phone: this.registerForm.get('phone').value,
-      commerceName: this.registerForm.get('commerceName').value,
-      commerceCategory: this.registerForm.get('commerceCategory').value,
-      hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
-      hourClose: '23:00', // this.registerForm.get('hourClose').value,
+      ownerName: this.registerForm.get("ownerName").value,
+      ownerLastName: this.registerForm.get("ownerLastName").value,
+      phone: this.registerForm.get("phone").value,
+      commerceName: this.registerForm.get("commerceName").value,
+      category: this.registerForm.get("category").value,
+      commercePhoto: this.imgURL,
+      hourOpen: "09:00", // this.registerForm.get('hourOpen').value,
+      hourClose: "23:00", // this.registerForm.get('hourClose').value,
       /* province: this.registerForm.get('province').value,
       city: this.registerForm.get('city').value,
       neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value, */
-      address: this.registerForm.get('address').value,
+      address: this.registerForm.get("address").value,
       location: {
         type: "Point",
         coordinates: [
@@ -210,6 +224,7 @@ export class CommerceRegistrationComponent implements OnInit {
       reference: this.registerForm.get("reference").value,
       commerceDescription: this.registerForm.get("commerceDescription").value
     };
+
     console.log(this.commerce);
     this.commerceService.createNewCommerce(this.commerce).subscribe(
       data => {
@@ -220,6 +235,7 @@ export class CommerceRegistrationComponent implements OnInit {
       }
     );
   }
+
   onFileChangedRecibo(event) {
     // console.log("Cambio de valor en el bolean: ", this.imagenSubida);
     this.imagenSubida = true;
@@ -262,25 +278,23 @@ export class CommerceRegistrationComponent implements OnInit {
   // INICIO UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   onUpload2(file, signedRequest, url) {
     this.http.put(signedRequest, file).subscribe(data => {
-      // console.log("La url que se guardaria es: ", url);
-      // console.log("La empresa en donde se guarda es (Antes): ", this.empresa);
       //this.empresa.logo = url;
       console.log("El url: ", url);
-      //console.log("La empresa en donde se guarda es (luego): ", this.empresa);
+      this.imgURL = url;
     });
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
-  operar() {
+  operar(name: String) {
     if (this.imagenSubida) {
       // console.log("Operar -> Se crea la imagen - creando");
       // SI CARGA IMAGEN
       // INICIO-SI-SUBE-IMAGEN
       // console.log("Empresa Nueva: ", this.empresa);
-      this.getSignedRequest2("testCommerceName").subscribe(data => {
+      this.getSignedRequest2(name).subscribe(data => {
         // INICIO SE LLAMA AL METODO UPLOAD
         this.onUpload2(this.selectedFile, data.signedRequest, data.url);
         // FIN SE LLAMA AL METODO UPLOAD
-        console.log(data.url);
+        // console.log(data.url);
       });
       // FIN-SI-SUBE-IMAGEN
     }
