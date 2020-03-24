@@ -100,6 +100,7 @@ export class CommerceRegistrationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
