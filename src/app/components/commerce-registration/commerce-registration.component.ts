@@ -5,18 +5,18 @@ import {
   ElementRef,
   NgZone,
   ChangeDetectorRef
-} from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { CommerceService } from "src/app/services/commerce.service";
-import { MapsAPILoader } from "@agm/core";
-import { HttpClient } from "@angular/common/http";
+} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommerceService } from 'src/app/services/commerce.service';
+import { MapsAPILoader } from '@agm/core';
+import { HttpClient } from '@angular/common/http';
 
 declare let google: any;
 
 @Component({
-  selector: "app-commerce-registration",
-  templateUrl: "./commerce-registration.component.html",
-  styleUrls: ["./commerce-registration.component.css"]
+  selector: 'app-commerce-registration',
+  templateUrl: './commerce-registration.component.html',
+  styleUrls: ['./commerce-registration.component.css']
 })
 export class CommerceRegistrationComponent implements OnInit {
   // INICO PARA SUBIR LA IMAGEN
@@ -24,7 +24,8 @@ export class CommerceRegistrationComponent implements OnInit {
   reciboURL: any;
   selectedFile: File;
   urlImgEmpleado: any;
-  logoTemporal = "";
+  logoTemporal = '';
+  mapZoom = 18;
   // FIN DE VARIABLES PARA SUBIR IMAMGEN
   // INICIO VARAIBLES PREVIEW IMAGEN
   public imagePath;
@@ -38,55 +39,55 @@ export class CommerceRegistrationComponent implements OnInit {
   direccion;
 
   commerceCategories = [
-    "Abarrotes",
-    "Tienda",
-    "Restaurante",
-    "Farmacia",
-    "Víveres/frutería",
-    "Micromercado",
-    "Otros"
+    'Abarrotes',
+    'Tienda',
+    'Restaurante',
+    'Farmacia',
+    'Víveres/frutería',
+    'Micromercado',
+    'Otros'
   ];
 
   frecuencyOptions = [
-    "Lunes a Viernes",
-    "Lunes a Sábado",
-    "Solo fines de semana",
-    "Todos los días"
+    'Lunes a Viernes',
+    'Lunes a Sábado',
+    'Solo fines de semana',
+    'Todos los días'
   ];
 
-  cities = ["Quito", "Guayaquil"];
+  cities = ['Quito', 'Guayaquil'];
 
   provinces = [
-    "Azuay",
-    "Bolívar",
-    "Cañar",
-    "Carchi",
-    "Chimborazo",
-    "Cotopaxi",
-    "El Oro",
-    "Esmeraldas",
-    "Galápagos",
-    "Guayas",
-    "Imbabura",
-    "Loja",
-    "Los Ríos",
-    "Manabí",
-    "Morona Santiago",
-    "Napo",
-    "Orellana",
-    "Pastaza",
-    "Pichincha",
-    "Santa Elena",
-    "Santo Domingo de los Tsáchilas",
-    "Sucumbíos",
-    "Tungurahua",
-    "Zamora Chinchipe"
+    'Azuay',
+    'Bolívar',
+    'Cañar',
+    'Carchi',
+    'Chimborazo',
+    'Cotopaxi',
+    'El Oro',
+    'Esmeraldas',
+    'Galápagos',
+    'Guayas',
+    'Imbabura',
+    'Loja',
+    'Los Ríos',
+    'Manabí',
+    'Morona Santiago',
+    'Napo',
+    'Orellana',
+    'Pastaza',
+    'Pichincha',
+    'Santa Elena',
+    'Santo Domingo de los Tsáchilas',
+    'Sucumbíos',
+    'Tungurahua',
+    'Zamora Chinchipe'
   ];
 
   registerForm: FormGroup;
   commerce;
 
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
 
@@ -102,33 +103,37 @@ export class CommerceRegistrationComponent implements OnInit {
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
-    /*this.mapsAPILoader.load().then(() => {
+    this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
           types: ['address']
         }
       );
+      autocomplete.setComponentRestrictions({
+        'country': ['ec']
+      });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+          this.mapZoom = 18;
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.markLat = this.lat;
           this.markLng = this.lng;
         });
       });
-    });*/
+    });
 
     this.registerForm = new FormGroup({
       ownerName: new FormControl(null, Validators.required),
       ownerLastName: new FormControl(null, Validators.required),
       phone: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp("^[0-9]*$"))
+        Validators.pattern(new RegExp('^[0-9]*$'))
       ]),
       commerceName: new FormControl(null, Validators.required),
       category: new FormControl(null, Validators.required),
@@ -145,10 +150,10 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceDescription: new FormControl(null, Validators.required)
     });
 
-    this.registerForm.get("phone").valueChanges.subscribe(data => {
+    this.registerForm.get('phone').valueChanges.subscribe(data => {
       if (data.length > 10) {
         this.cdRef.detectChanges();
-        this.registerForm.get("phone").setValue(data.substring(0, 10));
+        this.registerForm.get('phone').setValue(data.substring(0, 10));
       }
     });
   }
@@ -156,7 +161,7 @@ export class CommerceRegistrationComponent implements OnInit {
   onCapitalizeLetter(data, formCN) {
     if (data) {
       if (data.length > 0) {
-        let newString = "";
+        let newString = '';
         newString = data.toLowerCase();
         newString = newString[0].toUpperCase() + newString.substring(1);
         this.registerForm.get(formCN).setValue(newString);
@@ -164,16 +169,44 @@ export class CommerceRegistrationComponent implements OnInit {
     }
   }
 
+  onSetCityMap(city) {
+    console.log('changing city', city);
+    const geocoder = new google.maps.Geocoder();
+    let self = this;
+    geocoder.geocode(
+      {
+        address: city
+      },
+      function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          console.log('evreythin ok');
+          console.log('this lat before', self.lat);
+          self.lat = results[0].geometry.location.lat();
+          self.lng = results[0].geometry.location.lng();
+          self.markLat = results[0].geometry.location.lat();
+          self.markLng = results[0].geometry.location.lng();
+          self.mapZoom = 11;
+          console.log(self.lat);
+          self.cdRef.detectChanges();
+        } else {
+          alert('Something got wrong ' + status);
+        }
+      }
+    );
+    console.log('end of function');
+  }
+
   setMarker($event) {
     // console.log($event.coords.lat);
+    this.mapZoom = 18;
     this.markLat = $event.coords.lat;
     this.markLng = $event.coords.lng;
-    this.registerForm.get("ltd").setValue(this.markLat);
-    this.registerForm.get("lng").setValue(this.markLng);
+    this.registerForm.get('ltd').setValue(this.markLat);
+    this.registerForm.get('lng').setValue(this.markLng);
   }
 
   getAddress(lat: number, lng: number) {
-    console.log("Finding Address");
+    console.log('Finding Address');
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -185,13 +218,13 @@ export class CommerceRegistrationComponent implements OnInit {
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
             this.direccion = result.formatted_address;
-            this.registerForm.get("address").setValue(this.direccion);
+            this.registerForm.get('address').setValue(this.direccion);
             // console.log(result.formatted_address);
             /* this.direccion = rsltAdrComponent[0].short_name;
             console.log(this.direccion); */
           } else {
             alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
+              'No hay dirección disponible en este momento, llenela manualmente'
             );
           }
         }
@@ -207,6 +240,7 @@ export class CommerceRegistrationComponent implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
+          this.mapZoom = 18;
           this.lat = pos.lat;
           this.lng = pos.lng;
           this.markLat = pos.lat;
@@ -217,45 +251,47 @@ export class CommerceRegistrationComponent implements OnInit {
       );
     } else {
       alert(
-        "Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente"
+        'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
       );
     }
   }
 
   submitCommerce() {
-    //=========================================================
+    // =========================================================
     // BEGIN UPLOAD IMAGE AND GET URL
+
     //=========================================================
     /*this.operar(
       this.registerForm.get("commerceName").value +
         Math.ceil(Math.random() * 1000)
     );*/
     //=========================================================
+
     // END UPLOAD IMAGE AND GET URL
-    //=========================================================
+    // =========================================================
 
     this.commerce = {
-      ownerName: this.registerForm.get("ownerName").value,
-      ownerLastName: this.registerForm.get("ownerLastName").value,
-      phone: this.registerForm.get("phone").value,
-      commerceName: this.registerForm.get("commerceName").value,
-      category: this.registerForm.get("category").value,
+      ownerName: this.registerForm.get('ownerName').value,
+      ownerLastName: this.registerForm.get('ownerLastName').value,
+      phone: this.registerForm.get('phone').value,
+      commerceName: this.registerForm.get('commerceName').value,
+      category: this.registerForm.get('category').value,
       commercePhoto: this.imgURL,
-      hourOpen: "09:00", // this.registerForm.get('hourOpen').value,
-      hourClose: "23:00", // this.registerForm.get('hourClose').value,
+      hourOpen: '09:00', // this.registerForm.get('hourOpen').value,
+      hourClose: '23:00', // this.registerForm.get('hourClose').value,
       /* province: this.registerForm.get('province').value,
       city: this.registerForm.get('city').value,
       neighborhood: 'Floresta', // this.registerForm.get('neighborhood').value, */
-      address: this.registerForm.get("address").value,
+      address: this.registerForm.get('address').value,
       location: {
-        type: "Point",
+        type: 'Point',
         coordinates: [
-          this.registerForm.get("lng").value,
-          this.registerForm.get("ltd").value
+          this.registerForm.get('lng').value,
+          this.registerForm.get('ltd').value
         ]
       }, // this.registerForm.get('location').value,
-      reference: this.registerForm.get("reference").value,
-      commerceDescription: this.registerForm.get("commerceDescription").value
+      reference: this.registerForm.get('reference').value,
+      commerceDescription: this.registerForm.get('commerceDescription').value
     };
 
     this.commerceService.setCommerce(this.commerce);
@@ -263,7 +299,7 @@ export class CommerceRegistrationComponent implements OnInit {
     console.log(this.commerce);
     this.commerceService.createNewCommerce(this.commerce).subscribe(
       data => {
-        console.log("registro exitoso", data);
+        console.log('registro exitoso', data);
       },
       err => {
         console.error(err);
@@ -282,14 +318,14 @@ export class CommerceRegistrationComponent implements OnInit {
     }
     const mimeType = event.target.files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = "Solo se permite subir imágenes!";
+      this.message = 'Solo se permite subir imágenes!';
       return;
     }
 
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = _event => {
-      console.log("Entra al cambio de reviboUrl: ", this.reciboURL);
+      console.log('Entra al cambio de reviboUrl: ', this.reciboURL);
       this.reciboURL = reader.result.toString();
     };
   }
@@ -297,15 +333,15 @@ export class CommerceRegistrationComponent implements OnInit {
   getSignedRequest2(commerceName) {
     // console.log("El archivo selecionado: ", this.selectedFile);
     const file = {
-      fName_p: "commerce/" + commerceName + "/" + this.selectedFile.name,
+      fName_p: 'commerce/' + commerceName + '/' + this.selectedFile.name,
       fType_p: this.selectedFile.type
     };
 
     // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
     return this.http.get<any>(
-      "https://todo-mas-cerca.herokuapp.com/image/upload?fName_p=" +
+      'https://todo-mas-cerca.herokuapp.com/image/upload?fName_p=' +
         file.fName_p +
-        "&fType_p=" +
+        '&fType_p=' +
         file.fType_p
     );
   }
@@ -313,8 +349,8 @@ export class CommerceRegistrationComponent implements OnInit {
   // INICIO UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   onUpload2(file, signedRequest, url) {
     this.http.put(signedRequest, file).subscribe(data => {
-      //this.empresa.logo = url;
-      console.log("El url: ", url);
+      // this.empresa.logo = url;
+      console.log('El url: ', url);
       this.imgURL = url;
     });
   }
