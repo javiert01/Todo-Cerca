@@ -22,13 +22,13 @@
                     <div class="col">
                         <h6 class="color3 regular">Nombre</h6>
                         <p class="color3 dato">
-                            Ximena
+                            {{fakeCommerce.ownerName}}
                         </p>
                     </div>
                     <div class="col">
                         <h6 class="color3 regular">Apellido</h6>
                         <p class="color3 dato">
-                            Arguello
+                            {{fakeCommerce.ownerLastName}}
                         </p>
                     </div>
                 </div>
@@ -36,13 +36,13 @@
                     <div class="col">
                         <h6 class="color3">Teléfono celular</h6>
                         <p class="color3 dato">
-                            0987676543
+                            {{fakeCommerce.phone}}
                         </p>
                     </div>
                     <div class="col">
                         <h6 class="color3">Nombre del comercio</h6>
                         <p class="color3 dato">
-                            Viveres rosa
+                            {{fakeCommerce.commerceName}}
                         </p>
                     </div>
                 </div>
@@ -50,13 +50,13 @@
                     <div class="col">
                         <h6 class="color3">Categoria del comercio</h6>
                         <p class="color3 dato">
-                            Abarrotes
+                            {{fakeCommerce.category}}
                         </p>
                     </div>
                     <div class="col">
                         <h6 class="color3">Horarios de atención</h6>
                         <p class="color3 dato">
-                            Lunes a domingo 9:00 a 21:00
+                            {{getScheduleAttetion()}}
                         </p>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="col">
                         <h6 class="color3">Direccion exacta del comercio</h6>
                         <p class="color3 dato">
-                            Eloy alfaro Oe 12-35 y Amazonas
+                            {{fakeCommerce.address}}
                         </p>
                     </div>
                 </div>
@@ -80,18 +80,18 @@
                 <div class="col-1">
                     <h6 class="color3 regular">Referencia del comercio</h6>
                     <p class="color3 dato">
-                        Diagonal al redondel
+                        {{fakeCommerce.reference}}
                     </p>
                 </div>
                 <div class="col-1">
                     <h6 class="color3 regular">Breve descripción de tu comercio</h6>
                     <p class="color3 descripcion">
-                        Somos una tienda de barrio, donde podrás encontrar todo tipo de alimentos y bebidas.
+                        {{fakeCommerce.commerceDescription}}
                     </p>
                 </div>
                 <div class="col-1">
                     <h6 class="color3">Foto de tu local</h6>
-                    <img src="images/03-quienes-somos.jpg" alt="" class="foto-local img-center">
+                    <img src="{{fakeCommerce.commercePhoto}}" alt="" class="foto-local img-center">
                 </div>
                 <div class="col-2-equals">
                     <div class="col">
