@@ -48,7 +48,7 @@
           </div>
           <div class="col">
             <label class="color3">Ciudad</label>
-            <select formControlName="city">
+            <select formControlName="city" (change)="onSetCityMap($event.target.value)">
               <option disabled selected>Seleccionar</option>
               <option *ngFor="let city of cities">{{
                 city
@@ -214,7 +214,7 @@
             Encuentra mi dirección
           </button>
           <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-            [zoom]="18">
+            [zoom]="mapZoom">
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
           <!-- <iframe

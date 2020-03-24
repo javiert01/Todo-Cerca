@@ -1,14 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 						GLOBALES
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-@import "~ng-pick-datetime/assets/style/picker.min.css";
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+						GLOBALES
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /*Tipogrfias*/
 .roboto{
 	font-family: 'Roboto',sans-serif;
 }
-.bebas{
-	font-family: 'Bebas Neue',sans-serif;
+.roboto{
+	font-family: 'Roboto',sans-serif;
 }
 /*Anchos te fuente*/
 .regular{
@@ -78,7 +81,7 @@ p{
 	color: #5c8f28;
 }
 .color3{
-	color: #333333;
+	color: #2e4a5c;
 }
 .color4{
 	color: #f02e19
@@ -89,13 +92,13 @@ p{
 /*Backgrounds*/
 /*colores*/
 .background-color1{
-	background-color: #009b83;
+	background-color: #2e4a5c;
 }
 .background-color2{
 	background-color: #5c8f28;
 }
 .background-color3{
-	background-color: #333333;
+	background-color: #5c8f28;
 }
 .background-color4{
 	background-color: #f02e19;
@@ -106,6 +109,9 @@ p{
 .background-disabled{
 	background-color: #d9d9d9;
 }
+.back-face{background-color: #395196;}
+.back-tw{background-color: #00a9ff;}
+.back-ws{background-color: #00bb21;}
 
 /*Contenedores*/
 .container{
@@ -198,6 +204,16 @@ img{
 	position: fixed;
 	bottom: 0;
 	right: 10px;
+}
+.share-button{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	font-size: 30px;
 }
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++
