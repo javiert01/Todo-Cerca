@@ -10,6 +10,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { CommerceService } from "src/app/services/commerce.service";
 import { MapsAPILoader } from "@agm/core";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { CategoryService } from "src/app/services/category.service";
 
 declare let google: any;
 
@@ -96,8 +98,14 @@ export class CommerceRegistrationComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private http: HttpClient,
-    private cdRef: ChangeDetectorRef
-  ) {}
+    private cdRef: ChangeDetectorRef,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {
+    this.categoryService
+      .getCategoryList()
+      .subscribe(data => console.log("Las categorias son: ", data));
+  }
 
   ngOnInit() {
     
@@ -298,14 +306,7 @@ export class CommerceRegistrationComponent implements OnInit {
     this.commerceService.setCommerce(this.commerce);
 
     console.log(this.commerce);
-    this.commerceService.createNewCommerce(this.commerce).subscribe(
-      data => {
-        console.log("registro exitoso", data);
-      },
-      err => {
-        console.error(err);
-      }
-    );
+    this.router.navigate(["/verificar"]);
   }
 
   onFileChangedRecibo(event) {

@@ -2,8 +2,11 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { VerifyRegisterDataComponent } from "./components/verify-register-data/verify-register-data.component";
 import { ThankyouComponent } from "./components/thankyou/thankyou.component";
+import { CommerceRegistrationComponent } from "./components/commerce-registration/commerce-registration.component";
 
 const routes: Routes = [
+  { path: "", redirectTo: "registrar", pathMatch: "full" },
+  { path: "registrar", component: CommerceRegistrationComponent },
   { path: "verificar", component: VerifyRegisterDataComponent },
   { path: "gracias", component: ThankyouComponent }
 ];
