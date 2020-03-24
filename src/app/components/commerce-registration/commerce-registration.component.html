@@ -12,11 +12,21 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
-            <input type="text" formControlName="ownerName" placeholder="Ingresa tu nombre" />
+            <input
+              type="text"
+              formControlName="ownerName"
+              placeholder="Ingresa tu nombre"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerName')"
+            />
           </div>
           <div class="col">
             <label class="color3">Apellido</label>
-            <input type="text" formControlName="ownerLastName" placeholder="Ingresa tu apellido" />
+            <input
+              type="text"
+              formControlName="ownerLastName"
+              placeholder="Ingresa tu apellido"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerLastName')"
+            />
           </div>
         </div>
         <div class="col-2-equals">
@@ -27,6 +37,11 @@
               formControlName="phone"
               placeholder="Ej: 0995975573"
             />
+            <span
+              *ngIf="registerForm.hasError('pattern', 'phone')"
+              class="help-block"
+              >Su teléfono debe contener solo números</span
+            >
           </div>
           <div class="col">
             <label class="color3">Nombre del comercio</label>
@@ -35,6 +50,7 @@
               name="comercio"
               placeholder="Ingresa el nombre de tu negocio"
               formControlName="commerceName"
+              (blur)="onCapitalizeLetter($event.target.value, 'commerceName')"
             />
           </div>
         </div>
@@ -48,21 +64,31 @@
               }}</option>
             </select>
           </div>
-          <!--           <div class="col">
-            <label class="color3" for="horarios">Horarios de atención</label>
-            <input [owlDateTime]="dt1" placeholder="Hora Inicio" [owlDateTimeTrigger]="dt1" disabled>
-            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
-              <i class="fas fa-clock"></i>
-          </span>
-            <owl-date-time #dt1  pickerType="timer"></owl-date-time>
-          </div> -->
-        </div>
-        <div class="col-2-equals">
           <div class="col">
-            <label class="color3" for="horarios">Hora de Inicio</label>
+            <label class="color3">Ciudad</label>
+            <select formControlName="city">
+              <option disabled selected>Seleccionar</option>
+              <option *ngFor="let city of cities">{{
+                city
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3-equals">
+          <div class="col">
+            <label class="color3">Frecuencia</label>
+            <select formControlName="frecuency">
+              <option selected>Seleccionar</option>
+              <option *ngFor="let frecuency of frecuencyOptions">{{
+                frecuency
+              }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="color3" for="horarios">Hora de Apertura</label>
             <input
               [owlDateTime]="dt1"
-              placeholder="Hora Inicio"
+              placeholder="Seleccione la hora de apertura de su negocio"
               [owlDateTimeTrigger]="dt1"
               formControlName="hourOpen"
             />
@@ -76,10 +102,10 @@
             <owl-date-time #dt1 pickerType="timer"></owl-date-time>
           </div>
           <div class="col">
-            <label class="color3" for="horarios">Hora de Finalización</label>
+            <label class="color3" for="horarios">Hora de cierre</label>
             <input
               [owlDateTime]="dt2"
-              placeholder="Hora Finalización"
+              placeholder="Seleccione la hora de cierre de su negocio"
               [owlDateTimeTrigger]="dt2"
               formControlName="hourClose"
             />
@@ -222,7 +248,13 @@
               [formControl]="searchControl"
             />
           </div>
-          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">Encuentra mi dirección</button>
+          <button
+            type="button"
+            style="position: absolute; z-index: 1"
+            (click)="getGeoLocation()"
+          >
+            Encuentra mi dirección
+          </button>
           <agm-map
             [latitude]="lat"
             [longitude]="lng"
@@ -259,27 +291,46 @@
         </div>
         <div class="col-1">
           <label class="color3">Breve descripción de tu comercio</label>
-          <textarea formControlName="commerceDescription"
-            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."></textarea>
+          <textarea
+            formControlName="commerceDescription"
+            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."
+          ></textarea>
         </div>
 
         <div class="col-1">
-          <label class="color3 background-color1 white" for="foto"><i class="fas fa-camera white"></i> Foto de tu
-            local</label>
-          <input type="file" name="" id="foto" (change)="onFileChangedRecibo($event)" />
-          <img *ngIf="reciboURL " [src]="reciboURL | safe: 'resourceUrl'" height="200">
-
+          <label class="color3 background-color1 white" for="foto"
+            ><i class="fas fa-camera white"></i> Foto de tu local</label
+          >
+          <input
+            type="file"
+            name=""
+            id="foto"
+            (change)="onFileChangedRecibo($event)"
+          />
+          <img
+            *ngIf="reciboURL"
+            [src]="reciboURL | safe: 'resourceUrl'"
+            height="200"
+          />
         </div>
 
-        <input type="submit" name="" class="background-color1 white center button center-button" (click)="operar()"
-          value="REGISTRARSE" />
+        <input
+          type="submit"
+          name=""
+          class="background-color1 white center button center-button"
+          (click)="operar()"
+          value="REGISTRARSE"
+        />
       </form>
     </div>
     <h2 class="center color1">
       ¿Deseas buscar un establecimiento cerca?
     </h2>
     <div class="box-hover-container">
-      <a href="" class="button center-button background-disabled white center buscar">
+      <a
+        href=""
+        class="button center-button background-disabled white center buscar"
+      >
         <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
       </a>
       <div class="box arrow-top center">
