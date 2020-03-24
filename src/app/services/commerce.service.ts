@@ -25,6 +25,7 @@ export class CommerceService {
     let commerceName = " Viveres Koala";
     let commercePhoto =
       "https://trome.pe/resizer/lSrtu0xYQRpB4byIKl6qAhJU74U=/980x528/smart/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/VVJTTD7QU5H23MZTY6X66ULOY4.jpg";
+    let frequency = "Lunes a Viernes";
     let hourOpen = "10:00";
     let hourClose = "23:00 ";
     let province = "";
@@ -34,7 +35,7 @@ export class CommerceService {
     let location = "";
     let reference = "Frente a la inglesia";
     let commerceDescription = "Somos Koala con eso te dijo todo!!";
-    let category = "Abarrotes ";
+    let category = "Abarrotes";
 
     this.commerce = new Commerce(
       ownerName,
@@ -42,6 +43,7 @@ export class CommerceService {
       phone,
       commerceName,
       commercePhoto,
+      frequency,
       hourOpen,
       hourClose,
       province,

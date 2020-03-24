@@ -17,7 +17,4 @@ export class VerifyRegisterDataComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getScheduleAttetion() {
-    return `Hora de apertura : ${this.comerceVerify.hourOpen}, hora de cierre ${this.comerceVerify.hourClose}`;
-  }
 }
