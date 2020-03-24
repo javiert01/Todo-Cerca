@@ -1,0 +1,50 @@
+#section-1-confirma {
+  padding: 30px 10px;
+}
+
+#section-2-confirma {
+  padding: 30px 10px;
+}
+#section-2-confirma .container-confirmacion {
+  padding: 30px 20px;
+  border: 1px solid #029f7c;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+#section-2-confirma .col-1 {
+  margin-top: 20px;
+}
+#section-2-confirma label {
+  display: block;
+  margin-bottom: 5px;
+}
+#section-2-confirma .dato,
+#section-2-confirma .descripcion {
+  border: 1px solid #029f7c;
+  border-radius: 5px;
+  width: 100%;
+  height: 25px;
+  text-indent: 10px;
+  padding-top: 5px;
+}
+
+#section-2-confirma .mapa {
+  margin-top: 30px;
+}
+#section-2-confirma .mapa iframe {
+  width: 100%;
+}
+#section-2-confirma .foto-local {
+  max-width: 300px;
+}
+
+#section-3-confirma {
+  padding: 30px 10px;
+}
+
+h6,
+p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
