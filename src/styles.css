@@ -213,6 +213,10 @@ img{
 	}
 	#section-5-registro .col-2-equals .col{
 		margin-top: 10px;
+  }
+  #section-5-registro .col-3-equals{
+    grid-template-columns: 1fr;
+    grid-gap: 0px;
 	}
 }
 @media only screen and (max-width: 550px){
@@ -239,6 +243,10 @@ img{
 	}
 	#section-5-registro label[for="foto"]{
 		margin: auto;
+  }
+  #section-5-registro .col-3-equals{
+    grid-template-columns: 1fr;
+    grid-gap: 0px;
 	}
 	footer .col-3-equals{
 		grid-template-columns: 1fr;
