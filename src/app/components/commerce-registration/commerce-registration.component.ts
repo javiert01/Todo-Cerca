@@ -3,7 +3,8 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  NgZone
+  NgZone,
+  ChangeDetectorRef
 } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { CommerceService } from "src/app/services/commerce.service";
@@ -23,7 +24,7 @@ export class CommerceRegistrationComponent implements OnInit {
   reciboURL: any;
   selectedFile: File;
   urlImgEmpleado: any;
-  logoTemporal: string = "";
+  logoTemporal = "";
   // FIN DE VARIABLES PARA SUBIR IMAMGEN
   // INICIO VARAIBLES PREVIEW IMAGEN
   public imagePath;
@@ -45,6 +46,15 @@ export class CommerceRegistrationComponent implements OnInit {
     "Micromercado",
     "Otros"
   ];
+
+  frecuencyOptions = [
+    "Lunes a Viernes",
+    "Lunes a Sábado",
+    "Solo fines de semana",
+    "Todos los días"
+  ];
+
+  cities = ["Quito", "Guayaquil"];
 
   provinces = [
     "Azuay",
@@ -84,7 +94,8 @@ export class CommerceRegistrationComponent implements OnInit {
     private commerceService: CommerceService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private http: HttpClient
+    private http: HttpClient,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -115,13 +126,17 @@ export class CommerceRegistrationComponent implements OnInit {
     this.registerForm = new FormGroup({
       ownerName: new FormControl(null, Validators.required),
       ownerLastName: new FormControl(null, Validators.required),
-      phone: new FormControl(null, Validators.required),
+      phone: new FormControl(null, [
+        Validators.required,
+        Validators.pattern(new RegExp("^[0-9]*$"))
+      ]),
       commerceName: new FormControl(null, Validators.required),
       category: new FormControl(null, Validators.required),
+      frecuency: new FormControl(null, Validators.required),
       hourOpen: new FormControl(null, Validators.required),
       hourClose: new FormControl(null, Validators.required),
-      /* province: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
+      /* province: new FormControl(null, Validators.required),
       neighborhood: new FormControl(null, Validators.required), */
       address: new FormControl(null, Validators.required),
       lng: new FormControl(this.lng, Validators.required),
@@ -129,6 +144,24 @@ export class CommerceRegistrationComponent implements OnInit {
       reference: new FormControl(null, Validators.required),
       commerceDescription: new FormControl(null, Validators.required)
     });
+
+    this.registerForm.get("phone").valueChanges.subscribe(data => {
+      if (data.length > 10) {
+        this.cdRef.detectChanges();
+        this.registerForm.get("phone").setValue(data.substring(0, 10));
+      }
+    });
+  }
+
+  onCapitalizeLetter(data, formCN) {
+    if (data) {
+      if (data.length > 0) {
+        let newString = "";
+        newString = data.toLowerCase();
+        newString = newString[0].toUpperCase() + newString.substring(1);
+        this.registerForm.get(formCN).setValue(newString);
+      }
+    }
   }
 
   setMarker($event) {
@@ -261,7 +294,7 @@ export class CommerceRegistrationComponent implements OnInit {
   // INICIO GET-SIGNED-REQUEST METODO QUE SE LLAMA DESDE EL BOTON OPERAR
   getSignedRequest2(commerceName) {
     // console.log("El archivo selecionado: ", this.selectedFile);
-    let file = {
+    const file = {
       fName_p: "commerce/" + commerceName + "/" + this.selectedFile.name,
       fType_p: this.selectedFile.type
     };

@@ -12,22 +12,28 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
-            <input type="text" formControlName="ownerName" placeholder="Ingresa tu nombre" />
+            <input type="text" formControlName="ownerName" placeholder="Ingresa tu nombre"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerName')" />
           </div>
           <div class="col">
             <label class="color3">Apellido</label>
-            <input type="text" formControlName="ownerLastName" placeholder="Ingresa tu apellido" />
+            <input type="text" formControlName="ownerLastName" placeholder="Ingresa tu apellido"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerLastName')" />
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Teléfono celular</label>
+
             <input type="text" formControlName="phone" placeholder="Ej: 0995975573" />
+            <span *ngIf="registerForm.hasError('pattern', 'phone')" class="help-block">Su teléfono debe contener solo
+              números</span>
           </div>
           <div class="col">
             <label class="color3">Nombre del comercio</label>
             <input type="text" name="comercio" placeholder="Ingresa el nombre de tu negocio"
-              formControlName="commerceName" />
+              formControlName="commerceName" (blur)="onCapitalizeLetter($event.target.value, 'commerceName')" />
+
           </div>
         </div>
         <div class="col-2-equals">
@@ -40,30 +46,44 @@
               }}</option>
             </select>
           </div>
-          <!--           <div class="col">
-            <label class="color3" for="horarios">Horarios de atención</label>
-            <input [owlDateTime]="dt1" placeholder="Hora Inicio" [owlDateTimeTrigger]="dt1" disabled>
-            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
-              <i class="fas fa-clock"></i>
-          </span>
-            <owl-date-time #dt1  pickerType="timer"></owl-date-time>
-          </div> -->
-        </div>
-        <div class="col-2-equals">
           <div class="col">
-            <label class="color3" for="horarios">Hora de Inicio</label>
-            <input [owlDateTime]="dt1" placeholder="Hora Inicio" [owlDateTimeTrigger]="dt1"
-              formControlName="hourOpen" />
+            <label class="color3">Ciudad</label>
+            <select formControlName="city">
+              <option disabled selected>Seleccionar</option>
+              <option *ngFor="let city of cities">{{
+                city
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3-equals">
+          <div class="col">
+            <label class="color3">Frecuencia</label>
+            <select formControlName="frecuency">
+              <option selected>Seleccionar</option>
+              <option *ngFor="let frecuency of frecuencyOptions">{{
+                frecuency
+              }}</option>
+            </select>
+          </div>
+          <div class="col">
+
+            <label class="color3" for="horarios">Hora de Apertura</label>
+            <input [owlDateTime]="dt1" placeholder="Seleccione la hora de apertura de su negocio"
+              [owlDateTimeTrigger]="dt1" formControlName="hourOpen" />
             <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
+
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt1 pickerType="timer"></owl-date-time>
           </div>
           <div class="col">
-            <label class="color3" for="horarios">Hora de Finalización</label>
-            <input [owlDateTime]="dt2" placeholder="Hora Finalización" [owlDateTimeTrigger]="dt2"
-              formControlName="hourClose" />
+
+            <label class="color3" for="horarios">Hora de cierre</label>
+            <input [owlDateTime]="dt2" placeholder="Seleccione la hora de cierre de su negocio"
+              [owlDateTimeTrigger]="dt2" formControlName="hourClose" />
             <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt2">
+
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt2 pickerType="timer"></owl-date-time>
@@ -190,8 +210,9 @@
             <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
               class="form-control" #search [formControl]="searchControl" />
           </div>
-          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">Encuentra mi
-            dirección</button>
+          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">
+            Encuentra mi dirección
+          </button>
           <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
             [zoom]="18">
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
@@ -224,8 +245,7 @@
           <label class="color3 background-color1 white" for="foto"><i class="fas fa-camera white"></i> Foto de tu
             local</label>
           <input type="file" name="" id="foto" (change)="onFileChangedRecibo($event)" />
-          <img *ngIf="reciboURL " [src]="reciboURL | safe: 'resourceUrl'" height="200">
-
+          <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" height="200" />
         </div>
 
         <input type="submit" name="" class="background-color1 white center button center-button" value="REGISTRARSE" />
