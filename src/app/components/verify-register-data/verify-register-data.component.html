@@ -68,11 +68,11 @@
                         <p class="color3 dato">{{comerceVerify.frequency}}</p>
                     </div>
                     <div class="col">
-                        <h6 class="color3">Hora de apertura</h6>
+                        <h6 class="color3">Horario de apertura</h6>
                         <p class="color3 dato">{{comerceVerify.hourOpen}}</p>
                     </div>
                     <div class="col">
-                        <h6 class="color3">Hora de cierre</h6>
+                        <h6 class="color3">Horario de cierre</h6>
                         <p class="color3 dato">{{comerceVerify.hourClose}}</p>
                     </div>
                 </div>
@@ -88,8 +88,7 @@
                     <h6 for="mapa" class="color3">
                         Tu dirección en el mapa
                     </h6>
-                    <agm-map [latitude]="lat" [longitude]="lng"
-                        [zoom]="18" [mapDraggable]="false" >
+                    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="18" [mapDraggable]="false">
                         <agm-marker [latitude]="lat" [longitude]="lng">
                         </agm-marker>
                     </agm-map>
@@ -117,7 +116,7 @@
                     </div>
                     <div class="col">
                         <input type="submit" name="" class="background-color1 white center button center-button"
-                            value="REGISTRARSE" (click)="postComerce()" style="cursor: pointer;"/>
+                            value="REGISTRARSE" (click)="postComerce()" style="cursor: pointer;" />
                     </div>
                 </div>
             </div>
