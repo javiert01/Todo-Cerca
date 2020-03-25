@@ -24,7 +24,8 @@
                 registerForm.get('ownerName').errors?.required &&
                 registerForm.get('ownerName').touched
               "
-            >*Campo Obligatorio</span>
+              >*Campo Obligatorio</span
+            >
           </div>
           <div class="col">
             <label class="color3">Apellido</label>
@@ -57,7 +58,8 @@
               *ngIf="registerForm.hasError('pattern', 'phone')"
               class="help-block"
               >Su teléfono debe contener solo números</span
-            > <br *ngIf="registerForm.hasError('pattern', 'phone')" />
+            >
+            <br *ngIf="registerForm.hasError('pattern', 'phone')" />
             <span
               *ngIf="registerForm.hasError('minlength', 'phone')"
               class="help-block"
@@ -95,10 +97,12 @@
           <div class="col">
             <label class="color3">Categoría del comercio</label>
             <select formControlName="category">
-              <option value="" >Seleccionar</option>
-              <option [ngValue]="category" *ngFor="let category of commerceCategories">{{
-                category
-              }}</option>
+              <option value="">Seleccionar</option>
+              <option
+                [ngValue]="category"
+                *ngFor="let category of commerceCategories"
+                >{{ category }}</option
+              >
             </select>
             <span
               class="help-block"
@@ -106,7 +110,8 @@
                 registerForm.get('category').errors?.required &&
                 registerForm.get('category').touched
               "
-            >*Campo Obligatorio</span>
+              >*Campo Obligatorio</span
+            >
           </div>
           <div class="col">
             <label class="color3">Ciudad</label>
@@ -115,15 +120,18 @@
               (change)="onSetCityMap($event.target.value)"
             >
               <option value="">Seleccionar</option>
-              <option *ngFor="let city of cities" [ngValue]="city">{{ city }}</option>
+              <option *ngFor="let city of cities" [ngValue]="city">{{
+                city
+              }}</option>
             </select>
             <span
-            class="help-block"
-            *ngIf="
-              registerForm.get('city').errors?.required &&
-              registerForm.get('city').touched
-            "
-          >*Campo Obligatorio</span>
+              class="help-block"
+              *ngIf="
+                registerForm.get('city').errors?.required &&
+                registerForm.get('city').touched
+              "
+              >*Campo Obligatorio</span
+            >
           </div>
         </div>
         <div class="col-3-equals">
@@ -131,17 +139,20 @@
             <label class="color3">Días de Apertura</label>
             <select formControlName="frecuency">
               <option value="">Seleccionar</option>
-              <option *ngFor="let frecuency of frecuencyOptions" [ngValue]="frecuency">{{
-                frecuency
-              }}</option>
+              <option
+                *ngFor="let frecuency of frecuencyOptions"
+                [ngValue]="frecuency"
+                >{{ frecuency }}</option
+              >
             </select>
             <span
-            class="help-block"
-            *ngIf="
-              registerForm.get('frecuency').errors?.required &&
-              registerForm.get('frecuency').touched
-            "
-          >*Campo Obligatorio</span>
+              class="help-block"
+              *ngIf="
+                registerForm.get('frecuency').errors?.required &&
+                registerForm.get('frecuency').touched
+              "
+              >*Campo Obligatorio</span
+            >
           </div>
           <div class="col">
             <label class="color3" for="horarios">Hora de Apertura</label>
@@ -159,6 +170,12 @@
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt1 pickerType="timer"></owl-date-time>
+            <span
+              class="help-block"
+              *ngIf="registerForm.hasError('hourLessError', 'hourOpen')"
+              >Atención: El horario de apertura debe ser menor al horario de
+              cierre</span
+            >
           </div>
           <div class="col">
             <label class="color3" for="horarios">Hora de cierre</label>
@@ -176,23 +193,30 @@
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt2 pickerType="timer"></owl-date-time>
+            <span
+              class="help-block"
+              *ngIf="registerForm.hasError('hourGreatError', 'hourClose')"
+              >*Atención: La hora de cierre tiene que ser mayor al horario de
+              apertura</span
+            >
           </div>
         </div>
         <div class="mapa">
           <label for="mapa" class="color3">
             Ubica tu dirección en el mapa
           </label>
-          <div>
-          <button
-          type="button"
-          (click)="getGeoLocation()"
-        >
-          Marcar mi dirección actual
-        </button>
-        <i class="fas fa-question-circle" style="margin-left: 3px;" matTooltip="Info about the action"></i>
-      </div>
-        <p>Ó busca una referencia en el mapa</p>
+          <div style="margin-bottom: 10px;">
+            <button type="button" (click)="getGeoLocation()">
+              Marcar mi dirección actual
+            </button>
+            <i
+              class="fas fa-question-circle"
+              style="margin-left: 3px;"
+              matTooltip="Esta opción permite tomar tu dirección actual exacta, directo de la ubicación GPS del dispositivo."
+            ></i>
+          </div>
           <div class="form-group">
+            <label class="color3" style="font-size: 15px;">Ó busca una referencia en el mapa</label>
             <input
               placeholder="Busca un lugar..."
               autocorrect="off"
@@ -214,7 +238,13 @@
           </agm-map>
         </div>
         <div class="col-1">
-          <label class="color3">Dirección exacta del comercio<i class="fas fa-question-circle" style="margin-left: 3px;" matTooltip="Info about the action"></i></label>
+          <label class="color3"
+            >Dirección exacta del comercio<i
+              class="fas fa-question-circle"
+              style="margin-left: 3px;"
+              matTooltip="Esta opción permite ajustar manualmente la dirección de tu comercio, en caso la opción mostrada en el mapa no sea la correcta o esté incompleta"
+            ></i
+          ></label>
           <input
             type="text"
             formControlName="address"
@@ -247,10 +277,7 @@
             id="foto"
             (change)="onFileChangedRecibo($event)"
           />
-          <img
-            *ngIf="reciboURL"
-            [src]="reciboURL | safe: 'resourceUrl'"
-          />
+          <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
         </div>
 
         <input
@@ -272,6 +299,11 @@
         <span class="help-block" *ngIf="registerForm.invalid"
           >*Debe llenar todos los campos para continuar con el registro</span
         >
+        <br *ngIf="invalidControls.length > 0">
+        <div *ngIf="invalidControls.length > 0">
+        <span class="help-block">Revise los siguientes campos: </span>
+        <span class="help-block" *ngFor="let name of invalidControls">{{name}}, </span>
+        </div>
       </form>
     </div>
     <h2 class="center color1">

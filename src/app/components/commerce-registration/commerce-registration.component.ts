@@ -6,7 +6,13 @@ import {
   NgZone,
   ChangeDetectorRef
 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ValidatorFn,
+  AbstractControl
+} from '@angular/forms';
 import { CommerceService } from 'src/app/services/commerce.service';
 import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
@@ -41,6 +47,7 @@ export class CommerceRegistrationComponent implements OnInit {
   markLng;
   direccion;
   commerceCategories = [];
+  invalidControls = [];
   /*
     'Abarrotes',
     'Tienda',
@@ -158,8 +165,14 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceName: new FormControl(null, Validators.required),
       category: new FormControl('', Validators.required),
       frecuency: new FormControl('', Validators.required),
-      hourOpen: new FormControl(null, Validators.required),
-      hourClose: new FormControl(null, Validators.required),
+      hourOpen: new FormControl(null, [
+        Validators.required,
+        this.onCheckLesserTime.bind(this)
+      ]),
+      hourClose: new FormControl(null, [
+        Validators.required,
+        this.onCheckGreaterTime.bind(this)
+      ]),
       city: new FormControl('', Validators.required),
       /* province: new FormControl(null, Validators.required),
       neighborhood: new FormControl(null, Validators.required), */
@@ -184,6 +197,65 @@ export class CommerceRegistrationComponent implements OnInit {
         this.registerForm.get('phone').setValue(data.substring(0, 10));
       }
     });
+
+    this.registerForm.valueChanges
+    .subscribe((data) => {
+      this.findInvalidControls();
+      this.translateControls(this.invalidControls);
+    });
+  }
+
+  findInvalidControls() {
+    const controls = this.registerForm.controls;
+    this.invalidControls = [];
+    for (const name in controls) {
+      if (controls[name].invalid) {
+       this.invalidControls.push(name);
+      }
+    }
+  }
+
+  translateControls(controls) {
+    for (let i = 0; i < controls.length; i++) {
+      switch (controls[i]) {
+        case 'ownerName':
+          controls[i] = 'Nombre';
+          break;
+        case 'ownerLastName':
+          controls[i] = 'Apellido';
+          break;
+        case 'phone':
+          controls[i] = 'Télefono Celular';
+          break;
+        case 'commerceName':
+          controls[i] = 'Nombre del comercio';
+          break;
+        case 'category':
+          controls[i] = 'Categoría';
+          break;
+        case 'frecuency':
+          controls[i] = 'Días de apertura';
+          break;
+        case 'hourOpen':
+          controls[i] = 'Hora de apertura';
+          break;
+        case 'hourClose':
+          controls[i] = 'Hora de cierre';
+          break;
+        case 'city':
+          controls[i] = 'Ciudad';
+          break;
+        case 'address':
+          controls[i] = 'Dirección exacta';
+          break;
+        case 'reference':
+          controls[i] = 'Referencia';
+          break;
+        case 'commerceDescription':
+        controls[i] = 'Breve descripción';
+          break;
+      }
+    }
   }
 
   onCapitalizeLetter(data, formCN) {
@@ -195,6 +267,32 @@ export class CommerceRegistrationComponent implements OnInit {
         this.registerForm.get(formCN).setValue(newString);
       }
     }
+  }
+
+  onCheckGreaterTime(control: FormControl): { [s: string]: boolean } {
+    const hourCloseDate = new Date(control.value);
+    if (this.registerForm) {
+      const hourOpenDate = new Date(this.registerForm.get('hourOpen').value);
+      if (hourCloseDate < hourOpenDate) {
+        return { hourGreatError: true };
+      }
+    }
+    return null;
+  }
+
+  onCheckLesserTime(control: FormControl): { [s: string]: boolean } {
+    const hourOpenDate = new Date(control.value);
+    if (this.registerForm) {
+      if (this.registerForm.get('hourClose').value) {
+        const hourCloseDate = new Date(
+          this.registerForm.get('hourClose').value
+        );
+        if (hourOpenDate >= hourCloseDate) {
+          return { hourLessError: true };
+        }
+      }
+    }
+    return null;
   }
 
   onSetCityMap(city) {
