@@ -16,6 +16,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PipesModule } from '../app/pipes/pipes.module';
 import { VerifyRegisterDataComponent } from './components/verify-register-data/verify-register-data.component';
 import { ThankyouComponent } from './components/thankyou/thankyou.component';
+import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
+import { InstructionsComponent } from './components/instructions/instructions.component';
+import { RegisterBannerComponent } from './components/register-banner/register-banner.component';
+import { RegisterInfoComponent } from './components/register-info/register-info.component';
 
 export class DefaultIntl extends OwlDateTimeIntl  {
   /** A label for the up second button (used by screen readers).  */
@@ -86,7 +90,11 @@ export class DefaultIntl extends OwlDateTimeIntl  {
     FooterComponent,
     CommerceRegistrationComponent,
     VerifyRegisterDataComponent,
-    ThankyouComponent
+    ThankyouComponent,
+    QuienesSomosComponent,
+    InstructionsComponent,
+    RegisterBannerComponent,
+    RegisterInfoComponent
   ],
   imports: [
     BrowserModule,

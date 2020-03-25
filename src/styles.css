@@ -263,7 +263,34 @@ img{
   #section-5-registro .col-3-equals{
     grid-template-columns: 1fr;
     grid-gap: 0px;
+  }
+
+  #section-2-confirma .col-2-equals{
+		grid-template-columns: 1fr;
+		grid-gap: 0;
 	}
+	#section-2-confirma .col-2-equals .col{
+		margin-top: 10px;
+  }
+  #section-2-confirma .col-3-equals{
+		grid-template-columns: 1fr;
+		grid-gap: 0;
+  }
+  #section-2-confirma .col-3-equals .col{
+		margin-top: 10px;
+  }
+	#section-2-confirma .descripcion{
+		height: auto;
+		padding: 5px;
+		text-indent: 0;
+	}
+	#section-2-confirma .botones-container .col .center-button{
+		margin:10px auto;
+	}
+	#section-2-confirma .botones-container .col input[type=submit]{
+		font-size:20px;
+	}
+
 	footer .col-3-equals{
 		grid-template-columns: 1fr;
 		justify-content: center;
