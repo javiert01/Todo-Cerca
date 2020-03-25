@@ -57,7 +57,7 @@
               *ngIf="registerForm.hasError('pattern', 'phone')"
               class="help-block"
               >Su teléfono debe contener solo números</span
-            >
+            > <br *ngIf="registerForm.hasError('pattern', 'phone')" />
             <span
               *ngIf="registerForm.hasError('minlength', 'phone')"
               class="help-block"
@@ -95,8 +95,8 @@
           <div class="col">
             <label class="color3">Categoría del comercio</label>
             <select formControlName="category">
-              <option selected>Seleccionar</option>
-              <option *ngFor="let category of commerceCategories">{{
+              <option value="" >Seleccionar</option>
+              <option [ngValue]="category" *ngFor="let category of commerceCategories">{{
                 category
               }}</option>
             </select>
@@ -114,20 +114,34 @@
               formControlName="city"
               (change)="onSetCityMap($event.target.value)"
             >
-              <option selected>Seleccionar</option>
-              <option *ngFor="let city of cities">{{ city }}</option>
+              <option value="">Seleccionar</option>
+              <option *ngFor="let city of cities" [ngValue]="city">{{ city }}</option>
             </select>
+            <span
+            class="help-block"
+            *ngIf="
+              registerForm.get('city').errors?.required &&
+              registerForm.get('city').touched
+            "
+          >*Campo Obligatorio</span>
           </div>
         </div>
         <div class="col-3-equals">
           <div class="col">
             <label class="color3">Días de Apertura</label>
             <select formControlName="frecuency">
-              <option selected>Seleccionar</option>
-              <option *ngFor="let frecuency of frecuencyOptions">{{
+              <option value="">Seleccionar</option>
+              <option *ngFor="let frecuency of frecuencyOptions" [ngValue]="frecuency">{{
                 frecuency
               }}</option>
             </select>
+            <span
+            class="help-block"
+            *ngIf="
+              registerForm.get('frecuency').errors?.required &&
+              registerForm.get('frecuency').touched
+            "
+          >*Campo Obligatorio</span>
           </div>
           <div class="col">
             <label class="color3" for="horarios">Hora de Apertura</label>
@@ -168,6 +182,16 @@
           <label for="mapa" class="color3">
             Ubica tu dirección en el mapa
           </label>
+          <div>
+          <button
+          type="button"
+          (click)="getGeoLocation()"
+        >
+          Marcar mi dirección actual
+        </button>
+        <i class="fas fa-question-circle" style="margin-left: 3px;" matTooltip="Info about the action"></i>
+      </div>
+        <p>Ó busca una referencia en el mapa</p>
           <div class="form-group">
             <input
               placeholder="Busca un lugar..."
@@ -180,13 +204,6 @@
               [formControl]="searchControl"
             />
           </div>
-          <button
-            type="button"
-            style="position: absolute; z-index: 1"
-            (click)="getGeoLocation()"
-          >
-            Encuentra mi dirección
-          </button>
           <agm-map
             [latitude]="lat"
             [longitude]="lng"
@@ -197,7 +214,7 @@
           </agm-map>
         </div>
         <div class="col-1">
-          <label class="color3">Dirección exacta del comercio</label>
+          <label class="color3">Dirección exacta del comercio<i class="fas fa-question-circle" style="margin-left: 3px;" matTooltip="Info about the action"></i></label>
           <input
             type="text"
             formControlName="address"
@@ -251,6 +268,7 @@
             opacity: registerForm.valid ? '1' : '0.5',
             cursor: registerForm.valid ? 'pointer' : 'not-allowed'
           }"
+          [disabled]="registerForm.invalid"
         />
         <span class="help-block" *ngIf="registerForm.invalid"
           >*Debe llenar todos los campos para continuar con el registro</span

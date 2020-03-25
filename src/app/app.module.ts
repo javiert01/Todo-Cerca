@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AgmCoreModule } from '@agm/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 
 import { AppComponent } from './app.component';
@@ -98,6 +99,7 @@ export class DefaultIntl extends OwlDateTimeIntl  {
       libraries: ['places']
     }),
     BrowserAnimationsModule,
+    MatTooltipModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule
   ],
