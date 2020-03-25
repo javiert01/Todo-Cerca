@@ -6,12 +6,17 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 						GLOBALES
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto',sans-serif;
+}
 /*Tipogrfias*/
 .roboto{
 	font-family: 'Roboto',sans-serif;
 }
-.roboto{
-	font-family: 'Roboto',sans-serif;
+.bebas{
+	font-family: 'Bebas Neue', sans-serif;
 }
 /*Anchos te fuente*/
 .regular{
@@ -316,6 +321,10 @@ img{
 	}
 
 
+}
+
+.owl-dt-container {
+  zoom: 1.4 !important;
 }
 
 

@@ -9,7 +9,7 @@
         Registra tu local comercial
       </h2>
       <h2 class="color2 h2-small center bebas">
-        o negocio de la esquina <br />
+        o negocio de la esquina
         <span class="h2-big">GRATIS</span>
       </h2>
       <div class="hr-center background-color1"></div>
@@ -240,6 +240,10 @@
             [longitude]="lng"
             (mapClick)="setMarker($event); getAddress(markLat, markLng)"
             [zoom]="mapZoom"
+            [scrollwheel] = "null"
+            [gestureHandling] ="'cooperative'"
+            [streetViewControl] = "false"
+            [mapTypeControl] = "true"
           >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
