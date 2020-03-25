@@ -148,7 +148,8 @@ export class CommerceRegistrationComponent implements OnInit {
       ownerLastName: new FormControl(null, Validators.required),
       phone: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp("^[0-9]*$"))
+        Validators.pattern(new RegExp("^[0-9]*$")),
+        Validators.minLength(10)
       ]),
       commerceName: new FormControl(null, Validators.required),
       category: new FormControl(null, Validators.required),

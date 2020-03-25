@@ -12,47 +12,110 @@
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Nombre</label>
-            <input type="text" formControlName="ownerName" placeholder="Ingresa tu nombre"
-              (blur)="onCapitalizeLetter($event.target.value, 'ownerName')" />
+            <input
+              type="text"
+              formControlName="ownerName"
+              placeholder="Ingresa tu nombre"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerName')"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                registerForm.get('ownerName').errors?.required &&
+                registerForm.get('ownerName').touched
+              "
+            >*Campo Obligatorio</span>
           </div>
           <div class="col">
             <label class="color3">Apellido</label>
-            <input type="text" formControlName="ownerLastName" placeholder="Ingresa tu apellido"
-              (blur)="onCapitalizeLetter($event.target.value, 'ownerLastName')" />
+            <input
+              type="text"
+              formControlName="ownerLastName"
+              placeholder="Ingresa tu apellido"
+              (blur)="onCapitalizeLetter($event.target.value, 'ownerLastName')"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                registerForm.get('ownerLastName').errors?.required &&
+                registerForm.get('ownerLastName').touched
+              "
+              >*Campo Obligatorio</span
+            >
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Teléfono celular</label>
 
-            <input type="text" formControlName="phone" placeholder="Ej: 0995975573" />
-            <span *ngIf="registerForm.hasError('pattern', 'phone')" class="help-block">Su teléfono debe contener solo
-              números</span>
+            <input
+              type="text"
+              formControlName="phone"
+              placeholder="Ej: 0995975573"
+            />
+            <span
+              *ngIf="registerForm.hasError('pattern', 'phone')"
+              class="help-block"
+              >Su teléfono debe contener solo números</span
+            >
+            <span
+              *ngIf="registerForm.hasError('minlength', 'phone')"
+              class="help-block"
+              >Su teléfono debe contener 10 números</span
+            >
+            <span
+              class="help-block"
+              *ngIf="
+                registerForm.get('phone').errors?.required &&
+                registerForm.get('phone').touched
+              "
+              >*Campo Obligatorio</span
+            >
           </div>
           <div class="col">
             <label class="color3">Nombre del comercio</label>
-            <input type="text" name="comercio" placeholder="Ingresa el nombre de tu negocio"
-              formControlName="commerceName" (blur)="onCapitalizeLetter($event.target.value, 'commerceName')" />
-
+            <input
+              type="text"
+              name="comercio"
+              placeholder="Ingresa el nombre de tu negocio"
+              formControlName="commerceName"
+              (blur)="onCapitalizeLetter($event.target.value, 'commerceName')"
+            />
+            <span
+              class="help-block"
+              *ngIf="
+                registerForm.get('commerceName').errors?.required &&
+                registerForm.get('commerceName').touched
+              "
+              >*Campo Obligatorio</span
+            >
           </div>
         </div>
         <div class="col-2-equals">
           <div class="col">
             <label class="color3">Categoría del comercio</label>
             <select formControlName="category">
-              <option disabled selected>Seleccionar</option>
+              <option selected>Seleccionar</option>
               <option *ngFor="let category of commerceCategories">{{
                 category
               }}</option>
             </select>
+            <span
+              class="help-block"
+              *ngIf="
+                registerForm.get('category').errors?.required &&
+                registerForm.get('category').touched
+              "
+            >*Campo Obligatorio</span>
           </div>
           <div class="col">
             <label class="color3">Ciudad</label>
-            <select formControlName="city" (change)="onSetCityMap($event.target.value)">
+            <select
+              formControlName="city"
+              (change)="onSetCityMap($event.target.value)"
+            >
               <option selected>Seleccionar</option>
-              <option *ngFor="let city of cities">{{
-                city
-              }}</option>
+              <option *ngFor="let city of cities">{{ city }}</option>
             </select>
           </div>
         </div>
@@ -67,23 +130,35 @@
             </select>
           </div>
           <div class="col">
-
             <label class="color3" for="horarios">Hora de Apertura</label>
-            <input [owlDateTime]="dt1" placeholder="Seleccione la hora de apertura de su negocio"
-              [owlDateTimeTrigger]="dt1" formControlName="hourOpen" />
-            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt1">
-
+            <input
+              [owlDateTime]="dt1"
+              placeholder="Seleccione la hora de apertura de su negocio"
+              [owlDateTimeTrigger]="dt1"
+              formControlName="hourOpen"
+            />
+            <span
+              class="trigger"
+              style="cursor:pointer"
+              [owlDateTimeTrigger]="dt1"
+            >
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt1 pickerType="timer"></owl-date-time>
           </div>
           <div class="col">
-
             <label class="color3" for="horarios">Hora de cierre</label>
-            <input [owlDateTime]="dt2" placeholder="Seleccione la hora de cierre de su negocio"
-              [owlDateTimeTrigger]="dt2" formControlName="hourClose" />
-            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt2">
-
+            <input
+              [owlDateTime]="dt2"
+              placeholder="Seleccione la hora de cierre de su negocio"
+              [owlDateTimeTrigger]="dt2"
+              formControlName="hourClose"
+            />
+            <span
+              class="trigger"
+              style="cursor:pointer"
+              [owlDateTimeTrigger]="dt2"
+            >
               <i class="fas fa-clock"></i>
             </span>
             <owl-date-time #dt2 pickerType="timer"></owl-date-time>
@@ -94,47 +169,102 @@
             Ubica tu dirección en el mapa
           </label>
           <div class="form-group">
-            <input placeholder="Busca un lugar..." autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
-              class="form-control" #search [formControl]="searchControl" />
+            <input
+              placeholder="Busca un lugar..."
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="off"
+              type="text"
+              class="form-control"
+              #search
+              [formControl]="searchControl"
+            />
           </div>
-          <button type="button" style="position: absolute; z-index: 1" (click)="getGeoLocation()">
+          <button
+            type="button"
+            style="position: absolute; z-index: 1"
+            (click)="getGeoLocation()"
+          >
             Encuentra mi dirección
           </button>
-          <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-            [zoom]="mapZoom">
+          <agm-map
+            [latitude]="lat"
+            [longitude]="lng"
+            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
+            [zoom]="mapZoom"
+          >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
         </div>
         <div class="col-1">
           <label class="color3">Dirección exacta del comercio</label>
-          <input type="text" formControlName="address" placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto" />
+          <input
+            type="text"
+            formControlName="address"
+            placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
+          />
         </div>
         <div class="col-1">
           <label class="color3">Referencia del comercio</label>
-          <input type="text" formControlName="reference" placeholder="Ej: diagonal al redondel." />
+          <input
+            type="text"
+            formControlName="reference"
+            placeholder="Ej: diagonal al redondel."
+          />
         </div>
         <div class="col-1">
           <label class="color3">Breve descripción de tu comercio</label>
-          <textarea formControlName="commerceDescription"
-            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."></textarea>
+          <textarea
+            formControlName="commerceDescription"
+            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas."
+          ></textarea>
         </div>
 
         <div class="col-1">
-          <label class="color3 background-color1 white" for="foto"><i class="fas fa-camera white"></i> Foto de tu
-            local</label>
-          <input type="file" name="" id="foto" (change)="onFileChangedRecibo($event)" />
-          <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" height="200" />
+          <label class="color3 background-color1 white" for="foto"
+            ><i class="fas fa-camera white"></i> Foto de tu local</label
+          >
+          <input
+            type="file"
+            name=""
+            id="foto"
+            (change)="onFileChangedRecibo($event)"
+          />
+          <img
+            *ngIf="reciboURL"
+            [src]="reciboURL | safe: 'resourceUrl'"
+            height="200"
+          />
         </div>
 
-        <input type="submit" name="" class="background-color1 white center button center-button" value="REGISTRARSE"
-          (click)="this.imagenSeleccionada ? operar(this.registerForm.get('commerceName').value) : submitCommerce()" />
+        <input
+          type="submit"
+          name=""
+          class="background-color1 white center button center-button"
+          value="REGISTRARSE"
+          (click)="
+            this.imagenSeleccionada
+              ? operar(this.registerForm.get('commerceName').value)
+              : submitCommerce()
+          "
+          [ngStyle]="{
+            opacity: registerForm.valid ? '1' : '0.5',
+            cursor: registerForm.valid ? 'pointer' : 'not-allowed'
+          }"
+        />
+        <span class="help-block" *ngIf="registerForm.invalid"
+          >*Debe llenar todos los campos para continuar con el registro</span
+        >
       </form>
     </div>
     <h2 class="center color1">
       ¿Deseas buscar un establecimiento cerca?
     </h2>
     <div class="box-hover-container">
-      <a href="" class="button center-button background-disabled white center buscar">
+      <a
+        href=""
+        class="button center-button background-disabled white center buscar"
+      >
         <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
       </a>
       <div class="box arrow-top center">
