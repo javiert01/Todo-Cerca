@@ -27,6 +27,7 @@ export class VerifyRegisterDataComponent implements OnInit {
     .subscribe(
       (data) => {
         console.log('registro exitoso', data);
+        this.commerceService.setCommerceFormData(null);
       },
       (err) => {
         console.error(err);

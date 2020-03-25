@@ -9,16 +9,16 @@ import { Commerce } from "../models/commerce.model";
 export class CommerceService {
   url = `${HOST}/commerces`;
   public commerce: Commerce;
+  public commerceFormData = null;
 
   constructor(private http: HttpClient) {
-    this.loadFakeData();
   }
 
   createNewCommerce(newCommerce) {
     return this.http.post<any>(`${this.url}/create`, newCommerce);
   }
 
-  loadFakeData() {
+ /*  loadFakeData() {
     let ownerName = "Camila";
     let ownerLastName = "Arguello";
     let phone = " 0987676543 ";
@@ -55,12 +55,20 @@ export class CommerceService {
       commerceDescription,
       category
     );
-  }
+  } */
 
   getCommerce() {
     return this.commerce;
   }
   setCommerce(com: Commerce) {
     this.commerce = com;
+  }
+
+  getCommerceFormData() {
+    return this.commerceFormData;
+  }
+
+  setCommerceFormData(formData) {
+    this.commerceFormData = formData;
   }
 }

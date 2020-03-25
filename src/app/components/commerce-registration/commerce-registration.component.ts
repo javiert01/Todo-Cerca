@@ -166,6 +166,10 @@ export class CommerceRegistrationComponent implements OnInit {
       commerceDescription: new FormControl(null, Validators.required)
     });
 
+    if(this.commerceService.commerceFormData) {
+      this.registerForm.reset(this.commerceService.commerceFormData);
+    }
+
     this.registerForm.get("phone").valueChanges.subscribe(data => {
       if (data.length > 10) {
         this.cdRef.detectChanges();
@@ -307,7 +311,7 @@ export class CommerceRegistrationComponent implements OnInit {
       reference: this.registerForm.get('reference').value,
       commerceDescription: this.registerForm.get('commerceDescription').value
     };
-
+    this.commerceService.setCommerceFormData(this.registerForm.value);
     this.commerceService.setCommerce(this.commerce);
 
     console.log(this.commerce);
