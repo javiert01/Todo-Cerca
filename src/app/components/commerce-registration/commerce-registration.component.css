@@ -57,7 +57,15 @@ agm-map {
   margin-left: 8px;
 }
 
+.fa-question-circle {
+  margin-left: 12px !important;
+}
+
 .help-block {
   color: red;
   font-size: small;
+}
+
+select {
+  background-color: white;
 }
