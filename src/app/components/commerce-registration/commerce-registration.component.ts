@@ -121,7 +121,7 @@ export class CommerceRegistrationComponent implements OnInit {
               this.isMobileView = true;
             }
           if (this.isMobileView) {
-            window.scrollTo(0, 5400);
+            window.scrollTo(0, 6000);
           } else {
             window.scrollTo(0, 4400);
           }
