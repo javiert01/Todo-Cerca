@@ -72,7 +72,10 @@ select {
 
 
 @media only screen and (max-width: 768px){
- .fa-question-circle {
+ .near {
    margin-left: 40px !important;
+ }
+ .far {
+  margin-left: 95px !important;
  }
 }
