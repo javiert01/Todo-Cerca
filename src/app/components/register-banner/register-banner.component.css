@@ -4,3 +4,6 @@
 #section-3-registro i{
 	font-size: 140px;
 }
+#section-3-registro .center-button {
+  cursor: pointer;
+}
