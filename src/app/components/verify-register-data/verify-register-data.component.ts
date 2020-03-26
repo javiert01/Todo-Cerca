@@ -38,7 +38,7 @@ export class VerifyRegisterDataComponent implements OnInit {
     this.router.navigate(["/gracias"]);
   }
   changeRegisterPage() {
-    this.router.navigate(["/registrar"]);
+    this.router.navigate(["/registrar"], { queryParams: { formulario: 'true' } });
   }
 
 }

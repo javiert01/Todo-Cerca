@@ -13,7 +13,8 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   scrollToForm() {
-    window.scrollTo(0, 3200);
+    //window.scrollTo(0, 3200);
+    document.querySelector('#section-5-registro').scrollIntoView({behavior: 'smooth'});
   }
 
 }
