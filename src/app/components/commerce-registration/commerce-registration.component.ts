@@ -127,7 +127,7 @@ export class CommerceRegistrationComponent implements OnInit {
           }
       }});
     this.imgURL =
-      'https://lh3.googleusercontent.com/proxy/ScRJVAGkFUOo-eIURDcjY0F4yhy2Nhq1sTTM7LqkAu2r5eywdmZfKLPtMTHA9ylpNph_ad8Hd5hdIBb8kp8ovkOBlHtaTFo';
+      '../../../assets/06-no-image.png';
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
@@ -443,7 +443,7 @@ export class CommerceRegistrationComponent implements OnInit {
     if (event.target.files.length === 0) {
       this.imagenSeleccionada = false;
       this.imgURL =
-        'https://lh3.googleusercontent.com/proxy/ScRJVAGkFUOo-eIURDcjY0F4yhy2Nhq1sTTM7LqkAu2r5eywdmZfKLPtMTHA9ylpNph_ad8Hd5hdIBb8kp8ovkOBlHtaTFo';
+        '../../../assets/06-no-image.png';
       return;
     }
     const mimeType = event.target.files[0].type;

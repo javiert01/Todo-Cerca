@@ -12,4 +12,10 @@ export class FooterComponent implements OnInit {
   ngOnInit() {
   }
 
+  onGoToTop() {
+    document
+    .querySelector('#section-3-registro')
+    .scrollIntoView({ behavior: 'smooth' });
+  }
+
 }
