@@ -17,3 +17,4 @@ export class FooterComponent implements OnInit {
       .scrollIntoView({ behavior: "smooth" });
   }
 }
+

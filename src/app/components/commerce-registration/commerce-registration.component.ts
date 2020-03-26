@@ -112,7 +112,7 @@ export class CommerceRegistrationComponent implements OnInit {
 
       if (this.scrollToForm === 'true') {
         const scrollHeight = this.getTotalHeigth();
-        window.scroll(0, scrollHeight * 0.65);
+        window.scroll(0, Math.round(scrollHeight * 0.35));
       }
     });
     this.imgURL = '../../../assets/06-no-image.png';
