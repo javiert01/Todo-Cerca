@@ -8,3 +8,6 @@
 #section-1-registro .col-2-equals .col img{
 	max-width: 540px;
 }
+#section-1-registro .button {
+  cursor: pointer;
+}
