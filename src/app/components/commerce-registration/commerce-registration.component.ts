@@ -261,6 +261,9 @@ export class CommerceRegistrationComponent implements OnInit {
         case 'commerceDescription':
           controls[i] = 'Breve descripción';
           break;
+        case 'useConditions':
+          controls[i] = 'Políticas de uso';
+          break;
       }
     }
   }
