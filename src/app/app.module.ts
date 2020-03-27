@@ -21,6 +21,8 @@ import { InstructionsComponent } from './components/instructions/instructions.co
 import { RegisterBannerComponent } from './components/register-banner/register-banner.component';
 import { RegisterInfoComponent } from './components/register-info/register-info.component';
 import { UseConditionsComponent } from './components/use-conditions/use-conditions.component';
+import { LoginAdminComponent } from './components/admin/login-admin/login-admin.component';
+import { CommercesComponent } from './components/admin/commerces/commerces.component';
 
 /*  */
 
@@ -36,7 +38,9 @@ import { UseConditionsComponent } from './components/use-conditions/use-conditio
     InstructionsComponent,
     RegisterBannerComponent,
     RegisterInfoComponent,
-    UseConditionsComponent
+    UseConditionsComponent,
+    LoginAdminComponent,
+    CommercesComponent
   ],
   imports: [
     BrowserModule,

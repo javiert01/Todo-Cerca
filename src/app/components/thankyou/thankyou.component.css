@@ -1,14 +1,13 @@
-#section-1-gracias {
-  padding: 30px 10px;
+#section-1-gracias{
+	padding: 30px 10px;
 }
-#section-1-gracias .corazon {
-  max-width: 100px;
+#section-1-gracias .corazon{
+	max-width: 100px;
 }
-#section-1-gracias h4,
-#section-1-gracias p {
-  margin-bottom: 30px;
+#section-1-gracias h4,#section-1-gracias p{
+	margin-bottom: 30px;
 }
-#section-1-gracias .contenedor-redes {
-  max-width: 200px;
-  margin: auto;
+#section-1-gracias .contenedor-redes{
+	max-width: 200px;
+	margin: auto;
 }
