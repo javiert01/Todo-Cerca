@@ -440,7 +440,8 @@ export class CommerceRegistrationComponent implements OnInit {
         ]
       },
       reference: this.registerForm.get('reference').value,
-      commerceDescription: this.registerForm.get('commerceDescription').value
+      commerceDescription: this.registerForm.get('commerceDescription').value,
+      acceptTermsConditions: true
     };
     this.commerceService.setCommerceFormData(this.registerForm.value);
     this.commerceService.setCommerce(this.commerce);
