@@ -1,0 +1,13 @@
+<div>
+  <div class="col">
+    <h2 class="color3">Lista de comercios registrados:</h2>
+  </div>
+  <table>
+    <tr>
+      <th *ngFor="let title of titlesList">{{title}}</th>
+    </tr>
+    <tr *ngFor="let commerce of commerceList">
+      <td>{{commerce.id}}</td>
+    </tr>
+  </table>
+</div>
