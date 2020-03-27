@@ -100,8 +100,14 @@ select {
 	display: none!important;
 }
 .buscar{
-	font-size: 10px;
+  font-size: 10px;
+  height: 25px;
 }
+
+.fa-search {
+  margin-top: 5px;
+}
+
 .box-hover-container{
 	max-width: 284px;
 	margin: auto;

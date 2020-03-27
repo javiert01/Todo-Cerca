@@ -12,6 +12,13 @@
         o negocio de la esquina
         <span class="h2-big">GRATIS</span>
       </h2>
+      <div style="text-align: center;">
+        <i
+          class="fas fa-question-circle far"
+          style="margin-left: 3px;"
+          matTooltip="Esta opción permite tomar tu dirección actual exacta, directo de la ubicación GPS del dispositivo."
+        ></i>
+      </div>
       <div class="hr-center background-color1"></div>
       <form [formGroup]="registerForm">
         <div class="col-2-equals">
@@ -202,12 +209,6 @@
                 #toggleTimepicker2
               ></ngx-material-timepicker>
             </div>
-            <!-- <input [owlDateTime]="dt2" placeholder="Seleccione el horario de cierre de su negocio"
-              [owlDateTimeTrigger]="dt2" formControlName="hourClose" />
-            <span class="trigger" style="cursor:pointer" [owlDateTimeTrigger]="dt2">
-              <i class="fas fa-clock"></i>
-            </span>
-            <owl-date-time #dt2 pickerType="timer"></owl-date-time> -->
             <span
               class="help-block"
               *ngIf="registerForm.hasError('hourGreatError', 'hourClose')"
@@ -293,7 +294,8 @@
 
         <div class="col-1">
           <label class="color3 background-color1 white" for="foto"
-            ><i class="fas fa-camera white"></i> Sube una foto de tu producto o servicio</label
+            ><i class="fas fa-camera white"></i> Sube una foto de tu producto o
+            servicio</label
           >
           <input
             type="file"
@@ -323,7 +325,13 @@
         <div class="col">
           <div style="display: inline-flex;">
             <label class="color3 center" for="useConditionCheck"
-              >Acepto las <a href="https://todosmascerca.com/politicas-de-uso" target="_blank">políticas de uso</a> de la plataforma</label
+              >Acepto las
+              <a
+                href="https://todosmascerca.com/politicas-de-uso"
+                target="_blank"
+                >políticas de uso</a
+              >
+              de la plataforma</label
             >
             <input
               type="checkbox"
@@ -333,7 +341,14 @@
             />
           </div>
         </div>
-        <span *ngIf="registerForm.hasError('isChecked', 'useConditions') || registerForm.get('useConditions').invalid" class="help-block">Debe aceptar las condiciones para poder registrarse!</span><br>
+        <span
+          *ngIf="
+            registerForm.hasError('isChecked', 'useConditions') ||
+            registerForm.get('useConditions').invalid
+          "
+          class="help-block"
+          >Debe aceptar las condiciones para poder registrarse!</span
+        ><br />
         <span class="help-block" *ngIf="registerForm.invalid"
           >*Debe llenar todos los campos para continuar con el registro</span
         >
