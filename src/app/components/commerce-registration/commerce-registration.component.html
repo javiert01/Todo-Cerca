@@ -166,8 +166,8 @@
                 type="text"
                 [ngxTimepicker]="toggleTimepicker"
                 formControlName="hourOpen"
-                [disableClick]="true"
-                [format]="24"
+                [disableClick]="false"
+                placeholder="Seleccionar"
                 readonly
               />
               <ngx-material-timepicker-toggle
@@ -189,10 +189,10 @@
             <div class="toggle-example" style="display: inline-flex;">
               <input
                 type="text"
+                placeholder="Seleccionar"
                 [ngxTimepicker]="toggleTimepicker2"
                 formControlName="hourClose"
-                [disableClick]="true"
-                [format]="24"
+                [disableClick]="false"
                 readonly
               />
               <ngx-material-timepicker-toggle
