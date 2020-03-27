@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 import { AppComponent } from './app.component';
@@ -21,6 +20,7 @@ import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.
 import { InstructionsComponent } from './components/instructions/instructions.component';
 import { RegisterBannerComponent } from './components/register-banner/register-banner.component';
 import { RegisterInfoComponent } from './components/register-info/register-info.component';
+import { UseConditionsComponent } from './components/use-conditions/use-conditions.component';
 
 /*  */
 
@@ -35,7 +35,8 @@ import { RegisterInfoComponent } from './components/register-info/register-info.
     QuienesSomosComponent,
     InstructionsComponent,
     RegisterBannerComponent,
-    RegisterInfoComponent
+    RegisterInfoComponent,
+    UseConditionsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +50,6 @@ import { RegisterInfoComponent } from './components/register-info/register-info.
     }),
     BrowserAnimationsModule,
     MatTooltipModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
     NgxMaterialTimepickerModule
   ],
   providers: [

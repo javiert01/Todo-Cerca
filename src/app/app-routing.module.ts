@@ -3,12 +3,14 @@ import { Routes, RouterModule } from "@angular/router";
 import { VerifyRegisterDataComponent } from "./components/verify-register-data/verify-register-data.component";
 import { ThankyouComponent } from "./components/thankyou/thankyou.component";
 import { CommerceRegistrationComponent } from "./components/commerce-registration/commerce-registration.component";
+import { UseConditionsComponent } from './components/use-conditions/use-conditions.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "registrar", pathMatch: "full" },
   { path: "registrar", component: CommerceRegistrationComponent },
   { path: "verificar", component: VerifyRegisterDataComponent },
-  { path: "gracias", component: ThankyouComponent }
+  { path: "gracias", component: ThankyouComponent },
+  { path: "politicas-de-uso", component: UseConditionsComponent }
 ];
 
 @NgModule({
@@ -16,3 +18,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
