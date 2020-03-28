@@ -65,6 +65,17 @@ agm-map {
   margin-left: 12px !important;
 }
 
+.title-icon {
+  margin-left: 20px !important;
+  color: black !important;
+  font-size: 20px !important;
+  margin-bottom: 5px;
+}
+
+.bottom {
+  padding-top: 10px;
+}
+
 .help-block {
   color: red;
   font-size: small;
