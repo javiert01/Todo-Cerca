@@ -3,21 +3,31 @@
 /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 						GLOBALES
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-						GLOBALES
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 *{
 	margin: 0;
 	padding: 0;
 	font-family: 'Roboto',sans-serif;
 }
+.only-mobile{
+	display: none!important;
+}
+.only-desktop{
+	display: block;
+}
+.ws-mobile{
+	display: none!important;
+}
+.ws-desktop{
+	display: flex;
+}
+.display-none{
+	display: none!important;
+}
 /*Tipogrfias*/
 .roboto{
 	font-family: 'Roboto',sans-serif;
 }
-.bebas{
-	font-family: 'Bebas Neue', sans-serif;
-}
+
 /*Anchos te fuente*/
 .regular{
 	font-weight: 400;
@@ -110,6 +120,9 @@ p{
 }
 .background-white{
 	background-color: #ffffff;
+}
+.background-grey{
+	background-color: #e8e8e8;
 }
 .background-disabled{
 	background-color: #d9d9d9;
@@ -204,11 +217,11 @@ img{
 	width: 50px;
 	height:50px;
 	border-radius: 50%;
-	font-size: 35px;
+	font-size: 25px;
 	text-decoration: none;
 	position: fixed;
 	bottom: 0;
-	right: 10px;
+	right: 20px;
 }
 .share-button{
 	height: 50px;

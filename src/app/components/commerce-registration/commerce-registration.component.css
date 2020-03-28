@@ -1,6 +1,9 @@
 #section-5-registro{
 	padding: 30px 10px;
 }
+#section-5-registro .hr-center {
+  margin: 20px auto !important;
+}
 #section-5-registro .form-container{
 	padding: 30px 20px;
 	border: 1px solid #029f7c;
