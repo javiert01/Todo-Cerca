@@ -9,15 +9,17 @@
         Registra tu local comercial
       </h2>
       <div style="display: inline-flex;">
-      <h2 class="color2 h2-small center bebas">
-        o negocio de la esquina
-        <span class="h2-big bottom">GRATIS <i
-          class="fas fa-question-circle fa-lg title-icon"
-          matTooltip="Esta es una plataforma de intercambio de bienes y servicios, evita hacer anuncios de compra y venta de bienes usados, servicios ocasionales o temas no relacionados con esta emergencia."
-        ></i></span>
-      </h2>
-
-    </div>
+        <h2 class="color2 h2-small center bebas">
+          o negocio de la esquina
+          <span class="h2-big bottom"
+            >GRATIS
+            <i
+              class="fas fa-question-circle fa-lg title-icon"
+              matTooltip="Esta es una plataforma de intercambio de bienes y servicios, evita hacer anuncios de compra y venta de bienes usados, servicios ocasionales o temas no relacionados con esta emergencia."
+            ></i
+          ></span>
+        </h2>
+      </div>
       <div class="hr-center background-color1"></div>
       <form [formGroup]="registerForm">
         <div class="col-2-equals">
@@ -289,6 +291,29 @@
             formControlName="commerceDescription"
             placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimentos y bebidas. (Máximo 90 caracteres)"
           ></textarea>
+        </div>
+        <div class="col-1">
+          <label class="color3"
+            >Ingresa tu correo electrónico de contacto:</label
+          >
+          <input
+            type="email"
+            placeholder="ejemplo@gmail.com"
+            formControlName="ownerEmail"
+          />
+          <span
+            class="help-block"
+            *ngIf="
+              registerForm.get('ownerEmail').errors?.required &&
+              registerForm.get('ownerEmail').touched
+            "
+            >*Campo Obligatorio</span
+          ><br />
+          <span
+            class="help-block"
+            *ngIf="registerForm.get('ownerEmail').errors?.email"
+            >*Ingrese una dirección de correo electronico válida</span
+          >
         </div>
 
         <div class="col-1">

@@ -16,7 +16,7 @@
 	margin-bottom: 5px;
 }
 #section-5-registro input[type=text],
-#section-5-registro input[type=time],
+#section-5-registro input[type=email],
 #section-5-registro textarea,
 #section-5-registro select{
 	border: 1px solid #029f7c;
