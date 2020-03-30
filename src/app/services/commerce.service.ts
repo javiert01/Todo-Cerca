@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { HOST } from "../shared/var.constants";
 import { Commerce } from "../models/commerce.model";
 
@@ -10,8 +10,15 @@ export class CommerceService {
   url = `${HOST}/commerces`;
   public commerce: Commerce;
   public commerceFormData = null;
+  httpOptions;
 
   constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    };
   }
 
   createNewCommerce(newCommerce) {
@@ -19,7 +26,7 @@ export class CommerceService {
   }
 
   getAllCommerces() {
-    return this.http.get<any>(`${this.url}/all`); 
+    return this.http.get<any>(`${this.url}/all`, this.httpOptions);
   }
 
   getCommerce() {

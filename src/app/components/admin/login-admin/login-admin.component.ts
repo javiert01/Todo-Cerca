@@ -37,6 +37,7 @@ export class LoginAdminComponent implements OnInit {
     this._auth.usuarioLogin(this.loginUserData).subscribe(
       res => {
         localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', 'Admin');
         this._router.navigate(['/inicio-admin']);
       },
       err => {
