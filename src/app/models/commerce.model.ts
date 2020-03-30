@@ -14,6 +14,7 @@ export class Commerce {
   location: any;
   reference: "string";
   commerceDescription: "string";
+  ownerEmail: "string";
   category: "string";
 
   constructor(
@@ -32,6 +33,7 @@ export class Commerce {
     location,
     reference,
     commerceDescription,
+    ownerEmail,
     category
   ) {
     this.ownerName = ownerName;
@@ -49,6 +51,7 @@ export class Commerce {
     this.location = location;
     this.reference = reference;
     this.commerceDescription = commerceDescription;
+    this.ownerEmail = ownerEmail;
     this.category = category;
   }
 }

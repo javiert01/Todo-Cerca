@@ -167,8 +167,6 @@ export class CommerceRegistrationComponent implements OnInit {
         this.onCheckGreaterTime.bind(this)
       ]),
       city: new FormControl('', Validators.required),
-      /* province: new FormControl(null, Validators.required),
-      neighborhood: new FormControl(null, Validators.required), */
       address: new FormControl(null, Validators.required),
       lng: new FormControl(null),
       ltd: new FormControl(null),
@@ -177,7 +175,15 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.required,
         Validators.maxLength(90)
       ]),
-      useConditions: new FormControl(false, Validators.required, this.isChecked.bind(this))
+      ownerEmail: new FormControl(null, [
+        Validators.required,
+        Validators.email
+      ]),
+      useConditions: new FormControl(
+        false,
+        Validators.required,
+        this.isChecked.bind(this)
+      )
     });
 
     if (this.commerceService.commerceFormData) {
@@ -264,6 +270,8 @@ export class CommerceRegistrationComponent implements OnInit {
         case 'useConditions':
           controls[i] = 'Políticas de uso';
           break;
+        case 'ownerEmail':
+          controls[i] = 'Correo electrónico';
       }
     }
   }
@@ -292,8 +300,8 @@ export class CommerceRegistrationComponent implements OnInit {
 
   isChecked(control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise<any>((resolve, reject) => {
-    if (this.registerForm.get('useConditions').value !== true) {
-        resolve({'isChecked': true});
+      if (this.registerForm.get('useConditions').value !== true) {
+        resolve({ isChecked: true });
       } else {
         resolve(null);
       }
@@ -303,8 +311,11 @@ export class CommerceRegistrationComponent implements OnInit {
 
   onCheckGreaterTime(control: FormControl): { [s: string]: boolean } {
     if (control.value && this.registerForm.get('hourOpen').value) {
-      if (this.minutesOfDay(control.value) < this.minutesOfDay(this.registerForm.get('hourOpen').value)) {
-        return {hourGreatError: true};
+      if (
+        this.minutesOfDay(control.value) <
+        this.minutesOfDay(this.registerForm.get('hourOpen').value)
+      ) {
+        return { hourGreatError: true };
       }
     }
     return null;
@@ -312,8 +323,11 @@ export class CommerceRegistrationComponent implements OnInit {
 
   onCheckLesserTime(control: FormControl): { [s: string]: boolean } {
     if (control.value && this.registerForm.get('hourClose').value) {
-      if (this.minutesOfDay(control.value) > this.minutesOfDay(this.registerForm.get('hourClose').value)) {
-        return {hourLessError: true};
+      if (
+        this.minutesOfDay(control.value) >
+        this.minutesOfDay(this.registerForm.get('hourClose').value)
+      ) {
+        return { hourLessError: true };
       }
     }
     return null;
@@ -328,7 +342,7 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   convertTime12to24(time12h) {
-   const [time, modifier] = time12h.split(' ');
+    const [time, modifier] = time12h.split(' ');
 
     let [hours, minutes] = time.split(':');
 
@@ -342,7 +356,6 @@ export class CommerceRegistrationComponent implements OnInit {
 
     return `${hours}:${minutes}`;
   }
-
 
   onSetCityMap(city) {
     console.log('changing city', city);
@@ -462,6 +475,7 @@ export class CommerceRegistrationComponent implements OnInit {
       },
       reference: this.registerForm.get('reference').value,
       commerceDescription: this.registerForm.get('commerceDescription').value,
+      ownerEmail: this.registerForm.get('ownerEmail').value,
       acceptTermsConditions: true
     };
     this.commerceService.setCommerceFormData(this.registerForm.value);

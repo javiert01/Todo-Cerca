@@ -254,6 +254,46 @@ img{
 	}
 }
 @media only screen and (max-width: 550px){
+	/*Tamaños de fuente*/
+	h1{
+		font-size: 35px;
+		line-height: 40px;
+	}
+
+	h2{
+		font-size: 30px;
+		line-height: 35px;
+	}
+	.h2-small{
+		font-size: 25px!important;
+	}
+	.h2-big{
+		font-size: 35px;
+	}
+	h3{
+		font-size: 25px;
+		line-height: 30px;
+	}
+	h4{
+		font-size: 23px;
+		line-height: 28px;
+	}
+	h5{
+		font-size: 20px;
+		line-height: 25px;
+	}
+	h6{
+		font-size: 18px;
+		line-height: 23px;
+	}
+	p{
+		font-size: 13px;
+		line-height: 18px;
+	}
+	.p2{
+		font-size: 11px;
+		line-height: 16px;
+	}
 	header .header-top .col-4-equals{
 		grid-template-columns: 1fr;
 	}
@@ -261,6 +301,12 @@ img{
 		display: block!important;
 	}
 	.only-desktop{
+		display: none;
+	}
+	.ws-mobile{
+		display: flex!important;
+	}
+	.ws-desktop{
 		display: none;
 	}
 	#section-1-registro .col-2-equals{

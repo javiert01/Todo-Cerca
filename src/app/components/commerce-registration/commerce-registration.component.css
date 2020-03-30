@@ -1,6 +1,9 @@
 #section-5-registro{
 	padding: 30px 10px;
 }
+#section-5-registro .hr-center {
+  margin: 20px auto !important;
+}
 #section-5-registro .form-container{
 	padding: 30px 20px;
 	border: 1px solid #029f7c;
@@ -13,7 +16,7 @@
 	margin-bottom: 5px;
 }
 #section-5-registro input[type=text],
-#section-5-registro input[type=time],
+#section-5-registro input[type=email],
 #section-5-registro textarea,
 #section-5-registro select{
 	border: 1px solid #029f7c;
@@ -60,6 +63,17 @@ agm-map {
 
 .fa-question-circle {
   margin-left: 12px !important;
+}
+
+.title-icon {
+  margin-left: 20px !important;
+  color: black !important;
+  font-size: 20px !important;
+  margin-bottom: 5px;
+}
+
+.bottom {
+  padding-top: 10px;
 }
 
 .help-block {
