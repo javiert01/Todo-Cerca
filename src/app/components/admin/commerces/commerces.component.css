@@ -90,7 +90,7 @@ header {
   justify-content: space-between;
   display: flex;
   flex-direction: row;
-  width: 100%;
+  padding: 25px;
 }
 
 .main-nav {
