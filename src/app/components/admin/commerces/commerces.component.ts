@@ -20,7 +20,7 @@ export class CommercesComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    this.commerceService.getAllCommerces().subscribe(data => {
+   /*  this.commerceService.getAllCommerces().subscribe(data => {
       this.commerceList = data;
       if (this.commerceList.length > 0) {
         // tslint:disable-next-line: forin
@@ -30,7 +30,7 @@ export class CommercesComponent implements OnInit {
         this.translateTitleList(this.titlesList);
         console.log(this.titlesList);
       }
-    });
+    }); */
   }
 
   translateTitleList(titleList) {
