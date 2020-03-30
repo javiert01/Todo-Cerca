@@ -10,20 +10,25 @@ import { AuthService } from 'src/app/services/auth.service';
 export class CommercesComponent implements OnInit {
   commerceList = [];
   titlesList = [];
+  fecha;
 
   constructor(private commerceService: CommerceService,
-              private authService: AuthService) {}
+              private authService: AuthService) {
+                setInterval(() => {
+                  this.fecha = new Date();
+                }, 1000);
+              }
 
   ngOnInit(): void {
     this.commerceService.getAllCommerces().subscribe(data => {
-      console.log(data);
-      this.commerceList = Array(data);
+      this.commerceList = data;
       if (this.commerceList.length > 0) {
         // tslint:disable-next-line: forin
         for (const key in this.commerceList[0]) {
           this.titlesList.push(key);
         }
         this.translateTitleList(this.titlesList);
+        console.log(this.titlesList);
       }
     });
   }
@@ -81,7 +86,6 @@ export class CommercesComponent implements OnInit {
   }
 
   parseDates(miliseconds) {
-    console.log(miliseconds);
     return new Date(miliseconds);
   }
 

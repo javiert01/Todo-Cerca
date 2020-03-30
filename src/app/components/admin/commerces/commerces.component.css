@@ -4,6 +4,7 @@
 
 table {
   width: 100% !important;
+  border-collapse: collapse;
 }
 
 table.center {
@@ -11,14 +12,37 @@ table.center {
   margin-right: auto;
 }
 
-.btn-outline-phoy-active {
-  background-color: #56358a;
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #2e4a5c;
   color: white;
 }
 
-.btn-outline-shoy-active {
-  background-color: #4fa9dc;
+.btn {
   color: white;
+  font-weight: bold;
+  padding: 10px;
+  margin: 8px;
+}
+
+.blue {
+  background-color: #2e4a5c;
+}
+
+.red {
+  background-color: red;
 }
 
 .btn-outline-sfuturo-active {
@@ -198,4 +222,9 @@ input {
 
 .color-verde {
   color: #86c449;
+}
+
+.table-image {
+  width: 150px;
+  height: 150px;
 }
