@@ -179,6 +179,7 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.required,
         Validators.email
       ]),
+      commercePhoto: new FormControl(null, Validators.required),
       useConditions: new FormControl(
         false,
         Validators.required,
@@ -272,6 +273,10 @@ export class CommerceRegistrationComponent implements OnInit {
           break;
         case 'ownerEmail':
           controls[i] = 'Correo electrónico';
+          break;
+        case 'commercePhoto':
+          controls[i] = 'Foto de tu local o producto';
+          break;
       }
     }
   }
