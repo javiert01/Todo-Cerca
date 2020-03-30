@@ -325,6 +325,7 @@
             type="file"
             name=""
             id="foto"
+            formControlName="commercePhoto"
             (change)="onFileChangedRecibo($event)"
           />
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
