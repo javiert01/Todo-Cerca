@@ -1,0 +1,77 @@
+h1 {
+  font-family: "Roboto", sans-serif !important;
+}
+
+.contenedor {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 100%;
+}
+
+header {
+  color: #2e4a5c;
+  /*border: 2px solid rgb(101, 205, 253);*/
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+}
+
+.main-nav {
+  display: flex;
+  list-style: none;
+}
+
+.icono {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+}
+
+form {
+  display: block;
+  margin-top: 0em;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.3rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input {
+  border: 0 !important;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid #2e4a5c !important;
+  overflow: visible;
+}
+
+.txt-esquina {
+  color: #2e4a5c;
+}
+
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingresar-btn {
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #2e4a5c;
+  cursor: pointer;
+}

@@ -1,0 +1,201 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+table {
+  width: 100% !important;
+}
+
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-outline-phoy-active {
+  background-color: #56358a;
+  color: white;
+}
+
+.btn-outline-shoy-active {
+  background-color: #4fa9dc;
+  color: white;
+}
+
+.btn-outline-sfuturo-active {
+  background-color: #94c15b;
+  color: white;
+}
+
+.top-left {
+  position: absolute;
+  top: 10px;
+  left: 34%;
+  font-weight: bold;
+}
+
+.top-left-asignado {
+  position: absolute;
+  top: 85%;
+  left: 13%;
+  font-weight: bold;
+  color: #56358a;
+}
+
+.top-left-now {
+  position: absolute;
+  top: 30px;
+  left: 32%;
+  font-weight: bold;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.btn-detalles {
+  background-color: #94c15b;
+  font-weight: bold;
+}
+
+.btn-asignar {
+  background-color: #56358a;
+  font-weight: bold;
+  color: white;
+}
+
+.btn-cancelar {
+  background-color: #e8514a;
+  font-weight: bold;
+  color: white;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif !important;
+}
+
+.contenedor {
+  display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  margin: 0 auto;
+  flex-direction: column;
+  width: 100%;
+}
+
+header {
+  color: #2e4a5c;
+  /*border: 2px solid rgb(101, 205, 253);*/
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.main-nav {
+  display: flex;
+  list-style: none;
+  margin-bottom: 0px;
+}
+
+.icono {
+  width: 40px;
+  height: 40px;
+  margin-left: 65px;
+  margin-top: 5px;
+}
+
+.icono-tabla {
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid rgb(101, 205, 253);
+}
+
+.txt-esquina {
+  color: rgb(147, 199, 89);
+}
+
+#wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingresar-btn {
+  padding: 10px;
+}
+
+.img-empresa {
+  width: 100%;
+  height: auto;
+  padding-bottom: 100px;
+}
+
+.image-container {
+  width: 150px;
+}
+
+.div-img {
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.bloque {
+  display: block;
+  height: 170px;
+}
+
+.inlineAt {
+  display: inline-block;
+}
+
+.cajaGrande {
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.cajaIntermedia {
+  /*width: 1420px;*/
+  margin-left: 17px;
+}
+
+.scrollNotificaciones {
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.nombreEmpresa {
+  margin-left: 30px;
+}
+
+.pad {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  height: auto;
+}
+
+.pad-5 {
+  padding-top: 5px;
+}
+
+.tamanio_img {
+  width: 60px;
+  height: 60px;
+}
+
+.cursorPnt {
+  cursor: pointer;
+}
+
+.color-verde {
+  color: #86c449;
+}
