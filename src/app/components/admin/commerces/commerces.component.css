@@ -30,11 +30,24 @@ th {
   color: white;
 }
 
+.category-container {
+  text-align: center;
+  margin: 20px;
+}
+
 .btn {
   color: white;
   font-weight: bold;
   padding: 10px;
   margin: 8px;
+}
+
+.btn-next {
+  color: black;
+  font-weight: bold;
+  margin: 0px;
+  padding: 15px 80px;
+  cursor: pointer;
 }
 
 .blue {
@@ -43,6 +56,11 @@ th {
 
 .red {
   background-color: red;
+}
+
+.grey {
+
+  background-color: lightgray;
 }
 
 .btn-outline-sfuturo-active {

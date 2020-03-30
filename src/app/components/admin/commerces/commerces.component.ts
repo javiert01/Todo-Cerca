@@ -20,17 +20,18 @@ export class CommercesComponent implements OnInit {
               }
 
   ngOnInit(): void {
-   /*  this.commerceService.getAllCommerces().subscribe(data => {
-      this.commerceList = data;
+    this.commerceService.getAllCommerces().subscribe(data => {
+      const dataArray = new Array(data);
+      this.commerceList = [...dataArray];
+      this.commerceList = this.commerceList[0];
       if (this.commerceList.length > 0) {
         // tslint:disable-next-line: forin
         for (const key in this.commerceList[0]) {
           this.titlesList.push(key);
         }
         this.translateTitleList(this.titlesList);
-        console.log(this.titlesList);
       }
-    }); */
+    });
   }
 
   translateTitleList(titleList) {

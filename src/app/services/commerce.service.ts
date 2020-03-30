@@ -26,7 +26,7 @@ export class CommerceService {
   }
 
   getAllCommerces() {
-    return this.http.get<any[]>(`${this.url}/all`, this.httpOptions);
+    return this.http.get(`${this.url}/all`, this.httpOptions);
   }
 
   getCommerce() {
