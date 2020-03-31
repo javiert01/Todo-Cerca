@@ -24,7 +24,14 @@ export class DownloadExcelDialogComponent implements OnInit {
     public commerceService: CommerceService,
     private dialogRef: MatDialogRef<DownloadExcelDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data
-  ) {}
+  ) {
+    this.allowed = data.allowed;
+    this.pageNumber = data.pageNumber;
+    this.category = data.category;
+    // console.log("this.allowed", this.allowed);
+    // console.log("this.pageNumber", this.pageNumber);
+    // console.log("this.category", this.category);
+  }
 
   ngOnInit(): void {}
   close() {
@@ -45,9 +52,9 @@ export class DownloadExcelDialogComponent implements OnInit {
       .subscribe();
   }
   downloadPage() {
-    this.allowed = false;
-    this.pageNumber = 1;
-    this.category = "all";
+    // this.allowed = false;
+    // this.pageNumber = 1;
+    // this.category = "all";
     this.commerceService
       .getAllCommerces(this.allowed, this.pageNumber, this.category)
       .pipe(

@@ -147,7 +147,11 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.autoFocus = true;
     configuracionDialog.height = "300px";
     configuracionDialog.width = "400px";
-    configuracionDialog.data = {};
+    configuracionDialog.data = {
+      allowed: this.allowed,
+      pageNumber: this.pageNumber,
+      category: this.categorySelected
+    };
     const dialogRef = this.dialog.open(
       DownloadExcelDialogComponent,
       configuracionDialog
