@@ -1,45 +1,81 @@
-import { Component, OnInit } from '@angular/core';
-import { CommerceService } from 'src/app/services/commerce.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { CategoryService } from 'src/app/services/category.service';
-
+import { Component, OnInit } from "@angular/core";
+import { CommerceService } from "src/app/services/commerce.service";
+import { AuthService } from "src/app/services/auth.service";
+import { CategoryService } from "src/app/services/category.service";
+import { FileService } from "src/app/services/file.service";
+import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
+import { DownloadExcelDialogComponent } from "../../admin/download-excel-dialog/download-excel-dialog.component";
 @Component({
-  selector: 'app-commerces',
-  templateUrl: './commerces.component.html',
-  styleUrls: ['./commerces.component.css']
+  selector: "app-commerces",
+  templateUrl: "./commerces.component.html",
+  styleUrls: ["./commerces.component.css"]
 })
 export class CommercesComponent implements OnInit {
+  //=============================================================
+  data: any = [
+    {
+      eid: "e101",
+      ename: "ravi",
+      esal: 1000
+    },
+    {
+      eid: "e102",
+      ename: "ram",
+      esal: 2000
+    },
+    {
+      eid: "e103",
+      ename: "rajesh",
+      esal: 3000
+    }
+  ];
+  // ===============================================================
+
   commerceList = [];
   titlesList = [];
   fecha;
   allowed = true;
   pageNumber = 1;
-  categorySelected = 'all';
+  categorySelected = "all";
   commerceCategories = [];
 
-  constructor(private commerceService: CommerceService,
-              private authService: AuthService,
-              private categoryService: CategoryService) {
-                setInterval(() => {
-                  this.fecha = new Date();
-                }, 1000);
-              }
+  fileName = "...";
+
+  constructor(
+    private commerceService: CommerceService,
+    private authService: AuthService,
+    private fileService: FileService,
+    private categoryService: CategoryService,
+    private dialog: MatDialog
+  ) {
+    setInterval(() => {
+      this.fecha = new Date();
+    }, 1000);
+  }
+
+  //================================================================
+  exportAsXLSX(): void {
+    this.fileService.exportAsExcelFile(this.data, "sample");
+  }
+  //================================================================
 
   ngOnInit(): void {
     this.loadCategoryData();
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected).subscribe(data => {
-      console.log(data);
-      const dataArray = new Array(data['commercesPaginated']);
-      this.commerceList = [...dataArray];
-      this.commerceList = this.commerceList[0];
-      if (this.commerceList.length > 0) {
-        // tslint:disable-next-line: forin
-        for (const key in this.commerceList[0]) {
-          this.titlesList.push(key);
+    this.commerceService
+      .getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
+      .subscribe(data => {
+        console.log(data);
+        const dataArray = new Array(data["commercesPaginated"]);
+        this.commerceList = [...dataArray];
+        this.commerceList = this.commerceList[0];
+        if (this.commerceList.length > 0) {
+          // tslint:disable-next-line: forin
+          for (const key in this.commerceList[0]) {
+            this.titlesList.push(key);
+          }
+          this.translateTitleList(this.titlesList);
         }
-        this.translateTitleList(this.titlesList);
-      }
-    });
+      });
   }
 
   loadCategoryData() {
@@ -50,61 +86,62 @@ export class CommercesComponent implements OnInit {
 
   onSetAllowed(flag) {
     this.allowed = flag;
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
-    .subscribe((data) => {
-      const dataArray = new Array(data['commercesPaginated']);
-      this.commerceList = [...dataArray];
-      this.commerceList = this.commerceList[0];
-    });
+    this.commerceService
+      .getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
+      .subscribe(data => {
+        const dataArray = new Array(data["commercesPaginated"]);
+        this.commerceList = [...dataArray];
+        this.commerceList = this.commerceList[0];
+      });
   }
 
   translateTitleList(titleList) {
     for (let i = 0; i < titleList.length; i++) {
       switch (titleList[i]) {
-        case 'ownerName':
-          titleList[i] = 'Nombre';
+        case "ownerName":
+          titleList[i] = "Nombre";
           break;
-        case 'ownerLastName':
-          titleList[i] = 'Apellido';
+        case "ownerLastName":
+          titleList[i] = "Apellido";
           break;
-        case 'phone':
-          titleList[i] = 'Télefono Celular';
+        case "phone":
+          titleList[i] = "Télefono Celular";
           break;
-        case 'commerceName':
-          titleList[i] = 'Nombre del comercio';
+        case "commerceName":
+          titleList[i] = "Nombre del comercio";
           break;
-        case 'category':
-          titleList[i] = 'Categoría';
+        case "category":
+          titleList[i] = "Categoría";
           break;
-        case 'frecuency':
-          titleList[i] = 'Días de apertura';
+        case "frecuency":
+          titleList[i] = "Días de apertura";
           break;
-        case 'hourOpen':
-          titleList[i] = 'Horario de apertura';
+        case "hourOpen":
+          titleList[i] = "Horario de apertura";
           break;
-        case 'hourClose':
-          titleList[i] = 'Horario de cierre';
+        case "hourClose":
+          titleList[i] = "Horario de cierre";
           break;
-        case 'city':
-          titleList[i] = 'Ciudad';
+        case "city":
+          titleList[i] = "Ciudad";
           break;
-        case 'address':
-          titleList[i] = 'Dirección exacta';
+        case "address":
+          titleList[i] = "Dirección exacta";
           break;
-        case 'reference':
-          titleList[i] = 'Referencia';
+        case "reference":
+          titleList[i] = "Referencia";
           break;
-        case 'commerceDescription':
-          titleList[i] = 'Breve descripción';
+        case "commerceDescription":
+          titleList[i] = "Breve descripción";
           break;
-        case 'createdAt':
-          titleList[i] = 'Fecha Registro';
+        case "createdAt":
+          titleList[i] = "Fecha Registro";
           break;
-        case 'commercePhoto':
-          titleList[i] = 'Foto';
+        case "commercePhoto":
+          titleList[i] = "Foto";
           break;
-        case 'showCommerce':
-          titleList[i] = 'Estatus';
+        case "showCommerce":
+          titleList[i] = "Estatus";
           break;
       }
     }
@@ -117,16 +154,29 @@ export class CommercesComponent implements OnInit {
   onSetCategory(category) {
     console.log(category);
     this.categorySelected = category;
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
-    .subscribe((data) => {
-      const dataArray = new Array(data['commercesPaginated']);
-      this.commerceList = [...dataArray];
-      this.commerceList = this.commerceList[0];
-    });
+    this.commerceService
+      .getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
+      .subscribe(data => {
+        const dataArray = new Array(data["commercesPaginated"]);
+        this.commerceList = [...dataArray];
+        this.commerceList = this.commerceList[0];
+      });
   }
 
   onLogout() {
-    this.authService.logoutUser(localStorage.getItem('rol'));
+    this.authService.logoutUser(localStorage.getItem("rol"));
   }
 
+  openDialogDownloadExcel() {
+    const configuracionDialog = new MatDialogConfig();
+    configuracionDialog.disableClose = true;
+    configuracionDialog.autoFocus = true;
+    configuracionDialog.height = "300px";
+    configuracionDialog.width = "400px";
+    configuracionDialog.data = {};
+    const dialogRef = this.dialog.open(
+      DownloadExcelDialogComponent,
+      configuracionDialog
+    );
+  }
 }

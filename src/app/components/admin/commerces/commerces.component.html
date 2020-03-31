@@ -1,18 +1,9 @@
 <div class="contenedor">
   <header>
-    <img
-      src="assets/01-logo-color.svg"
-      alt="TodosMasCerca"
-      style="width: 150px; height: 53px;"
-    />
+    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;" />
     <ul class="main-nav">
       <li class="nav-item">
-        <a
-          class="nav-link cursorPnt"
-          style="font-size: 25px; margin-left: 5px;"
-          (click)="onLogout()"
-          >Log Out</a
-        >
+        <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
       </li>
     </ul>
   </header>
@@ -32,27 +23,25 @@
     <h4 class="color3">Administrar Comercios:</h4>
   </div>
   <div class="category-container">
-    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}" (click)="onSetAllowed(true)">Cargados</button>
-    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En Revisión</button>
+    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}"
+      (click)="onSetAllowed(true)">Cargados</button>
+    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En
+      Revisión</button>
   </div>
   <div class="category-container">
     <label class="color3">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
-      <option
-        [ngValue]="category"
-        *ngFor="let category of commerceCategories"
-        >{{ category }}</option
-      >
+      <option [ngValue]="category" *ngFor="let category of commerceCategories">{{ category }}</option>
     </select>
   </div>
   <table>
     <tr>
-      <th> Seleccionar Todos <input type="checkbox"/></th>
+      <th> Seleccionar Todos <input type="checkbox" /></th>
       <th *ngFor="let title of titlesList">{{ title }}</th>
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
-      <td><input type="checkbox"/></td>
+      <td><input type="checkbox" /></td>
       <td>{{ parseDates(commerce?.createdAt) | date: "shortDate" }}</td>
       <td>{{ i + 1 }}</td>
       <td>{{ commerce.ownerName }}</td>
@@ -74,3 +63,7 @@
   <button class="red btn">Eliminar</button>
 </div>
 
+<div style="text-align: right;">
+  <button class="blue btn" (click)="openDialogDownloadExcel()">Descargar Excel</button>
+
+</div>

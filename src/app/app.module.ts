@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AgmCoreModule } from "@agm/core";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatDialogModule } from "@angular/material/dialog";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 import { AppComponent } from "./app.component";
@@ -24,7 +25,8 @@ import { UseConditionsComponent } from "./components/use-conditions/use-conditio
 import { LoginAdminComponent } from "./components/admin/login-admin/login-admin.component";
 import { CommercesComponent } from "./components/admin/commerces/commerces.component";
 import { AuthService } from "./services/auth.service";
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { TokenInterceptorService } from "./services/token-interceptor.service";
+import { DownloadExcelDialogComponent } from "./components/admin/download-excel-dialog/download-excel-dialog.component";
 
 /*  */
 
@@ -42,7 +44,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     RegisterInfoComponent,
     UseConditionsComponent,
     LoginAdminComponent,
-    CommercesComponent
+    CommercesComponent,
+    DownloadExcelDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     }),
     BrowserAnimationsModule,
     MatTooltipModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,
@@ -66,6 +70,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DownloadExcelDialogComponent]
 })
 export class AppModule {}
