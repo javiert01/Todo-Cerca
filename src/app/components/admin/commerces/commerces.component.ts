@@ -35,7 +35,9 @@ export class CommercesComponent implements OnInit {
       if (this.commerceList.length > 0) {
         // tslint:disable-next-line: forin
         for (const key in this.commerceList[0]) {
-          this.titlesList.push(key);
+          if(key !== 'idAux' && key !== 'showCommerce') {
+            this.titlesList.push(key);
+          }
         }
         this.translateTitleList(this.titlesList);
       }
@@ -46,6 +48,10 @@ export class CommercesComponent implements OnInit {
     this.categoryService.getCategoryList().subscribe((data: any) => {
       this.commerceCategories = data;
     });
+  }
+
+  orderTitleList(titleList) {
+    
   }
 
   onSetAllowed(flag) {
