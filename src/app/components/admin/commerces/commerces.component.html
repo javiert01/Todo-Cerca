@@ -48,29 +48,40 @@
   </div>
   <table>
     <tr>
-      <th> Seleccionar Todos <input type="checkbox"/></th>
+      <th> Seleccionar Todos <input type="checkbox" (change)="onSelectAll($event.target.checked)"/></th>
       <th *ngFor="let title of titlesList">{{ title }}</th>
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
-      <td><input type="checkbox"/></td>
-      <td>{{ parseDates(commerce?.createdAt) | date: "shortDate" }}</td>
-      <td>{{ i + 1 }}</td>
+      <td><input type="checkbox" [value]="commerce.id" (change)="onCheckCommerce($event.target)" [checked]="isCommerceSelectedList[i]"/></td>
+      <td>{{ commerce.idAux }}</td>
+      <td>{{ commerce.category.commerceCategory }}</td>
+      <td>{{ commerce.commerceName }}</td>
+      <td>{{ commerce.city }}</td>
+      <td>{{ commerce.address }}</td>
+      <td>{{ commerce.hourOpen }}</td>
+      <td>{{ commerce.hourClose }}</td>
       <td>{{ commerce.ownerName }}</td>
       <td>{{ commerce.ownerLastName }}</td>
       <td>{{ commerce.phone }}</td>
-      <td>{{ commerce.commerceName }}</td>
+      <td>{{ commerce.ownerEmail }}</td>
       <td><img class="table-image" [src]="commerce.commercePhoto" alt="" /></td>
-      <td>{{ commerce.hourOpen }}</td>
-      <td>{{ commerce.hourClose }}</td>
-      <td>{{ commerce.city }}</td>
-      <td>{{ commerce.address }}</td>
-      <td>{{ commerce.showCommerce }}</td>
-      <td>{{ commerce.category.commerceCategory }}</td>
+      <td>{{ parseDates(commerce?.createdAt) | date: "shortDate" }}</td>
     </tr>
   </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item" *ngIf="numeroPaginas > 1" (click)="navigateToPage('atras')"><a class="page-link" >Anterior</a></li>
+      <li class="page-item" *ngFor="let pagina of listaNumeroPaginas; let i = index" (click)="getNextServicios(pagina)">
+        <a class="page-link" [ngClass]="{ 'a-selected': listaPaginasSelected[i],
+        'page-link': !listaPaginasSelected[i] }">{{pagina}}</a>
+      </li>
+      <li class="page-item" *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length" (click)="navigateToPage('adelante')"><a class="page-link" >Siguiente</a></li>
+    </ul>
+  </nav>
+  <div style="text-align: right;">
+    <button class="blue btn">Editar</button>
+    <button class="red btn">Eliminar</button>
+  </div>
 </div>
-<div style="text-align: right;">
-  <button class="blue btn">Editar</button>
-  <button class="red btn">Eliminar</button>
-</div>
+
 

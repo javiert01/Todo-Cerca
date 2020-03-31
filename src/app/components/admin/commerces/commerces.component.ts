@@ -13,9 +13,15 @@ export class CommercesComponent implements OnInit {
   titlesList = [];
   fecha;
   allowed = true;
-  pageNumber = 1;
   categorySelected = 'all';
   commerceCategories = [];
+  numeroPaginas = 1;
+  numeroItemsPorPagina = 15;
+  listaPaginasSelected = [];
+  listaNumeroPaginas = [];
+  currentPage = 1;
+  selectedCommercesID = [];
+  isCommerceSelectedList = [];
 
   constructor(private commerceService: CommerceService,
               private authService: AuthService,
@@ -27,20 +33,52 @@ export class CommercesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategoryData();
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected).subscribe(data => {
+    this.commerceService.getAllCommerces(this.allowed, this.currentPage, this.categorySelected).subscribe(data => {
       console.log(data);
       const dataArray = new Array(data['commercesPaginated']);
       this.commerceList = [...dataArray];
       this.commerceList = this.commerceList[0];
+      this.numeroPaginas = Math.ceil(
+        data['totalCommerces'] / this.numeroItemsPorPagina
+      );
+      for (let i = 0; i < this.numeroPaginas; i++) {
+        this.listaNumeroPaginas.push(i + 1);
+        this.listaPaginasSelected.push(false);
+      }
+      this.listaPaginasSelected[0] = true;
       if (this.commerceList.length > 0) {
         // tslint:disable-next-line: forin
         for (const key in this.commerceList[0]) {
-          if(key !== 'idAux' && key !== 'showCommerce') {
+          if (key !== 'idAux' && key !== 'showCommerce') {
             this.titlesList.push(key);
           }
         }
+        for (const commerce of this.commerceList) {
+          this.isCommerceSelectedList.push(false);
+        }
         this.translateTitleList(this.titlesList);
+        this.orderTitleList();
       }
+    });
+  }
+
+  loadCommerceList() {
+    this.listaNumeroPaginas = [];
+    this.listaPaginasSelected = [];
+    this.commerceService.getAllCommerces(this.allowed, this.currentPage, this.categorySelected).subscribe(data => {
+      console.log(data);
+      const dataArray = new Array(data['commercesPaginated']);
+      this.commerceList = [...dataArray];
+      this.commerceList = this.commerceList[0];
+      this.numeroPaginas = Math.ceil(
+        data['totalCommerces'] / this.numeroItemsPorPagina
+      );
+      for (let i = 0; i < this.numeroPaginas; i++) {
+        this.listaNumeroPaginas.push(i + 1);
+        this.listaPaginasSelected.push(false);
+      }
+      this.listaPaginasSelected[this.currentPage - 1] = true;
+      console.log(this.numeroPaginas);
     });
   }
 
@@ -50,31 +88,44 @@ export class CommercesComponent implements OnInit {
     });
   }
 
-  orderTitleList(titleList) {
-    
+  orderTitleList() {
+    this.swap(this.titlesList, 'id', this.titlesList[0]);
+    this.swap(this.titlesList, 'Categoría', this.titlesList[1]);
+    this.swap(this.titlesList, 'Nombre del comercio', this.titlesList[2]);
+    this.swap(this.titlesList, 'Ciudad', this.titlesList[3]);
+    this.swap(this.titlesList, 'Dirección', this.titlesList[4]);
+    this.swap(this.titlesList, 'Horario de apertura', this.titlesList[5]);
+    this.swap(this.titlesList, 'Horario de cierre', this.titlesList[6]);
+    this.swap(this.titlesList, 'Nombre Contacto', this.titlesList[7]);
+    this.swap(this.titlesList, 'Apellido Contacto', this.titlesList[8]);
+    this.swap(this.titlesList, 'Teléfono Contacto', this.titlesList[9]);
+    this.swap(this.titlesList, 'Mail Contacto', this.titlesList[10]);
+  }
+
+  swap(array, item1, item2) {
+    const idItem1 = array.indexOf(item1);
+    const idItem2 = array.indexOf(item2);
+    array[idItem1] = item2;
+    array[idItem2] = item1;
   }
 
   onSetAllowed(flag) {
+    this.currentPage = 1;
     this.allowed = flag;
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
-    .subscribe((data) => {
-      const dataArray = new Array(data['commercesPaginated']);
-      this.commerceList = [...dataArray];
-      this.commerceList = this.commerceList[0];
-    });
+    this.loadCommerceList();
   }
 
   translateTitleList(titleList) {
     for (let i = 0; i < titleList.length; i++) {
       switch (titleList[i]) {
         case 'ownerName':
-          titleList[i] = 'Nombre';
+          titleList[i] = 'Nombre Contacto';
           break;
         case 'ownerLastName':
-          titleList[i] = 'Apellido';
+          titleList[i] = 'Apellido Contacto';
           break;
         case 'phone':
-          titleList[i] = 'Télefono Celular';
+          titleList[i] = 'Teléfono Contacto';
           break;
         case 'commerceName':
           titleList[i] = 'Nombre del comercio';
@@ -95,7 +146,7 @@ export class CommercesComponent implements OnInit {
           titleList[i] = 'Ciudad';
           break;
         case 'address':
-          titleList[i] = 'Dirección exacta';
+          titleList[i] = 'Dirección';
           break;
         case 'reference':
           titleList[i] = 'Referencia';
@@ -109,9 +160,37 @@ export class CommercesComponent implements OnInit {
         case 'commercePhoto':
           titleList[i] = 'Foto';
           break;
-        case 'showCommerce':
-          titleList[i] = 'Estatus';
+        case 'ownerEmail':
+          titleList[i] = 'Mail Contacto';
           break;
+      }
+    }
+  }
+
+  getNextServicios(numeroPagina) {
+    this.currentPage = numeroPagina;
+    for (let i = 0; i < this.listaPaginasSelected.length; i++) {
+      if (i !== numeroPagina - 1) {
+        this.listaPaginasSelected[i] = false;
+      } else {
+        this.listaPaginasSelected[i] = true;
+      }
+    }
+    this.loadCommerceList();
+  }
+
+  navigateToPage(direction) {
+    if (direction === 'atras') {
+      if (this.currentPage === 1) {
+        return;
+      } else {
+        this.getNextServicios(this.currentPage - 1);
+      }
+    } else {
+      if (this.currentPage === this.listaNumeroPaginas.length) {
+        return;
+      } else {
+        this.getNextServicios(this.currentPage + 1);
       }
     }
   }
@@ -121,14 +200,39 @@ export class CommercesComponent implements OnInit {
   }
 
   onSetCategory(category) {
-    console.log(category);
+    this.currentPage = 1;
     this.categorySelected = category;
-    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
-    .subscribe((data) => {
-      const dataArray = new Array(data['commercesPaginated']);
-      this.commerceList = [...dataArray];
-      this.commerceList = this.commerceList[0];
-    });
+    this.loadCommerceList();
+  }
+
+  onCheckCommerce(target) {
+    if (target.checked) {
+      if (this.selectedCommercesID.find(element => element === target.value)) {
+        return;
+      } else {
+        this.selectedCommercesID.push(target.value);
+      }
+    } else {
+      if (this.selectedCommercesID.find(element => element === target.value)) {
+        const targetIndex = this.selectedCommercesID.indexOf(target.value);
+        this.selectedCommercesID.splice(targetIndex, 1);
+      } else {
+        return;
+      }
+    }
+    console.log(this.selectedCommercesID);
+  }
+
+  onSelectAll(flag){
+    if(flag) {
+      for(let i = 0; i < this.isCommerceSelectedList.length; i++){
+        this.isCommerceSelectedList[i] = true;
+      }
+    }else {
+      for(let i = 0; i < this.isCommerceSelectedList.length; i++){
+        this.isCommerceSelectedList[i] = false;
+      }
+    }
   }
 
   onLogout() {
