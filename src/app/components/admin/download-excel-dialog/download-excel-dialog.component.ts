@@ -36,7 +36,7 @@ export class DownloadExcelDialogComponent implements OnInit {
       .getAllCommercesNoPagination()
       .pipe(
         tap(content => {
-          console.log("Contenido: ", content);
+          // console.log("Contenido: ", content);
           this.commercesBeforePrint = content["commerces"];
           this.constructCommercePrint();
           this.exportAsXLSX();
@@ -66,7 +66,7 @@ export class DownloadExcelDialogComponent implements OnInit {
     this.commercesBeforePrint.forEach(comm => {
       // console.log("Commercio: ", comm);
       comm.category = comm["category"]["commerceCategory"];
-      console.log("Commercio: ", comm);
+      // console.log("Commercio: ", comm);
       this.dataCommerces.push(comm);
     });
   }

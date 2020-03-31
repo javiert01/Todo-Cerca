@@ -11,26 +11,6 @@ import { DownloadExcelDialogComponent } from "../../admin/download-excel-dialog/
   styleUrls: ["./commerces.component.css"]
 })
 export class CommercesComponent implements OnInit {
-  //=============================================================
-  data: any = [
-    {
-      eid: "e101",
-      ename: "ravi",
-      esal: 1000
-    },
-    {
-      eid: "e102",
-      ename: "ram",
-      esal: 2000
-    },
-    {
-      eid: "e103",
-      ename: "rajesh",
-      esal: 3000
-    }
-  ];
-  // ===============================================================
-
   commerceList = [];
   titlesList = [];
   fecha;
@@ -52,12 +32,6 @@ export class CommercesComponent implements OnInit {
       this.fecha = new Date();
     }, 1000);
   }
-
-  //================================================================
-  exportAsXLSX(): void {
-    this.fileService.exportAsExcelFile(this.data, "sample");
-  }
-  //================================================================
 
   ngOnInit(): void {
     this.loadCategoryData();
