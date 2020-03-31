@@ -248,7 +248,7 @@ input {
   height: 150px;
 }
 
-ul {
+.pagination {
   list-style-type: none;
   width: 300px;
   display: inline-flex;

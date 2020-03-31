@@ -52,6 +52,8 @@ export class CommerceRegistrationComponent implements OnInit {
   ];
 
   cities = [
+    'Quito',
+    'Guayaquil',
     'Cuenca',
     'Guaranda',
     'Azogues',
@@ -61,7 +63,6 @@ export class CommerceRegistrationComponent implements OnInit {
     'Machala',
     'Esmeraldas',
     'Puerto Baquerizo Moreno',
-    'Guayaquil',
     'Ibarra',
     'Loja',
     'Babahoyo',
@@ -70,7 +71,6 @@ export class CommerceRegistrationComponent implements OnInit {
     'Tena',
     'Francisco de Orellana',
     'Puyo',
-    'Quito',
     'Santa Elena',
     'Santo Domingo',
     'Nueva Loja',
