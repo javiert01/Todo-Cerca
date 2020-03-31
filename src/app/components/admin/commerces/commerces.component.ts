@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommerceService } from 'src/app/services/commerce.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-commerces',
@@ -11,17 +12,24 @@ export class CommercesComponent implements OnInit {
   commerceList = [];
   titlesList = [];
   fecha;
+  allowed = true;
+  pageNumber = 1;
+  categorySelected = 'all';
+  commerceCategories = [];
 
   constructor(private commerceService: CommerceService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private categoryService: CategoryService) {
                 setInterval(() => {
                   this.fecha = new Date();
                 }, 1000);
               }
 
   ngOnInit(): void {
-    this.commerceService.getAllCommerces().subscribe(data => {
-      const dataArray = new Array(data);
+    this.loadCategoryData();
+    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected).subscribe(data => {
+      console.log(data);
+      const dataArray = new Array(data['commercesPaginated']);
       this.commerceList = [...dataArray];
       this.commerceList = this.commerceList[0];
       if (this.commerceList.length > 0) {
@@ -31,6 +39,22 @@ export class CommercesComponent implements OnInit {
         }
         this.translateTitleList(this.titlesList);
       }
+    });
+  }
+
+  loadCategoryData() {
+    this.categoryService.getCategoryList().subscribe((data: any) => {
+      this.commerceCategories = data;
+    });
+  }
+
+  onSetAllowed(flag) {
+    this.allowed = flag;
+    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
+    .subscribe((data) => {
+      const dataArray = new Array(data['commercesPaginated']);
+      this.commerceList = [...dataArray];
+      this.commerceList = this.commerceList[0];
     });
   }
 
@@ -88,6 +112,17 @@ export class CommercesComponent implements OnInit {
 
   parseDates(miliseconds) {
     return new Date(miliseconds);
+  }
+
+  onSetCategory(category) {
+    console.log(category);
+    this.categorySelected = category;
+    this.commerceService.getAllCommerces(this.allowed, this.pageNumber, this.categorySelected)
+    .subscribe((data) => {
+      const dataArray = new Array(data['commercesPaginated']);
+      this.commerceList = [...dataArray];
+      this.commerceList = this.commerceList[0];
+    });
   }
 
   onLogout() {

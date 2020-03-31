@@ -25,8 +25,8 @@ export class CommerceService {
     return this.http.post<any>(`${this.url}/create`, newCommerce);
   }
 
-  getAllCommerces() {
-    return this.http.get(`${this.url}/all`, this.httpOptions);
+  getAllCommerces(allowed, pageNumber, category) {
+    return this.http.get<any>(`${this.url}/all?allowed=${allowed}&pageNumber=${pageNumber}&category=${category}`, this.httpOptions);
   }
 
   getCommerce() {

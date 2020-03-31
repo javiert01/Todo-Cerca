@@ -36,7 +36,6 @@ th {
 }
 
 .btn {
-  color: white;
   font-weight: bold;
   padding: 10px;
   margin: 8px;
@@ -52,15 +51,17 @@ th {
 
 .blue {
   background-color: #2e4a5c;
+  color: white;
 }
 
 .red {
   background-color: red;
+  color: white;
 }
 
 .grey {
-
   background-color: lightgray;
+  opacity: 0.5;
 }
 
 .btn-outline-sfuturo-active {

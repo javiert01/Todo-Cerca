@@ -32,8 +32,19 @@
     <h4 class="color3">Administrar Comercios:</h4>
   </div>
   <div class="category-container">
-    <button class="btn-next grey">Cargados</button>
-    <button class="btn-next grey">En Revisión</button>
+    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}" (click)="onSetAllowed(true)">Cargados</button>
+    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En Revisión</button>
+  </div>
+  <div class="category-container">
+    <label class="color3">Seleccione Categoría</label>
+    <select (change)="onSetCategory($event.target.value)">
+      <option value="all">Todos</option>
+      <option
+        [ngValue]="category"
+        *ngFor="let category of commerceCategories"
+        >{{ category }}</option
+      >
+    </select>
   </div>
   <table>
     <tr>
