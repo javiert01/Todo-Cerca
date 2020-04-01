@@ -14,6 +14,12 @@ export class DownloadExcelDialogComponent implements OnInit {
   pageNumber;
   category;
 
+  selectedCommercesIndex = [];
+  selectedCommerces = [];
+  commerceList = [];
+  disableBtnPage;
+  disableBtnSelected;
+
   commercesBeforePrint = [];
   //=============================================================
   dataCommerces: any = [];
@@ -31,6 +37,19 @@ export class DownloadExcelDialogComponent implements OnInit {
     // console.log("this.allowed", this.allowed);
     // console.log("this.pageNumber", this.pageNumber);
     // console.log("this.category", this.category);
+    this.disableBtnPage = data.disableBtnPage;
+    this.selectedCommercesIndex = data.selectedCommercesID;
+    this.commerceList = data.commerceList;
+    this.disableBtns();
+    this.getCommecesFromIndex();
+    //  console.log("this.selectedCommercesIndex: ", this.selectedCommercesIndex);
+    //  console.log("this.commerceList: ", this.commerceList);
+  }
+
+  disableBtns() {
+    this.disableBtnSelected =
+      this.selectedCommercesIndex.length === 0 ? true : false;
+    this.disableBtnPage = this.commerceList.length === 0 ? true : false;
   }
 
   ngOnInit(): void {}
@@ -38,6 +57,26 @@ export class DownloadExcelDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  downloadSelected() {
+    this.commercesBeforePrint = this.selectedCommerces;
+    // console.log("this.selectedCommerces M: ", this.selectedCommerces);
+    // console.log("this.commercesBeforePrint: ", this.commercesBeforePrint);
+    this.constructCommercePrint();
+    this.exportAsXLSX();
+  }
+  downloadPage() {
+    this.commerceService
+      .getAllCommerces(this.allowed, this.pageNumber, this.category)
+      .pipe(
+        tap(content => {
+          // console.log("Contenido: ", content);
+          this.commercesBeforePrint = content["commercesPaginated"];
+          this.constructCommercePrint();
+          this.exportAsXLSX();
+        })
+      )
+      .subscribe();
+  }
   downloadAll() {
     this.commerceService
       .getAllCommercesNoPagination()
@@ -51,33 +90,28 @@ export class DownloadExcelDialogComponent implements OnInit {
       )
       .subscribe();
   }
-  downloadPage() {
-    // this.allowed = false;
-    // this.pageNumber = 1;
-    // this.category = "all";
-    this.commerceService
-      .getAllCommerces(this.allowed, this.pageNumber, this.category)
-      .pipe(
-        tap(content => {
-          // console.log("Contenido: ", content);
-          this.commercesBeforePrint = content["commercesPaginated"];
-          this.constructCommercePrint();
-          this.exportAsXLSX();
-        })
-      )
-      .subscribe();
-  }
-  downloadSelected() {}
 
   constructCommercePrint() {
     this.commercesBeforePrint.forEach(comm => {
-      // console.log("Commercio: ", comm);
+      console.log("Commercio: ", comm);
+      comm.createdAt = this.getFormatDate(comm["createdAt"]);
       comm.category = comm["category"]["commerceCategory"];
+      delete comm.id;
       // console.log("Commercio: ", comm);
       this.dataCommerces.push(comm);
     });
   }
   exportAsXLSX(): void {
     this.fileService.exportAsExcelFile(this.dataCommerces, "sample");
+  }
+  getCommecesFromIndex() {
+    this.selectedCommercesIndex.forEach(e => {
+      this.selectedCommerces.unshift(this.commerceList[e]);
+    });
+    // console.log("this.selectedCommerces: ", this.selectedCommerces);
+  }
+  getFormatDate(uDate) {
+    let date = new Date(uDate);
+    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
   }
 }

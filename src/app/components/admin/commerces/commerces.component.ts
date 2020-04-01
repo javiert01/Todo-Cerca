@@ -46,7 +46,7 @@ export class CommercesComponent implements OnInit {
     this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         const dataArray = new Array(data["commercesPaginated"]);
         this.commerceList = [...dataArray];
         this.commerceList = this.commerceList[0];
@@ -138,7 +138,7 @@ export class CommercesComponent implements OnInit {
         case "ownerName":
           titleList[i] = "Nombre Contacto";
           break;
-          case "ownerLastName":
+        case "ownerLastName":
           titleList[i] = "Apellido Contacto";
           break;
         case "commerceName":
@@ -225,6 +225,7 @@ export class CommercesComponent implements OnInit {
       if (this.selectedCommercesID.find(element => element === target.value)) {
         return;
       } else {
+        console.log("target: ", target.value);
         this.selectedCommercesID.push(target.value);
       }
     } else {
@@ -273,7 +274,10 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.data = {
       allowed: this.allowed,
       pageNumber: this.currentPage,
-      category: this.categorySelected
+      category: this.categorySelected,
+      // disable or not butons
+      commerceList: this.commerceList,
+      selectedCommercesID: this.selectedCommercesID
     };
     const dialogRef = this.dialog.open(
       DownloadExcelDialogComponent,
