@@ -130,6 +130,15 @@ export class CommercesComponent implements OnInit {
   translateTitleList(titleList) {
     for (let i = 0; i < titleList.length; i++) {
       switch (titleList[i]) {
+        case "phone":
+          titleList[i] = "Teléfono Contacto";
+          break;
+        case "ownerName":
+          titleList[i] = "Nombre Contacto";
+          break;
+          case "ownerLastName":
+          titleList[i] = "Apellido Contacto";
+          break;
         case "commerceName":
           titleList[i] = "Nombre del comercio";
           break;
@@ -139,6 +148,7 @@ export class CommercesComponent implements OnInit {
         case "frecuency":
           titleList[i] = "Días de apertura";
           break;
+        case "hourOpen":
           titleList[i] = "Horario de apertura";
           break;
         case "hourClose":
