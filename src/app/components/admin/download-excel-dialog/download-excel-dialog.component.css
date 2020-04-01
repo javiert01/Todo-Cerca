@@ -1,3 +1,8 @@
+.header {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .buttons {
   margin: auto;
   text-align: center;
@@ -8,6 +13,7 @@
   color: #fff;
   width: 80%;
   padding: 10px 0px;
+  cursor: pointer;
 }
 .div_cancelar {
   text-align: right;
@@ -16,4 +22,5 @@
   background-color: #ff0000;
   color: #fff;
   padding: 10px 10px;
+  cursor: pointer;
 }

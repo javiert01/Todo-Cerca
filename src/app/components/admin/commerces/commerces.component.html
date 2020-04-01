@@ -37,11 +37,12 @@
   </div>
   <table>
     <tr>
-      <th> Seleccionar Todos <input type="checkbox" (change)="onSelectAll($event.target.checked)"/></th>
+      <th> Seleccionar Todos <input type="checkbox" (change)="onSelectAll($event.target.checked)" /></th>
       <th *ngFor="let title of titlesList">{{ title }}</th>
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
-      <td><input type="checkbox" [value]="commerce.id" (change)="onCheckCommerce($event.target)" [checked]="isCommerceSelectedList[i]"/></td>
+      <td><input type="checkbox" [value]="i" (change)="onCheckCommerce($event.target)"
+          [checked]="isCommerceSelectedList[i]" /></td>
       <td>{{ commerce.idAux }}</td>
       <td>{{ commerce.category.commerceCategory }}</td>
       <td>{{ commerce.commerceName }}</td>
@@ -59,12 +60,14 @@
   </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item" *ngIf="numeroPaginas > 1" (click)="navigateToPage('atras')"><a class="page-link" >Anterior</a></li>
+      <li class="page-item" *ngIf="numeroPaginas > 1" (click)="navigateToPage('atras')"><a
+          class="page-link">Anterior</a></li>
       <li class="page-item" *ngFor="let pagina of listaNumeroPaginas; let i = index" (click)="getNextServicios(pagina)">
         <a class="page-link" [ngClass]="{ 'a-selected': listaPaginasSelected[i],
         'page-link': !listaPaginasSelected[i] }">{{pagina}}</a>
       </li>
-      <li class="page-item" *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length" (click)="navigateToPage('adelante')"><a class="page-link" >Siguiente</a></li>
+      <li class="page-item" *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
+        (click)="navigateToPage('adelante')"><a class="page-link">Siguiente</a></li>
     </ul>
   </nav>
   <div style="text-align: right;">

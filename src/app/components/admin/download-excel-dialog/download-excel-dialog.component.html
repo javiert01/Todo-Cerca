@@ -1,12 +1,18 @@
 <div class="container">
-    <h5>Descarga de información</h5>
-    <h6>Opciones de exportación</h6>
+    <div class="header">
+        <h5>Descarga de información</h5>
+        <p>Opciones de exportación</p>
+    </div>
     <div class="buttons">
         <div>
-            <button class="btn"> Seleccionado </button>
+            <button class="btn" [disabled]="this.disableBtnSelected"
+                [ngStyle]="{opacity: !this.disableBtnSelected ? '1' : '0.5'}" (click)="downloadSelected()">
+                Seleccionado </button>
         </div>
         <div>
-            <button class="btn" (click)="downloadPage()"> Página Actual </button>
+            <button class="btn" [disabled]="this.disableBtnPage"
+                [ngStyle]="{opacity: !this.disableBtnPage ? '1' : '0.5'}" (click)="downloadPage()"> Página Actual
+            </button>
         </div>
         <div>
             <button class="btn" (click)="downloadAll()"> Todo </button>
