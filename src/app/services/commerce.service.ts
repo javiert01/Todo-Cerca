@@ -15,8 +15,8 @@ export class CommerceService {
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
       })
     };
   }
@@ -26,7 +26,14 @@ export class CommerceService {
   }
 
   getAllCommerces(allowed, pageNumber, category) {
-    return this.http.get<any>(`${this.url}/all?allowed=${allowed}&pageNumber=${pageNumber}&category=${category}`, this.httpOptions);
+    return this.http.get<any>(
+      `${this.url}/all?allowed=${allowed}&pageNumber=${pageNumber}&category=${category}`,
+      this.httpOptions
+    );
+  }
+
+  getAllCommercesNoPagination() {
+    return this.http.get<any>(`${this.url}/all/nopagination`, this.httpOptions);
   }
 
   getCommerce() {

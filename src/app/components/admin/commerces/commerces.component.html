@@ -1,18 +1,9 @@
 <div class="contenedor">
   <header>
-    <img
-      src="assets/01-logo-color.svg"
-      alt="TodosMasCerca"
-      style="width: 150px; height: 53px;"
-    />
+    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;" />
     <ul class="main-nav">
       <li class="nav-item">
-        <a
-          class="nav-link cursorPnt"
-          style="font-size: 25px; margin-left: 5px;"
-          (click)="onLogout()"
-          >Log Out</a
-        >
+        <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
       </li>
     </ul>
   </header>
@@ -32,18 +23,16 @@
     <h4 class="color3">Administrar Comercios:</h4>
   </div>
   <div class="category-container">
-    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}" (click)="onSetAllowed(true)">Cargados</button>
-    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En Revisión</button>
+    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}"
+      (click)="onSetAllowed(true)">Cargados</button>
+    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En
+      Revisión</button>
   </div>
   <div class="category-container">
     <label class="color3">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
-      <option
-        [ngValue]="category"
-        *ngFor="let category of commerceCategories"
-        >{{ category }}</option
-      >
+      <option [ngValue]="category" *ngFor="let category of commerceCategories">{{ category }}</option>
     </select>
   </div>
   <table>
@@ -85,3 +74,7 @@
 </div>
 
 
+<div style="text-align: right;">
+  <button class="blue btn" (click)="openDialogDownloadExcel()">Descargar Excel</button>
+
+</div>
