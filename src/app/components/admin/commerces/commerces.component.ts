@@ -44,7 +44,7 @@ export class CommercesComponent implements OnInit {
     this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         const dataArray = new Array(data["commercesPaginated"]);
         this.commerceList = [...dataArray];
         this.commerceList = this.commerceList[0];
