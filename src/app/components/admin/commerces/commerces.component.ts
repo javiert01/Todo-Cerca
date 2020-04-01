@@ -249,7 +249,7 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.width = "400px";
     configuracionDialog.data = {
       allowed: this.allowed,
-      pageNumber: this.pageNumber,
+      pageNumber: this.currentPage,
       category: this.categorySelected
     };
     const dialogRef = this.dialog.open(
