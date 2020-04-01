@@ -247,3 +247,28 @@ input {
   width: 150px;
   height: 150px;
 }
+
+.pagination {
+  list-style-type: none;
+  width: 300px;
+  display: inline-flex;
+}
+
+li {
+  padding: 10px;
+  overflow: auto;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.a-selected {
+  cursor: pointer;
+  position: relative;
+    display: block;
+    margin-left: -1px;
+    line-height: 1.25;
+    border: 1px solid #dee2e6;
+  background-color: lightgrey;
+}
