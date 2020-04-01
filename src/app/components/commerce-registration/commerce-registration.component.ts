@@ -51,7 +51,33 @@ export class CommerceRegistrationComponent implements OnInit {
     'Todos los días'
   ];
 
-  cities = ['Quito', 'Guayaquil'];
+  cities = [
+    'Quito',
+    'Guayaquil',
+    'Cuenca',
+    'Guaranda',
+    'Azogues',
+    'Tulcán',
+    'Riobamba',
+    'Latacunga',
+    'Machala',
+    'Esmeraldas',
+    'Puerto Baquerizo Moreno',
+    'Ibarra',
+    'Loja',
+    'Babahoyo',
+    'Portoviejo',
+    'Macas',
+    'Tena',
+    'Francisco de Orellana',
+    'Puyo',
+    'Santa Elena',
+    'Santo Domingo',
+    'Nueva Loja',
+    'Ambato',
+    'Zamora'
+  ];
+
 
   provinces = [
     'Azuay',
@@ -363,7 +389,11 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   onSetCityMap(city) {
-    console.log('changing city', city);
+    console.log(city);
+    if(city === '18: Francisco de Orellana') {
+      city = 'Orellana';
+    }
+    city = city + ', EC';
     const geocoder = new google.maps.Geocoder();
     const self = this;
     geocoder.geocode(
