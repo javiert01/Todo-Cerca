@@ -71,8 +71,9 @@
     </ul>
   </nav>
   <div style="text-align: right;">
-    <button class="blue btn">Editar</button>
-    <button class="red btn">Eliminar</button>
+    <button class="blue btn cursor-pointer">Editar</button>
+    <button class="green btn cursor-pointer" *ngIf="!allowed" (click)="openAllowCommerceDialog()">Cargar</button>
+    <button class="red btn cursor-pointer" (click)="openDeleteCommerceDialog()">Eliminar</button>
   </div>
 </div>
 

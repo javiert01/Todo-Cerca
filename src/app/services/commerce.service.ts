@@ -8,6 +8,7 @@ import { Commerce } from "../models/commerce.model";
 })
 export class CommerceService {
   url = `${HOST}/commerces`;
+  urlBlueprint = `${HOST}/commerce`;
   public commerce: Commerce;
   public commerceFormData = null;
   httpOptions;
@@ -23,6 +24,17 @@ export class CommerceService {
 
   createNewCommerce(newCommerce) {
     return this.http.post<any>(`${this.url}/create`, newCommerce);
+  }
+
+  deleteCommerce(commerceID) {
+    return this.http.delete<any>(`${this.urlBlueprint}/?id=${commerceID}`, this.httpOptions);
+  }
+
+  updateStatusCommerce(commerceID) {
+    const data = {
+      id: commerceID
+    };
+    return this.http.patch<any>(`${this.urlBlueprint}/update`, data ,this.httpOptions);
   }
 
   getAllCommerces(allowed, pageNumber, category) {

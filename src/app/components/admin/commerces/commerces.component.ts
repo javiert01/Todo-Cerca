@@ -5,6 +5,8 @@ import { CategoryService } from "src/app/services/category.service";
 import { FileService } from "src/app/services/file.service";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { DownloadExcelDialogComponent } from "../../admin/download-excel-dialog/download-excel-dialog.component";
+import { DeleteCommerceDialogComponent } from 'src/app/dialogs/delete-commerce-dialog/delete-commerce-dialog.component';
+import { AllowCommerceDialogComponent } from 'src/app/dialogs/allow-commerce-dialog/allow-commerce-dialog.component';
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
@@ -217,7 +219,8 @@ export class CommercesComponent implements OnInit {
     this.loadCommerceList();
   }
 
-  onCheckCommerce(target) {
+  onCheckCommerce(target, index) {
+    this.isCommerceSelectedList[index] = true;
     if (target.checked) {
       if (this.selectedCommercesID.find(element => element === target.value)) {
         return;
@@ -226,6 +229,7 @@ export class CommercesComponent implements OnInit {
         this.selectedCommercesID.push(target.value);
       }
     } else {
+      this.isCommerceSelectedList[index] = false;
       if (this.selectedCommercesID.find(element => element === target.value)) {
         const targetIndex = this.selectedCommercesID.indexOf(target.value);
         this.selectedCommercesID.splice(targetIndex, 1);
@@ -252,6 +256,15 @@ export class CommercesComponent implements OnInit {
     this.authService.logoutUser(localStorage.getItem("rol"));
   }
 
+  getSelectedCommerces(idArray) {
+    const selectedCommerces = [];
+    for(let i = 0; i < idArray.length; i++) {
+      selectedCommerces.push(this.commerceList[idArray[i]]);
+    }
+    console.log('selected commerces', selectedCommerces);
+    return selectedCommerces;
+  }
+
   openDialogDownloadExcel() {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
@@ -270,5 +283,49 @@ export class CommercesComponent implements OnInit {
       DownloadExcelDialogComponent,
       configuracionDialog
     );
+  }
+
+  openDeleteCommerceDialog() {
+    const configuracionDialog = new MatDialogConfig();
+    configuracionDialog.disableClose = true;
+    configuracionDialog.autoFocus = true;
+    configuracionDialog.height = "300px";
+    configuracionDialog.width = "400px";
+    configuracionDialog.data = {
+      commerces: this.getSelectedCommerces(this.selectedCommercesID)
+    };
+    const dialogRef = this.dialog.open(
+      DeleteCommerceDialogComponent,
+      configuracionDialog
+    );
+    dialogRef.afterClosed().subscribe((data) => {
+      if(data){
+        if(data.trim() === 'eliminado') {
+          this.loadCommerceList();
+        }
+      }
+    });
+  }
+
+  openAllowCommerceDialog() {
+    const configuracionDialog = new MatDialogConfig();
+    configuracionDialog.disableClose = true;
+    configuracionDialog.autoFocus = true;
+    configuracionDialog.height = "300px";
+    configuracionDialog.width = "400px";
+    configuracionDialog.data = {
+      commerces: this.getSelectedCommerces(this.selectedCommercesID)
+    };
+    const dialogRef = this.dialog.open(
+      AllowCommerceDialogComponent,
+      configuracionDialog
+    );
+    dialogRef.afterClosed().subscribe((data) => {
+      if(data){
+        if(data.trim() === 'allowed') {
+          this.loadCommerceList();
+        }
+      }
+    });
   }
 }

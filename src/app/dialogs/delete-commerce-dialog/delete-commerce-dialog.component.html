@@ -1,0 +1,62 @@
+<div *ngIf="commerces.length === 1">
+  <div *ngIf="eliminarSi == false" class="container">
+    <h5>Eliminar</h5>
+    <p>Está seguro que desea <strong>Eliminar</strong> a?</p>
+    <p>{{ commerces[0].commerceName }}</p>
+    <button
+      type="button"
+      class="btn btn-primary mx-2"
+      (click)="eliminarSiMethod()"
+    >
+      Si, Eliminar!
+    </button>
+    <button type="button" class="btn btn-danger mx-2" (click)="close()">
+      Cancelar
+    </button>
+  </div>
+
+  <div *ngIf="eliminarSi == true" class="container">
+    <h5>Eliminar</h5>
+    <p>Está seguro que desea <strong>Eliminar</strong> a?</p>
+    <p>
+      <strong>{{ commerces[0].commerceName }}</strong>
+    </p>
+    <p>Ingrese el nombre del comercio a continuación para eliminar</p>
+    <input
+      class="my-2"
+      type="text"
+      placeholder="Nombre de la empresa"
+      (keyup)="buscarEmpresa(buscarTexto.value)"
+      #buscarTexto
+    />
+    <br />
+    <button
+      type="button"
+      [disabled]="!activarBoton"
+      class="btn btn-primary mx-2"
+      (click)="eliminarEmpresa()"
+    >
+      Si, Eliminar!
+    </button>
+    <button type="button" class="btn btn-danger mx-2" (click)="close()">
+      Cancelar
+    </button>
+  </div>
+</div>
+<div *ngIf="commerces.length > 1">
+  <div *ngIf="eliminarSi == false" class="container">
+    <h5>Eliminar</h5>
+    <p>Está seguro que desea <strong>Eliminar</strong> a los siguientes comercios?</p>
+    <p *ngFor="let commerce of commerces">{{ commerce.commerceName }}</p>
+    <button
+      type="button"
+      class="btn btn-primary mx-2"
+      (click)="eliminarEmpresa()"
+    >
+      Si, Eliminar!
+    </button>
+    <button type="button" class="btn btn-danger mx-2" (click)="close()">
+      Cancelar
+    </button>
+  </div>
+</div>
