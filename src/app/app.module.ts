@@ -27,6 +27,8 @@ import { CommercesComponent } from "./components/admin/commerces/commerces.compo
 import { AuthService } from "./services/auth.service";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { DownloadExcelDialogComponent } from "./components/admin/download-excel-dialog/download-excel-dialog.component";
+import { DeleteCommerceDialogComponent } from './dialogs/delete-commerce-dialog/delete-commerce-dialog.component';
+import { AllowCommerceDialogComponent } from './dialogs/allow-commerce-dialog/allow-commerce-dialog.component';
 
 /*  */
 
@@ -45,7 +47,9 @@ import { DownloadExcelDialogComponent } from "./components/admin/download-excel-
     UseConditionsComponent,
     LoginAdminComponent,
     CommercesComponent,
-    DownloadExcelDialogComponent
+    DownloadExcelDialogComponent,
+    DeleteCommerceDialogComponent,
+    AllowCommerceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,6 @@ import { DownloadExcelDialogComponent } from "./components/admin/download-excel-
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DownloadExcelDialogComponent]
+  entryComponents: [DownloadExcelDialogComponent, DeleteCommerceDialogComponent, AllowCommerceDialogComponent]
 })
 export class AppModule {}
