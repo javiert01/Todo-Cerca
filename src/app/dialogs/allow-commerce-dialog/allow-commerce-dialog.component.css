@@ -1,0 +1,17 @@
+.buttons {
+  margin: auto;
+  text-align: center;
+}
+.btn {
+  margin-bottom: 10px;
+  background-color: #2e4a5c;
+  color: #fff;
+  width: 80%;
+  padding: 10px 0px;
+  cursor: pointer;
+}
+.red {
+  background-color: red;
+  color: white;
+}
+

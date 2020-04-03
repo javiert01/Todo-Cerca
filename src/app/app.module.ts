@@ -29,6 +29,7 @@ import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { DownloadExcelDialogComponent } from "./components/admin/download-excel-dialog/download-excel-dialog.component";
 import { DeleteCommerceDialogComponent } from './dialogs/delete-commerce-dialog/delete-commerce-dialog.component';
 import { AllowCommerceDialogComponent } from './dialogs/allow-commerce-dialog/allow-commerce-dialog.component';
+import { EditCommerceDialogComponent } from './dialogs/edit-commerce-dialog/edit-commerce-dialog.component';
 
 /*  */
 
@@ -49,7 +50,8 @@ import { AllowCommerceDialogComponent } from './dialogs/allow-commerce-dialog/al
     CommercesComponent,
     DownloadExcelDialogComponent,
     DeleteCommerceDialogComponent,
-    AllowCommerceDialogComponent
+    AllowCommerceDialogComponent,
+    EditCommerceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +77,6 @@ import { AllowCommerceDialogComponent } from './dialogs/allow-commerce-dialog/al
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DownloadExcelDialogComponent, DeleteCommerceDialogComponent, AllowCommerceDialogComponent]
+  entryComponents: [DownloadExcelDialogComponent, DeleteCommerceDialogComponent, AllowCommerceDialogComponent, EditCommerceDialogComponent]
 })
 export class AppModule {}
