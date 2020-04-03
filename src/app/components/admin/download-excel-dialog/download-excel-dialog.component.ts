@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FileService } from "src/app/services/file.service";
 import { CommerceService } from "src/app/services/commerce.service";
 import { tap } from "rxjs/operators";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-download-excel-dialog",
   templateUrl: "./download-excel-dialog.component.html",
-  styleUrls: ["./download-excel-dialog.component.css"]
+  styleUrls: ["./download-excel-dialog.component.css"],
 })
-export class DownloadExcelDialogComponent implements OnInit {
-  allowed;
+export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
+  allowed: boolean;
   pageNumber;
   category;
 
@@ -21,8 +22,10 @@ export class DownloadExcelDialogComponent implements OnInit {
   disableBtnSelected;
 
   commercesBeforePrint = [];
-  //=============================================================
   dataCommerces: any = [];
+  //=============================================================
+  test: Subscription;
+  test1: Subscription;
   //=============================================================
 
   constructor(
@@ -37,7 +40,7 @@ export class DownloadExcelDialogComponent implements OnInit {
     // console.log("this.allowed", this.allowed);
     // console.log("this.pageNumber", this.pageNumber);
     // console.log("this.category", this.category);
-    this.disableBtnPage = data.disableBtnPage;
+
     this.selectedCommercesIndex = data.selectedCommercesID;
     this.commerceList = data.commerceList;
     this.disableBtns();
@@ -53,11 +56,13 @@ export class DownloadExcelDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
   close() {
     this.dialogRef.close();
   }
 
   downloadSelected() {
+    console.log("selectedCommerces: ", this.selectedCommerces);
     this.commercesBeforePrint = this.selectedCommerces;
     // console.log("this.selectedCommerces M: ", this.selectedCommerces);
     // console.log("this.commercesBeforePrint: ", this.commercesBeforePrint);
@@ -65,10 +70,10 @@ export class DownloadExcelDialogComponent implements OnInit {
     this.exportAsXLSX();
   }
   downloadPage() {
-    this.commerceService
+    this.test = this.commerceService
       .getAllCommerces(this.allowed, this.pageNumber, this.category)
       .pipe(
-        tap(content => {
+        tap((content) => {
           // console.log("Contenido: ", content);
           this.commercesBeforePrint = content["commercesPaginated"];
           this.constructCommercePrint();
@@ -78,10 +83,10 @@ export class DownloadExcelDialogComponent implements OnInit {
       .subscribe();
   }
   downloadAll() {
-    this.commerceService
-      .getAllCommercesNoPagination()
+    this.test1 = this.commerceService
+      .getAllCommercesNoPagination(this.allowed)
       .pipe(
-        tap(content => {
+        tap((content) => {
           // console.log("Contenido: ", content);
           this.commercesBeforePrint = content["commerces"];
           this.constructCommercePrint();
@@ -92,20 +97,24 @@ export class DownloadExcelDialogComponent implements OnInit {
   }
 
   constructCommercePrint() {
-    this.commercesBeforePrint.forEach(comm => {
+    this.commercesBeforePrint.forEach((comm) => {
       console.log("Commercio: ", comm);
       comm.createdAt = this.getFormatDate(comm["createdAt"]);
       comm.category = comm["category"]["commerceCategory"];
       delete comm.id;
+      delete comm.commercePhoto;
       // console.log("Commercio: ", comm);
       this.dataCommerces.push(comm);
     });
   }
+
   exportAsXLSX(): void {
-    this.fileService.exportAsExcelFile(this.dataCommerces, "sample");
+    this.fileService.exportAsExcelFile(this.dataCommerces, "data");
+    this.dataCommerces = [];
+    this.commercesBeforePrint = [];
   }
   getCommecesFromIndex() {
-    this.selectedCommercesIndex.forEach(e => {
+    this.selectedCommercesIndex.forEach((e) => {
       this.selectedCommerces.unshift(this.commerceList[e]);
     });
     // console.log("this.selectedCommerces: ", this.selectedCommerces);
@@ -113,5 +122,9 @@ export class DownloadExcelDialogComponent implements OnInit {
   getFormatDate(uDate) {
     let date = new Date(uDate);
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+  }
+  ngOnDestroy() {
+    this.test ? this.test.unsubscribe() : "";
+    this.test1 ? this.test1.unsubscribe() : "";
   }
 }

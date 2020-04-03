@@ -4,7 +4,7 @@ import { HOST } from "../shared/var.constants";
 import { Commerce } from "../models/commerce.model";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class CommerceService {
   url = `${HOST}/commerces`;
@@ -17,8 +17,8 @@ export class CommerceService {
     this.httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-      })
+        Authorization: localStorage.getItem("token"),
+      }),
     };
   }
 
@@ -27,14 +27,21 @@ export class CommerceService {
   }
 
   deleteCommerce(commerceID) {
-    return this.http.delete<any>(`${this.urlBlueprint}/?id=${commerceID}`, this.httpOptions);
+    return this.http.delete<any>(
+      `${this.urlBlueprint}/?id=${commerceID}`,
+      this.httpOptions
+    );
   }
 
   updateStatusCommerce(commerceID) {
     const data = {
-      id: commerceID
+      id: commerceID,
     };
-    return this.http.patch<any>(`${this.urlBlueprint}/update`, data ,this.httpOptions);
+    return this.http.patch<any>(
+      `${this.urlBlueprint}/update`,
+      data,
+      this.httpOptions
+    );
   }
 
   getAllCommerces(allowed, pageNumber, category) {
@@ -44,8 +51,11 @@ export class CommerceService {
     );
   }
 
-  getAllCommercesNoPagination() {
-    return this.http.get<any>(`${this.url}/all/nopagination`, this.httpOptions);
+  getAllCommercesNoPagination(allow) {
+    return this.http.get<any>(
+      `${this.url}/all/nopagination?allowed=${allow}`,
+      this.httpOptions
+    );
   }
 
   getCommerce() {
