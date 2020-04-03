@@ -384,7 +384,7 @@ export class CommerceRegistrationComponent implements OnInit {
 
   onSetCityMap(city) {
     console.log(city);
-    if(city === '17: Francisco de Orellana') {
+    if (city === '17: Francisco de Orellana') {
       city = 'Orellana';
     }
     city = city + ', EC';

@@ -1,3 +1,7 @@
+<div class="div_cancelar">
+    <button class="btn_cancel" (click)="close()"> X </button>
+</div>
+
 <div class="container">
     <div class="header">
         <h5>Descarga de información</h5>
@@ -15,11 +19,13 @@
             </button>
         </div>
         <div>
-            <button class="btn" (click)="downloadAll()"> Todo </button>
+            <button class="btn" [disabled]="this.disableBtnPage"
+                [ngStyle]="{opacity: !this.disableBtnPage ? '1' : '0.5'}" (click)="downloadAll()"> Todo </button>
         </div>
     </div>
-    <div class="div_cancelar">
 
+    <!-- <div class="div_cancelar">
         <button class="btn_cancel" (click)="close()"> Cancelar</button>
-    </div>
+    </div> -->
+
 </div>
