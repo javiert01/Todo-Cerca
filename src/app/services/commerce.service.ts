@@ -44,6 +44,14 @@ export class CommerceService {
     );
   }
 
+  getCommerceByID(idCommerce) {
+    return this.http.get<any>(`${this.urlBlueprint}/?id=${idCommerce}`);
+  }
+
+  updateCommerce(idCommerce, data) {
+    return this.http.put<any>(`${this.urlBlueprint}/${idCommerce}`, data);
+  }
+
   getAllCommercesNoPagination() {
     return this.http.get<any>(`${this.url}/all/nopagination`, this.httpOptions);
   }

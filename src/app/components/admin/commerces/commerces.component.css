@@ -39,6 +39,15 @@ th {
   font-weight: bold;
   padding: 10px;
   margin: 8px;
+  width: 130px;
+
+}
+
+.btn-invalid {
+  opacity: 0.5;
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
 }
 
 .btn-next {
@@ -47,6 +56,10 @@ th {
   margin: 0px;
   padding: 15px 80px;
   cursor: pointer;
+}
+
+.help-block {
+  color: red;
 }
 
 .blue {
@@ -204,6 +217,7 @@ input {
 
 .inlineAt {
   display: inline-block;
+  margin: 30px 80px;
 }
 
 .cajaGrande {

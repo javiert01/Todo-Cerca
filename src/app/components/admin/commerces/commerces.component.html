@@ -1,15 +1,23 @@
 <div class="contenedor">
   <header>
-    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;" />
+    <img
+      src="assets/01-logo-color.svg"
+      alt="TodosMasCerca"
+      style="width: 150px; height: 53px;"
+    />
     <ul class="main-nav">
       <li class="nav-item">
-        <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
+        <a
+          class="nav-link cursorPnt"
+          style="font-size: 25px; margin-left: 5px;"
+          (click)="onLogout()"
+          >Log Out</a
+        >
       </li>
     </ul>
   </header>
 </div>
-<div class=" inlineAt">
-  <h5 class="">Fecha</h5>
+<div class="inlineAt">
   <h6 class="">
     Fecha:<span style="font-weight: normal;"> {{ fecha | date }} </span>
   </h6>
@@ -23,26 +31,55 @@
     <h4 class="color3">Administrar Comercios:</h4>
   </div>
   <div class="category-container">
-    <button class="btn-next" [ngClass]="{'blue': allowed, 'grey': !allowed}"
-      (click)="onSetAllowed(true)">Cargados</button>
-    <button class="btn-next" [ngClass]="{'blue': !allowed, 'grey': allowed}" (click)="onSetAllowed(false)">En
-      Revisión</button>
+    <button
+      class="btn-next"
+      [ngClass]="{ blue: allowed, grey: !allowed }"
+      (click)="onSetAllowed(true)"
+    >
+      Cargados
+    </button>
+    <button
+      class="btn-next"
+      [ngClass]="{ blue: !allowed, grey: allowed }"
+      (click)="onSetAllowed(false)"
+    >
+      En Revisión
+    </button>
   </div>
   <div class="category-container">
     <label class="color3">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
-      <option [ngValue]="category" *ngFor="let category of commerceCategories">{{ category }}</option>
+      <option
+        [ngValue]="category"
+        *ngFor="let category of commerceCategories"
+        >{{ category }}</option
+      >
     </select>
   </div>
   <table>
     <tr>
-      <th> Seleccionar Todos <input type="checkbox" (change)="onSelectAll($event.target.checked)" /></th>
-      <th *ngFor="let title of titlesList">{{ title }}</th>
+      <th style="text-align: center;">
+        Seleccionar Todos
+        <input
+          type="checkbox"
+          (change)="onSelectAll($event.target.checked)"
+          [checked]="allSelected"
+        />
+      </th>
+      <th style="text-align: center;" *ngFor="let title of titlesList">
+        {{ title }}
+      </th>
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
-      <td><input type="checkbox" [value]="i" (change)="onCheckCommerce($event.target)"
-          [checked]="isCommerceSelectedList[i]" /></td>
+      <td>
+        <input
+          type="checkbox"
+          [value]="i"
+          (change)="onCheckCommerce($event.target)"
+          [checked]="isCommerceSelectedList[i]"
+        />
+      </td>
       <td>{{ commerce.idAux }}</td>
       <td>{{ commerce.category.commerceCategory }}</td>
       <td>{{ commerce.commerceName }}</td>
@@ -58,27 +95,89 @@
       <td>{{ parseDates(commerce?.createdAt) | date: "shortDate" }}</td>
     </tr>
   </table>
+
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item" *ngIf="numeroPaginas > 1" (click)="navigateToPage('atras')"><a
-          class="page-link">Anterior</a></li>
-      <li class="page-item" *ngFor="let pagina of listaNumeroPaginas; let i = index" (click)="getNextServicios(pagina)">
-        <a class="page-link" [ngClass]="{ 'a-selected': listaPaginasSelected[i],
-        'page-link': !listaPaginasSelected[i] }">{{pagina}}</a>
+      <li
+        class="page-item"
+        *ngIf="numeroPaginas > 1"
+        (click)="navigateToPage('atras')"
+      >
+        <a class="page-link">Anterior</a>
       </li>
-      <li class="page-item" *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
-        (click)="navigateToPage('adelante')"><a class="page-link">Siguiente</a></li>
+      <li
+        class="page-item"
+        *ngFor="let pagina of listaNumeroPaginas; let i = index"
+        (click)="getNextServicios(pagina)"
+      >
+        <a
+          class="page-link"
+          [ngClass]="{
+            'a-selected': listaPaginasSelected[i],
+            'page-link': !listaPaginasSelected[i]
+          }"
+          >{{ pagina }}</a
+        >
+      </li>
+      <li
+        class="page-item"
+        *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
+        (click)="navigateToPage('adelante')"
+      >
+        <a class="page-link">Siguiente</a>
+      </li>
     </ul>
   </nav>
   <div style="text-align: right;">
-    <button class="blue btn cursor-pointer">Editar</button>
-    <button class="green btn cursor-pointer" *ngIf="!allowed" (click)="openAllowCommerceDialog()">Cargar</button>
-    <button class="red btn cursor-pointer" (click)="openDeleteCommerceDialog()">Eliminar</button>
+    <button
+      class="btn cursor-pointer"
+      [ngClass]="{
+        'btn-invalid': selectedCommercesID.length !== 1,
+        blue: selectedCommercesID.length === 1
+      }"
+      (click)="openEditCommerceDialog()"
+      [disabled]="selectedCommercesID.length !==1"
+    >
+      Editar
+    </button>
+    <button
+      class="btn cursor-pointer"
+      *ngIf="!allowed"
+      (click)="openAllowCommerceDialog()"
+      [ngClass]="{
+        'btn-invalid': selectedCommercesID.length == 0,
+        green: selectedCommercesID.length > 0
+      }"
+      [disabled]="selectedCommercesID.length == 0"
+    >
+      Cargar
+    </button>
+    <button
+      class="btn cursor-pointer"
+      (click)="openDeleteCommerceDialog()"
+      [ngClass]="{
+        'btn-invalid': selectedCommercesID.length == 0,
+        red: selectedCommercesID.length > 0
+      }"
+      [disabled]="selectedCommercesID.length == 0"
+    >
+      Eliminar
+    </button>
   </div>
-</div>
-
-
-<div style="text-align: right;">
-  <button class="blue btn" (click)="openDialogDownloadExcel()">Descargar Excel</button>
-
+  <div style="text-align: right;" *ngIf="selectedCommercesID.length === 0">
+    <span class="help-block"
+      >Debe seleccionar al menos un comercio para poder eliminar, editar o
+      cargar</span
+    >
+  </div>
+  <div style="text-align: right;" *ngIf="selectedCommercesID.length > 1">
+    <span class="help-block"
+      >Solo puede editar un comercio a la vez</span
+    >
+  </div>
+  <div style="text-align: right;">
+    <button class="blue btn cursor-pointer" (click)="openDialogDownloadExcel()">
+      Descargar Excel
+    </button>
+  </div>
 </div>

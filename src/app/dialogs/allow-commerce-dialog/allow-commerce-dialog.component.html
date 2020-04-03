@@ -1,15 +1,21 @@
 <div *ngIf="eliminarSi == false" class="container">
   <h5>Cargar Comercios</h5>
-  <p>Está seguro que desea <strong>cargar</strong> los siguientes comercios?</p>
-  <p *ngFor="let commerce of commerces">{{ commerce.commerceName }}</p>
-  <button
+  <p>¿Está seguro que desea <strong>cargar</strong> los siguientes comercios?</p>
+  <div style="margin: 10px 15px">
+    <ul>
+      <li *ngFor="let commerce of commerces">{{ commerce.commerceName }}</li>
+    </ul>
+  </div>
+  <div style="text-align: center;">
+    <button
     type="button"
-    class="btn btn-primary mx-2"
+    class="btn blue"
     (click)="updateStatusCommerce()"
   >
     Si, Cargar!
   </button>
-  <button type="button" class="btn btn-danger mx-2" (click)="close()">
+  <button type="button" class="btn red" (click)="close()">
     Cancelar
   </button>
+</div>
 </div>
