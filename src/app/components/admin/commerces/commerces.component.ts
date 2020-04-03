@@ -301,7 +301,7 @@ export class CommercesComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = '300px';
+    configuracionDialog.height = '350px';
     configuracionDialog.width = '450px';
     configuracionDialog.data = {
       commerces: this.getSelectedCommerces(this.selectedCommercesID)
@@ -323,7 +323,7 @@ export class CommercesComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = '350px';
+    configuracionDialog.height = '300px';
     configuracionDialog.width = '400px';
     configuracionDialog.data = {
       commerces: this.getSelectedCommerces(this.selectedCommercesID)

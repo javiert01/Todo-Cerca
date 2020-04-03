@@ -54,7 +54,7 @@
         Si, Eliminar!
       </button>
       <br *ngIf="!activarBoton">
-      <span class="help-block" *ngIf="!activarBoton">El nombre del comercio ingresado no corresponde con el que desea eliminar</span>
+      <p class="help-block" *ngIf="!activarBoton">El nombre del comercio ingresado no corresponde con el que desea eliminar</p>
       <button  type="button" class="btn red" (click)="close()">
         Cancelar
       </button>
