@@ -26,12 +26,15 @@
     <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
   </h6>
 </div>
-<div style="width: 90%; margin: auto;">
-  <div style="display: inline-flex;">
-    <h4 class="color3" style="justify-self: left;">Administrar Comercios:</h4>
-   <!--  <div style="justify-self: flex-end;">
-      <input type="text"/>
-    </div> -->
+<div style="width: 100%; margin: auto;">
+  <div style="display: flex;">
+    <div>
+      <h4 class="color3">Administrar Comercios:</h4>
+    </div>
+    <div style="margin-left: auto;">
+      <i class="fas fa-search fa-lg"></i>
+      <input class="input-search" type="text" placeholder="Nombre o ID del comercio" (keyup)="onSearchTerm()" #searchInput/>
+    </div>
   </div>
   <div class="category-container">
     <button
