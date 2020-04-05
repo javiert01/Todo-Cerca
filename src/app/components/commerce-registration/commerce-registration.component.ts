@@ -205,7 +205,7 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.required,
         Validators.email
       ]),
-      commercePhoto: new FormControl(null, Validators.required),
+      commercePhoto: new FormControl(null),
       useConditions: new FormControl(
         false,
         Validators.required,
