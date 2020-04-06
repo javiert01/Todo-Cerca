@@ -1,35 +1,31 @@
-<!-- <div *ngIf="eliminarSi == false" class="container">
+<div *ngIf="!allowConfirmed" class="container">
   <h5>Cargar Comercios</h5>
-  <p>¿Está seguro que desea <strong>cargar</strong> los siguientes comercios?</p>
-  <div style="margin: 10px 15px">
+  <p>
+    ¿Está seguro que desea <strong>cargar</strong> los siguientes comercios?
+  </p>
+  <div style="margin: 10px 15px;">
     <ul>
       <li *ngFor="let commerce of commerces">{{ commerce.commerceName }}</li>
     </ul>
   </div>
   <div style="text-align: center;">
-    <button
-    type="button"
-    class="btn blue"
-    (click)="updateStatusCommerce()"
-  >
-    Si, Cargar!
-  </button>
-  <button type="button" class="btn red" (click)="close()">
-    Cancelar
-  </button>
+    <button type="button" class="btn blue" (click)="updateStatusCommerce()">
+      Si, Cargar!
+    </button>
+    <button type="button" class="btn red" (click)="close('')">
+      Cancelar
+    </button>
+  </div>
 </div>
-</div> -->
 
-<div class="second_dialog">
+<div class="second_dialog" *ngIf="allowConfirmed">
   <div class="header">
     <h5>Carga de Comercios</h5>
     <h6>El /los comercios se han cargado con éxito.</h6>
   </div>
   <div class="buttons">
     <div>
-      <button class="btn_ok" (click)="close()"> Ok</button>
+      <button class="btn_ok" (click)="close('allowed')">Ok</button>
     </div>
-
   </div>
-
 </div>

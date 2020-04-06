@@ -12,7 +12,7 @@ export class AllowCommerceDialogComponent implements OnInit {
 
   commerces = [];
   nombreEmpresa = '';
-  eliminarSi = false;
+  allowConfirmed = false;
   activarBoton = false;
   constructor(
     private dialogRef: MatDialogRef<AllowCommerceDialogComponent>,
@@ -32,13 +32,12 @@ export class AllowCommerceDialogComponent implements OnInit {
     }
     forkJoin(allowObservables)
     .subscribe((data) => {
-      console.log('Commerces allowed', data);
-      this.dialogRef.close('allowed');
+      this.allowConfirmed = true;
     })
   }
 
-  close() {
-    this.dialogRef.close();
+  close(action) {
+    this.dialogRef.close(action);
   }
 
 }

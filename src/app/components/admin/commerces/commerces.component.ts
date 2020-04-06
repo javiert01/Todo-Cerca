@@ -337,7 +337,7 @@ export class CommercesComponent implements OnInit {
     );
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        if (data.trim() === "eliminado") {
+        if (data.trim() === "deleted") {
           this.loadCommerceList();
         }
       }

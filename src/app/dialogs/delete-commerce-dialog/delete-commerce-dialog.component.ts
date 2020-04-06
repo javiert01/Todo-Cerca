@@ -14,6 +14,7 @@ export class DeleteCommerceDialogComponent implements OnInit {
   nombreEmpresa = '';
   eliminarSi = false;
   activarBoton = false;
+  cancelConfirmed = false;
   constructor(
     private dialogRef: MatDialogRef<DeleteCommerceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -35,9 +36,8 @@ export class DeleteCommerceDialogComponent implements OnInit {
     }
     forkJoin(deleteObservables)
     .subscribe((data) => {
-      console.log('Commerces deleted', data);
-      this.dialogRef.close('eliminado');
-    })
+      this.cancelConfirmed = true;
+    });
   }
   buscarEmpresa(param: string) {
       this.activarBoton = this.commerces[0].commerceName === param;
@@ -47,7 +47,7 @@ export class DeleteCommerceDialogComponent implements OnInit {
     this.activarBoton = 'confirmar' === param;
   }
 
-  close() {
-    this.dialogRef.close();
+  close(action) {
+    this.dialogRef.close(action);
   }
 }

@@ -24,6 +24,8 @@ export class EditCommerceDialogComponent implements OnInit {
   selectedFile: File;
   urlImgEmpleado: any;
   logoTemporal = '';
+  editClicked = false;
+  editConfirmed = false;
   // FIN DE VARIABLES PARA SUBIR IMAMGEN
   // INICIO VARAIBLES PREVIEW IMAGEN
   public imagePath;
@@ -304,6 +306,16 @@ export class EditCommerceDialogComponent implements OnInit {
     return hourString;
   }
 
+  onClickEditButton() {
+    this.editClicked = true;
+    this.editForm.disable();
+  }
+
+  onCancelEdit() {
+    this.editClicked = false;
+    this.editForm.enable();
+  }
+
   submitCommerce() {
     let categorySelected = '';
     for(let i = 0; i < this.commerceCategories.length; i++) {
@@ -334,7 +346,7 @@ export class EditCommerceDialogComponent implements OnInit {
     };
     this.commerceService.updateCommerce(this.commerce)
     .subscribe((data) => {
-      this.dialogRef.close('edit');
+      this.editConfirmed = true;
     })
   }
 
@@ -409,7 +421,7 @@ export class EditCommerceDialogComponent implements OnInit {
     }
   }
 
-  close() {
-    this.dialogRef.close();
+  close(action) {
+    this.dialogRef.close(action);
   }
 }

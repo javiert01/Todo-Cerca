@@ -26,13 +26,13 @@
     <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
   </h6>
 </div>
-<div style="width: 100%; margin: auto;">
+<div style="width: 97%; margin: auto;">
   <div style="display: flex;">
     <div>
       <h4 class="color3">Administrar Comercios:</h4>
     </div>
     <div style="margin-left: auto;">
-      <i class="fas fa-search fa-lg"></i>
+      <i class="fas fa-search fa-lg" style="margin-right: 15px;"></i>
       <input class="input-search" type="text" placeholder="Nombre o ID del comercio" (keyup)="onSearchTerm()" #searchInput/>
     </div>
   </div>
@@ -57,9 +57,9 @@
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
       <option
-        [ngValue]="category"
+        [ngValue]="category.commerceCategory"
         *ngFor="let category of commerceCategories"
-        >{{ category }}</option
+        >{{ category.commerceCategory }}</option
       >
     </select>
   </div>
@@ -169,7 +169,7 @@
   </div>
   <div style="text-align: right;" *ngIf="selectedCommercesID.length === 0">
     <span class="help-block"
-      >Debe seleccionar al menos un comercio para poder eliminar o editar
+      ><span style="font-weight: bold;">Aviso: </span>Debe seleccionar al menos un comercio para poder eliminar o editar.
       </span
     >
   </div>

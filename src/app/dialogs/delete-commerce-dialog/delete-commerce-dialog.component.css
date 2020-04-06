@@ -41,6 +41,10 @@
   margin-bottom: 10px;
 }
 
+.header h6 {
+  font-weight: normal;
+}
+
 .buttons {
   margin: auto;
   text-align: center;
@@ -51,6 +55,7 @@
   margin-bottom: 10px;
   background-color: #2e4a5c;
   color: #fff;
+  width: 130px;
   padding: 5px 10px;
   cursor: pointer;
 }
