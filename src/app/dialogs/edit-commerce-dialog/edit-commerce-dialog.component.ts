@@ -4,20 +4,22 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectorRef,
-  Inject
+  Inject,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommerceService } from 'src/app/services/commerce.service';
 import { HttpClient } from '@angular/common/http';
 import { CategoryService } from 'src/app/services/category.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-commerce-dialog',
   templateUrl: './edit-commerce-dialog.component.html',
-  styleUrls: ['./edit-commerce-dialog.component.css']
+  styleUrls: ['./edit-commerce-dialog.component.css'],
 })
-export class EditCommerceDialogComponent implements OnInit {
+export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   imagenSubida = false;
   imagenSeleccionada = false;
   reciboURL: any;
@@ -40,7 +42,7 @@ export class EditCommerceDialogComponent implements OnInit {
     'Lunes a Viernes',
     'Lunes a Sábado',
     'Solo fines de semana',
-    'Todos los días'
+    'Todos los días',
   ];
 
   cities = [
@@ -67,7 +69,7 @@ export class EditCommerceDialogComponent implements OnInit {
     'Santo Domingo',
     'Nueva Loja',
     'Ambato',
-    'Zamora'
+    'Zamora',
   ];
 
   provinces = [
@@ -94,12 +96,15 @@ export class EditCommerceDialogComponent implements OnInit {
     'Santo Domingo de los Tsáchilas',
     'Sucumbíos',
     'Tungurahua',
-    'Zamora Chinchipe'
+    'Zamora Chinchipe',
   ];
 
   editForm: FormGroup;
   commerce;
   commerces = [];
+  editCommerceSub: Subscription;
+  getCommerceSub: Subscription;
+  categoryDataSub: Subscription;
   scrollToForm = '';
 
   @ViewChild('search')
@@ -112,7 +117,7 @@ export class EditCommerceDialogComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private dialogRef: MatDialogRef<EditCommerceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {
     this.commerces = data.commerces;
     console.log(data.commerces);
@@ -120,52 +125,60 @@ export class EditCommerceDialogComponent implements OnInit {
   }
 
   loadCategoryData() {
-    this.categoryService.getCategoryList().subscribe((data: any) => {
-      console.log(data);
-      this.commerceCategories = data;
-    });
+    this.categoryDataSub = this.categoryService
+      .getCategoryList()
+      .subscribe((data: any) => {
+        console.log(data);
+        this.commerceCategories = data;
+      });
   }
   ngOnInit() {
-    this.commerceService.getCommerceByID(this.commerces)
-    .subscribe((data) => {
-      data = data[0];
-      console.log(data);
-      this.commerce = data;
-      this.imgURL = data['commercePhoto'];
-      this.reciboURL = this.imgURL;
-      this.editForm = new FormGroup({
-        ownerName: new FormControl(data['ownerName'], Validators.required),
-        ownerLastName: new FormControl(data['ownerLastName'], Validators.required),
-        phone: new FormControl(data['phone'], [
-          Validators.required,
-          Validators.pattern(new RegExp('^[0-9]*$')),
-          Validators.minLength(10)
-        ]),
-        commerceName: new FormControl(data['commerceName'], Validators.required),
-        category: new FormControl(data['category'].id, Validators.required),
-        frecuency: new FormControl(data['frequency'], Validators.required),
-        hourOpen: new FormControl(data['hourOpen'], [
-          Validators.required,
-          this.onCheckLesserTime.bind(this)
-        ]),
-        hourClose: new FormControl(data['hourClose'], [
-          Validators.required,
-          this.onCheckGreaterTime.bind(this)
-        ]),
-        city: new FormControl(data['city'], Validators.required),
-        address: new FormControl(data['address'], Validators.required),
-        reference: new FormControl(data['reference'], Validators.required),
-        commerceDescription: new FormControl(data['commerceDescription'], [
-          Validators.required,
-          Validators.maxLength(90)
-        ]),
-        ownerEmail: new FormControl(data['ownerEmail'], [
-          Validators.required,
-          Validators.email
-        ]),
+    this.getCommerceSub = this.commerceService
+      .getCommerceByID(this.commerces)
+      .subscribe((data) => {
+        data = data[0];
+        console.log(data);
+        this.commerce = data;
+        this.imgURL = data['commercePhoto'];
+        this.reciboURL = this.imgURL;
+        this.editForm = new FormGroup({
+          ownerName: new FormControl(data['ownerName'], Validators.required),
+          ownerLastName: new FormControl(
+            data['ownerLastName'],
+            Validators.required
+          ),
+          phone: new FormControl(data['phone'], [
+            Validators.required,
+            Validators.pattern(new RegExp('^[0-9]*$')),
+            Validators.minLength(10),
+          ]),
+          commerceName: new FormControl(
+            data['commerceName'],
+            Validators.required
+          ),
+          category: new FormControl(data['category'].id, Validators.required),
+          frecuency: new FormControl(data['frequency'], Validators.required),
+          hourOpen: new FormControl(data['hourOpen'], [
+            Validators.required,
+            this.onCheckLesserTime.bind(this),
+          ]),
+          hourClose: new FormControl(data['hourClose'], [
+            Validators.required,
+            this.onCheckGreaterTime.bind(this),
+          ]),
+          city: new FormControl(data['city'], Validators.required),
+          address: new FormControl(data['address'], Validators.required),
+          reference: new FormControl(data['reference'], Validators.required),
+          commerceDescription: new FormControl(data['commerceDescription'], [
+            Validators.required,
+            Validators.maxLength(90),
+          ]),
+          ownerEmail: new FormControl(data['ownerEmail'], [
+            Validators.required,
+            Validators.email,
+          ]),
+        });
       });
-    })
-
   }
 
   findInvalidControls() {
@@ -226,8 +239,6 @@ export class EditCommerceDialogComponent implements OnInit {
     }
   }
 
-
-
   onCapitalizeLetter(data, formCN) {
     if (data) {
       if (data.length > 0) {
@@ -239,9 +250,8 @@ export class EditCommerceDialogComponent implements OnInit {
     }
   }
 
-
   onCheckGreaterTime(control: FormControl): { [s: string]: boolean } {
-    if(this.editForm){
+    if (this.editForm) {
       if (control.value && this.editForm.get('hourOpen').value) {
         if (
           this.minutesOfDay(control.value) <
@@ -253,11 +263,10 @@ export class EditCommerceDialogComponent implements OnInit {
       return null;
     }
     return null;
-
   }
 
   onCheckLesserTime(control: FormControl): { [s: string]: boolean } {
-    if(this.editForm) {
+    if (this.editForm) {
       if (control.value && this.editForm.get('hourClose').value) {
         if (
           this.minutesOfDay(control.value) >
@@ -269,7 +278,6 @@ export class EditCommerceDialogComponent implements OnInit {
       return null;
     }
     return null;
-
   }
 
   minutesOfDay(m) {
@@ -296,7 +304,6 @@ export class EditCommerceDialogComponent implements OnInit {
     return `${hours}:${minutes}`;
   }
 
-
   parseHour(hour) {
     let hourString = hour.toString();
 
@@ -318,10 +325,12 @@ export class EditCommerceDialogComponent implements OnInit {
 
   submitCommerce() {
     let categorySelected = '';
-    for(let i = 0; i < this.commerceCategories.length; i++) {
-      if(this.commerceCategories[i].id === this.editForm.get('category').value) {
+    for (let i = 0; i < this.commerceCategories.length; i++) {
+      if (
+        this.commerceCategories[i].id === this.editForm.get('category').value
+      ) {
         categorySelected = this.commerceCategories[i].commerceCategory;
-      };
+      }
     }
     this.commerce = {
       id: this.commerces,
@@ -342,12 +351,14 @@ export class EditCommerceDialogComponent implements OnInit {
       reference: this.editForm.get('reference').value,
       commerceDescription: this.editForm.get('commerceDescription').value,
       showCommerce: this.commerce.showCommerce,
-      acceptTermsConditions: true
+      acceptTermsConditions: true,
     };
-    this.commerceService.updateCommerce(this.commerce)
-    .subscribe((data) => {
-      this.editConfirmed = true;
-    })
+    this.editCommerceSub = this.commerceService
+      .updateCommerce(this.commerce)
+      .subscribe((data) => {
+        this.editConfirmed = true;
+        console.log('commerce edited', data);
+      });
   }
 
   onFileChangedRecibo(event) {
@@ -370,7 +381,7 @@ export class EditCommerceDialogComponent implements OnInit {
 
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
-    reader.onload = _event => {
+    reader.onload = (_event) => {
       console.log('Entra al cambio de reviboUrl: ', this.reciboURL);
       this.reciboURL = reader.result.toString();
     };
@@ -380,7 +391,7 @@ export class EditCommerceDialogComponent implements OnInit {
     // console.log("El archivo selecionado: ", this.selectedFile);
     const file = {
       fName_p: 'commerce/' + commerceName + '/' + this.selectedFile.name,
-      fType_p: this.selectedFile.type
+      fType_p: this.selectedFile.type,
     };
 
     // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
@@ -395,13 +406,16 @@ export class EditCommerceDialogComponent implements OnInit {
   // INICIO UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   onUpload2(file, signedRequest, url) {
     console.log('signed request', signedRequest);
-    this.http.put(signedRequest, file).subscribe((data) => {
-      // this.empresa.logo = url;
-      this.imgURL = url;
-      this.submitCommerce();
-    }, (err)=> {
-      console.log('error en put', err);
-    });
+    this.http.put(signedRequest, file).subscribe(
+      (data) => {
+        // this.empresa.logo = url;
+        this.imgURL = url;
+        this.submitCommerce();
+      },
+      (err) => {
+        console.log('error en put', err);
+      }
+    );
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
@@ -411,7 +425,7 @@ export class EditCommerceDialogComponent implements OnInit {
       // SI CARGA IMAGEN
       // INICIO-SI-SUBE-IMAGEN
       // console.log("Empresa Nueva: ", this.empresa);
-      this.getSignedRequest2(name).subscribe(data => {
+      this.getSignedRequest2(name).subscribe((data) => {
         // INICIO SE LLAMA AL METODO UPLOAD
         this.onUpload2(this.selectedFile, data.signedRequest, data.url);
         // FIN SE LLAMA AL METODO UPLOAD
@@ -423,5 +437,17 @@ export class EditCommerceDialogComponent implements OnInit {
 
   close(action) {
     this.dialogRef.close(action);
+  }
+
+  ngOnDestroy() {
+    if (this.getCommerceSub) {
+      this.getCommerceSub.unsubscribe();
+    }
+    if (this.categoryDataSub) {
+      this.categoryDataSub.unsubscribe();
+    }
+    if (this.editCommerceSub) {
+      this.editCommerceSub.unsubscribe();
+    }
   }
 }

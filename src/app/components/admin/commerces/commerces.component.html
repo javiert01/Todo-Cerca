@@ -151,6 +151,11 @@
     <button
       class="btn cursor-pointer green"
       *ngIf="!allowed"
+      [ngClass]="{
+        'btn-invalid': commerceList.length === 0,
+        green: commerceList.length > 0
+      }"
+      [disabled]="commerceList.length === 0"
       (click)="openAllowCommerceDialog()"
     >
       Cargar

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommerceService } from 'src/app/services/commerce.service';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-delete-commerce-dialog',
@@ -15,6 +15,7 @@ export class DeleteCommerceDialogComponent implements OnInit {
   eliminarSi = false;
   activarBoton = false;
   cancelConfirmed = false;
+  deleteCommerceSub: Subscription;
   constructor(
     private dialogRef: MatDialogRef<DeleteCommerceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -34,7 +35,7 @@ export class DeleteCommerceDialogComponent implements OnInit {
     for(let i = 0; i < this.commerces.length; i++) {
       deleteObservables.push(this.commerceService.deleteCommerce(this.commerces[i].id))
     }
-    forkJoin(deleteObservables)
+    this.deleteCommerceSub = forkJoin(deleteObservables)
     .subscribe((data) => {
       this.cancelConfirmed = true;
     });
@@ -49,5 +50,11 @@ export class DeleteCommerceDialogComponent implements OnInit {
 
   close(action) {
     this.dialogRef.close(action);
+  }
+
+  ngOnDestroy() {
+    if(this.deleteCommerceSub){
+      this.deleteCommerceSub.unsubscribe();
+    }
   }
 }

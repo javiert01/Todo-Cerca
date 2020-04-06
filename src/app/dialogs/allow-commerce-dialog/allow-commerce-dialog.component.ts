@@ -1,19 +1,20 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommerceService } from 'src/app/services/commerce.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-allow-commerce-dialog',
   templateUrl: './allow-commerce-dialog.component.html',
   styleUrls: ['./allow-commerce-dialog.component.css']
 })
-export class AllowCommerceDialogComponent implements OnInit {
+export class AllowCommerceDialogComponent implements OnInit, OnDestroy {
 
   commerces = [];
   nombreEmpresa = '';
   allowConfirmed = false;
   activarBoton = false;
+  allowCommercesSub: Subscription;
   constructor(
     private dialogRef: MatDialogRef<AllowCommerceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -30,7 +31,7 @@ export class AllowCommerceDialogComponent implements OnInit {
     for (let i = 0; i < this.commerces.length; i++) {
       allowObservables.push(this.commerceService.updateStatusCommerce(this.commerces[i].id))
     }
-    forkJoin(allowObservables)
+    this.allowCommercesSub = forkJoin(allowObservables)
     .subscribe((data) => {
       this.allowConfirmed = true;
     })
@@ -38,6 +39,12 @@ export class AllowCommerceDialogComponent implements OnInit {
 
   close(action) {
     this.dialogRef.close(action);
+  }
+
+  ngOnDestroy() {
+    if (this.allowCommercesSub) {
+      this.allowCommercesSub.unsubscribe();
+    }
   }
 
 }

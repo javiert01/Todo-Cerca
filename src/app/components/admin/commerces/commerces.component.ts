@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
 import { AuthService } from "src/app/services/auth.service";
 import { CategoryService } from "src/app/services/category.service";
@@ -8,12 +8,13 @@ import { DownloadExcelDialogComponent } from "../../admin/download-excel-dialog/
 import { DeleteCommerceDialogComponent } from "src/app/dialogs/delete-commerce-dialog/delete-commerce-dialog.component";
 import { AllowCommerceDialogComponent } from "src/app/dialogs/allow-commerce-dialog/allow-commerce-dialog.component";
 import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialog/edit-commerce-dialog.component";
+import { Subscription } from 'rxjs';
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
   styleUrls: ["./commerces.component.css"],
 })
-export class CommercesComponent implements OnInit {
+export class CommercesComponent implements OnInit, OnDestroy {
   commerceList = [];
   titlesList = [];
   fecha;
@@ -30,6 +31,8 @@ export class CommercesComponent implements OnInit {
   isCommerceSelectedList = [];
   fileName = "...";
   isSearching = false;
+  allCommerceSubscription: Subscription;
+  searchCommerceSubscription: Subscription;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;
 
   constructor(
@@ -49,7 +52,7 @@ export class CommercesComponent implements OnInit {
       this.authService.logoutUser("Admin");
     }
     this.loadCategoryData();
-    this.commerceService
+    this.allCommerceSubscription = this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
       .subscribe((data) => {
         // console.log(data);
@@ -88,7 +91,10 @@ export class CommercesComponent implements OnInit {
     this.selectedCommercesID = [];
     this.isCommerceSelectedList = [];
     this.allSelected = false;
-    this.commerceService
+    if(this.allCommerceSubscription) {
+      this.allCommerceSubscription.unsubscribe();
+    }
+    this.allCommerceSubscription = this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
       .subscribe((data) => {
         console.log(data);
@@ -106,6 +112,7 @@ export class CommercesComponent implements OnInit {
           this.isCommerceSelectedList.push(false);
         }
         this.listaPaginasSelected[this.currentPage - 1] = true;
+        console.log('numero paginas array', this.listaNumeroPaginas);
       });
   }
 
@@ -287,6 +294,9 @@ export class CommercesComponent implements OnInit {
   }
 
   onSearchTerm() {
+    if (!this.isSearching) {
+      this.currentPage = 1;
+    }
     this.isSearching = true;
     if (this.searchInput.nativeElement.value === "") {
       this.loadCommerceList();
@@ -296,7 +306,10 @@ export class CommercesComponent implements OnInit {
       this.selectedCommercesID = [];
       this.isCommerceSelectedList = [];
       this.allSelected = false;
-      this.commerceService
+      if(this.searchCommerceSubscription) {
+        this.searchCommerceSubscription.unsubscribe();
+      }
+      this.searchCommerceSubscription = this.commerceService
         .searchCommerce(this.searchInput.nativeElement.value, this.numeroItemsPorPagina, this.currentPage)
         .subscribe(
           (data) => {
@@ -315,6 +328,7 @@ export class CommercesComponent implements OnInit {
               this.isCommerceSelectedList.push(false);
             }
             this.listaPaginasSelected[this.currentPage - 1] = true;
+            console.log('numero paginas array', this.listaNumeroPaginas);
           },
           (err) => {
             console.error("error search", err);
@@ -412,5 +426,14 @@ export class CommercesComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy() {
+    if(this.allCommerceSubscription) {
+      this.allCommerceSubscription.unsubscribe();
+    }
+    if(this.searchCommerceSubscription) {
+      this.searchCommerceSubscription.unsubscribe();
+    }
   }
 }
