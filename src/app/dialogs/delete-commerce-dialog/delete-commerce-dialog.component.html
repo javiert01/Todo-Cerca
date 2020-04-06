@@ -1,4 +1,4 @@
-<div *ngIf="commerces.length === 1">
+<!-- <div *ngIf="commerces.length === 1">
   <div *ngIf="eliminarSi == false" class="container">
     <h5>Eliminar</h5>
     <p style="margin: 10px">
@@ -87,6 +87,21 @@
       </button>
     </div>
   </div>
+</div> -->
+
+<div class="second_dialog">
+  <div class="header">
+    <h5>Eliminar comercios</h5>
+    <h6>El comercio se a eliminado con éxito.</h6>
+  </div>
+  <div class="buttons">
+    <div>
+      <button class="btn_ok" (click)="close()"> Cancelar</button>
+    </div>
+
+  </div>
+
+</div>
   <div *ngIf="eliminarSi == true" class="container">
     <h5>Eliminar</h5>
     <p>Está seguro que desea <strong>Eliminar</strong> a?</p>

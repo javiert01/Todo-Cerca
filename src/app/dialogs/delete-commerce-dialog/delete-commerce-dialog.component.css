@@ -30,3 +30,27 @@
   font-size: small;
 }
 
+/* =========================================================== */
+.header {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.header h5 {
+  margin-bottom: 10px;
+}
+
+.buttons {
+  margin: auto;
+  text-align: center;
+}
+
+.btn_ok {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  background-color: #2e4a5c;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+}
