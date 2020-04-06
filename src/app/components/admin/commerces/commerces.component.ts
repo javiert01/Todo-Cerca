@@ -11,7 +11,7 @@ import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialo
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
-  styleUrls: ["./commerces.component.css"]
+  styleUrls: ["./commerces.component.css"],
 })
 export class CommercesComponent implements OnInit {
   commerceList = [];
@@ -29,6 +29,7 @@ export class CommercesComponent implements OnInit {
   selectedCommercesID = [];
   isCommerceSelectedList = [];
   fileName = "...";
+  isSearching = false;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;
 
   constructor(
@@ -45,12 +46,12 @@ export class CommercesComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isTokenExpired()) {
-      this.authService.logoutUser('Admin');
+      this.authService.logoutUser("Admin");
     }
     this.loadCategoryData();
     this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
-      .subscribe(data => {
+      .subscribe((data) => {
         // console.log(data);
         const dataArray = new Array(data["commercesPaginated"]);
         this.commerceList = [...dataArray];
@@ -81,6 +82,7 @@ export class CommercesComponent implements OnInit {
   }
 
   loadCommerceList() {
+    this.isSearching = false;
     this.listaNumeroPaginas = [];
     this.listaPaginasSelected = [];
     this.selectedCommercesID = [];
@@ -88,7 +90,7 @@ export class CommercesComponent implements OnInit {
     this.allSelected = false;
     this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
-      .subscribe(data => {
+      .subscribe((data) => {
         console.log(data);
         const dataArray = new Array(data["commercesPaginated"]);
         this.commerceList = [...dataArray];
@@ -201,7 +203,7 @@ export class CommercesComponent implements OnInit {
         this.listaPaginasSelected[i] = true;
       }
     }
-    this.loadCommerceList();
+    this.isSearching ? this.onSearchTerm() : this.loadCommerceList();
   }
 
   navigateToPage(direction) {
@@ -233,14 +235,18 @@ export class CommercesComponent implements OnInit {
   onCheckCommerce(target, index) {
     this.isCommerceSelectedList[index] = true;
     if (target.checked) {
-      if (this.selectedCommercesID.find(element => element === target.value)) {
+      if (
+        this.selectedCommercesID.find((element) => element === target.value)
+      ) {
         return;
       } else {
         this.selectedCommercesID.push(target.value);
       }
     } else {
       this.isCommerceSelectedList[index] = false;
-      if (this.selectedCommercesID.find(element => element === target.value)) {
+      if (
+        this.selectedCommercesID.find((element) => element === target.value)
+      ) {
         const targetIndex = this.selectedCommercesID.indexOf(target.value);
         this.selectedCommercesID.splice(targetIndex, 1);
       } else {
@@ -281,21 +287,36 @@ export class CommercesComponent implements OnInit {
   }
 
   onSearchTerm() {
+    this.isSearching = true;
     if (this.searchInput.nativeElement.value === "") {
       this.loadCommerceList();
     } else {
+      this.listaNumeroPaginas = [];
+      this.listaPaginasSelected = [];
+      this.selectedCommercesID = [];
+      this.isCommerceSelectedList = [];
+      this.allSelected = false;
       this.commerceService
-        .searchCommerce(this.searchInput.nativeElement.value)
+        .searchCommerce(this.searchInput.nativeElement.value, this.numeroItemsPorPagina, this.currentPage)
         .subscribe(
-          data => {
-            this.listaNumeroPaginas = [];
-            this.listaPaginasSelected = [];
-            this.selectedCommercesID = [];
-            this.isCommerceSelectedList = [];
-            this.allSelected = false;
-            this.commerceList = [...data];
+          (data) => {
+            console.log('data search', data);
+            const dataArray = new Array(data["commercesPaginated"]);
+            this.commerceList = [...dataArray];
+            this.commerceList = this.commerceList[0];
+            this.numeroPaginas = Math.ceil(
+              data["totalCommerces"] / this.numeroItemsPorPagina
+            );
+            for (let i = 0; i < this.numeroPaginas; i++) {
+              this.listaNumeroPaginas.push(i + 1);
+              this.listaPaginasSelected.push(false);
+            }
+            for (const commerce of this.commerceList) {
+              this.isCommerceSelectedList.push(false);
+            }
+            this.listaPaginasSelected[this.currentPage - 1] = true;
           },
-          err => {
+          (err) => {
             console.error("error search", err);
           }
         );
@@ -314,7 +335,7 @@ export class CommercesComponent implements OnInit {
       category: this.categorySelected,
       // disable or not butons
       commerceList: this.commerceList,
-      selectedCommercesID: this.selectedCommercesID
+      selectedCommercesID: this.selectedCommercesID,
     };
     const dialogRef = this.dialog.open(
       DownloadExcelDialogComponent,
@@ -329,13 +350,13 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.height = "350px";
     configuracionDialog.width = "450px";
     configuracionDialog.data = {
-      commerces: this.getSelectedCommerces(this.selectedCommercesID)
+      commerces: this.getSelectedCommerces(this.selectedCommercesID),
     };
     const dialogRef = this.dialog.open(
       DeleteCommerceDialogComponent,
       configuracionDialog
     );
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         if (data.trim() === "deleted") {
           this.loadCommerceList();
@@ -350,19 +371,19 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.autoFocus = true;
     configuracionDialog.height = "300px";
     configuracionDialog.width = "400px";
-    if(this.selectedCommercesID.length === 0){
+    if (this.selectedCommercesID.length === 0) {
       for (let i = 0; i < this.commerceList.length; i++) {
         this.selectedCommercesID.push(i);
       }
     }
     configuracionDialog.data = {
-      commerces: this.getSelectedCommerces(this.selectedCommercesID)
+      commerces: this.getSelectedCommerces(this.selectedCommercesID),
     };
     const dialogRef = this.dialog.open(
       AllowCommerceDialogComponent,
       configuracionDialog
     );
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         if (data.trim() === "allowed") {
           this.loadCommerceList();
@@ -378,13 +399,13 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.height = "1000px";
     configuracionDialog.width = "600px";
     configuracionDialog.data = {
-      commerces: this.getSelectedCommerces(this.selectedCommercesID)[0].id
+      commerces: this.getSelectedCommerces(this.selectedCommercesID)[0].id,
     };
     const dialogRef = this.dialog.open(
       EditCommerceDialogComponent,
       configuracionDialog
     );
-    dialogRef.afterClosed().subscribe(data => {
+    dialogRef.afterClosed().subscribe((data) => {
       if (data) {
         if (data.trim() === "edit") {
           this.loadCommerceList();

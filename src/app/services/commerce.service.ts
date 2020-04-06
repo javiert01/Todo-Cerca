@@ -66,8 +66,8 @@ export class CommerceService {
     );
   }
 
-  searchCommerce(param) {
-    return this.http.get<any>(`${this.url}/patterMatch?param=${param}`);
+  searchCommerce(param, pageSize, pageNumber) {
+    return this.http.get<any>(`${this.url}/patterMatch?param=${param}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
   }
 
   getCommerce() {
