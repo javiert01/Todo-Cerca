@@ -33,7 +33,7 @@
     </div>
     <div style="margin-left: auto;">
       <i class="fas fa-search fa-lg" style="margin-right: 15px;"></i>
-      <input class="input-search" type="text" placeholder="Nombre o ID del comercio" (keyup)="onSearchTerm()" #searchInput/>
+      <input class="input-search" type="text" placeholder="Nombre o ID del comercio" (keyup.enter)="onSearchTerm()" #searchInput/>
     </div>
   </div>
   <div class="category-container">
