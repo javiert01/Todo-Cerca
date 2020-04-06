@@ -53,7 +53,7 @@
     </button>
   </div>
   <div class="category-container">
-    <label class="color3">Seleccione Categoría</label>
+    <label class="color3" style="margin: 0px 15px;">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
       <option
@@ -65,9 +65,10 @@
   </div>
   <table>
     <tr>
-      <th style="text-align: center;">
-        Seleccionar Todos
+      <th style="text-align: center; width: auto">
+        Seleccionar Todos <br/>
         <input
+        style="width: 20px;"
           type="checkbox"
           (change)="onSelectAll($event.target.checked)"
           [checked]="allSelected"
@@ -78,9 +79,10 @@
       </th>
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
-      <td>
+      <td style="text-align: center;">
         <input
           type="checkbox"
+          style="width: 20px;"
           [value]="i"
           (change)="onCheckCommerce($event.target)"
           [checked]="isCommerceSelectedList[i]"
@@ -147,14 +149,9 @@
       Editar
     </button>
     <button
-      class="btn cursor-pointer"
+      class="btn cursor-pointer green"
       *ngIf="!allowed"
       (click)="openAllowCommerceDialog()"
-      [ngClass]="{
-        'btn-invalid': selectedCommercesID.length == 0,
-        green: selectedCommercesID.length > 0
-      }"
-      [disabled]="selectedCommercesID.length == 0"
     >
       Cargar
     </button>
@@ -172,8 +169,8 @@
   </div>
   <div style="text-align: right;" *ngIf="selectedCommercesID.length === 0">
     <span class="help-block"
-      >Debe seleccionar al menos un comercio para poder eliminar, editar o
-      cargar</span
+      >Debe seleccionar al menos un comercio para poder eliminar o editar
+      </span
     >
   </div>
   <div style="text-align: right;" *ngIf="selectedCommercesID.length > 1">

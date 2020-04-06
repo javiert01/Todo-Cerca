@@ -44,6 +44,9 @@ export class CommercesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser('Admin');
+    }
     this.loadCategoryData();
     this.commerceService
       .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
@@ -67,6 +70,7 @@ export class CommercesComponent implements OnInit {
               this.titlesList.push(key);
             }
           }
+          console.log(this.titlesList);
           for (const commerce of this.commerceList) {
             this.isCommerceSelectedList.push(false);
           }
@@ -252,7 +256,7 @@ export class CommercesComponent implements OnInit {
       this.allSelected = true;
       for (let i = 0; i < this.commerceList.length; i++) {
         this.isCommerceSelectedList[i] = true;
-        this.selectedCommercesID.push(this.commerceList[i].id);
+        this.selectedCommercesID.push(i);
       }
     } else {
       this.allSelected = false;
@@ -346,6 +350,11 @@ export class CommercesComponent implements OnInit {
     configuracionDialog.autoFocus = true;
     configuracionDialog.height = "300px";
     configuracionDialog.width = "400px";
+    if(this.selectedCommercesID.length === 0){
+      for (let i = 0; i < this.commerceList.length; i++) {
+        this.selectedCommercesID.push(i);
+      }
+    }
     configuracionDialog.data = {
       commerces: this.getSelectedCommerces(this.selectedCommercesID)
     };

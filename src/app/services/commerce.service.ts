@@ -55,8 +55,8 @@ export class CommerceService {
     return this.http.get<any>(`${this.urlBlueprint}/?id=${idCommerce}`);
   }
 
-  updateCommerce(idCommerce, data) {
-    return this.http.put<any>(`${this.urlBlueprint}/${idCommerce}`, data);
+  updateCommerce(data) {
+    return this.http.post<any>(`${this.url}/edit`, data);
   }
 
   getAllCommercesNoPagination(allow) {
