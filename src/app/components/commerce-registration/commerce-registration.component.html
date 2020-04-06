@@ -112,9 +112,9 @@
             <select formControlName="category">
               <option value="">Seleccionar</option>
               <option
-                [ngValue]="category"
+                [ngValue]="category.id"
                 *ngFor="let category of commerceCategories"
-                >{{ category }}</option
+                >{{ category.commerceCategory }}</option
               >
             </select>
             <span

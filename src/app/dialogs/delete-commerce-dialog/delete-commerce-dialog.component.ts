@@ -43,6 +43,10 @@ export class DeleteCommerceDialogComponent implements OnInit {
       this.activarBoton = this.commerces[0].commerceName === param;
   }
 
+  confirmarEliminarTodos(param: string) {
+    this.activarBoton = 'confirmar' === param;
+  }
+
   close() {
     this.dialogRef.close();
   }

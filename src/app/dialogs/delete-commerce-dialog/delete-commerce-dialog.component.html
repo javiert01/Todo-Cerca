@@ -31,12 +31,12 @@
         <li *ngFor="let commerce of commerces">{{ commerce.commerceName }}</li>
       </ul>
     </div>
-    <p>Ingrese el nombre del comercio para poder elminarlo</p>
+    <p>Ingrese el nombre del comercio para poder eliminarlo</p>
     <div style="text-align: center;">
       <input
         class="name-input"
         type="text"
-        placeholder="Nombre de la empresa"
+        placeholder=" Nombre del comercio"
         (keyup)="buscarEmpresa(buscarTexto.value)"
         #buscarTexto
       />
@@ -78,7 +78,7 @@
       <button
         type="button"
         class="btn btn-primary mx-2"
-        (click)="eliminarEmpresa()"
+        (click)="eliminarSiMethod()"
       >
         Si, Eliminar!
       </button>
@@ -101,4 +101,43 @@
 
   </div>
 
+</div>
+  <div *ngIf="eliminarSi == true" class="container">
+    <h5>Eliminar</h5>
+    <p>Está seguro que desea <strong>Eliminar</strong> a?</p>
+    <div style="margin: 10px 15px">
+      <ul>
+        <li *ngFor="let commerce of commerces">{{ commerce.commerceName }}</li>
+      </ul>
+    </div>
+    <p>Escriba la palabra 'confirmar' para continuar:</p>
+    <div style="text-align: center;">
+      <input
+        class="name-input"
+        type="text"
+        placeholder=""
+        (keyup)="confirmarEliminarTodos(buscarTexto.value)"
+        #buscarTexto
+      />
+      <br />
+      <button
+        type="button"
+        [disabled]="!activarBoton"
+        [ngStyle]="{
+          opacity: activarBoton ? '1' : '0.5',
+          cursor: activarBoton ? 'pointer' : 'not-allowed'
+        }"
+        class="btn btn-primary mx-2"
+        (click)="eliminarEmpresa()"
+      >
+        Si, Eliminar!
+      </button>
+      <br *ngIf="!activarBoton">
+      <p class="help-block" *ngIf="!activarBoton">La palabra ingresada es incorrecta</p>
+      <button  type="button" class="btn red" (click)="close()">
+        Cancelar
+      </button>
+
+    </div>
+  </div>
 </div>

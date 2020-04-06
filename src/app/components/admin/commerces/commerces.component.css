@@ -59,7 +59,7 @@ th {
 }
 
 .help-block {
-  color: red;
+  color: #2e4a5c;
 }
 
 .blue {
@@ -116,17 +116,6 @@ th {
   color: white;
 }
 
-.btn-detalles {
-  background-color: #94c15b;
-  font-weight: bold;
-}
-
-.btn-asignar {
-  background-color: #56358a;
-  font-weight: bold;
-  color: white;
-}
-
 .btn-cancelar {
   background-color: #e8514a;
   font-weight: bold;
@@ -175,11 +164,13 @@ header {
 }
 
 input {
-  border: 0;
   outline: 0;
   background: transparent;
-  border-bottom: 1px solid rgb(101, 205, 253);
+  border: 1px solid #2e4a5c;
+  height: 25px;
+  width: 200px;
 }
+
 
 .txt-esquina {
   color: rgb(147, 199, 89);

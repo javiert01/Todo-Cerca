@@ -108,9 +108,7 @@
           </div>
           <div class="col">
             <label class="color3">Ciudad</label>
-            <select
-              formControlName="city"
-            >
+            <select formControlName="city">
               <option value="">Seleccionar</option>
               <option *ngFor="let city of cities" [ngValue]="city">{{
                 city
@@ -126,43 +124,34 @@
             >
           </div>
         </div>
-        <div class="col-3-equals">
-          <div class="col">
-            <label class="color3">Días de Apertura</label>
-            <select formControlName="frecuency">
-              <option value="">Seleccionar</option>
-              <option
-                *ngFor="let frecuency of frecuencyOptions"
-                [ngValue]="frecuency"
-                >{{ frecuency }}</option
-              >
-            </select>
-            <span
-              class="help-block"
-              *ngIf="
-                editForm.get('frecuency').errors?.required &&
-                editForm.get('frecuency').touched
-              "
-              >*Campo Obligatorio</span
+        <div class="col">
+          <label class="color3">Días de Apertura</label>
+          <select formControlName="frecuency">
+            <option value="">Seleccionar</option>
+            <option
+              *ngFor="let frecuency of frecuencyOptions"
+              [ngValue]="frecuency"
+              >{{ frecuency }}</option
             >
-          </div>
+          </select>
+          <span
+            class="help-block"
+            *ngIf="
+              editForm.get('frecuency').errors?.required &&
+              editForm.get('frecuency').touched
+            "
+            >*Campo Obligatorio</span
+          >
+        </div>
+        <div class="col-2-equals">
           <div class="col">
             <label class="color3" for="horarios">Horario de Apertura</label>
-            <div class="toggle-example" style="display: inline-flex;">
-              <input
-                type="text"
-                [ngxTimepicker]="toggleTimepicker"
+            <div class="ngx-timepicker-field-example">
+              <ngx-timepicker-field
+                [defaultTime]="commerce['hourOpen']"
                 formControlName="hourOpen"
-                [disableClick]="false"
-                placeholder="Seleccionar"
-                readonly
-              />
-              <ngx-material-timepicker-toggle
-                [for]="toggleTimepicker"
-              ></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker
-                #toggleTimepicker
-              ></ngx-material-timepicker>
+                [controlOnly]="true"
+              ></ngx-timepicker-field>
             </div>
             <span
               class="help-block"
@@ -173,21 +162,12 @@
           </div>
           <div class="col">
             <label class="color3" for="horarios">Horario de cierre</label>
-            <div class="toggle-example" style="display: inline-flex;">
-              <input
-                type="text"
-                placeholder="Seleccionar"
-                [ngxTimepicker]="toggleTimepicker2"
+            <div class="ngx-timepicker-field-example">
+              <ngx-timepicker-field
                 formControlName="hourClose"
-                [disableClick]="false"
-                readonly
-              />
-              <ngx-material-timepicker-toggle
-                [for]="toggleTimepicker2"
-              ></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker
-                #toggleTimepicker2
-              ></ngx-material-timepicker>
+                [controlOnly]="true"
+                [defaultTime]="commerce['hourClose']"
+              ></ngx-timepicker-field>
             </div>
             <span
               class="help-block"
@@ -226,9 +206,7 @@
           ></textarea>
         </div>
         <div class="col-1">
-          <label class="color3"
-            >Correo electrónico de contacto:</label
-          >
+          <label class="color3">Correo electrónico de contacto:</label>
           <input
             type="email"
             placeholder="ejemplo@gmail.com"
@@ -251,7 +229,8 @@
 
         <div class="col-1">
           <label class="color3 background-color1 white" for="foto"
-            ><i class="fas fa-camera white"></i> Foto del Comercio</label
+            ><i class="fas fa-camera white"></i> Editar la foto del
+            Comercio</label
           >
           <input
             type="file"
@@ -263,27 +242,27 @@
         </div>
         <div class="col-2-equals">
           <input
-          type="submit"
-          name=""
-          class="background-color1 white center button center-button"
-          value="EDITAR"
-          (click)="
-            this.imagenSeleccionada
-              ? operar(this.editForm.get('commerceName').value)
-              : submitCommerce()
-          "
-          [ngStyle]="{
-            opacity: editForm.valid ? '1' : '0.5',
-            cursor: editForm.valid ? 'pointer' : 'not-allowed'
-          }"
-        />
-        <input
-          type="button"
-          class="red button"
-          value="CANCELAR"
-          (click)="close()"
-          style="cursor: pointer;"
-        />
+            type="submit"
+            name=""
+            class="background-color1 white center button center-button"
+            value="EDITAR"
+            (click)="
+              this.imagenSeleccionada
+                ? operar(this.editForm.get('commerceName').value)
+                : submitCommerce()
+            "
+            [ngStyle]="{
+              opacity: editForm.valid ? '1' : '0.5',
+              cursor: editForm.valid ? 'pointer' : 'not-allowed'
+            }"
+          />
+          <input
+            type="button"
+            class="red button"
+            value="CANCELAR"
+            (click)="close()"
+            style="cursor: pointer;"
+          />
         </div>
 
         <span class="help-block" *ngIf="editForm.invalid"

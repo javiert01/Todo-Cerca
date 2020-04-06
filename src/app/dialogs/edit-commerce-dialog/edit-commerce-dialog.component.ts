@@ -128,6 +128,7 @@ export class EditCommerceDialogComponent implements OnInit {
     .subscribe((data) => {
       data = data[0];
       console.log(data);
+      this.commerce = data;
       this.imgURL = data['commercePhoto'];
       this.reciboURL = this.imgURL;
       this.editForm = new FormGroup({
@@ -304,24 +305,34 @@ export class EditCommerceDialogComponent implements OnInit {
   }
 
   submitCommerce() {
+    let categorySelected = '';
+    for(let i = 0; i < this.commerceCategories.length; i++) {
+      if(this.commerceCategories[i].id === this.editForm.get('category').value) {
+        categorySelected = this.commerceCategories[i].commerceCategory;
+      };
+    }
     this.commerce = {
+      id: this.commerces,
       ownerName: this.editForm.get('ownerName').value,
       ownerLastName: this.editForm.get('ownerLastName').value,
+      ownerEmail: this.editForm.get('ownerEmail').value,
       phone: this.editForm.get('phone').value,
       commerceName: this.editForm.get('commerceName').value,
-      category: this.editForm.get('category').value,
-      commercePhoto: this.imgURL,
-      frequency: this.editForm.get('frecuency').value,
       hourOpen: this.editForm.get('hourOpen').value,
       hourClose: this.editForm.get('hourClose').value,
+      country: this.commerce.country,
       city: this.editForm.get('city').value,
+      frequency: this.editForm.get('frecuency').value,
+      category: categorySelected,
       address: this.editForm.get('address').value,
+      location: this.commerce.location,
+      commercePhoto: this.imgURL,
       reference: this.editForm.get('reference').value,
       commerceDescription: this.editForm.get('commerceDescription').value,
-      ownerEmail: this.editForm.get('ownerEmail').value,
+      showCommerce: this.commerce.showCommerce,
+      acceptTermsConditions: true
     };
-    console.log('form', this.editForm);
-    this.commerceService.updateCommerce(this.commerces, this.commerce)
+    this.commerceService.updateCommerce(this.commerce)
     .subscribe((data) => {
       this.dialogRef.close('edit');
     })
