@@ -1,4 +1,4 @@
-<div *ngIf="eliminarSi == false" class="container">
+<!-- <div *ngIf="eliminarSi == false" class="container">
   <h5>Cargar Comercios</h5>
   <p>¿Está seguro que desea <strong>cargar</strong> los siguientes comercios?</p>
   <div style="margin: 10px 15px">
@@ -18,4 +18,18 @@
     Cancelar
   </button>
 </div>
+</div> -->
+
+<div class="second_dialog">
+  <div class="header">
+    <h5>Carga de Comercios</h5>
+    <h6>El /los comercios se han cargado con éxito.</h6>
+  </div>
+  <div class="buttons">
+    <div>
+      <button class="btn_ok" (click)="close()"> Ok</button>
+    </div>
+
+  </div>
+
 </div>
