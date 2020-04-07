@@ -329,11 +329,9 @@
           />
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
         </div>
-
-        <input
-          name=""
+        <button
+          [disabled]="registerForm.invalid && !imagenSeleccionada"
           class="background-color1 white center button center-button"
-          value="REGISTRARSE"
           (click)="
             this.imagenSeleccionada
               ? operar(this.registerForm.get('commerceName').value)
@@ -343,7 +341,8 @@
             opacity: registerForm.valid && imagenSeleccionada ? '1' : '0.5',
             cursor: registerForm.valid  && imagenSeleccionada ? 'pointer' : 'not-allowed'
           }"
-        />
+        > REGISTRARSE
+      </button>
         <div class="col">
           <div style="display: inline-flex;">
             <label class="color3 center" for="useConditionCheck"
