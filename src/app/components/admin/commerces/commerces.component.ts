@@ -31,6 +31,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   isCommerceSelectedList = [];
   fileName = "...";
   isSearching = false;
+  rol = localStorage.getItem('rol');
   allCommerceSubscription: Subscription;
   searchCommerceSubscription: Subscription;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;
@@ -146,7 +147,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   onSetAllowed(flag) {
     this.currentPage = 1;
     this.allowed = flag;
-    this.loadCommerceList();
+    this.isSearching ? this.onSearchTerm() : this.loadCommerceList();
   }
 
   translateTitleList(titleList) {
@@ -310,7 +311,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.searchCommerceSubscription.unsubscribe();
       }
       this.searchCommerceSubscription = this.commerceService
-        .searchCommerce(this.searchInput.nativeElement.value, this.numeroItemsPorPagina, this.currentPage)
+        .searchCommerce(this.searchInput.nativeElement.value, this.numeroItemsPorPagina, this.currentPage, this.allowed)
         .subscribe(
           (data) => {
             console.log('data search', data);
@@ -335,6 +336,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
           }
         );
     }
+  }
+
+  onCleanSearch() {
+    this.searchInput.nativeElement.value = '';
+    this.loadCommerceList();
   }
 
   openDialogDownloadExcel() {

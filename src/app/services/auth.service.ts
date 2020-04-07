@@ -1,27 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { HOST } from '../shared/var.constants';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { HOST } from "../shared/var.constants";
 import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
   url = `${HOST}/user`;
   helper = new JwtHelperService();
 
-  constructor(
-    private http: HttpClient,
-    private _router: Router
-  ) {}
-
+  constructor(private http: HttpClient, private _router: Router) {}
 
   usuarioLogin(loginData) {
     return this.http.post<any>(this.url + "/login", loginData);
   }
-
 
   logoutUser(rol) {
     localStorage.removeItem("token");
@@ -29,7 +23,10 @@ export class AuthService {
     localStorage.removeItem("username");
 
     switch (rol) {
-      case "Admin":
+      case "Administrador":
+        this._router.navigate(["/login-admin"]);
+        break;
+      case "ATC":
         this._router.navigate(["/login-admin"]);
         break;
       default:

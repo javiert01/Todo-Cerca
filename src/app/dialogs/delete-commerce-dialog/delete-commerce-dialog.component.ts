@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommerceService } from 'src/app/services/commerce.service';
 import { forkJoin, Observable, Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { forkJoin, Observable, Subscription } from 'rxjs';
   templateUrl: './delete-commerce-dialog.component.html',
   styleUrls: ['./delete-commerce-dialog.component.css']
 })
-export class DeleteCommerceDialogComponent implements OnInit {
+export class DeleteCommerceDialogComponent implements OnInit, OnDestroy {
 
   commerces = [];
   nombreEmpresa = '';
