@@ -283,3 +283,7 @@ li {
     border: 1px solid #dee2e6;
   background-color: lightgrey;
 }
+
+.input-search {
+  width: 270px;
+}
