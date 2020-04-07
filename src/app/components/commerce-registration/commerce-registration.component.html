@@ -112,7 +112,7 @@
             <select formControlName="category">
               <option value="">Seleccionar</option>
               <option
-                [ngValue]="category.id"
+                [value]="category.commerceCategory"
                 *ngFor="let category of commerceCategories"
                 >{{ category.commerceCategory }}</option
               >
@@ -341,8 +341,8 @@
               : submitCommerce()
           "
           [ngStyle]="{
-            opacity: registerForm.valid ? '1' : '0.5',
-            cursor: registerForm.valid ? 'pointer' : 'not-allowed'
+            opacity: registerForm.valid && imagenSeleccionada ? '1' : '0.5',
+            cursor: registerForm.valid  && imagenSeleccionada ? 'pointer' : 'not-allowed'
           }"
         />
         <div class="col">
@@ -375,12 +375,13 @@
         <span class="help-block" *ngIf="registerForm.invalid"
           >*Debe llenar todos los campos para continuar con el registro</span
         >
-        <br *ngIf="invalidControls.length > 0" />
-        <div *ngIf="invalidControls.length > 0">
+        <br *ngIf="invalidControls.length > 0 ||imagenSeleccionada" />
+        <div *ngIf="invalidControls.length > 0 || !imagenSeleccionada">
           <span class="help-block">Revise los siguientes campos: </span>
           <span class="help-block" *ngFor="let name of invalidControls"
             >{{ name }},
           </span>
+          <span class="help-block" *ngIf="!imagenSeleccionada">Foto de tu local o producto</span>
         </div>
       </form>
     </div>
