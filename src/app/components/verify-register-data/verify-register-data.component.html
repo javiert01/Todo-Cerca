@@ -116,14 +116,23 @@
                     <img src="{{ comerceVerify.commercePhoto }}" alt="" class="foto-local img-center" />
                 </div>
                 <div class="col-2-equals">
-                    <div class="col">
-                        <a class="volver background-color4 white center button center-button"
-                            (click)="changeRegisterPage()" style="cursor: pointer;">Volver</a>
-                    </div>
-                    <div class="col">
-                        <input type="submit" name="" class="background-color1 white center button center-button"
-                            value="REGISTRARSE" (click)="postComerce()" style="cursor: pointer;" />
-                    </div>
+                  <div class="col">
+                    <button
+                      class="volver background-color4 white center button center-button"
+                      (click)="changeRegisterPage()"
+                      style="cursor: pointer; height: 42px;"
+                      >Volver</button
+                    >
+                  </div>
+                  <div class="col">
+                    <button
+                      class="background-color1 white center button center-button"
+                      (click)="postComerce()"
+                      style="cursor: pointer; height: 42px;"
+                    >
+                      REGISTRARSE
+                    </button>
+                  </div>
                 </div>
             </div>
         </div>
