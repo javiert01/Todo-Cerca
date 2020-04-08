@@ -42,7 +42,7 @@ export class LoginAdminComponent implements OnInit {
         this._router.navigate(['/inicio-admin']);
       },
       err => {
-        alert(err.error.err);
+        alert('Credenciales inválidas, vuelva a intentarlo');
       }
     );
   }
