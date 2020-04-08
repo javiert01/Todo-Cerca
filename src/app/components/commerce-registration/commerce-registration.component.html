@@ -222,7 +222,7 @@
           <label for="mapa" class="color3">
             Ubica tu dirección en el mapa
           </label>
-          <div style="margin-bottom: 10px; display: inline-flex">
+          <div style="margin-bottom: 10px; display: inline-flex;">
             <button
               class="color3 background-color1 white button right"
               type="button"
@@ -325,28 +325,29 @@
             type="file"
             name=""
             id="foto"
-            formControlName="commercePhoto"
             (change)="onFileChangedRecibo($event)"
           />
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
         </div>
 
-        <input
-          type="submit"
-          name=""
+        <button
+          [disabled]="registerForm.invalid && !imagenSeleccionada"
           class="background-color1 white center button center-button"
-          value="REGISTRARSE"
           (click)="
             this.imagenSeleccionada
               ? operar(this.registerForm.get('commerceName').value)
               : submitCommerce()
           "
           [ngStyle]="{
-            opacity: registerForm.valid ? '1' : '0.5',
-            cursor: registerForm.valid ? 'pointer' : 'not-allowed'
+            opacity: registerForm.valid && imagenSeleccionada ? '1' : '0.5',
+            cursor:
+              registerForm.valid && imagenSeleccionada
+                ? 'pointer'
+                : 'not-allowed'
           }"
-          [disabled]="registerForm.invalid"
-        />
+        >
+          REGISTRARSE
+        </button>
         <div class="col">
           <div style="display: inline-flex;">
             <label class="color3 center" for="useConditionCheck"
@@ -362,7 +363,7 @@
               type="checkbox"
               formControlName="useConditions"
               id="useConditionCheck"
-              style="margin-left: 10px; padding-top: 3px"
+              style="margin-left: 10px; padding-top: 3px;"
             />
           </div>
         </div>
@@ -377,12 +378,13 @@
         <span class="help-block" *ngIf="registerForm.invalid"
           >*Debe llenar todos los campos para continuar con el registro</span
         >
-        <br *ngIf="invalidControls.length > 0" />
-        <div *ngIf="invalidControls.length > 0">
+        <br *ngIf="invalidControls.length > 0 ||imagenSeleccionada" />
+        <div *ngIf="invalidControls.length > 0 || !imagenSeleccionada">
           <span class="help-block">Revise los siguientes campos: </span>
           <span class="help-block" *ngFor="let name of invalidControls"
             >{{ name }},
           </span>
+          <span class="help-block" *ngIf="!imagenSeleccionada">Foto de tu local o producto</span>
         </div>
       </form>
     </div>
