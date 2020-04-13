@@ -1,0 +1,56 @@
+.img-container {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  margin: auto;
+}
+
+#section-2-buscar {
+  padding: 0 0 30px;
+}
+
+#section-2-buscar .resultados-container {
+  display: flex;
+  position: relative;
+}
+#section-2-buscar .resultados-container .col-left,
+#section-2-buscar .resultados-container .col-right {
+  width: 50%;
+}
+#section-2-buscar .resultados-container .col-left .recomendaciones {
+  padding: 10px;
+}
+/*Menu iconos*/
+#section-2-buscar #menu-iconos {
+  transition: top 0.5s;
+  -webkit-transition: top 0.5s;
+}
+#section-2-buscar .locales-menu-icons {
+  max-width: 250px;
+  display: block;
+  margin: auto;
+}
+#section-2-buscar .locales-menu-icons .col-2-equals {
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+#section-2-buscar .locales-menu-icons .col-2-equals .col {
+  margin: 10px 0;
+}
+#section-2-buscar .locales-menu-icons .col-2-equals a {
+  text-decoration: none;
+}
+#section-2-buscar .locales-menu-icons .col-2-equals .col .icon-wrapper {
+  margin: 15px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: auto;
+}
+#section-2-buscar .locales-menu-icons .col-2-equals .col i {
+  font-size: 30px;
+  cursor: pointer;
+  margin-top: 15px;
+}

@@ -1,0 +1,66 @@
+.resultados-container {
+  display: flex;
+  position: relative;
+}
+
+#lista-locales {
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+}
+/*++++++++++++++++++++++++++++++++++++++++++++++++
+					BUSCAR
++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+#section-1-buscar {
+  padding: 30px 10px;
+  background-image: url(../../../assets/02-back-buscador.jpg);
+  background-size: cover;
+  background-position: center;
+}
+#section-1-buscar .instrucciones .col {
+  display: flex;
+  align-items: center;
+}
+#section-1-buscar .instrucciones .col .icon-container {
+  width: 100px;
+}
+#section-1-buscar .instrucciones .col i {
+  font-size: 40px;
+}
+#section-1-buscar .search-container {
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin: 20px 0;
+  border: 1px solid #009b83;
+}
+#section-1-buscar .search-container .col-4-equals {
+  grid-gap: 5px;
+}
+#section-1-buscar .search-container .col-4-equals .col {
+  margin: 0;
+}
+#section-1-buscar .search-container .col-4-equals .col1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#section-1-buscar .search-container .col-4-equals .col i {
+  font-size: 30px;
+}
+#section-1-buscar .search-container select {
+  width: 250px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+#section-1-buscar .search-container input {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  text-indent: 10px;
+  border: 5px;
+}
+#section-1-buscar .search-container input[type="submit"],
+#section-1-buscar .search-container a {
+  margin: auto;
+  cursor: pointer;
+}
