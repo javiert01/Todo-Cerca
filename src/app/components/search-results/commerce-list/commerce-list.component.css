@@ -1,56 +1,150 @@
-.img-container {
+.resultados-container .col-left .lista-locales-out .lista-locales-in h4 {
+  margin-top: 120px;
+}
+.resultados-container .col-left .lista-locales-out .lista-locales-in {
+  padding: 10px;
+}
+.resultados-container .col-left .lista-locales-out .lista-locales-in li {
+  padding: 10px;
+}
+.resultados-container .col-left .lista-locales-out .col-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-left {
+  width: 20%;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-left
+  .img-container {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  margin: auto;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-left
+  .img-container
+  img {
+  width: 270px;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-right {
+  width: 80%;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-right p {
+  margin-top: 10px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  #id-negocio {
+  font-size: 12px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button {
+  display: flex;
+  align-items: center;
+  max-width: 180px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button
+  .col-left {
+  width: 50px;
+  font-size: 30px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button
+  .col-right
+  p {
+  font-size: 10px;
+  margin-top: 0;
+  line-height: 5px;
+}
+
+.resultados-container .col-left .lista-locales-out .col-2 {
+  flex-direction: column;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .tipo-negocio,
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .titulo-comercio {
+  text-align: left;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button {
+  margin: 20px auto;
+}
+
+.lista-locales-out .col-2 {
+  flex-direction: column;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-left
+  .img-container {
   border-radius: 50%;
   width: 80px;
   height: 80px;
   overflow: hidden;
   margin: auto;
 }
-
-#section-2-buscar {
-  padding: 0 0 30px;
+.lista-locales-out .col-2 h5 {
+  text-align: center;
+  margin-top: 5px;
+}
+.lista-locales-out .col-2 .tipo-negocio {
+  text-align: center;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button {
+  margin: 10px auto;
+  padding: 5px 10px 5px;
 }
 
-#section-2-buscar .resultados-container {
-  display: flex;
-  position: relative;
-}
-#section-2-buscar .resultados-container .col-left,
-#section-2-buscar .resultados-container .col-right {
-  width: 50%;
-}
-#section-2-buscar .resultados-container .col-left .recomendaciones {
-  padding: 10px;
-}
-/*Menu iconos*/
-#section-2-buscar #menu-iconos {
-  transition: top 0.5s;
-  -webkit-transition: top 0.5s;
-}
-#section-2-buscar .locales-menu-icons {
-  max-width: 250px;
+/**/
+
+/*imagenes*/
+.img-center {
   display: block;
   margin: auto;
-}
-#section-2-buscar .locales-menu-icons .col-2-equals {
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: 1fr;
-}
-#section-2-buscar .locales-menu-icons .col-2-equals .col {
-  margin: 10px 0;
-}
-#section-2-buscar .locales-menu-icons .col-2-equals a {
-  text-decoration: none;
-}
-#section-2-buscar .locales-menu-icons .col-2-equals .col .icon-wrapper {
-  margin: 15px;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  margin: auto;
-}
-#section-2-buscar .locales-menu-icons .col-2-equals .col i {
-  font-size: 30px;
-  cursor: pointer;
-  margin-top: 15px;
 }
