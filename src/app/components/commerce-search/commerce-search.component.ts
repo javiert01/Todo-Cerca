@@ -1,8 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from "@angular/core";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/map-search-dialog.component";
 import { PlaceService } from 'src/app/services/place.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { MapsAPILoader } from '@agm/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: "app-commerce-search",
@@ -13,14 +15,43 @@ export class CommerceSearchComponent implements OnInit {
 
   cities = [];
   categories = [];
+  lat;
+  lng;
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+  public searchControl: FormControl;
 
   constructor(private dialog: MatDialog,
     private placeService: PlaceService,
-    private categoryService: CategoryService) {}
+    private categoryService: CategoryService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,) {}
 
   ngOnInit(): void {
     this.cities = this.placeService.getCountryList();
     this.loadCategoryData();
+    this.searchControl = new FormControl();
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(
+        this.searchElementRef.nativeElement,
+        {
+          types: ['address']
+        }
+      );
+      autocomplete.setComponentRestrictions({
+        country: ['ec']
+      });
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+        });
+      });
+    });
 
   }
 
@@ -34,8 +65,8 @@ export class CommerceSearchComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "380px";
-    configuracionDialog.width = "560px";
+    configuracionDialog.height = "470px";
+    configuracionDialog.width = "640px";
     configuracionDialog.data = {};
     const dialogRef = this.dialog.open(
       MapSearchDialogComponent,

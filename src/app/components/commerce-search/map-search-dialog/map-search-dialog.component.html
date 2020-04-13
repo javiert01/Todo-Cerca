@@ -1,20 +1,38 @@
-<div id="popup" class="show-popup-mapa-home">
-  <div class="popup-overlay">
-    <div class="popup-box-out background-white">
-      <div class="popup-box-in">
-        <p id="close-popup-mapa-home" class="background-color3 white center" (click)="close()">
-          x
-        </p>
-        <h6 class="center color1">
-          Para una mejor experiencia, mueve el pin a tu ubicación exacta.
-        </h6>
-        <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-        [zoom]="mapZoom" [scrollwheel]="null" [gestureHandling]="'cooperative'" [streetViewControl]="false"
-        [mapTypeControl]="true">
-        <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
-      </agm-map>
-        <button id="confirmar-ubicacion" class="button center-button background-color5 white center confirmar">CONFIRMAR UBICACIÓN</button>
+<section id="section-1-buscar">
+  <div id="popup" class="show-popup-mapa-home">
+    <div class="popup-overlay">
+      <div class="popup-box-out background-white">
+        <div class="popup-box-in">
+          <p
+            id="close-popup-mapa-home"
+            class="background-color3 white center"
+            (click)="close()"
+          >
+            x
+          </p>
+          <h6 class="center color1">
+            Para una mejor experiencia, mueve el pin a tu ubicación exacta.
+          </h6>
+          <agm-map
+            [latitude]="lat"
+            [longitude]="lng"
+            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
+            [zoom]="mapZoom"
+            [scrollwheel]="null"
+            [gestureHandling]="'cooperative'"
+            [streetViewControl]="false"
+            [mapTypeControl]="true"
+          >
+            <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
+          </agm-map>
+          <button
+            id="confirmar-ubicacion"
+            class="button center-button background-color5 white center confirmar"
+          >
+            CONFIRMAR UBICACIÓN
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
