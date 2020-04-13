@@ -1,3 +1,12 @@
+.resultados-container {
+  display: flex;
+  position: relative;
+}
+
+#lista-locales {
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+}
 /*++++++++++++++++++++++++++++++++++++++++++++++++
 					BUSCAR
 +++++++++++++++++++++++++++++++++++++++++++++++++++*/
