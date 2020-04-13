@@ -12,9 +12,8 @@
                     <div class="col col1">
                         <i class="fas fa-map-marker-alt color1"></i>
                         <select class="color1">
-                            <option value="" clas="color1">Elije tu ciudad</option>
-                            <option value="" clas="color1"></option>
-                            <option value="" clas="color1"></option>
+                            <option value="" class="color1">Elije tu ciudad</option>
+                            <option [value]="city" class="color1" *ngFor="let city of cities">{{city}}</option>
                         </select>
                     </div>
                     <div class="col col2">
@@ -22,9 +21,8 @@
                     </div>
                     <div class="col col3">
                         <select class="color1">
-                            <option value="" clas="color1">Elige la categoría</option>
-                            <option value="" clas="color1"></option>
-                            <option value="" clas="color1"></option>
+                            <option value="" class="color1">Elige la categoría</option>
+                            <option [value]="category" class="color1" *ngFor="let category of categories">{{category}}</option>
                         </select>
                     </div>
                     <div class="col col4">

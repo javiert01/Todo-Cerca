@@ -4,13 +4,15 @@ import { VerifyRegisterDataComponent } from "./components/verify-register-data/v
 import { ThankyouComponent } from "./components/thankyou/thankyou.component";
 import { CommerceRegistrationComponent } from "./components/commerce-registration/commerce-registration.component";
 import { UseConditionsComponent } from './components/use-conditions/use-conditions.component';
+import { CommerceSearchComponent } from './components/commerce-search/commerce-search.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "registrar", pathMatch: "full" },
+  { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "registrar", component: CommerceRegistrationComponent },
   { path: "verificar", component: VerifyRegisterDataComponent },
   { path: "gracias", component: ThankyouComponent },
-  { path: "politicas-de-uso", component: UseConditionsComponent }
+  { path: "politicas-de-uso", component: UseConditionsComponent },
+  { path: "home", component: CommerceSearchComponent}
 ];
 
 @NgModule({

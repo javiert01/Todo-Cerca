@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { Observable } from 'rxjs';
+import { PlaceService } from 'src/app/services/place.service';
 
 declare let google: any;
 
@@ -51,34 +52,7 @@ export class CommerceRegistrationComponent implements OnInit {
     'Todos los días'
   ];
 
-  cities = [
-    'Quito',
-    'Guayaquil',
-    'Cuenca',
-    'Guaranda',
-    'Azogues',
-    'Tulcán',
-    'Riobamba',
-    'Latacunga',
-    'Machala',
-    'Esmeraldas',
-    'Puerto Baquerizo Moreno',
-    'Ibarra',
-    'Loja',
-    'Babahoyo',
-    'Portoviejo',
-    'Macas',
-    'Tena',
-    'Francisco de Orellana',
-    'Puyo',
-    'Santa Elena',
-    'Santo Domingo',
-    'Nueva Loja',
-    'Ambato',
-    'Zamora'
-  ];
-
-
+ cities = []
   provinces = [
     'Azuay',
     'Bolívar',
@@ -122,6 +96,7 @@ export class CommerceRegistrationComponent implements OnInit {
     private cdRef: ChangeDetectorRef,
     private router: Router,
     private categoryService: CategoryService,
+    private placeService: PlaceService,
     private route: ActivatedRoute
   ) {
     this.loadCategoryData();
@@ -133,6 +108,7 @@ export class CommerceRegistrationComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.cities = this.placeService.getCountryList();
     this.route.queryParams.subscribe(params => {
       this.scrollToForm = params.formulario;
 
