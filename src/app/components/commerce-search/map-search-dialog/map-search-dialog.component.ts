@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MapsAPILoader } from '@agm/core';
+import { CommerceService } from 'src/app/services/commerce.service';
 
 declare let google: any;
 
@@ -16,22 +17,29 @@ export class MapSearchDialogComponent implements OnInit {
   lng = -78.503374;
   markLat;
   markLng;
+  category;
 
   constructor(
     private dialogRef: MatDialogRef<MapSearchDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data,
-    private mapsAPILoader: MapsAPILoader,
-  ) {}
+    @Inject(MAT_DIALOG_DATA) data, private commerceService: CommerceService
+  ) {
+    this.lat = data.lat;
+    this.lng = data.lng;
+    this.markLat = this.lat;
+    this.markLng = this.lng;
+    this.category = data.category;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
 
   setMarker($event) {
-    // console.log($event.coords.lat);
     this.markLat = $event.coords.lat;
     this.markLng = $event.coords.lng;
-/*     this.registerForm.get('ltd').setValue(this.markLat);
-    this.registerForm.get('lng').setValue(this.markLng); */
+    this.lat = this.markLat;
+    this.lng = this.markLng;
   }
 
   getAddress(lat: number, lng: number) {
@@ -56,6 +64,15 @@ export class MapSearchDialogComponent implements OnInit {
         }
       });
     }
+  }
+
+  onSearchCommerce() {
+    this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1)
+    .subscribe((data) => {
+      this.commerceService.setCommerceResultList(data['commercesPaginated']);
+      console.log('commerces obtained', data);
+      this.dialogRef.close('ok');
+    });
   }
 
   close() {

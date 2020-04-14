@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommerceService } from 'src/app/services/commerce.service';
 
 @Component({
   selector: 'app-commerce-list',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommerceListComponent implements OnInit {
 
-  constructor() { }
+  commerces = [];
+
+  constructor(private commerceService: CommerceService) {
+   }
 
   ngOnInit(): void {
+    this.commerces = this.commerceService.getCommerceResultList();
+    console.log(this.commerces);
   }
 
 }

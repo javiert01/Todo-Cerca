@@ -4,7 +4,7 @@ import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/m
 import { PlaceService } from 'src/app/services/place.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { MapsAPILoader } from '@agm/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: "app-commerce-search",
@@ -17,6 +17,8 @@ export class CommerceSearchComponent implements OnInit {
   categories = [];
   lat;
   lng;
+  resultsObtained = false;
+  searchCommerceForm: FormGroup;
   @ViewChild('search')
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
@@ -31,6 +33,9 @@ export class CommerceSearchComponent implements OnInit {
     this.cities = this.placeService.getCountryList();
     this.loadCategoryData();
     this.searchControl = new FormControl();
+    this.searchCommerceForm = new FormGroup({
+      'category': new FormControl(null, Validators.required)
+    });
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
@@ -53,6 +58,7 @@ export class CommerceSearchComponent implements OnInit {
       });
     });
 
+
   }
 
   loadCategoryData() {
@@ -67,11 +73,21 @@ export class CommerceSearchComponent implements OnInit {
     configuracionDialog.autoFocus = true;
     configuracionDialog.height = "470px";
     configuracionDialog.width = "640px";
-    configuracionDialog.data = {};
+    configuracionDialog.data = {
+      lat: this.lat,
+      lng: this.lng,
+      category: this.searchCommerceForm.get('category').value
+    };
     const dialogRef = this.dialog.open(
       MapSearchDialogComponent,
       configuracionDialog
     );
+    dialogRef.afterClosed()
+    .subscribe((data) => {
+      if(data === 'ok') {
+        this.resultsObtained = true;
+      }
+    })
   }
 
 

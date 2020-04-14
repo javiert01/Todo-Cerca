@@ -6,30 +6,30 @@
                     Hemos encontrado <span class="color4">20</span> tiendas para tí
                 </h4>
                 <ul>
-                    <li id="local-container" class="col-2">
+                    <li id="local-container" class="col-2" *ngFor="let commerce of commerces">
                         <div class="col col-left">
                             <div class="img-container foto-local">
-                                <img src="../../../../assets/08-local.jpg" class="img-center" alt="">
+                                <img [src]="commerce.commercePhoto" class="img-center" alt="">
                             </div>
                         </div>
                         <div class="col col-right">
                             <p class="color4 tipo-negocio">
-                                Tienda
+                                {{commerce.category[0].commerceCategory}}
                             </p>
                             <h5 class="color1 bebas titulo-comercio">
-                                Tienda De Juanita <span id="id-negocio" class="color3">
-                                    Id: 234673
+                                {{commerce.commerceName}} <span id="id-negocio" class="color3">
+                                    Id: {{commerce.idAux}}
                                 </span>
                             </h5>
                             <p class="color3">
-                                <span clas="direccion"><i class="fas fa-map-marker-alt color2"></i> Portugal y Catalina
-                                    Aldaz </span>| <span class="referencia bold">Arriba del colegio Benalcazar</span>
+                                <span clas="direccion"><i class="fas fa-map-marker-alt color2"></i>
+                                    {{commerce.address}} </span>| <span class="referencia bold">{{commerce.reference}}</span>
                             </p>
                             <p class="descripcion color3">
-                                Somos una tienda de barrio, donde podrás encontrar todo tipo de alimientos y bebidas.
+                                {{commerce.commerceDescription}}
                             </p>
                             <p class="horario color2">
-                                <i class="far fa-clock color3"></i> 09:30 - 18:30
+                                <i class="far fa-clock color3"></i> {{commerce.hourOpen}} - {{commerce.hourClose}}
                             </p>
                             <a href="" class="button whatsapp-button background-color2">
                                 <div class="col-left center">

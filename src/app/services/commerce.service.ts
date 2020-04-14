@@ -10,6 +10,7 @@ export class CommerceService {
   url = `${HOST}/commerces`;
   public commerce: Commerce;
   public commerceFormData = null;
+  public commerceResultList = [];
 
   constructor(private http: HttpClient) {}
 
@@ -70,14 +71,20 @@ export class CommerceService {
   setCommerceFormData(formData) {
     this.commerceFormData = formData;
   }
+  setCommerceResultList(list) {
+    this.commerceResultList = [...list];
+  }
+  getCommerceResultList() {
+    return this.commerceResultList;
+  }
   deleteCommerce(id) {
     // {{url}}/commerces/delete
-    return this.http.post<any>(`${this.url}/commerces/delete`, { id });
+    return this.http.post<any>(`${this.url}/delete`, { id });
   }
   getNearestCommerces(lng, lat, category, pageNumber) {
     // {{url}}/commerces/near?longitud=-78.4865042&latitud=-0.2045284&category=Tienda&pageNumber=1
     return this.http.get<any>(
-      `${this.url}/commerces/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}`
+      `${this.url}/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}`
     );
   }
   getInformationCategoryTable(lng, lat) {

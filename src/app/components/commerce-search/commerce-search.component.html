@@ -6,58 +6,60 @@
     <h4 class="color1 center bebas">
       #QuedateEnCasa
     </h4>
+    <form [formGroup]="searchCommerceForm">
     <div>
-      <div class="search-container">
-        <div class="col-4-equals">
-          <div class="col col1">
-            <i class="fas fa-map-marker-alt color1"></i>
-            <select class="color1">
-              <option value="" class="color1">Elije tu ciudad</option>
-              <option
-                [value]="city"
-                class="color1"
-                *ngFor="let city of cities"
-                >{{ city }}</option
-              >
-            </select>
-          </div>
-          <div class="col col2">
-            <div class="form-group">
-              <input
-                placeholder="Ingresa tu calle del domicilio"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="off"
-                type="text"
-                class="form-control"
-                #search
-                [formControl]="searchControl"
-              />
+        <div class="search-container">
+          <div class="col-4-equals">
+            <div class="col col1">
+              <i class="fas fa-map-marker-alt color1"></i>
+              <select class="color1">
+                <option value="" class="color1">Elije tu ciudad</option>
+                <option
+                  [value]="city"
+                  class="color1"
+                  *ngFor="let city of cities"
+                  >{{ city }}</option
+                >
+              </select>
             </div>
-          </div>
-          <div class="col col3">
-            <select class="color1">
-              <option value="" class="color1">Elige la categoría</option>
-              <option
-                [value]="category"
-                class="color1"
-                *ngFor="let category of categories"
-                >{{ category }}</option
+            <div class="col col2">
+              <div class="form-group">
+                <input
+                  placeholder="Ingresa tu calle del domicilio"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  class="form-control"
+                  #search
+                  [formControl]="searchControl"
+                />
+              </div>
+            </div>
+            <div class="col col3">
+              <select class="color1" formControlName="category">
+                <option value="" class="color1">Elige la categoría</option>
+                <option
+                  [value]="category.commerceCategory"
+                  class="color1"
+                  *ngFor="let category of categories"
+                  >{{ category.commerceCategory }}</option
+                >
+              </select>
+            </div>
+            <div class="col col4">
+              <a
+                (click)="openDialogMapSearch()"
+                class="background-color3 white center button center-button"
+                value="BUSCAR"
+                id="buscar"
+                >BUSCAR</a
               >
-            </select>
-          </div>
-          <div class="col col4">
-            <a
-              (click)="openDialogMapSearch()"
-              class="background-color3 white center button center-button"
-              value="BUSCAR"
-              id="buscar"
-              >BUSCAR</a
-            >
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
     <p class="color2 center">
       Si tienes dudas antes de realizar tu búsqueda revisa nuestras
       <a href="terminos.html" class="color2">Políticas de uso</a>.
@@ -110,4 +112,4 @@
   </div>
 </section>
 
-<app-search-results></app-search-results>
+<app-search-results *ngIf="resultsObtained"></app-search-results>
