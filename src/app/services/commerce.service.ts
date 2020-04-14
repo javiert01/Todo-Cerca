@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { HOST } from "../shared/var.constants";
 import { Commerce } from "../models/commerce.model";
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -11,6 +12,7 @@ export class CommerceService {
   public commerce: Commerce;
   public commerceFormData = null;
   public commerceResultList = [];
+  public commerceResultListChanged = new Subject<any[]>();
 
   constructor(private http: HttpClient) {}
 
@@ -73,6 +75,7 @@ export class CommerceService {
   }
   setCommerceResultList(list) {
     this.commerceResultList = [...list];
+    this.commerceResultListChanged.next(this.commerceResultList.slice());
   }
   getCommerceResultList() {
     return this.commerceResultList;
@@ -85,12 +88,6 @@ export class CommerceService {
     // {{url}}/commerces/near?longitud=-78.4865042&latitud=-0.2045284&category=Tienda&pageNumber=1
     return this.http.get<any>(
       `${this.url}/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}`
-    );
-  }
-  getInformationCategoryTable(lng, lat) {
-    // {{url}}/commerces/numberperategory?longitud=-78.4865042&latitud=-0.2045284
-    return this.http.get<any>(
-      `${this.url}/numberperategory?longitud=${lng}&latitud=${lat}`
     );
   }
 }
