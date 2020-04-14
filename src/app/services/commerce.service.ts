@@ -4,21 +4,20 @@ import { HOST } from "../shared/var.constants";
 import { Commerce } from "../models/commerce.model";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class CommerceService {
   url = `${HOST}/commerces`;
   public commerce: Commerce;
   public commerceFormData = null;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   createNewCommerce(newCommerce) {
     return this.http.post<any>(`${this.url}/create`, newCommerce);
   }
 
- /*  loadFakeData() {
+  /*  loadFakeData() {
     let ownerName = "Camila";
     let ownerLastName = "Arguello";
     let phone = " 0987676543 ";
@@ -70,5 +69,21 @@ export class CommerceService {
 
   setCommerceFormData(formData) {
     this.commerceFormData = formData;
+  }
+  deleteCommerce(id) {
+    // {{url}}/commerces/delete
+    return this.http.post<any>(`${this.url}/commerces/delete`, { id });
+  }
+  getNearestCommerces(lng, lat, category, pageNumber) {
+    // {{url}}/commerces/near?longitud=-78.4865042&latitud=-0.2045284&category=Tienda&pageNumber=1
+    return this.http.get<any>(
+      `${this.url}/commerces/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}`
+    );
+  }
+  getInformationCategoryTable(lng, lat) {
+    // {{url}}/commerces/numberperategory?longitud=-78.4865042&latitud=-0.2045284
+    return this.http.get<any>(
+      `${this.url}/numberperategory?longitud=${lng}&latitud=${lat}`
+    );
   }
 }
