@@ -1,3 +1,35 @@
+<div class="background-color2 buscador">
+  <p class="center white recomendaciones">
+      <i class="fas fa-exclamation-triangle white"></i> Revisa nuestra <a href="#recomendaciones" class="white"><b>Recomendaciones</b></a>
+  </p>
+</div>
+<div id="top-menu-iconos"></div>
+<div id="menu-iconos" class="background-color1 ">
+<div class="locales-menu-icons">
+    <div class="col-2-equals">
+      <div id="icon-categorias" class="col center only-mobile" (click)="toggleCategories()">
+          <div class="icon-wrapper background-white">
+            <i class="fas fa-sliders-h color3"></i>
+          </div>
+          <p class="center white">
+            Ver categorías
+          </p>
+      </div>
+      <a id="boton-expand" class="col center" (click)="onExpand()">
+          <div class="icon-wrapper background-white">
+            <i id="icon-map" class="fas fa-map-marked-alt color3"></i>
+            <i id="icon-list" class="far fa-list-alt color3 display-none"></i>
+          </div>
+          <p class="white center" id="ver-mapa">
+            Ver Mapa
+          </p>
+          <p class="white center display-none" id="ver-lista">
+            Ver Lista
+          </p>
+      </a>
+    </div>
+</div>
+</div>
 <div class="global-results container">
   <app-category-list></app-category-list>
   <app-commerce-list></app-commerce-list>

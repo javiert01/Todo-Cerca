@@ -1,3 +1,35 @@
+#menu-iconos{
+	transition: top 0.5s;
+	-webkit-transition: top 0.5s;
+}
+.locales-menu-icons{
+	max-width: 250px;
+	display: block;
+	margin: auto;
+}
+.locales-menu-icons .col-2-equals{
+	justify-content: center;
+	align-items: center;
+	grid-template-columns: 1fr;
+}
+.locales-menu-icons .col-2-equals .col{
+	margin: 10px 0;
+}
+.locales-menu-icons .col-2-equals a{
+	text-decoration: none;
+}
+.locales-menu-icons .col-2-equals .col .icon-wrapper{
+	margin:15px;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	margin:auto;
+}
+.locales-menu-icons .col-2-equals .col i{
+	font-size: 30px;
+	cursor: pointer;
+	margin-top: 15px;
+}
 .global-results{
 	display: grid;
 	grid-template-columns: 250px 1fr;

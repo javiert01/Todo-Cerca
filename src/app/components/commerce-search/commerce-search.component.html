@@ -111,5 +111,6 @@
     </div>
   </div>
 </section>
-
-<app-search-results *ngIf="resultsObtained"></app-search-results>
+<div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories($event)">
+  <app-search-results ></app-search-results>
+</div>

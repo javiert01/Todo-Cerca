@@ -1,1 +1,17 @@
-<p>commerce-results-map works!</p>
+<div id="mapa" class="col col-right">
+  <p>prueba</p>
+  <div class="map-container">
+    <agm-map
+    [latitude]="initialCoordinates.lat"
+    [longitude]="initialCoordinates.lng"
+    [zoom] = 18
+    [scrollwheel]="null"
+    [gestureHandling]="'cooperative'"
+    [streetViewControl]="false"
+    [mapTypeControl]="true"
+  >
+    <agm-marker [latitude]="initialCoordinates.lat" [longitude]="initialCoordinates.lng"></agm-marker>
+    <agm-marker *ngFor="let commerce of commerceCoordinates" [latitude]="commerce.location.coordinates[1]" [longitude]="commerce.location.coordinates[0]"></agm-marker>
+  </agm-map>
+  </div>
+</div>
