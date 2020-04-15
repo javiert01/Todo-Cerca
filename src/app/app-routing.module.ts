@@ -7,12 +7,12 @@ import { UseConditionsComponent } from "./components/use-conditions/use-conditio
 import { CommerceSearchComponent } from "./components/commerce-search/commerce-search.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "registrar", pathMatch: "full" },
+  { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "registrar", component: CommerceRegistrationComponent },
   { path: "verificar", component: VerifyRegisterDataComponent },
   { path: "gracias", component: ThankyouComponent },
   { path: "politicas-de-uso", component: UseConditionsComponent },
-  /*  { path: "home", component: CommerceSearchComponent} */
+   { path: "home", component: CommerceSearchComponent}
 ];
 
 @NgModule({

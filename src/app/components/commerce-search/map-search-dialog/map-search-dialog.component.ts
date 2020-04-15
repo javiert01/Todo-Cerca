@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MapsAPILoader } from '@agm/core';
 import { CommerceService } from 'src/app/services/commerce.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { PlaceService } from 'src/app/services/place.service';
 
 declare let google: any;
 
@@ -21,7 +23,8 @@ export class MapSearchDialogComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<MapSearchDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data, private commerceService: CommerceService
+    @Inject(MAT_DIALOG_DATA) data, private commerceService: CommerceService,
+      private categoryService: CategoryService, private placeService: PlaceService
   ) {
     this.lat = data.lat;
     this.lng = data.lng;
@@ -67,10 +70,15 @@ export class MapSearchDialogComponent implements OnInit {
   }
 
   onSearchCommerce() {
+    this.placeService.setSelectedCoordinates(this.lat, this.lng);
+    this.categoryService.getInformationCategoryTable(this.lng, this.lat)
+    .subscribe((data) => {
+      this.categoryService.setTotalCategories(data);
+    })
     this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1)
     .subscribe((data) => {
       this.commerceService.setCommerceResultList(data['commercesPaginated']);
-      console.log('commerces obtained', data);
+      this.commerceService.setTotalCommerces(data['totalCommerces']);
       this.dialogRef.close('ok');
     });
   }
