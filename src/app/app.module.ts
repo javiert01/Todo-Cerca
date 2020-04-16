@@ -59,7 +59,7 @@ import { CommerceResultsMapComponent } from './components/search-results/commerc
     MatDialogModule,
     PipesModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyAswlswB4nSDMpRuWl9MLTJVBLc4x9J7XE",
+      apiKey: "AIzaSyCHxxCxzPETWvNkPLbEDrKfCznVakh1ofQ",
       libraries: ["places"],
     }),
     BrowserAnimationsModule,
