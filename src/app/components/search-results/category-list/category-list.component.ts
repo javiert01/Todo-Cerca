@@ -83,6 +83,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   onSelectCategory(category) {
+    this.categoryService.setCategorySelected(category);
     this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, category, 1).subscribe(
       (data) => {
         this.commerceService.setCommerceResultList(data['commercesPaginated']);

@@ -47,6 +47,38 @@
                         </div>
                     </li>
                 </ul>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li
+                      class="page-item"
+                      *ngIf="numeroPaginas > 1"
+                      (click)="navigateToPage('atras')"
+                    >
+                      <a class="page-link">Anterior</a>
+                    </li>
+                    <li
+                      class="page-item"
+                      *ngFor="let pagina of listaNumeroPaginas; let i = index"
+                      (click)="getNextServicios(pagina)"
+                    >
+                      <a
+                        class="page-link"
+                        [ngClass]="{
+                          'a-selected': listaPaginasSelected[i],
+                          'page-link': !listaPaginasSelected[i]
+                        }"
+                        >{{ pagina }}</a
+                      >
+                    </li>
+                    <li
+                      class="page-item"
+                      *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
+                      (click)="navigateToPage('adelante')"
+                    >
+                      <a class="page-link">Siguiente</a>
+                    </li>
+                  </ul>
+                </nav>
                 <div class="paginacion">
                     <div class="col-2-equals">
                         <div class="col center">

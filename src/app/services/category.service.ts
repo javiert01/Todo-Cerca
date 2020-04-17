@@ -13,6 +13,8 @@ export class CategoryService {
   categoryList = [];
   totalCategories = [];
   totalCategoriesChanged = new Subject<any>();
+  categorySelected;
+  categorySelectedChanged = new Subject<any>();
   constructor(private http: HttpClient) {
     this.setCategoryList();
   }
@@ -26,6 +28,15 @@ export class CategoryService {
     subscribe((data) => {
       this.categoryList = data;
     });
+  }
+
+  getCategorySelected() {
+    return this.categorySelected;
+  }
+
+  setCategorySelected(category) {
+    this.categorySelected = category;
+    this.categorySelectedChanged.next(this.categorySelected);
   }
 
   setTotalCategories(totalCat) {

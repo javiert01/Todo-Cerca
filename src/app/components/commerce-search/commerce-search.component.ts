@@ -42,7 +42,9 @@ export class CommerceSearchComponent implements OnInit {
     this.searchControl = new FormControl();
     this.searchCommerceForm = new FormGroup({
       category: new FormControl(null, Validators.required),
+      city: new FormControl('Quito')
     });
+    this.searchCommerceForm.get('city').disable();
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,

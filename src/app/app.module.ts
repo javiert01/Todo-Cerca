@@ -4,6 +4,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AgmCoreModule } from "@agm/core";
+import { AgmOverlays } from "agm-overlays";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -58,8 +59,9 @@ import { CommerceResultsMapComponent } from './components/search-results/commerc
     HttpClientModule,
     MatDialogModule,
     PipesModule,
+    AgmOverlays,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCHxxCxzPETWvNkPLbEDrKfCznVakh1ofQ",
+      apiKey: "AIzaSyAVweiK3Gbib30bUCtg5SW0g1m9_1yvphA",
       libraries: ["places"],
     }),
     BrowserAnimationsModule,
