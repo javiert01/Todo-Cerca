@@ -52,6 +52,10 @@
 	margin:auto;
 	cursor: pointer;
 }
+.a-invalid {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
 /*Popup*/
 #section-1-buscar #popup{
 	display: flex;

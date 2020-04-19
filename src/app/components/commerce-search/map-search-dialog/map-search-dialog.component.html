@@ -27,11 +27,18 @@
           </agm-map>
           <button
             id="confirmar-ubicacion"
-            class="button center-button background-color5 white center confirmar"
-            (click) = "onSearchCommerce()"
+            class="button center-button background-color3 white center confirmar"
+            (click) = "getGeoLocation()"
           >
-            CONFIRMAR UBICACIÓN
+            MARCAR LA UBICACIÓN DE MI DISPOSITIVO
           </button>
+          <button
+          id="confirmar-ubicacion"
+          class="button center-button background-color5 white center confirmar"
+          (click) = "onSearchCommerce()"
+        >
+          CONFIRMAR UBICACIÓN
+        </button>
         </div>
       </div>
     </div>

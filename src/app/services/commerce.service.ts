@@ -50,6 +50,10 @@ export class CommerceService {
   getTotalCommerces() {
     return this.totalCommerces;
   }
+
+  getTotalRegisteredCommerces() {
+    return this.http.get<any>(this.url + '/total');
+  }
   deleteCommerce(id) {
     // {{url}}/commerces/delete
     return this.http.post<any>(`${this.url}/delete`, { id });

@@ -12,7 +12,7 @@
           <div class="col-4-equals">
             <div class="col col1">
               <i class="fas fa-map-marker-alt color1"></i>
-              <select class="color1" formControlName="city">
+              <select class="color1" formControlName="city" style="background-color: lightgray;">
                 <option value="" class="color1">Elije tu ciudad</option>
                 <option
                   [value]="city"
@@ -49,8 +49,10 @@
             </div>
             <div class="col col4">
               <a
-                (click)="openDialogMapSearch()"
+                (click)="searchCommerceForm.invalid || searchControl.value === '' ? getMessage(): openDialogMapSearch()"
                 class="background-color3 white center button center-button"
+                [ngClass]="{'a-invalid': searchCommerceForm.invalid || searchControl.value === '',
+                            'a-valid': searchCommerceForm.valid && searchControl.value !== ''}"
                 value="BUSCAR"
                 id="buscar"
                 >BUSCAR</a

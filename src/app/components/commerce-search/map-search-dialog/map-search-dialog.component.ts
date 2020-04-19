@@ -45,6 +45,29 @@ export class MapSearchDialogComponent implements OnInit {
     this.lng = this.markLng;
   }
 
+  getGeoLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          this.mapZoom = 18;
+          this.lat = pos.lat;
+          this.lng = pos.lng;
+          this.markLat = pos.lat;
+          this.markLng = pos.lng;
+        },
+        () => {}
+      );
+    } else {
+      alert(
+        'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
+      );
+    }
+  }
+
   getAddress(lat: number, lng: number) {
     console.log('Finding Address');
     if (navigator.geolocation) {
