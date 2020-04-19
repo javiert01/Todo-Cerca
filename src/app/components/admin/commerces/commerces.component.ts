@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
 import { AuthService } from "src/app/services/auth.service";
 import { CategoryService } from "src/app/services/category.service";
@@ -8,7 +14,8 @@ import { DownloadExcelDialogComponent } from "../../admin/download-excel-dialog/
 import { DeleteCommerceDialogComponent } from "src/app/dialogs/delete-commerce-dialog/delete-commerce-dialog.component";
 import { AllowCommerceDialogComponent } from "src/app/dialogs/allow-commerce-dialog/allow-commerce-dialog.component";
 import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialog/edit-commerce-dialog.component";
-import { Subscription } from 'rxjs';
+import { Subscription } from "rxjs";
+import { tap } from "rxjs/internal/operators/tap";
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
@@ -31,10 +38,19 @@ export class CommercesComponent implements OnInit, OnDestroy {
   isCommerceSelectedList = [];
   fileName = "...";
   isSearching = false;
-  rol = localStorage.getItem('rol');
+  rol = localStorage.getItem("rol");
   allCommerceSubscription: Subscription;
   searchCommerceSubscription: Subscription;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;
+
+  // ===========================
+  // varaibles for registers
+  // ===========================
+  createUntilYesterday = 0;
+  createdNow = 0;
+  allCommerces = 0;
+  allowedCommerces = 0;
+  deleted = 0;
 
   constructor(
     private commerceService: CommerceService,
@@ -83,6 +99,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
           this.orderTitleList();
         }
       });
+    this.getCommercesRegisterData();
   }
 
   loadCommerceList() {
@@ -92,7 +109,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
     this.selectedCommercesID = [];
     this.isCommerceSelectedList = [];
     this.allSelected = false;
-    if(this.allCommerceSubscription) {
+    if (this.allCommerceSubscription) {
       this.allCommerceSubscription.unsubscribe();
     }
     this.allCommerceSubscription = this.commerceService
@@ -113,7 +130,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
           this.isCommerceSelectedList.push(false);
         }
         this.listaPaginasSelected[this.currentPage - 1] = true;
-        console.log('numero paginas array', this.listaNumeroPaginas);
+        console.log("numero paginas array", this.listaNumeroPaginas);
       });
   }
 
@@ -307,14 +324,19 @@ export class CommercesComponent implements OnInit, OnDestroy {
       this.selectedCommercesID = [];
       this.isCommerceSelectedList = [];
       this.allSelected = false;
-      if(this.searchCommerceSubscription) {
+      if (this.searchCommerceSubscription) {
         this.searchCommerceSubscription.unsubscribe();
       }
       this.searchCommerceSubscription = this.commerceService
-        .searchCommerce(this.searchInput.nativeElement.value, this.numeroItemsPorPagina, this.currentPage, this.allowed)
+        .searchCommerce(
+          this.searchInput.nativeElement.value,
+          this.numeroItemsPorPagina,
+          this.currentPage,
+          this.allowed
+        )
         .subscribe(
           (data) => {
-            console.log('data search', data);
+            console.log("data search", data);
             const dataArray = new Array(data["commercesPaginated"]);
             this.commerceList = [...dataArray];
             this.commerceList = this.commerceList[0];
@@ -329,7 +351,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
               this.isCommerceSelectedList.push(false);
             }
             this.listaPaginasSelected[this.currentPage - 1] = true;
-            console.log('numero paginas array', this.listaNumeroPaginas);
+            console.log("numero paginas array", this.listaNumeroPaginas);
           },
           (err) => {
             console.error("error search", err);
@@ -339,7 +361,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onCleanSearch() {
-    this.searchInput.nativeElement.value = '';
+    this.searchInput.nativeElement.value = "";
     this.loadCommerceList();
   }
 
@@ -434,11 +456,27 @@ export class CommercesComponent implements OnInit, OnDestroy {
     });
   }
 
+  getCommercesRegisterData() {
+    this.commerceService
+      .getCommercesRegistedData()
+      .pipe(
+        tap((data) => {
+          console.log(data);
+          this.allCommerces = data["allCommerces"];
+          this.createUntilYesterday = data["createdUntilYesterday"];
+          this.allowedCommerces = data["allowedCommerces"];
+          this.createdNow = data["createdNow"];
+          this.deleted = data["deleted"];
+        })
+      )
+      .subscribe();
+  }
+
   ngOnDestroy() {
-    if(this.allCommerceSubscription) {
+    if (this.allCommerceSubscription) {
       this.allCommerceSubscription.unsubscribe();
     }
-    if(this.searchCommerceSubscription) {
+    if (this.searchCommerceSubscription) {
       this.searchCommerceSubscription.unsubscribe();
     }
   }

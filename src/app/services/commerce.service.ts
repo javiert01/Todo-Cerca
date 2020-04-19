@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HOST } from '../shared/var.constants';
-import { Commerce } from '../models/commerce.model';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HOST } from "../shared/var.constants";
+import { Commerce } from "../models/commerce.model";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CommerceService {
   url = `${HOST}/commerces`;
@@ -16,8 +16,8 @@ export class CommerceService {
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
       }),
     };
   }
@@ -67,7 +67,9 @@ export class CommerceService {
   }
 
   searchCommerce(param, pageSize, pageNumber, allowed) {
-    return this.http.get<any>(`${this.url}/patterMatch?param=${param}&pageSize=${pageSize}&pageNumber=${pageNumber}&allowed=${allowed}`);
+    return this.http.get<any>(
+      `${this.url}/patterMatch?param=${param}&pageSize=${pageSize}&pageNumber=${pageNumber}&allowed=${allowed}`
+    );
   }
 
   getCommerce() {
@@ -83,5 +85,9 @@ export class CommerceService {
 
   setCommerceFormData(formData) {
     this.commerceFormData = formData;
+  }
+
+  getCommercesRegistedData() {
+    return this.http.get<any>(`${this.url}/total`);
   }
 }

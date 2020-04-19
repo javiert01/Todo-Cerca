@@ -1,18 +1,9 @@
 <div class="contenedor">
   <header>
-    <img
-      src="assets/01-logo-color.svg"
-      alt="TodosMasCerca"
-      style="width: 150px; height: 53px;"
-    />
+    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;" />
     <ul class="main-nav">
       <li class="nav-item">
-        <a
-          class="nav-link cursorPnt"
-          style="font-size: 25px; margin-left: 5px;"
-          (click)="onLogout()"
-          >Log Out</a
-        >
+        <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
       </li>
     </ul>
   </header>
@@ -26,6 +17,14 @@
     <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
   </h6>
 </div>
+<h5>Total de registros del dia de ayer:{{createUntilYesterday}} </h5>
+<h5>Total de registros del dia de hoy: {{createdNow}}</h5>
+<h5>Registros cargados: {{allowedCommerces}}</h5>
+<h5>Registros eliminados:{{deleted}}</h5>
+
+<div>
+
+</div>
 <div style="width: 97%; margin: auto;">
   <div style="display: flex;">
     <div>
@@ -34,31 +33,18 @@
     <div style="margin-left: auto;">
       <div class="search-bar-container">
         <i class="fas fa-search fa-lg" style="margin-right: 15px;"></i>
-        <input
-          class="input-search"
-          type="text"
-          placeholder="  Nombre o ID del comercio"
-          (keyup.enter)="onSearchTerm()"
-          #searchInput
-        />
+        <input class="input-search" type="text" placeholder="  Nombre o ID del comercio" (keyup.enter)="onSearchTerm()"
+          #searchInput />
       </div>
       <button class="btn blue cursor-pointer" (click)="onSearchTerm()" style="margin-left: 34px">Buscar</button>
       <button class="btn blue cursor-pointer" (click)="onCleanSearch()">Limpiar</button>
     </div>
   </div>
   <div class="category-container">
-    <button
-      class="btn-next"
-      [ngClass]="{ blue: allowed, grey: !allowed }"
-      (click)="onSetAllowed(true)"
-    >
+    <button class="btn-next" [ngClass]="{ blue: allowed, grey: !allowed }" (click)="onSetAllowed(true)">
       Cargados
     </button>
-    <button
-      class="btn-next"
-      [ngClass]="{ blue: !allowed, grey: allowed }"
-      (click)="onSetAllowed(false)"
-    >
+    <button class="btn-next" [ngClass]="{ blue: !allowed, grey: allowed }" (click)="onSetAllowed(false)">
       En Revisión
     </button>
   </div>
@@ -66,23 +52,16 @@
     <label class="color3" style="margin: 0px 15px;">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
-      <option
-        [ngValue]="category.commerceCategory"
-        *ngFor="let category of commerceCategories"
-        >{{ category.commerceCategory }}</option
-      >
+      <option [ngValue]="category.commerceCategory" *ngFor="let category of commerceCategories">
+        {{ category.commerceCategory }}</option>
     </select>
   </div>
   <table>
     <tr>
       <th style="text-align: center; width: auto;">
         Seleccionar Todos <br />
-        <input
-          style="width: 20px;"
-          type="checkbox"
-          (change)="onSelectAll($event.target.checked)"
-          [checked]="allSelected"
-        />
+        <input style="width: 20px;" type="checkbox" (change)="onSelectAll($event.target.checked)"
+          [checked]="allSelected" />
       </th>
       <th style="text-align: center;" *ngFor="let title of titlesList">
         {{ title }}
@@ -90,13 +69,8 @@
     </tr>
     <tr *ngFor="let commerce of commerceList; let i = index">
       <td style="text-align: center;">
-        <input
-          type="checkbox"
-          style="width: 20px;"
-          [value]="i"
-          (change)="onCheckCommerce($event.target)"
-          [checked]="isCommerceSelectedList[i]"
-        />
+        <input type="checkbox" style="width: 20px;" [value]="i" (change)="onCheckCommerce($event.target)"
+          [checked]="isCommerceSelectedList[i]" />
       </td>
       <td>{{ commerce.idAux }}</td>
       <td>{{ commerce.category.commerceCategory }}</td>
@@ -116,77 +90,43 @@
 
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li
-        class="page-item"
-        *ngIf="numeroPaginas > 1"
-        (click)="navigateToPage('atras')"
-      >
+      <li class="page-item" *ngIf="numeroPaginas > 1" (click)="navigateToPage('atras')">
         <a class="page-link">Anterior</a>
       </li>
-      <li
-        class="page-item"
-        *ngFor="let pagina of listaNumeroPaginas; let i = index"
-        (click)="getNextServicios(pagina)"
-      >
-        <a
-          class="page-link"
-          [ngClass]="{
+      <li class="page-item" *ngFor="let pagina of listaNumeroPaginas; let i = index" (click)="getNextServicios(pagina)">
+        <a class="page-link" [ngClass]="{
             'a-selected': listaPaginasSelected[i],
             'page-link': !listaPaginasSelected[i]
-          }"
-          >{{ pagina }}</a
-        >
+          }">{{ pagina }}</a>
       </li>
-      <li
-        class="page-item"
-        *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
-        (click)="navigateToPage('adelante')"
-      >
+      <li class="page-item" *ngIf="numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length"
+        (click)="navigateToPage('adelante')">
         <a class="page-link">Siguiente</a>
       </li>
     </ul>
   </nav>
   <div style="text-align: right;">
-    <button
-    *ngIf="rol === 'Administrador'"
-      class="btn cursor-pointer"
-      [ngClass]="{
+    <button *ngIf="rol === 'Administrador'" class="btn cursor-pointer" [ngClass]="{
         'btn-invalid': selectedCommercesID.length !== 1,
         blue: selectedCommercesID.length === 1
-      }"
-      (click)="openEditCommerceDialog()"
-      [disabled]="selectedCommercesID.length !== 1"
-    >
+      }" (click)="openEditCommerceDialog()" [disabled]="selectedCommercesID.length !== 1">
       Editar
     </button>
-    <button
-      class="btn cursor-pointer green"
-      *ngIf="!allowed"
-      [ngClass]="{
+    <button class="btn cursor-pointer green" *ngIf="!allowed" [ngClass]="{
         'btn-invalid': commerceList.length === 0,
         green: commerceList.length > 0
-      }"
-      [disabled]="commerceList.length === 0"
-      (click)="openAllowCommerceDialog()"
-    >
+      }" [disabled]="commerceList.length === 0" (click)="openAllowCommerceDialog()">
       Cargar
     </button>
-    <button
-      *ngIf="rol === 'Administrador'"
-      class="btn cursor-pointer"
-      (click)="openDeleteCommerceDialog()"
-      [ngClass]="{
+    <button *ngIf="rol === 'Administrador'" class="btn cursor-pointer" (click)="openDeleteCommerceDialog()" [ngClass]="{
         'btn-invalid': selectedCommercesID.length == 0,
         red: selectedCommercesID.length > 0
-      }"
-      [disabled]="selectedCommercesID.length == 0"
-    >
+      }" [disabled]="selectedCommercesID.length == 0">
       Eliminar
     </button>
   </div>
   <div style="text-align: right;" *ngIf="selectedCommercesID.length === 0 && rol === 'Administrador'">
-    <span class="help-block"
-      ><span style="font-weight: bold;">Aviso: </span>Debe seleccionar al menos
+    <span class="help-block"><span style="font-weight: bold;">Aviso: </span>Debe seleccionar al menos
       un comercio para poder eliminar o editar.
     </span>
   </div>
