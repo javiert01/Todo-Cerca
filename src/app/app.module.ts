@@ -29,6 +29,7 @@ import { CommerceListComponent } from './components/search-results/commerce-list
 import { CategoryListComponent } from './components/search-results/category-list/category-list.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { CommerceResultsMapComponent } from './components/search-results/commerce-results-map/commerce-results-map.component';
+import { WorryComponent } from './components/worry/worry.component';
 
 /*  */
 
@@ -51,6 +52,7 @@ import { CommerceResultsMapComponent } from './components/search-results/commerc
     CategoryListComponent,
     SearchResultsComponent,
     CommerceResultsMapComponent,
+    WorryComponent,
   ],
   imports: [
     BrowserModule,
