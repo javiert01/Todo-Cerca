@@ -12,7 +12,7 @@ import { MapsAPILoader } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PlaceService } from 'src/app/services/place.service';
 
 declare let google: any;
@@ -83,6 +83,10 @@ export class CommerceRegistrationComponent implements OnInit {
   registerForm: FormGroup;
   commerce;
   scrollToForm = '';
+  categorySubscription: Subscription;
+  phoneSubscription: Subscription;
+  commerceDescSubscription: Subscription;
+  controllerSubscription: Subscription;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;

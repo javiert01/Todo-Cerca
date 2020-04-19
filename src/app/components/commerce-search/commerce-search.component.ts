@@ -41,7 +41,7 @@ export class CommerceSearchComponent implements OnInit {
     this.loadCategoryData();
     this.searchControl = new FormControl();
     this.searchCommerceForm = new FormGroup({
-      category: new FormControl(null, Validators.required),
+      category: new FormControl('', Validators.required),
       city: new FormControl('Quito')
     });
     this.searchCommerceForm.get('city').disable();

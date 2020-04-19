@@ -1,69 +1,81 @@
 <div id="mapa" class="col col-right">
-  <p>prueba</p>
-  <div class="map-container">
+  <div class="map-container" fxFlex="1 1 100%" #map>
     <agm-map
-    [latitude]="initialCoordinates.lat"
-    [longitude]="initialCoordinates.lng"
-    [zoom] = 18
-    [scrollwheel]="null"
-    [gestureHandling]="'cooperative'"
-    [streetViewControl]="false"
-    [mapTypeControl]="true"
-  >
-  <agm-overlay
-    [latitude]="initialCoordinates.lat" [longitude]="initialCoordinates.lng"
-  >
-    <img class="img-marker" src="assets/iconoverde-01.svg">
-    <div class="marker-text-container">Tu estas aquí</div>
-  </agm-overlay>
-    <agm-overlay *ngFor="let commerce of commerceCoordinates" [latitude]="commerce.location.coordinates[1]" [longitude]="commerce.location.coordinates[0]">
-      <img class="img-marker" src="assets/iconorojo-01.svg">
-      <p>{{commerce.commerceName}}</p>
-      <agm-info-window>
-        <ul>
-        <li id="local-container" class="col-2">
-          <div class="col col-left">
-              <div class="img-container foto-local">
-                  <img [src]="commerce.commercePhoto" class="img-center" alt="">
+      id="angular-map"
+      #gm
+      [style.height.px]="map.offsetHeight"
+      [style.width.px]="map.offsetWidth"
+      [latitude]="initialCoordinates.lat"
+      [longitude]="initialCoordinates.lng"
+      [zoom]="18"
+      [scrollwheel]="null"
+      [gestureHandling]="'cooperative'"
+      [streetViewControl]="false"
+      [mapTypeControl]="true"
+    >
+      <agm-overlay
+        [latitude]="initialCoordinates.lat"
+        [longitude]="initialCoordinates.lng"
+      >
+        <img class="img-marker" src="assets/iconoverde-01.svg" />
+        <div class="marker-text-container">Tu estas aquí</div>
+      </agm-overlay>
+      <agm-overlay
+        *ngFor="let commerce of commerceCoordinates"
+        [latitude]="commerce.location.coordinates[1]"
+        [longitude]="commerce.location.coordinates[0]"
+      >
+        <img
+          class="img-marker"
+          src="assets/iconorojo-01.svg"
+          (mouseover)="onMouseOver(infoWindow, gm)"
+          (mouseleave)="onMouseLeave(infoWindow, gm)"
+        />
+        <p>{{ commerce.commerceName }}</p>
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+          <ul>
+            <li id="local-container" class="col-2" style="width: 300px;">
+              <div class="col col-left">
+                <div class="img-container foto-local">
+                  <img
+                    [src]="commerce.commercePhoto"
+                    class="img-center"
+                    alt=""
+                  />
+                </div>
               </div>
-          </div>
-          <div class="col col-right">
-              <p class="color4 tipo-negocio">
-                  {{commerce.category[0].commerceCategory}}
-              </p>
-              <h5 class="color1 bebas titulo-comercio">
-                  {{commerce.commerceName}} <span id="id-negocio" class="color3">
-                      Id: {{commerce.idAux}}
+              <div class="col col-right">
+                <p class="color4 tipo-negocio">
+                  {{ commerce.category[0].commerceCategory }}
+                </p>
+                <h5 class="color1 bebas titulo-comercio">
+                  {{ commerce.commerceName }}
+                  <span id="id-negocio" class="color3">
+                    Id: {{ commerce.idAux }}
                   </span>
-              </h5>
-              <p class="color3">
-                  <span clas="direccion"><i class="fas fa-map-marker-alt color2"></i>
-                      {{commerce.address}} </span>| <span class="referencia bold">{{commerce.reference}}</span>
-              </p>
-              <p class="descripcion color3">
-                  {{commerce.commerceDescription}}
-              </p>
-              <p class="horario color2">
-                  <i class="far fa-clock color3"></i> {{commerce.hourOpen}} - {{commerce.hourClose}}
-              </p>
+                </h5>
+                <p>
+                  <strong>Distancia:</strong
+                  ><span>
+                    {{ commerce.dist.calculated | number: "3.2-2" }}m</span
+                  >
+                </p>
+              </div>
+            </li>
+            <div class="whatsapp-container">
               <a href="" class="button whatsapp-button background-color2">
-                  <div class="col-left center">
-                      <i class="fab fa-whatsapp white"></i>
-                  </div>
-                  <div class="col-right">
-                      <p class="white">
-                          CONTÁCTATE POR
-                      </p>
-                      <h6 class="white">
-                          WhatsApp
-                      </h6>
-                  </div>
+                <i class="fab fa-whatsapp white"></i>
+                <span class="white">
+                  CONTÁCTATE POR
+                  <h6 class="white">
+                    WhatsApp
+                  </h6>
+                </span>
               </a>
-          </div>
-      </li>
-    </ul>
-      </agm-info-window>
-    </agm-overlay>
-  </agm-map>
+            </div>
+          </ul>
+        </agm-info-window>
+      </agm-overlay>
+    </agm-map>
   </div>
 </div>

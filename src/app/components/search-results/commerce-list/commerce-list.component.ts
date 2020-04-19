@@ -31,6 +31,7 @@ export class CommerceListComponent implements OnInit {
     })
     this.commerceService.commerceResultListChanged.subscribe((data) => {
       this.commerces = data;
+      console.log(this.commerces);
     });
     this.commerceService.totalCommercesChanged.subscribe((data) => {
       this.listaNumeroPaginas = [];
@@ -86,8 +87,11 @@ export class CommerceListComponent implements OnInit {
     }
     this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, this.selectedCategory, this.currentPage)
     .subscribe((data) => {
+      console.log(this.coordinates.lng, this.coordinates.lat);
+      console.log(this.selectedCategory, this.currentPage);
       this.commerceService.setCommerceResultList(data['commercesPaginated']);
       this.commerceService.setTotalCommerces(data['totalCommerces']);
+      console.log('changed page', data);
     });
   }
 }

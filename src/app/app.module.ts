@@ -61,7 +61,8 @@ import { CommerceResultsMapComponent } from './components/search-results/commerc
     PipesModule,
     AgmOverlays,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyAVweiK3Gbib30bUCtg5SW0g1m9_1yvphA",
+      //apiKey: "AIzaSyCHxxCxzPETWvNkPLbEDrKfCznVakh1ofQ", //prod
+      apiKey: "AIzaSyAVweiK3Gbib30bUCtg5SW0g1m9_1yvphA", //dev
       libraries: ["places"],
     }),
     BrowserAnimationsModule,

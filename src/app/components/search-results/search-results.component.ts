@@ -13,10 +13,12 @@ export class SearchResultsComponent implements OnInit {
   onExpand() {
     const listaLocales = document.getElementById('lista-locales');
     const mapa = document.getElementById('mapa');
+    const angularMap = document.getElementById('angular-map');
     const iconList = document.getElementById('icon-list');
     const iconMap = document.getElementById('icon-map');
     const verMapaText = document.getElementById('ver-mapa');
     const verListaText = document.getElementById('ver-lista');
+    angularMap.setAttribute("style",'width: 100vh; height: 100vh');
     listaLocales.classList.toggle('hide-locales');
     mapa.classList.toggle('expand-map');
     iconMap.classList.toggle('display-none');
@@ -30,3 +32,4 @@ export class SearchResultsComponent implements OnInit {
     menu_categorias.classList.toggle('mostrar-categorias');
   }
 }
+

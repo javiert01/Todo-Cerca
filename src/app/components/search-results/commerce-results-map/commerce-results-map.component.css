@@ -7,9 +7,16 @@
   height: 100%;
 }
 agm-map {
-  width: 800px;
-  height: 500px;
+  width: 0px;
+  height: 0px;
 }
+
+.expand-map{
+	width: 100%!important;
+	position: absolute;
+	height: 100%;
+}
+
 
 .img-marker {
   width: 40px;
@@ -39,44 +46,56 @@ ul {
 li {
   padding: 10px;
 }
+.titulo-comercio {
+  font-size: 23px;
+}
+#id-negocio {
+  font-size: 12px;
+}
+
 .col-2 {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-.col-2 .col-left {
-  width: 20%;
+
+.col-left {
+  width: 40%;
 }
-.col-left .col-2 .col-left .img-container {
+.col-right {
+  width: 60%;
+}
+
+.img-container {
   border-radius: 50%;
-  width: 130px;
-  height: 130px;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
-  margin: auto;
 }
-.col-left .col-2 .col-left .img-container img {
-  width: 270px;
-}
+
 .col-2 .col-right {
-  width: 80%;
+  width: 70%;
 }
 .col-2 .col-right p {
   margin-top: 10px;
 }
-.col-left .col-2 .col-right #id-negocio {
-  font-size: 12px;
+.whatsapp-container {
+  text-align: center;
+  width: auto;
+  margin: auto;
 }
-
-.col-left .col-2 .col-right .whatsapp-button {
-  display: flex;
+.whatsapp-button {
   align-items: center;
   max-width: 180px;
+}
+.button {
+  margin: auto;
 }
 .col-left .col-2 .col-right .whatsapp-button .col-left {
   width: 50px;
   font-size: 30px;
 }
-.col-left .col-2 .col-right .whatsapp-button .col-right p {
+.whatsapp-button p {
   font-size: 10px;
   margin-top: 0;
   line-height: 5px;

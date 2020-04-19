@@ -75,6 +75,7 @@ export class MapSearchDialogComponent implements OnInit {
     .subscribe((data) => {
       this.categoryService.setTotalCategories(data);
     })
+    this.categoryService.setCategorySelected(this.category);
     this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1)
     .subscribe((data) => {
       this.commerceService.setCommerceResultList(data['commercesPaginated']);
@@ -82,6 +83,7 @@ export class MapSearchDialogComponent implements OnInit {
       this.dialogRef.close('ok');
     });
   }
+
 
   close() {
     this.dialogRef.close();
