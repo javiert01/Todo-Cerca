@@ -204,11 +204,16 @@ input {
 }
 
 .inlineAt {
-  display: inline-block;
-  margin: 30px 80px;
+  /* display: inline-block; */
+  display: flex;
+  margin: 10px 10px;
+  justify-content: space-between;
 }
 
-
+.displayInLineBlock {
+  margin: 30px;
+  display: inline-block;
+}
 
 .cajaGrande {
   overflow: hidden;

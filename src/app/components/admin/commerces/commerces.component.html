@@ -9,22 +9,24 @@
   </header>
 </div>
 <div class="inlineAt">
-  <h6 class="">
-    Fecha:<span style="font-weight: normal;"> {{ fecha | date }} </span>
-  </h6>
-  <h6 class="">
-    Hora:
-    <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
-  </h6>
-</div>
+  <div class="displayInLineBlock">
+    <h6 class="">
+      Fecha:<span style="font-weight: normal;"> {{ fecha | date }} </span>
+    </h6>
+    <h6 class="">
+      Hora:
+      <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
+    </h6>
 
-<div class="inlineAt">
-  <p>Total de registro al día de ayer:{{createUntilYesterday}} </p>
-  <p>Total de registros al día de hoy::{{allCommerces}} </p>
-  <p>Registrados el día hoy: {{createdNow}}</p>
-  <p>Registros cargados: {{allowedCommerces}}</p>
-  <p>Registros eliminados:{{deleted}}</p>
+  </div>
+  <div class="displayInLineBlock">
+    <h6>Total de registro al día de ayer: <span style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
+    <h6>Total de registros al día de hoy: <span style="font-weight: normal;">{{allCommerces}} </span> </h6>
+    <h6>Registrados el día hoy:<span style="font-weight: normal;"> {{createdNow}} </span></h6>
+    <h6>Registros cargados: <span style="font-weight: normal;"> {{allowedCommerces}} </span></h6>
+    <h6>Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span></h6>
 
+  </div>
 </div>
 <div style="width: 97%; margin: auto;">
   <div style="display: flex;">
