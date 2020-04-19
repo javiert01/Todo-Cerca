@@ -40,7 +40,6 @@ th {
   padding: 10px;
   margin: 8px;
   width: 130px;
-
 }
 
 .btn-invalid {
@@ -76,7 +75,6 @@ th {
   background-color: green;
   color: white;
 }
-
 
 .grey {
   background-color: lightgray;
@@ -171,7 +169,6 @@ input {
   width: 200px;
 }
 
-
 .txt-esquina {
   color: rgb(147, 199, 89);
 }
@@ -210,6 +207,8 @@ input {
   display: inline-block;
   margin: 30px 80px;
 }
+
+
 
 .cajaGrande {
   overflow: hidden;
@@ -277,10 +276,10 @@ li {
 .a-selected {
   cursor: pointer;
   position: relative;
-    display: block;
-    margin-left: -1px;
-    line-height: 1.25;
-    border: 1px solid #dee2e6;
+  display: block;
+  margin-left: -1px;
+  line-height: 1.25;
+  border: 1px solid #dee2e6;
   background-color: lightgrey;
 }
 

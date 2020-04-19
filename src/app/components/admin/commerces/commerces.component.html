@@ -17,12 +17,13 @@
     <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
   </h6>
 </div>
-<h5>Total de registros del dia de ayer:{{createUntilYesterday}} </h5>
-<h5>Total de registros del dia de hoy: {{createdNow}}</h5>
-<h5>Registros cargados: {{allowedCommerces}}</h5>
-<h5>Registros eliminados:{{deleted}}</h5>
 
-<div>
+<div class="inlineAt">
+  <p>Total de registro al día de ayer:{{createUntilYesterday}} </p>
+  <p>Total de registros al día de hoy::{{allCommerces}} </p>
+  <p>Registrados el día hoy: {{createdNow}}</p>
+  <p>Registros cargados: {{allowedCommerces}}</p>
+  <p>Registros eliminados:{{deleted}}</p>
 
 </div>
 <div style="width: 97%; margin: auto;">
