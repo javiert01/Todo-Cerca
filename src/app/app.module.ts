@@ -31,6 +31,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { CommerceResultsMapComponent } from './components/search-results/commerce-results-map/commerce-results-map.component';
 import { SearchHeaderComponent } from './components/search-header/search-header.component';
 import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
+import { WorryComponent } from './components/worry/worry.component';
 
 /*  */
 
@@ -55,6 +56,7 @@ import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
     CommerceResultsMapComponent,
     SearchHeaderComponent,
     WrongCityComponent,
+    WorryComponent,
   ],
   imports: [
     BrowserModule,
