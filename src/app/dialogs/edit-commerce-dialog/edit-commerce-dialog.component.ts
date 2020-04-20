@@ -6,18 +6,18 @@ import {
   ChangeDetectorRef,
   Inject,
   OnDestroy,
-} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CommerceService } from 'src/app/services/commerce.service';
-import { HttpClient } from '@angular/common/http';
-import { CategoryService } from 'src/app/services/category.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+} from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { CommerceService } from "src/app/services/commerce.service";
+import { HttpClient } from "@angular/common/http";
+import { CategoryService } from "src/app/services/category.service";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Subscription } from "rxjs";
 
 @Component({
-  selector: 'app-edit-commerce-dialog',
-  templateUrl: './edit-commerce-dialog.component.html',
-  styleUrls: ['./edit-commerce-dialog.component.css'],
+  selector: "app-edit-commerce-dialog",
+  templateUrl: "./edit-commerce-dialog.component.html",
+  styleUrls: ["./edit-commerce-dialog.component.css"],
 })
 export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   imagenSubida = false;
@@ -25,7 +25,7 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   reciboURL: any;
   selectedFile: File;
   urlImgEmpleado: any;
-  logoTemporal = '';
+  logoTemporal = "";
   editClicked = false;
   editConfirmed = false;
   // FIN DE VARIABLES PARA SUBIR IMAMGEN
@@ -39,64 +39,64 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   invalidControls = [];
   isMobileView;
   frecuencyOptions = [
-    'Lunes a Viernes',
-    'Lunes a Sábado',
-    'Solo fines de semana',
-    'Todos los días',
+    "Lunes a Viernes",
+    "Lunes a Sábado",
+    "Solo fines de semana",
+    "Todos los días",
   ];
 
   cities = [
-    'Quito',
-    'Guayaquil',
-    'Cuenca',
-    'Guaranda',
-    'Azogues',
-    'Tulcán',
-    'Riobamba',
-    'Latacunga',
-    'Machala',
-    'Esmeraldas',
-    'Puerto Baquerizo Moreno',
-    'Ibarra',
-    'Loja',
-    'Babahoyo',
-    'Portoviejo',
-    'Macas',
-    'Tena',
-    'Francisco de Orellana',
-    'Puyo',
-    'Santa Elena',
-    'Santo Domingo',
-    'Nueva Loja',
-    'Ambato',
-    'Zamora',
+    "Quito",
+    "Guayaquil",
+    "Cuenca",
+    "Guaranda",
+    "Azogues",
+    "Tulcán",
+    "Riobamba",
+    "Latacunga",
+    "Machala",
+    "Esmeraldas",
+    "Puerto Baquerizo Moreno",
+    "Ibarra",
+    "Loja",
+    "Babahoyo",
+    "Portoviejo",
+    "Macas",
+    "Tena",
+    "Francisco de Orellana",
+    "Puyo",
+    "Santa Elena",
+    "Santo Domingo",
+    "Nueva Loja",
+    "Ambato",
+    "Zamora",
   ];
 
   provinces = [
-    'Azuay',
-    'Bolívar',
-    'Cañar',
-    'Carchi',
-    'Chimborazo',
-    'Cotopaxi',
-    'El Oro',
-    'Esmeraldas',
-    'Galápagos',
-    'Guayas',
-    'Imbabura',
-    'Loja',
-    'Los Ríos',
-    'Manabí',
-    'Morona Santiago',
-    'Napo',
-    'Orellana',
-    'Pastaza',
-    'Pichincha',
-    'Santa Elena',
-    'Santo Domingo de los Tsáchilas',
-    'Sucumbíos',
-    'Tungurahua',
-    'Zamora Chinchipe',
+    "Azuay",
+    "Bolívar",
+    "Cañar",
+    "Carchi",
+    "Chimborazo",
+    "Cotopaxi",
+    "El Oro",
+    "Esmeraldas",
+    "Galápagos",
+    "Guayas",
+    "Imbabura",
+    "Loja",
+    "Los Ríos",
+    "Manabí",
+    "Morona Santiago",
+    "Napo",
+    "Orellana",
+    "Pastaza",
+    "Pichincha",
+    "Santa Elena",
+    "Santo Domingo de los Tsáchilas",
+    "Sucumbíos",
+    "Tungurahua",
+    "Zamora Chinchipe",
   ];
 
   editForm: FormGroup;
@@ -105,9 +105,9 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   editCommerceSub: Subscription;
   getCommerceSub: Subscription;
   categoryDataSub: Subscription;
-  scrollToForm = '';
+  scrollToForm = "";
 
-  @ViewChild('search')
+  @ViewChild("search")
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
 
@@ -136,44 +136,45 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
     this.getCommerceSub = this.commerceService
       .getCommerceByID(this.commerces)
       .subscribe((data) => {
-        data = data[0];
+        //console.log("data:", data["commercePhoto"]);
+        //data = data[0];
         console.log(data);
         this.commerce = data;
-        this.imgURL = data['commercePhoto'];
+        this.imgURL = data["commercePhoto"];
         this.reciboURL = this.imgURL;
         this.editForm = new FormGroup({
-          ownerName: new FormControl(data['ownerName'], Validators.required),
+          ownerName: new FormControl(data["ownerName"], Validators.required),
           ownerLastName: new FormControl(
-            data['ownerLastName'],
+            data["ownerLastName"],
             Validators.required
           ),
-          phone: new FormControl(data['phone'], [
+          phone: new FormControl(data["phone"], [
             Validators.required,
-            Validators.pattern(new RegExp('^[0-9]*$')),
+            Validators.pattern(new RegExp("^[0-9]*$")),
             Validators.minLength(10),
           ]),
           commerceName: new FormControl(
-            data['commerceName'],
+            data["commerceName"],
             Validators.required
           ),
-          category: new FormControl(data['category'].id, Validators.required),
-          frecuency: new FormControl(data['frequency'], Validators.required),
-          hourOpen: new FormControl(data['hourOpen'], [
+          category: new FormControl(data["category"].id, Validators.required),
+          frecuency: new FormControl(data["frequency"], Validators.required),
+          hourOpen: new FormControl(data["hourOpen"], [
             Validators.required,
             this.onCheckLesserTime.bind(this),
           ]),
-          hourClose: new FormControl(data['hourClose'], [
+          hourClose: new FormControl(data["hourClose"], [
             Validators.required,
             this.onCheckGreaterTime.bind(this),
           ]),
-          city: new FormControl(data['city'], Validators.required),
-          address: new FormControl(data['address'], Validators.required),
-          reference: new FormControl(data['reference'], Validators.required),
-          commerceDescription: new FormControl(data['commerceDescription'], [
+          city: new FormControl(data["city"], Validators.required),
+          address: new FormControl(data["address"], Validators.required),
+          reference: new FormControl(data["reference"], Validators.required),
+          commerceDescription: new FormControl(data["commerceDescription"], [
             Validators.required,
             Validators.maxLength(90),
           ]),
-          ownerEmail: new FormControl(data['ownerEmail'], [
+          ownerEmail: new FormControl(data["ownerEmail"], [
             Validators.required,
             Validators.email,
           ]),
@@ -194,47 +195,47 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   translateControls(controls) {
     for (let i = 0; i < controls.length; i++) {
       switch (controls[i]) {
-        case 'ownerName':
-          controls[i] = 'Nombre';
+        case "ownerName":
+          controls[i] = "Nombre";
           break;
-        case 'ownerLastName':
-          controls[i] = 'Apellido';
+        case "ownerLastName":
+          controls[i] = "Apellido";
           break;
-        case 'phone':
-          controls[i] = 'Télefono Celular';
+        case "phone":
+          controls[i] = "Télefono Celular";
           break;
-        case 'commerceName':
-          controls[i] = 'Nombre del comercio';
+        case "commerceName":
+          controls[i] = "Nombre del comercio";
           break;
-        case 'category':
-          controls[i] = 'Categoría';
+        case "category":
+          controls[i] = "Categoría";
           break;
-        case 'frecuency':
-          controls[i] = 'Días de apertura';
+        case "frecuency":
+          controls[i] = "Días de apertura";
           break;
-        case 'hourOpen':
-          controls[i] = 'Horario de apertura';
+        case "hourOpen":
+          controls[i] = "Horario de apertura";
           break;
-        case 'hourClose':
-          controls[i] = 'Horario de cierre';
+        case "hourClose":
+          controls[i] = "Horario de cierre";
           break;
-        case 'city':
-          controls[i] = 'Ciudad';
+        case "city":
+          controls[i] = "Ciudad";
           break;
-        case 'address':
-          controls[i] = 'Dirección exacta';
+        case "address":
+          controls[i] = "Dirección exacta";
           break;
-        case 'reference':
-          controls[i] = 'Referencia';
+        case "reference":
+          controls[i] = "Referencia";
           break;
-        case 'commerceDescription':
-          controls[i] = 'Breve descripción';
+        case "commerceDescription":
+          controls[i] = "Breve descripción";
           break;
-        case 'useConditions':
-          controls[i] = 'Políticas de uso';
+        case "useConditions":
+          controls[i] = "Políticas de uso";
           break;
-        case 'ownerEmail':
-          controls[i] = 'Correo electrónico';
+        case "ownerEmail":
+          controls[i] = "Correo electrónico";
       }
     }
   }
@@ -242,7 +243,7 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   onCapitalizeLetter(data, formCN) {
     if (data) {
       if (data.length > 0) {
-        let newString = '';
+        let newString = "";
         newString = data.toLowerCase();
         newString = newString[0].toUpperCase() + newString.substring(1);
         this.editForm.get(formCN).setValue(newString);
@@ -252,10 +253,10 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
 
   onCheckGreaterTime(control: FormControl): { [s: string]: boolean } {
     if (this.editForm) {
-      if (control.value && this.editForm.get('hourOpen').value) {
+      if (control.value && this.editForm.get("hourOpen").value) {
         if (
           this.minutesOfDay(control.value) <
-          this.minutesOfDay(this.editForm.get('hourOpen').value)
+          this.minutesOfDay(this.editForm.get("hourOpen").value)
         ) {
           return { hourGreatError: true };
         }
@@ -267,10 +268,10 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
 
   onCheckLesserTime(control: FormControl): { [s: string]: boolean } {
     if (this.editForm) {
-      if (control.value && this.editForm.get('hourClose').value) {
+      if (control.value && this.editForm.get("hourClose").value) {
         if (
           this.minutesOfDay(control.value) >
-          this.minutesOfDay(this.editForm.get('hourClose').value)
+          this.minutesOfDay(this.editForm.get("hourClose").value)
         ) {
           return { hourLessError: true };
         }
@@ -282,22 +283,22 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
 
   minutesOfDay(m) {
     m = this.convertTime12to24(m);
-    const hourMinutesClose = m.split(':');
+    const hourMinutesClose = m.split(":");
     const hours = Number(hourMinutesClose[0]);
     const minutes = Number(hourMinutesClose[1]);
     return minutes + hours * 60;
   }
 
   convertTime12to24(time12h) {
-    const [time, modifier] = time12h.split(' ');
+    const [time, modifier] = time12h.split(" ");
 
-    let [hours, minutes] = time.split(':');
+    let [hours, minutes] = time.split(":");
 
-    if (hours === '12') {
-      hours = '00';
+    if (hours === "12") {
+      hours = "00";
     }
 
-    if (modifier === 'PM') {
+    if (modifier === "PM") {
       hours = parseInt(hours, 10) + 12;
     }
 
@@ -308,7 +309,7 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
     let hourString = hour.toString();
 
     if (hour < 10) {
-      hourString = '0' + hour.toString();
+      hourString = "0" + hour.toString();
     }
     return hourString;
   }
@@ -324,32 +325,32 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   }
 
   submitCommerce() {
-    let categorySelected = '';
+    let categorySelected = "";
     for (let i = 0; i < this.commerceCategories.length; i++) {
       if (
-        this.commerceCategories[i].id === this.editForm.get('category').value
+        this.commerceCategories[i].id === this.editForm.get("category").value
       ) {
         categorySelected = this.commerceCategories[i].commerceCategory;
       }
     }
     this.commerce = {
       id: this.commerces,
-      ownerName: this.editForm.get('ownerName').value,
-      ownerLastName: this.editForm.get('ownerLastName').value,
-      ownerEmail: this.editForm.get('ownerEmail').value,
-      phone: this.editForm.get('phone').value,
-      commerceName: this.editForm.get('commerceName').value,
-      hourOpen: this.editForm.get('hourOpen').value,
-      hourClose: this.editForm.get('hourClose').value,
+      ownerName: this.editForm.get("ownerName").value,
+      ownerLastName: this.editForm.get("ownerLastName").value,
+      ownerEmail: this.editForm.get("ownerEmail").value,
+      phone: this.editForm.get("phone").value,
+      commerceName: this.editForm.get("commerceName").value,
+      hourOpen: this.editForm.get("hourOpen").value,
+      hourClose: this.editForm.get("hourClose").value,
       country: this.commerce.country,
-      city: this.editForm.get('city').value,
-      frequency: this.editForm.get('frecuency').value,
+      city: this.editForm.get("city").value,
+      frequency: this.editForm.get("frecuency").value,
       category: categorySelected,
-      address: this.editForm.get('address').value,
+      address: this.editForm.get("address").value,
       location: this.commerce.location,
       commercePhoto: this.imgURL,
-      reference: this.editForm.get('reference').value,
-      commerceDescription: this.editForm.get('commerceDescription').value,
+      reference: this.editForm.get("reference").value,
+      commerceDescription: this.editForm.get("commerceDescription").value,
       showCommerce: this.commerce.showCommerce,
       acceptTermsConditions: true,
     };
@@ -357,7 +358,7 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
       .updateCommerce(this.commerce)
       .subscribe((data) => {
         this.editConfirmed = true;
-        console.log('commerce edited', data);
+        console.log("commerce edited", data);
       });
   }
 
@@ -370,19 +371,19 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
     // console.log("OnFileChanged", this.selectedFile);
     if (event.target.files.length === 0) {
       this.imagenSeleccionada = false;
-      this.imgURL = '../../../assets/06-no-image.png';
+      this.imgURL = "../../../assets/06-no-image.png";
       return;
     }
     const mimeType = event.target.files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-      this.message = 'Solo se permite subir imágenes!';
+      this.message = "Solo se permite subir imágenes!";
       return;
     }
 
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (_event) => {
-      console.log('Entra al cambio de reviboUrl: ', this.reciboURL);
+      console.log("Entra al cambio de reviboUrl: ", this.reciboURL);
       this.reciboURL = reader.result.toString();
     };
   }
@@ -390,22 +391,22 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
   getSignedRequest2(commerceName) {
     // console.log("El archivo selecionado: ", this.selectedFile);
     const file = {
-      fName_p: 'commerce/' + commerceName + '/' + this.selectedFile.name,
+      fName_p: "commerce/" + commerceName + "/" + this.selectedFile.name,
       fType_p: this.selectedFile.type,
     };
 
     // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
     return this.http.get<any>(
-      'https://todo-mas-cerca-1.herokuapp.com/image/upload?fName_p=' +
+      "https://todo-mas-cerca-1.herokuapp.com/image/upload?fName_p=" +
         file.fName_p +
-        '&fType_p=' +
+        "&fType_p=" +
         file.fType_p
     );
   }
   // FIN GET-SIGNED-REQUEST PARA EL BOTON OPERAR
   // INICIO UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   onUpload2(file, signedRequest, url) {
-    console.log('signed request', signedRequest);
+    console.log("signed request", signedRequest);
     this.http.put(signedRequest, file).subscribe(
       (data) => {
         // this.empresa.logo = url;
@@ -413,13 +414,13 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
         this.submitCommerce();
       },
       (err) => {
-        console.log('error en put', err);
+        console.log("error en put", err);
       }
     );
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
-    name = name.replace(/\s/g, '');
+    name = name.replace(/\s/g, "");
     if (this.imagenSubida) {
       // console.log("Operar -> Se crea la imagen - creando");
       // SI CARGA IMAGEN

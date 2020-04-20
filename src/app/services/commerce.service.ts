@@ -52,7 +52,8 @@ export class CommerceService {
   }
 
   getCommerceByID(idCommerce) {
-    return this.http.get<any>(`${this.urlBlueprint}/?id=${idCommerce}`);
+    // return this.http.get<any>(`${this.urlBlueprint}/?id=${idCommerce}`);
+    return this.http.get<any>(`${this.url}/one?id=${idCommerce}`);
   }
 
   updateCommerce(data) {
