@@ -27,10 +27,11 @@ export class CommerceService {
   }
 
   deleteCommerce(commerceID) {
-    return this.http.delete<any>(
+    /*return this.http.delete<any>(
       `${this.urlBlueprint}/?id=${commerceID}`,
       this.httpOptions
-    );
+    );*/
+    return this.http.post<any>(`${this.url}/delete`,{id:commerceID});
   }
 
   updateStatusCommerce(commerceID) {
