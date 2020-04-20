@@ -86,7 +86,7 @@ export class CommerceSearchComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "470px";
+    configuracionDialog.height = "550px";
     configuracionDialog.width = "640px";
     configuracionDialog.data = {
       lat: this.lat,
@@ -112,7 +112,7 @@ export class CommerceSearchComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "300px";
+    configuracionDialog.height = "370px";
     configuracionDialog.width = "400px";
     const dialogRef = this.dialog.open(WrongCityComponent, configuracionDialog);
     dialogRef.afterClosed().subscribe((data) => {

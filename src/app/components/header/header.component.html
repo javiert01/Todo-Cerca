@@ -15,19 +15,25 @@
           <p class="color3 roboto">Delivery a coordinar con el usuario
         </div>
         <div class="col">
-          <div class="box-hover-container">
-            <a class="button center-button background-disabled white center buscar" style="font-size: 10px;">
-              <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
-            </a>
-            <div class="box arrow-top center box-top">
-              Próximamente
+          <div class="contador-container-out">
+            <div class="contador-container-in">
+              <div class="text background-color3">
+                <p class="white center">
+                  Establecimientos registrados
+                </p>
+              </div>
+              <div class="number background-color5">
+                <p class="white center">
+                  {{totalCommerces}}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="header-brand puntero" [routerLink]="['/registrar']">  
+  <div class="header-brand puntero" [routerLink]="['/registrar']">
     <img src="assets/01-logo-color.svg">
   </div>
 </header>

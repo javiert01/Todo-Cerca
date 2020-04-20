@@ -1,4 +1,3 @@
-<app-worry></app-worry>
 <section id="section-1-buscar">
   <div class="container">
     <h1 class="color1 center bebas">
@@ -31,15 +30,16 @@
                   autocapitalize="off"
                   spellcheck="off"
                   type="text"
-                  class="form-control"
+                  class="form-control color1"
                   #search
                   [formControl]="searchControl"
                 />
               </div>
             </div>
             <div class="col col3">
-              <select class="color1" formControlName="category">
+              <select class="color1" formControlName="category" style="background-color: white;">
                 <option value="" class="color1">Elige la categoría</option>
+                <option value="all" class="color1">Todas</option>
                 <option
                   [value]="category.commerceCategory"
                   class="color1"
@@ -117,3 +117,5 @@
 <div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories($event)">
   <app-search-results ></app-search-results>
 </div>
+<app-quienes-somos></app-quienes-somos>
+<app-worry></app-worry>

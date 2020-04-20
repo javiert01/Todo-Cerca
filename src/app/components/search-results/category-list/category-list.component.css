@@ -51,14 +51,15 @@
 	width: 140px;
 }
 .menu-categorias-out .menu-categorias-in ul .categoria .categoria-contador{
-	font-size: 12px;
+  font-size: 12px;
+  font-weight: bold;
 	margin: auto 7px;
-	color: #606060;
+	color: black;
 	opacity: 0.5;
 }
 
 @media only screen and (max-width: 768px){
-  
+
 }
 
 @media only screen and (max-width: 550px){

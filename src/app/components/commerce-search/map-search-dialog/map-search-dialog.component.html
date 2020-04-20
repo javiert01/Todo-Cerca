@@ -25,13 +25,7 @@
           >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
-          <button
-            id="confirmar-ubicacion"
-            class="button center-button background-color3 white center confirmar"
-            (click) = "getGeoLocation()"
-          >
-            MARCAR LA UBICACIÓN DE MI DISPOSITIVO
-          </button>
+
           <button
           id="confirmar-ubicacion"
           class="button center-button background-color5 white center confirmar"
@@ -39,6 +33,13 @@
         >
           CONFIRMAR UBICACIÓN
         </button>
+        <button
+        id="confirmar-ubicacion"
+        class="button center-button background-color3 white center confirmar"
+        (click) = "getGeoLocation()"
+      >
+        MARCAR LA UBICACIÓN DE MI DISPOSITIVO
+      </button>
         </div>
       </div>
     </div>
