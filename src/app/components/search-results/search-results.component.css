@@ -52,6 +52,16 @@
 
 @media only screen and (max-width: 768px){
 
+  .locales-menu-icons .col-2-equals{
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: 1fr 1fr;
+	}
+	.global-results{
+		display: grid;
+		grid-template-columns: 0 1fr;
+	}
+
 	#section-4-buscar .container .col-2-equals{
 		grid-template-columns: 1fr;
 	}

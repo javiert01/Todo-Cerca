@@ -58,7 +58,19 @@
 }
 
 @media only screen and (max-width: 768px){
-
+  .menu-categorias-out{
+		padding: 20px 0;
+		max-width: 250px;
+		position: fixed;
+		left: -100%;
+		top: 100px;
+		transition: left 0.5s;
+		-webkit-transition: left 0.5s;
+		z-index: 9;
+		display: block;
+		height: 70vh;
+		box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+	}
 }
 
 @media only screen and (max-width: 550px){
