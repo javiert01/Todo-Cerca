@@ -4,6 +4,7 @@ import {
   ViewChild,
   ElementRef,
   NgZone,
+  OnDestroy,
 } from "@angular/core";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/map-search-dialog.component";
@@ -12,6 +13,7 @@ import { CategoryService } from "src/app/services/category.service";
 import { MapsAPILoader } from "@agm/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { WrongCityComponent } from "src/app/dialogs/wrong-city/wrong-city.component";
+import { Subscription } from "rxjs";
 
 declare let google: any;
 
@@ -20,7 +22,7 @@ declare let google: any;
   templateUrl: "./commerce-search.component.html",
   styleUrls: ["./commerce-search.component.css"],
 })
-export class CommerceSearchComponent implements OnInit {
+export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
   categories = [];
   lat;
@@ -34,6 +36,13 @@ export class CommerceSearchComponent implements OnInit {
   @ViewChild("listContainer")
   listContainer: ElementRef;
   public searchControl: FormControl;
+
+  //=====================================================================
+  // Close subs
+  //=====================================================================
+  categoryServiceSub: Subscription;
+  dialogRefSub: Subscription;
+  dialogRef2Sub: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -81,9 +90,11 @@ export class CommerceSearchComponent implements OnInit {
   }
 
   loadCategoryData() {
-    this.categoryService.getCategoryList().subscribe((data: any) => {
-      this.categories = data;
-    });
+    this.categoryServiceSub = this.categoryService
+      .getCategoryList()
+      .subscribe((data: any) => {
+        this.categories = data;
+      });
   }
 
   openDialogMapSearch() {
@@ -106,7 +117,7 @@ export class CommerceSearchComponent implements OnInit {
       MapSearchDialogComponent,
       configuracionDialog
     );
-    dialogRef.afterClosed().subscribe((data) => {
+    this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
       if (data === "ok") {
         this.resultsObtained = true;
         console.log("scrolling into view");
@@ -128,7 +139,7 @@ export class CommerceSearchComponent implements OnInit {
     configuracionDialog.height = "370px";
     configuracionDialog.width = "400px";
     const dialogRef = this.dialog.open(WrongCityComponent, configuracionDialog);
-    dialogRef.afterClosed().subscribe((data) => {
+    this.dialogRef2Sub = dialogRef.afterClosed().subscribe((data) => {
       if (data === "ok") {
         this.searchControl.setValue("");
       }
@@ -178,8 +189,19 @@ export class CommerceSearchComponent implements OnInit {
         menuIconos.classList.remove('menu-fixed');
         menu_categorias.classList.remove('mostrar-categorias');
       } else {
-        menuIconos.classList.add('menu-fixed');
+        menuIconos.classList.add("menu-fixed");
       }
+    }
+  }
+  ngOnDestroy() {
+    if (this.categoryServiceSub) {
+      this.categoryServiceSub.unsubscribe();
+    }
+    if (this.dialogRefSub) {
+      this.dialogRefSub.unsubscribe();
+    }
+    if (this.dialogRef2Sub) {
+      this.dialogRef2Sub.unsubscribe();
     }
   }
 }
