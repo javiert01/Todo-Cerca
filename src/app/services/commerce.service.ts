@@ -13,6 +13,8 @@ export class CommerceService {
   public commerceFormData = null;
   public commerceResultList = [];
   public commerceResultListChanged = new Subject<any[]>();
+  public totalCommercesResultList = [];
+  public totalCommercesResultListChanged = new Subject<any[]>();
   public totalCommerces = 0;
   public totalCommercesChanged = new Subject<any>();
 
@@ -43,6 +45,14 @@ export class CommerceService {
   getCommerceResultList() {
     return this.commerceResultList;
   }
+  setTotalCommerceResultList(list) {
+    this.totalCommercesResultList = [...list];
+    this.totalCommercesResultListChanged.next(this.totalCommercesResultList.slice());
+  }
+  getTotalCommerceResultList() {
+    return this.commerceResultList;
+  }
+
   setTotalCommerces(commerNum) {
     this.totalCommerces = commerNum;
     this.totalCommercesChanged.next(this.totalCommerces);
@@ -63,5 +73,9 @@ export class CommerceService {
     return this.http.get<any>(
       `${this.url}/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
+  }
+
+  getTotalNearestCommerces(lng, lat) {
+    return this.http.get<any>(`${this.url}/near/notpagination?longitud=${lng}&latitud=${lat}`);
   }
 }

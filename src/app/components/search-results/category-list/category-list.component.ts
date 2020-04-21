@@ -25,6 +25,7 @@ export class CategoryListComponent implements OnInit {
     });
     this.categoryService.totalCategoriesChanged.subscribe((data) => {
       this.totalCategories = data;
+      console.log(this.totalCategories);
       this.addTotalComerces(this.categoryList);
     });
     this.totalCategories = this.categoryService.getTotalCategories();
@@ -76,12 +77,6 @@ export class CategoryListComponent implements OnInit {
         }
       }
     }
-    for(let i = 0; i < categoryList.length; i++) {
-      if(!categoryList[i].total) {
-        categoryList[i] = {...categoryList[i], total: 0};
-      }
-    }
-
   }
 
   onSelectCategory(category) {
@@ -92,6 +87,10 @@ export class CategoryListComponent implements OnInit {
       this.commerceService.setTotalCommerces(data['totalCommerces']);
       }
     );
+    this.commerceService.getTotalNearestCommerces(this.coordinates.lng, this.coordinates.lat)
+    .subscribe((data) => {
+      this.commerceService.setTotalCommerceResultList(data);
+    });
   }
 
 }

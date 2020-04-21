@@ -29,14 +29,15 @@ export class CommerceResultsMapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initialCoordinates = this.placeService.getSelectedCoordinates();
-    console.log(this.initialCoordinates);
-    this.commerceService.commerceResultListChanged.subscribe((data) => {
+    this.commerceService.totalCommercesResultListChanged.subscribe((data) => {
       this.gm.lastOpen = null;
       this.commerceCoordinates = data;
     });
-    this.commerceCoordinates = this.commerceService.getCommerceResultList();
-    console.log(this.commerceCoordinates);
+    this.placeService.selectedCoordinatesChanged.subscribe((data) => {
+      this.initialCoordinates = data;
+    });
+    this.initialCoordinates = this.placeService.getSelectedCoordinates();
+    this.commerceCoordinates = this.commerceService.getTotalCommerceResultList();
   }
 
   onMouseOver(infoWindow, gm) {
@@ -53,5 +54,14 @@ export class CommerceResultsMapComponent implements OnInit {
 
   onMouseLeave(infoWindow, gm) {
     //gm.lastOpen = null;
+  }
+
+  getWhatsappURL(phone) {
+    phone = phone.slice(1, phone.length);
+    phone = '593' + phone;
+    if(window.innerWidth < 551) {
+      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
+    }
+    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
   }
 }

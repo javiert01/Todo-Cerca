@@ -55,7 +55,7 @@
                     <p class="color3 distancia">
                         <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
                     </p>
-                    <a href="" class="button whatsapp-button background-color2">
+                    <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
                       <div class="col-left center">
                           <i class="fab fa-whatsapp white"></i>
                         </div>

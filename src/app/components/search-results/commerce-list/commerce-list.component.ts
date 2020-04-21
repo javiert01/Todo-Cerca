@@ -25,6 +25,7 @@ export class CommerceListComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.categorySelectedChanged.subscribe((data) => {
       this.selectedCategory = data;
+      this.currentPage = 1;
     })
     this.placeService.selectedCoordinatesChanged.subscribe((data) => {
       this.coordinates = data;
@@ -95,6 +96,15 @@ export class CommerceListComponent implements OnInit {
       this.commerceService.setTotalCommerces(data['totalCommerces']);
       console.log('changed page', data);
     });
+  }
+
+  getWhatsappURL(phone) {
+    phone = phone.slice(1, phone.length);
+    phone = '593' + phone;
+    if(window.innerWidth < 551) {
+      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
+    }
+    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
   }
 }
 

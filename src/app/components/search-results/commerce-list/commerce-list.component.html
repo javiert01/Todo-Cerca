@@ -44,7 +44,7 @@
                 <i class="far fa-clock color3"></i> {{ commerce.hourOpen }} -
                 {{ commerce.hourClose }}
               </p>
-              <a href="" class="button whatsapp-button background-color2">
+              <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
                 <div class="col-left center">
                   <i class="fab fa-whatsapp white"></i>
                 </div>

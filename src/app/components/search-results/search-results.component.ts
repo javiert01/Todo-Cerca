@@ -67,6 +67,10 @@ export class SearchResultsComponent implements OnInit {
       this.commerceService.setTotalCommerces(data['totalCommerces']);
       }
     );
+    this.commerceService.getTotalNearestCommerces(this.coordinates.lng, this.coordinates.lat)
+    .subscribe((data) => {
+      this.commerceService.setTotalCommerceResultList(data);
+    });
   }
 }
 

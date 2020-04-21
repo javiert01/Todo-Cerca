@@ -107,7 +107,7 @@ h4 {
 .bubble-container .col-2 .col-right .whatsapp-button{
 	display: flex;
 	align-items: center;
-	max-width: 140px;
+	max-width: 130px;
 	margin: 10px 0 10px 0;
 }
 .bubble-container .col-2 .col-right .whatsapp-button .col-left{
@@ -115,7 +115,7 @@ h4 {
 	font-size: 30px;
 }
 .bubble-container .col-2 .col-right .whatsapp-button .col-right p{
-	font-size: 10px;
+	font-size: 8px;
 	margin-top: 0;
 	line-height: 5px;
 }
