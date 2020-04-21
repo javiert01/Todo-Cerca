@@ -416,9 +416,6 @@ export class CommerceRegistrationComponent implements OnInit {
           if (result != null) {
             this.direccion = result.formatted_address;
             this.registerForm.get('address').setValue(this.direccion);
-            // console.log(result.formatted_address);
-            /* this.direccion = rsltAdrComponent[0].short_name;
-            console.log(this.direccion); */
           } else {
             alert(
               'No hay dirección disponible en este momento, llenela manualmente'

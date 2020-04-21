@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MapsAPILoader } from '@agm/core';
 import { CommerceService } from 'src/app/services/commerce.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { PlaceService } from 'src/app/services/place.service';
+import { Subscription } from 'rxjs';
 
 declare let google: any;
 
@@ -12,7 +13,7 @@ declare let google: any;
   templateUrl: "./map-search-dialog.component.html",
   styleUrls: ["./map-search-dialog.component.css"],
 })
-export class MapSearchDialogComponent implements OnInit {
+export class MapSearchDialogComponent implements OnInit, OnDestroy {
 
   mapZoom = 18;
   lat = -0.1840506;
@@ -30,6 +31,9 @@ export class MapSearchDialogComponent implements OnInit {
         ]
     }
   ];
+  nearestCommerceSub: Subscription;
+  categorySub: Subscription;
+  totalCommerceSub: Subscription;
 
   constructor(
     private dialogRef: MatDialogRef<MapSearchDialogComponent>,
@@ -104,18 +108,18 @@ export class MapSearchDialogComponent implements OnInit {
 
   onSearchCommerce() {
     this.placeService.setSelectedCoordinates(this.lat, this.lng);
-    this.categoryService.getInformationCategoryTable(this.lng, this.lat)
+    this.categorySub = this.categoryService.getInformationCategoryTable(this.lng, this.lat)
     .subscribe((data) => {
       this.categoryService.setTotalCategories(data);
     })
     this.categoryService.setCategorySelected(this.category);
-    this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1, this.itemsPerPage)
+    this.nearestCommerceSub = this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1, this.itemsPerPage)
     .subscribe((data) => {
       this.commerceService.setCommerceResultList(data['commercesPaginated']);
       this.commerceService.setTotalCommerces(data['totalCommerces']);
       this.dialogRef.close('ok');
     });
-    this.commerceService.getTotalNearestCommerces(this.lng, this.lat, this.category)
+    this.totalCommerceSub = this.commerceService.getTotalNearestCommerces(this.lng, this.lat, this.category)
     .subscribe((data) => {
       this.commerceService.setTotalCommerceResultList(data);
     });
@@ -124,5 +128,17 @@ export class MapSearchDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  ngOnDestroy() {
+    if(this.categorySub) {
+      this.categorySub.unsubscribe();
+    }
+    if(this.nearestCommerceSub) {
+      this.nearestCommerceSub.unsubscribe();
+    }
+    if(this.totalCommerceSub) {
+      this.totalCommerceSub.unsubscribe();
+    }
   }
 }
