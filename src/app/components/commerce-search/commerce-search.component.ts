@@ -27,8 +27,12 @@ export class CommerceSearchComponent implements OnInit {
   lng;
   resultsObtained = false;
   searchCommerceForm: FormGroup;
+  @ViewChild('recomendations')
+  recomendations: ElementRef;
   @ViewChild('search')
   public searchElementRef: ElementRef;
+  @ViewChild('listContainer')
+  listContainer: ElementRef;
   public searchControl: FormControl;
 
   constructor(
@@ -87,7 +91,7 @@ export class CommerceSearchComponent implements OnInit {
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
     configuracionDialog.height = '550px';
-    if(window.innerWidth < 551) {
+    if (window.innerWidth < 551) {
       configuracionDialog.minWidth = '100vw';
     } else {
       configuracionDialog.width = '640px';
@@ -106,7 +110,9 @@ export class CommerceSearchComponent implements OnInit {
       if (data === 'ok') {
         this.resultsObtained = true;
         console.log('scrolling into view');
-        document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
+        document
+          .querySelector('#container-commerce-list')
+          .scrollIntoView({ behavior: 'smooth' });
       }
     });
   }
@@ -163,45 +169,23 @@ export class CommerceSearchComponent implements OnInit {
   }
 
   showCategories() {
-    const menu_categorias = document.getElementById('menu-categorias');
-    const menuIconos = document.getElementById('menu-iconos');
-    const anchoNavegador = document.body.clientWidth;
-    const altoPagina = document.body.clientHeight;
-    const scroll =
-      document.documentElement.scrollTop || document.body.scrollTop;
-      if (anchoNavegador <= 550) {
-        if (scroll >= 1100) {
-            menuIconos.classList.add('menu-fixed');
-        } else {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
-        if (scroll >= 3900) {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
-    } else if (anchoNavegador > 550 && anchoNavegador <= 768) {
-        if (scroll >= 900) {
-            menuIconos.classList.add('menu-fixed');
-        } else {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
-        if (scroll >= 4200) {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
-    } else {
-        if (scroll >= 560) {
+    if (this.recomendations) {
+      const menu_categorias = document.getElementById('menu-categorias');
+      const menuIconos = document.getElementById('menu-iconos');
+      const elementPosition = this.recomendations.nativeElement.offsetTop;
+      const element2Position = this.listContainer.nativeElement.offsetTop;
+      const scrollPosition = window.pageYOffset;
+      // set `true` when scrolling has reached current element
+      if (scrollPosition >= elementPosition) {
+        menuIconos.classList.remove('menu-fixed');
+        menu_categorias.classList.remove('mostrar-categorias');
+      } else {
         menuIconos.classList.add('menu-fixed');
-        } else {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
-        if (scroll >= 2800) {
-            menuIconos.classList.remove('menu-fixed');
-            menu_categorias.classList.remove('mostrar-categorias');
-        }
+      }
+      if(scrollPosition <= element2Position) {
+        menuIconos.classList.remove('menu-fixed');
+        menu_categorias.classList.remove('mostrar-categorias');
+      }
     }
   }
 }

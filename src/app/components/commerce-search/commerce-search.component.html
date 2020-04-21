@@ -114,10 +114,10 @@
     </div>
   </div>
 </section>
-<div id="container-commerce-list"></div>
-<div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories($event)">
+<div id="container-commerce-list" #listContainer></div>
+<div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories()">
   <app-search-results ></app-search-results>
 </div>
 <app-quienes-somos *ngIf="!resultsObtained"></app-quienes-somos>
-<div id="recomendations"></div>
+<div id="recomendations" #recomendations></div>
 <app-worry></app-worry>

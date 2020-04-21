@@ -63,8 +63,9 @@ export class SearchResultsComponent implements OnInit {
     this.categoryService.setCategorySelected(category);
     this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, category, 1, this.itemsPerPage).subscribe(
       (data) => {
+        document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
         this.commerceService.setCommerceResultList(data['commercesPaginated']);
-      this.commerceService.setTotalCommerces(data['totalCommerces']);
+        this.commerceService.setTotalCommerces(data['totalCommerces']);
       }
     );
     this.commerceService.getTotalNearestCommerces(this.coordinates.lng, this.coordinates.lat, category)
