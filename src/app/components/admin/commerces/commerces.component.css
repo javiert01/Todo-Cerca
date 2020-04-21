@@ -271,7 +271,7 @@ input {
 
 li {
   padding: 10px;
-  overflow: auto;
+  /*overflow: auto;*/
 }
 
 .page-link {
