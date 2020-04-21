@@ -7,11 +7,13 @@
       [style.width.px]="map.offsetWidth"
       [latitude]="initialCoordinates.lat"
       [longitude]="initialCoordinates.lng"
-      [zoom]="18"
+      [zoom]="15"
       [scrollwheel]="null"
       [gestureHandling]="'cooperative'"
       [streetViewControl]="false"
       [mapTypeControl]="true"
+      [clickableIcons] = "false"
+      [styles]="myStyles"
     >
       <agm-overlay
         [latitude]="initialCoordinates.lat"
@@ -33,47 +35,42 @@
         />
         <p>{{ commerce.commerceName }}</p>
         <agm-info-window [disableAutoPan]="false" #infoWindow>
-          <ul>
-            <li id="local-container" class="col-2" style="width: 300px;">
-              <div class="col col-left">
-                <div class="img-container foto-local">
-                  <img
-                    [src]="commerce.commercePhoto"
-                    class="img-center"
-                    alt=""
-                  />
-                </div>
+          <div class="bubble-container">
+            <div id="local-container" class="col-2">
+                  <div class="col col-left only-desktop">
+                    <div class="img-container foto-local">
+                      <img [src]="commerce.commercePhoto" class="img-center" alt="">
+                    </div>
+                  </div>
+                  <div class="col col-right">
+                    <p class="color4 tipo-negocio">
+                        {{commerce.category.commerceCategory}}
+                    </p>
+                    <h5 class="color1 titulo-comercio">
+                        {{commerce.commerceName}}
+                    </h5>
+                    <span id="id-negocio" class="color3">
+                      Id: {{commerce.idAux}}
+                    </span>
+                    <p class="color3 distancia">
+                        <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
+                    </p>
+                    <a href="" class="button whatsapp-button background-color2">
+                      <div class="col-left center">
+                          <i class="fab fa-whatsapp white"></i>
+                        </div>
+                        <div class="col-right">
+                          <p class="white">
+                              CONTÁCTATE POR
+                          </p>
+                          <h6 class="white">
+                              WhatsApp
+                           </h6>
+                        </div>
+                    </a>
+                  </div>
               </div>
-              <div class="col col-right">
-                <p class="color4 tipo-negocio">
-                  {{ commerce.category[0].commerceCategory }}
-                </p>
-                <h5 class="color1 bebas titulo-comercio">
-                  {{ commerce.commerceName }}
-                  <span id="id-negocio" class="color3">
-                    Id: {{ commerce.idAux }}
-                  </span>
-                </h5>
-                <p>
-                  <strong>Distancia:</strong
-                  ><span>
-                    {{ commerce.dist.calculated | number: "3.2-2" }}m</span
-                  >
-                </p>
-              </div>
-            </li>
-            <div class="whatsapp-container">
-              <a href="" class="button whatsapp-button background-color2">
-                <i class="fab fa-whatsapp white"></i>
-                <span class="white">
-                  CONTÁCTATE POR
-                  <h6 class="white">
-                    WhatsApp
-                  </h6>
-                </span>
-              </a>
-            </div>
-          </ul>
+          </div>
         </agm-info-window>
       </agm-overlay>
     </agm-map>

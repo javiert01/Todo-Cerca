@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CommerceService } from 'src/app/services/commerce.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { PlaceService } from 'src/app/services/place.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-results',
@@ -6,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-results.component.css'],
 })
 export class SearchResultsComponent implements OnInit {
-  constructor() {}
+  categoryList = [];
+  coordinates;
+  selectedCategory;
+  categoryControl: FormControl;
+  itemsPerPage = 7;
 
-  ngOnInit(): void {}
+  constructor(private commerceService: CommerceService,
+              private categoryService: CategoryService,
+              private placeService: PlaceService) {}
+
+  ngOnInit(): void {
+    this.categoryList = this.categoryService.categoryList;
+    this.placeService.selectedCoordinatesChanged.subscribe((data) => {
+      this.coordinates = data;
+    });
+    this.categoryService.categorySelectedChanged.subscribe((data) => {
+      this.selectedCategory = data;
+    })
+    this.coordinates = this.placeService.getSelectedCoordinates();
+    this.selectedCategory = this.categoryService.getCategorySelected();
+    this.categoryControl = new FormControl(this.selectedCategory);
+  }
 
   onExpand() {
     const listaLocales = document.getElementById('lista-locales');
@@ -30,6 +53,20 @@ export class SearchResultsComponent implements OnInit {
   toggleCategories() {
     const menu_categorias = document.getElementById('menu-categorias');
     menu_categorias.classList.toggle('mostrar-categorias');
+  }
+
+  scrollToRecomendations() {
+    document.querySelector('#recomendations').scrollIntoView({behavior: 'smooth'});
+  }
+
+  onSelectCategory(category) {
+    this.categoryService.setCategorySelected(category);
+    this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, category, 1, this.itemsPerPage).subscribe(
+      (data) => {
+        this.commerceService.setCommerceResultList(data['commercesPaginated']);
+      this.commerceService.setTotalCommerces(data['totalCommerces']);
+      }
+    );
   }
 }
 

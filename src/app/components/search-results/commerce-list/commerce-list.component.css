@@ -162,7 +162,10 @@
 @media only screen and (max-width: 550px){
   .col-3-equals{
 		grid-template-columns: 1fr;
-	}
+  }
+  .paginacion .col-3-equals {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
 	.lista-locales-out .col-2{
 		flex-direction: column;
 	}

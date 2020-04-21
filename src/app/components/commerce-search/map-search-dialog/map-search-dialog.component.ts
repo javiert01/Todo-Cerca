@@ -20,6 +20,16 @@ export class MapSearchDialogComponent implements OnInit {
   markLat;
   markLng;
   category;
+  itemsPerPage = 7;
+  myStyles =[
+    {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+              { visibility: "off" }
+        ]
+    }
+  ];
 
   constructor(
     private dialogRef: MatDialogRef<MapSearchDialogComponent>,
@@ -99,7 +109,7 @@ export class MapSearchDialogComponent implements OnInit {
       this.categoryService.setTotalCategories(data);
     })
     this.categoryService.setCategorySelected(this.category);
-    this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1)
+    this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1, this.itemsPerPage)
     .subscribe((data) => {
       this.commerceService.setCommerceResultList(data['commercesPaginated']);
       this.commerceService.setTotalCommerces(data['totalCommerces']);

@@ -12,7 +12,7 @@ export class CommerceListComponent implements OnInit {
   commerces = [];
   totalCommerces = 0;
   numeroPaginas = 1;
-  numeroItemsPorPagina = 15;
+  numeroItemsPorPagina = 7;
   listaPaginasSelected = [];
   listaNumeroPaginas = [];
   currentPage = 1;
@@ -85,7 +85,9 @@ export class CommerceListComponent implements OnInit {
         this.listaPaginasSelected[i] = true;
       }
     }
-    this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, this.selectedCategory, this.currentPage)
+    document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
+    // tslint:disable-next-line: max-line-length
+    this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, this.selectedCategory, this.currentPage, this.numeroItemsPorPagina)
     .subscribe((data) => {
       console.log(this.coordinates.lng, this.coordinates.lat);
       console.log(this.selectedCategory, this.currentPage);

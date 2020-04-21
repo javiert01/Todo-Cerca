@@ -4,21 +4,21 @@ import {
   ViewChild,
   ElementRef,
   NgZone,
-} from "@angular/core";
-import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
-import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/map-search-dialog.component";
-import { PlaceService } from "src/app/services/place.service";
-import { CategoryService } from "src/app/services/category.service";
-import { MapsAPILoader } from "@agm/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { WrongCityComponent } from "src/app/dialogs/wrong-city/wrong-city.component";
+} from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MapSearchDialogComponent } from '../commerce-search/map-search-dialog/map-search-dialog.component';
+import { PlaceService } from 'src/app/services/place.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { MapsAPILoader } from '@agm/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { WrongCityComponent } from 'src/app/dialogs/wrong-city/wrong-city.component';
 
 declare let google: any;
 
 @Component({
-  selector: "app-commerce-search",
-  templateUrl: "./commerce-search.component.html",
-  styleUrls: ["./commerce-search.component.css"],
+  selector: 'app-commerce-search',
+  templateUrl: './commerce-search.component.html',
+  styleUrls: ['./commerce-search.component.css'],
 })
 export class CommerceSearchComponent implements OnInit {
   cities = [];
@@ -27,7 +27,7 @@ export class CommerceSearchComponent implements OnInit {
   lng;
   resultsObtained = false;
   searchCommerceForm: FormGroup;
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
   public searchControl: FormControl;
 
@@ -44,21 +44,21 @@ export class CommerceSearchComponent implements OnInit {
     this.loadCategoryData();
     this.searchControl = new FormControl('');
     this.searchCommerceForm = new FormGroup({
-      category: new FormControl("", Validators.required),
-      city: new FormControl("Quito"),
+      category: new FormControl('', Validators.required),
+      city: new FormControl('Quito'),
     });
-    this.searchCommerceForm.get("city").disable();
+    this.searchCommerceForm.get('city').disable();
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ["address"],
+          types: ['address'],
         }
       );
       autocomplete.setComponentRestrictions({
-        country: ["ec"],
+        country: ['ec'],
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
@@ -66,7 +66,7 @@ export class CommerceSearchComponent implements OnInit {
           }
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
-          if(this.searchElementRef.nativeElement !== '') {
+          if (this.searchElementRef.nativeElement !== '') {
             this.getAddress(this.lat, this.lng);
           } else {
             return;
@@ -86,44 +86,51 @@ export class CommerceSearchComponent implements OnInit {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "550px";
-    configuracionDialog.width = "640px";
+    configuracionDialog.height = '550px';
+    if(window.innerWidth < 551) {
+      configuracionDialog.minWidth = '100vw';
+    } else {
+      configuracionDialog.width = '640px';
+    }
+
     configuracionDialog.data = {
       lat: this.lat,
       lng: this.lng,
-      category: this.searchCommerceForm.get("category").value,
+      category: this.searchCommerceForm.get('category').value,
     };
     const dialogRef = this.dialog.open(
       MapSearchDialogComponent,
       configuracionDialog
     );
     dialogRef.afterClosed().subscribe((data) => {
-      if (data === "ok") {
+      if (data === 'ok') {
         this.resultsObtained = true;
+        console.log('scrolling into view');
+        document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
       }
     });
   }
 
   getMessage() {
-    console.log('this is not allowed!')
+    console.log('this is not allowed!');
   }
 
   openDialogWrongCity() {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "370px";
-    configuracionDialog.width = "400px";
+    configuracionDialog.height = '370px';
+    configuracionDialog.width = '400px';
     const dialogRef = this.dialog.open(WrongCityComponent, configuracionDialog);
     dialogRef.afterClosed().subscribe((data) => {
-      if (data === "ok") {
+      if (data === 'ok') {
         this.searchControl.setValue('');
       }
     });
   }
 
   getAddress(lat: number, lng: number) {
-    console.log("Finding Address");
+    console.log('Finding Address');
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -136,10 +143,10 @@ export class CommerceSearchComponent implements OnInit {
           if (result != null) {
             /* this.direccion = result.formatted_address;
             this.registerForm.get('address').setValue(this.direccion); */
-            if (!result.formatted_address.includes("Quito")) {
+            if (!result.formatted_address.includes('Quito')) {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
-              })
+              });
             } else {
               return;
             }
@@ -147,7 +154,7 @@ export class CommerceSearchComponent implements OnInit {
             console.log(this.direccion); */
           } else {
             alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
+              'No hay dirección disponible en este momento, llenela manualmente'
             );
           }
         }
@@ -156,45 +163,45 @@ export class CommerceSearchComponent implements OnInit {
   }
 
   showCategories() {
-    const menu_categorias = document.getElementById("menu-categorias");
-    const menuIconos = document.getElementById("menu-iconos");
+    const menu_categorias = document.getElementById('menu-categorias');
+    const menuIconos = document.getElementById('menu-iconos');
     const anchoNavegador = document.body.clientWidth;
     const altoPagina = document.body.clientHeight;
     const scroll =
       document.documentElement.scrollTop || document.body.scrollTop;
-    if (anchoNavegador <= 550) {
-      if (scroll >= 1100) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= 3200) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
+      if (anchoNavegador <= 550) {
+        if (scroll >= 1100) {
+            menuIconos.classList.add('menu-fixed');
+        } else {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
+        if (scroll >= 3900) {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
     } else if (anchoNavegador > 550 && anchoNavegador <= 768) {
-      if (scroll >= 900) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= 3200) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
+        if (scroll >= 900) {
+            menuIconos.classList.add('menu-fixed');
+        } else {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
+        if (scroll >= 4200) {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
     } else {
-      if (scroll >= 560) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= 2100) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
+        if (scroll >= 560) {
+        menuIconos.classList.add('menu-fixed');
+        } else {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
+        if (scroll >= 2800) {
+            menuIconos.classList.remove('menu-fixed');
+            menu_categorias.classList.remove('mostrar-categorias');
+        }
     }
   }
 }

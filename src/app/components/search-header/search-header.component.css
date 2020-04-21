@@ -57,8 +57,6 @@ header .header-brand img{
 	max-width: 100px;
 }
 header .contador-container-out{
-	display: block;
-	margin: auto;
 	max-width: 270px;
 }
 header .contador-container-out .contador-container-in{
@@ -81,4 +79,15 @@ header .contador-container-out .contador-container-in .number{
 }
 header .contador-container-out .contador-container-in p{
 	font-size: 12px;
+}
+header .header-brand {
+  padding: 20px;
+}
+header .header-brand img {
+  display: block;
+  margin: auto;
+  max-width: 256px;
+}
+.puntero {
+  cursor: pointer;
 }

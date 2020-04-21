@@ -22,6 +22,7 @@
             [gestureHandling]="'cooperative'"
             [streetViewControl]="false"
             [mapTypeControl]="true"
+            [styles]="myStyles"
           >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
@@ -38,7 +39,7 @@
         class="button center-button background-color3 white center confirmar"
         (click) = "getGeoLocation()"
       >
-        MARCAR LA UBICACIÓN DE MI DISPOSITIVO
+        Usar GPS <i class="fas fa-location-arrow"></i>
       </button>
         </div>
       </div>

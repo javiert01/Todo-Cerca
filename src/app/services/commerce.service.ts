@@ -58,10 +58,10 @@ export class CommerceService {
     // {{url}}/commerces/delete
     return this.http.post<any>(`${this.url}/delete`, { id });
   }
-  getNearestCommerces(lng, lat, category, pageNumber) {
+  getNearestCommerces(lng, lat, category, pageNumber, pageSize) {
     // {{url}}/commerces/near?longitud=-78.4865042&latitud=-0.2045284&category=Tienda&pageNumber=1
     return this.http.get<any>(
-      `${this.url}/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}`
+      `${this.url}/near?longitud=${lng}&latitud=${lat}&category=${category}&pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
   }
 }

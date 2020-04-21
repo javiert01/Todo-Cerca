@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { PlaceService } from "src/app/services/place.service";
 import { CommerceService } from "src/app/services/commerce.service";
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: "app-commerce-results-map",
@@ -10,7 +11,17 @@ import { CommerceService } from "src/app/services/commerce.service";
 export class CommerceResultsMapComponent implements OnInit {
   initialCoordinates;
   commerceCoordinates = [];
+  categories = [];
   @ViewChild("gm", { static: true }) gm;
+  myStyles =[
+    {
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+              { visibility: "off" }
+        ]
+    }
+];
 
   constructor(
     private placeService: PlaceService,

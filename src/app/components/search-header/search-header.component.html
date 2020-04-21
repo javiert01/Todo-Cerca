@@ -10,7 +10,7 @@
                 Un mensaje para nuestros usuarios
               </p>
             </div>
-            <div class="cerrar-container">
+            <div class="cerrar-container" (click)="onCloseNews()">
               <p class="white center" id="close-news">X</p>
             </div>
           </div>
@@ -39,31 +39,29 @@
       </div>
     </div>
   </div>
-  <div class="header-brand-buscar">
-    <div class="container">
-      <div class="col-2-equals">
-        <div class="col">
-          <div class="header-brand">
-            <img src="assets/01-logo-color.svg">
-          </div>
-        </div>
-        <div class="col">
-          <div class="contador-container-out">
-            <div class="contador-container-in">
-              <div class="text background-color3">
-                <p class="white center">
-                  Establecimientos registrados
-                </p>
-              </div>
-              <div class="number background-color5">
-                <p class="white center">
-                  {{totalCommerces}}
-                </p>
+  <header id="header">
+    <div class="header-top">
+      <div class="container">
+          <div style="display: flex; justify-content: flex-end;">
+            <div class="contador-container-out" >
+              <div class="contador-container-in">
+                <div class="text background-color3">
+                  <p class="white center">
+                    Establecimientos registrados
+                  </p>
+                </div>
+                <div class="number background-color5">
+                  <p class="white center">
+                    {{totalCommerces}}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
-  </div>
-</header>
+    <div class="header-brand puntero" [routerLink]="['/home']">
+      <img src="assets/01-logo-color.svg">
+    </div>
+  </header>
+

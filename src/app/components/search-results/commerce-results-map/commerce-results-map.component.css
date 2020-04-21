@@ -29,9 +29,9 @@ agm-map {
   border: 1px solid black;
   color: white;
   font-weight: bold;
-  padding: 15px;
+  padding: 10px;
   position: relative;
-  font-size: 15px;
+  font-size: 10px;
   bottom: 25px;
   right: 40px;
   z-index: 1;
@@ -40,7 +40,115 @@ agm-map {
 h4 {
   margin-top: 120px;
 }
-ul {
+
+.bubble-container{
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.2);
+	max-width: 350px;
+	margin: auto;
+	padding-bottom: 10px;
+}
+.bubble-container::after{
+	background-color: #ffffff;
+    box-shadow: -2px 2px 2px 0 rgba(0,0,0,0.1);
+    content: "";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: 50%;
+    transform: rotate(315deg);
+    -webkit-transform:rotate(315deg);
+}
+.bubble-container .col-2{
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+.bubble-container .col-2 .col-left{
+	width: 40%;
+}
+.bubble-container .col-2 .col-left .img-container{
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	margin: auto;
+}
+.bubble-container .col-2 .col-left .img-container img{
+	width: 270px;
+}
+
+.bubble-container .col-2 .col-right{
+	width: 60%;
+}
+.bubble-container .col-2 .col-right .close-button-container{
+	display: block;
+	position: relative;
+	height: 15px;
+}
+.bubble-container .col-2 .col-right .close-bubble{
+	border:none;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.bubble-container .col-2 .col-right .titulo-comercio{
+	font-size: 16px;
+	margin-bottom: 0px;
+	line-height: 20px;
+}
+.bubble-container .col-2 .col-right .distancia{
+	margin-top: 0;
+}
+
+.bubble-container .col-2 .col-right #id-negocio{
+	font-size: 12px;
+}
+.bubble-container .col-2 .col-right .whatsapp-button{
+	display: flex;
+	align-items: center;
+	max-width: 140px;
+	margin: 10px 0 10px 0;
+}
+.bubble-container .col-2 .col-right .whatsapp-button .col-left{
+	width: 40px;
+	font-size: 30px;
+}
+.bubble-container .col-2 .col-right .whatsapp-button .col-right p{
+	font-size: 10px;
+	margin-top: 0;
+	line-height: 5px;
+}
+
+
+
+@media only screen and (max-width: 550px){
+	.bubble-container{
+		width: 100%;
+		max-width: 180px;
+		padding: 10px;
+	}
+	.bubble-container::after{
+		background-color: #ffffff;
+	    box-shadow: -2px 2px 2px 0 rgba(0,0,0,0.1);
+	    content: "";
+	    width: 15px;
+	    height: 15px;
+	    position: absolute;
+	    left: 50%;
+	    transform: rotate(315deg);
+	    -webkit-transform:rotate(315deg);
+	}
+	.bubble-container .col-2 .col-right{
+		width: 100%;
+	}
+	.bubble-container .col-2 .col-right .whatsapp-button{
+		margin: 10px auto;
+	}
+
+}
+
+/* ul {
   padding: 10px;
 }
 li {
@@ -100,3 +208,4 @@ li {
   margin-top: 0;
   line-height: 5px;
 }
+ */

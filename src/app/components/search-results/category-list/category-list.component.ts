@@ -13,6 +13,7 @@ export class CategoryListComponent implements OnInit {
   categoryList = [];
   totalCategories = [];
   coordinates;
+  itemsPerPage = 7;
   constructor(private categoryService: CategoryService, private commerceService: CommerceService,
               private placeService: PlaceService) { }
 
@@ -21,9 +22,10 @@ export class CategoryListComponent implements OnInit {
     this.addImageURL(this.categoryList);
     this.placeService.selectedCoordinatesChanged.subscribe((data) => {
       this.coordinates = data;
-    })
+    });
     this.categoryService.totalCategoriesChanged.subscribe((data) => {
       this.totalCategories = data;
+      this.addTotalComerces(this.categoryList);
     });
     this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
@@ -84,7 +86,7 @@ export class CategoryListComponent implements OnInit {
 
   onSelectCategory(category) {
     this.categoryService.setCategorySelected(category);
-    this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, category, 1).subscribe(
+    this.commerceService.getNearestCommerces(this.coordinates.lng, this.coordinates.lat, category, 1, this.itemsPerPage).subscribe(
       (data) => {
         this.commerceService.setCommerceResultList(data['commercesPaginated']);
       this.commerceService.setTotalCommerces(data['totalCommerces']);

@@ -112,4 +112,51 @@
 	top: 0!important;
 }
 
+@media only screen and (max-width: 768px) {
+  #section-1-buscar .search-container .col-4-equals {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+  #section-1-buscar .search-container .col-4-equals .col {
+    margin: 5px 0;
+  }
+  #section-1-buscar .search-container .col-4-equals .col1 i {
+    display: none;
+  }
+  #section-1-buscar .search-container .col-4-equals select {
+    width: 100%;
+  }
+  #section-1-buscar .search-container .col-4-equals select {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  #section-1-buscar .instrucciones {
+    grid-template-columns: 1fr;
+  }
+}
 
+@media only screen and (max-width: 550px) {
+  #section-1-buscar .search-container .col-4-equals {
+    grid-template-columns: 1fr;
+  }
+  #section-1-buscar .search-container .col-4-equals .col {
+    margin: 5px 0;
+  }
+  #section-1-buscar .search-container .col-4-equals .col1 i {
+    display: none;
+  }
+  #section-1-buscar .search-container .col-4-equals select {
+    width: 100%;
+  }
+  #section-1-buscar .search-container .col-4-equals select {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  #section-1-buscar .instrucciones {
+    grid-template-columns: 1fr;
+  }
+  #section-1-buscar #popup #close-popup-mapa-home {
+    position: relative;
+    top: -20px;
+    right: -20px;
+  }
+
+}

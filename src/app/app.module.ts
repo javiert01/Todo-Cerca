@@ -65,12 +65,13 @@ import { WorryComponent } from './components/worry/worry.component';
     HttpClientModule,
     MatDialogModule,
     PipesModule,
-    AgmOverlays,
     AgmCoreModule.forRoot({
       // apiKey: "AIzaSyDc2DxN8sUf0_km07VKhCxY7UmdLSSCjUQ", //prod
-      apiKey: "AIzaSyAVweiK3Gbib30bUCtg5SW0g1m9_1yvphA", //dev
+      apiKey: "AIzaSyAVweiK3Gbib30bUCtg5SW0g1m9_1yvphA",
+      language: 'es-ES', //dev
       libraries: ["places"],
     }),
+    AgmOverlays,
     BrowserAnimationsModule,
     MatTooltipModule,
     NgxMaterialTimepickerModule,

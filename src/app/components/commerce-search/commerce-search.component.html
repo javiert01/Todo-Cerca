@@ -65,7 +65,7 @@
     </form>
     <p class="color2 center">
       Si tienes dudas antes de realizar tu búsqueda revisa nuestras
-      <a href="terminos.html" class="color2">Políticas de uso</a>.
+      <a [routerLink]="['/politicas-de-uso']" class="color2">Políticas de uso</a>.
     </p>
     <div class="container">
       <div class="col-3-equals instrucciones">
@@ -114,8 +114,10 @@
     </div>
   </div>
 </section>
+<div id="container-commerce-list"></div>
 <div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories($event)">
   <app-search-results ></app-search-results>
 </div>
-<app-quienes-somos></app-quienes-somos>
+<app-quienes-somos *ngIf="!resultsObtained"></app-quienes-somos>
+<div id="recomendations"></div>
 <app-worry></app-worry>

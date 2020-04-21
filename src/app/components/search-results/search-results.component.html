@@ -1,20 +1,24 @@
 <div class="background-color2 buscador">
   <p class="center white recomendaciones">
-      <i class="fas fa-exclamation-triangle white"></i> Revisa nuestra <a href="#recomendaciones" class="white"><b>Recomendaciones</b></a>
+      <i class="fas fa-exclamation-triangle white"></i> Revisa nuestra <a (click)="scrollToRecomendations()" class="white" style="cursor: pointer;"><b>Recomendaciones</b></a>
   </p>
 </div>
 <div id="top-menu-iconos"></div>
 <div id="menu-iconos" class="background-color1 ">
+  <div class="col only-mobile category-selector">
+    <p>Estás viendo:</p>
+    <select class="color1" [formControl]="categoryControl" style="background-color: white;" (change)="onSelectCategory($event.target.value)">
+      <option value="all" class="color1">Todas</option>
+      <option
+        [value]="category.commerceCategory"
+        class="color1"
+        *ngFor="let category of categoryList"
+        >{{ category.commerceCategory }}</option
+      >
+    </select>
+  </div>
 <div class="locales-menu-icons">
-    <div class="col-2-equals">
-      <div id="icon-categorias" class="col center only-mobile" (click)="toggleCategories()">
-          <div class="icon-wrapper background-white">
-            <i class="fas fa-sliders-h color3"></i>
-          </div>
-          <p class="center white">
-            Ver categorías
-          </p>
-      </div>
+    <div class="col">
       <a id="boton-expand" class="col center" (click)="onExpand()">
           <div class="icon-wrapper background-white">
             <i id="icon-map" class="fas fa-map-marked-alt color3"></i>
