@@ -48,6 +48,7 @@ export class SearchResultsComponent implements OnInit {
     iconList.classList.toggle('display-none');
     verMapaText.classList.toggle('display-none');
     verListaText.classList.toggle('display-none');
+    document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
   }
 
   toggleCategories() {

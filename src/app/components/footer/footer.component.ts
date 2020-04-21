@@ -13,7 +13,7 @@ export class FooterComponent implements OnInit {
 
   onGoToTop() {
     document
-      .querySelector("#section-3-registro")
+      .querySelector("#header")
       .scrollIntoView({ behavior: "smooth" });
   }
 }

@@ -169,71 +169,16 @@ export class CommerceSearchComponent implements OnInit {
   }
 
   showCategories() {
-    /*  if (this.recomendations) {
+     if (this.recomendations) {
       const menu_categorias = document.getElementById('menu-categorias');
       const menuIconos = document.getElementById('menu-iconos');
-      const elementPosition = this.recomendations.nativeElement.offsetTop;
-      const elementHeight = this.recomendations.nativeElement.clientHeight;
       const element2Position = this.listContainer.nativeElement.offsetTop;
       const scrollPosition = window.pageYOffset;
-      // set `true` when scrolling has reached current element
-      if (scrollPosition >= (elementPosition + elementHeight)) {
+      if(scrollPosition <= element2Position) {
         menuIconos.classList.remove('menu-fixed');
         menu_categorias.classList.remove('mostrar-categorias');
       } else {
         menuIconos.classList.add('menu-fixed');
-      }
-      if(scrollPosition <= element2Position) {
-        menuIconos.classList.remove('menu-fixed');
-        menu_categorias.classList.remove('mostrar-categorias');
-      }
-    }
-  } */
-    const anchoNavegador = document.body.clientWidth;
-    const menu_categorias = document.getElementById("menu-categorias");
-    const menuIconos = document.getElementById("menu-iconos");
-    const altoPagina = document.body.clientHeight;
-    const altoResultados = document.getElementById("global-results")
-      .clientHeight;
-    const section5Buscar = document
-      .getElementById("recomendations")
-      .getBoundingClientRect().top;
-    const ocultarResultados = altoResultados + section5Buscar;
-    const scroll =
-      document.documentElement.scrollTop || document.body.scrollTop;
-
-    if (anchoNavegador <= 550) {
-      if (scroll >= 1100) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= ocultarResultados + 800) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-    } else if (anchoNavegador > 550 && anchoNavegador <= 768) {
-      if (scroll >= 900) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= ocultarResultados) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-    } else {
-      if (scroll >= 560) {
-        menuIconos.classList.add("menu-fixed");
-      } else {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
-      }
-      if (scroll >= ocultarResultados + 600) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
       }
     }
   }
