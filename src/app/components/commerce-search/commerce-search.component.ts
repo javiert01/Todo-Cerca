@@ -180,22 +180,16 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   showCategories() {
-    if (this.recomendations) {
-      const menu_categorias = document.getElementById("menu-categorias");
-      const menuIconos = document.getElementById("menu-iconos");
-      const elementPosition = this.recomendations.nativeElement.offsetTop;
+     if (this.recomendations) {
+      const menu_categorias = document.getElementById('menu-categorias');
+      const menuIconos = document.getElementById('menu-iconos');
       const element2Position = this.listContainer.nativeElement.offsetTop;
       const scrollPosition = window.pageYOffset;
-      // set `true` when scrolling has reached current element
-      if (scrollPosition >= elementPosition) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
+      if(scrollPosition <= element2Position) {
+        menuIconos.classList.remove('menu-fixed');
+        menu_categorias.classList.remove('mostrar-categorias');
       } else {
         menuIconos.classList.add("menu-fixed");
-      }
-      if (scrollPosition <= element2Position) {
-        menuIconos.classList.remove("menu-fixed");
-        menu_categorias.classList.remove("mostrar-categorias");
       }
     }
   }

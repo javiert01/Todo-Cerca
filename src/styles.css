@@ -14,6 +14,9 @@
 .only-desktop {
   display: block;
 }
+.only-mobile-tablet {
+  display: none !important;
+}
 .ws-mobile {
   display: none !important;
 }
@@ -377,6 +380,9 @@ img {
   #section-4-buscar .container .col-2-equals {
     grid-template-columns: 1fr;
   }
+  .only-mobile-tablet {
+    display: block !important;
+  }
 }
 @media only screen and (max-width: 550px) {
   .noticia {
@@ -426,6 +432,9 @@ img {
     grid-template-columns: 1fr;
   }
   .only-mobile {
+    display: block !important;
+  }
+  .only-mobile-tablet {
     display: block !important;
   }
   .only-desktop {
@@ -605,14 +614,3 @@ body {
   padding: 0px !important;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
-  html {
-    transform: rotate(-90deg);
-    transform-origin: left top;
-    width: 100vh;
-    overflow-x: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-}
