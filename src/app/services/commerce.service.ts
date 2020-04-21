@@ -75,7 +75,7 @@ export class CommerceService {
     );
   }
 
-  getTotalNearestCommerces(lng, lat) {
-    return this.http.get<any>(`${this.url}/near/notpagination?longitud=${lng}&latitud=${lat}`);
+  getTotalNearestCommerces(lng, lat, category) {
+    return this.http.get<any>(`${this.url}/near/notpagination?longitud=${lng}&latitud=${lat}&category=${category}`);
   }
 }

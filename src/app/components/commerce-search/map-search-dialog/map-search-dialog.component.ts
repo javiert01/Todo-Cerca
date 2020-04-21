@@ -115,7 +115,7 @@ export class MapSearchDialogComponent implements OnInit {
       this.commerceService.setTotalCommerces(data['totalCommerces']);
       this.dialogRef.close('ok');
     });
-    this.commerceService.getTotalNearestCommerces(this.lng, this.lat)
+    this.commerceService.getTotalNearestCommerces(this.lng, this.lat, this.category)
     .subscribe((data) => {
       this.commerceService.setTotalCommerceResultList(data);
     });
