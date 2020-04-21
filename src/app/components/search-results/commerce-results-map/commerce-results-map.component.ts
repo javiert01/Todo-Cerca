@@ -1,27 +1,38 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from "@angular/core";
 import { PlaceService } from "src/app/services/place.service";
 import { CommerceService } from "src/app/services/commerce.service";
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryService } from "src/app/services/category.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-commerce-results-map",
   templateUrl: "./commerce-results-map.component.html",
   styleUrls: ["./commerce-results-map.component.css"],
 })
-export class CommerceResultsMapComponent implements OnInit {
+export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   initialCoordinates;
   commerceCoordinates = [];
   categories = [];
   @ViewChild("gm", { static: true }) gm;
-  myStyles =[
+  myStyles = [
     {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-              { visibility: "off" }
-        ]
-    }
-];
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [{ visibility: "off" }],
+    },
+  ];
+
+  // =========================================
+  // Close subs
+  // =========================================
+  commerceServiceSub: Subscription;
+  placeServiceSub: Subscription;
 
   constructor(
     private placeService: PlaceService,
@@ -29,13 +40,17 @@ export class CommerceResultsMapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.commerceService.totalCommercesResultListChanged.subscribe((data) => {
-      this.gm.lastOpen = null;
-      this.commerceCoordinates = data;
-    });
-    this.placeService.selectedCoordinatesChanged.subscribe((data) => {
-      this.initialCoordinates = data;
-    });
+    this.commerceServiceSub = this.commerceService.totalCommercesResultListChanged.subscribe(
+      (data) => {
+        this.gm.lastOpen = null;
+        this.commerceCoordinates = data;
+      }
+    );
+    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
+      (data) => {
+        this.initialCoordinates = data;
+      }
+    );
     this.initialCoordinates = this.placeService.getSelectedCoordinates();
     this.commerceCoordinates = this.commerceService.getTotalCommerceResultList();
   }
@@ -58,10 +73,18 @@ export class CommerceResultsMapComponent implements OnInit {
 
   getWhatsappURL(phone) {
     phone = phone.slice(1, phone.length);
-    phone = '593' + phone;
-    if(window.innerWidth < 551) {
-      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
+    phone = "593" + phone;
+    if (window.innerWidth < 551) {
+      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`;
     }
-    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`
+    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`;
+  }
+  ngOnDestroy() {
+    if (this.commerceServiceSub) {
+      this.commerceServiceSub.unsubscribe();
+    }
+    if (this.placeServiceSub) {
+      this.placeServiceSub.unsubscribe();
+    }
   }
 }
