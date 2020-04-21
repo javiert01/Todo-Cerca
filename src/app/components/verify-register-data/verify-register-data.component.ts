@@ -27,13 +27,13 @@ export class VerifyRegisterDataComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   postComerce() {
-    this.changeThanksPage();
     this.commerceServiceSub = this.commerceService
       .createNewCommerce(this.comerceVerify)
       .subscribe(
         (data) => {
           console.log("registro exitoso", data);
           this.commerceService.setCommerceFormData(null);
+          this.changeThanksPage();
         },
         (err) => {
           console.error(err);

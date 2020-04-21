@@ -11,7 +11,7 @@
 	-webkit-transition: left 0.5s;
 	z-index: 9;
 	display: block;
-	height: 70vh;
+	height: 58vh;
 }
 .mostrar-categorias{
 	left: 0!important;
@@ -68,7 +68,7 @@
 		-webkit-transition: left 0.5s;
 		z-index: 9;
 		display: block;
-		height: 70vh;
+		height: 58vh;
 		box-shadow: 5px 5px 5px rgba(0,0,0,.3);
 	}
 }
