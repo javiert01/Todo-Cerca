@@ -299,6 +299,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   openDialogDownloadExcel() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
@@ -319,6 +322,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   openDeleteCommerceDialog() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
@@ -341,6 +347,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   openAllowCommerceDialog() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
@@ -368,6 +377,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   openEditCommerceDialog() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
