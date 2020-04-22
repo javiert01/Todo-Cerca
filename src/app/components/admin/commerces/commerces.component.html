@@ -20,11 +20,11 @@
 
   </div>
   <div class="displayInLineBlock">
-    <h6>Total de registro al día de ayer: <span style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
-    <h6>Total de registros al día de hoy: <span style="font-weight: normal;">{{allCommerces}} </span> </h6>
+    <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
+    <h6 *ngIf="rol === 'Administrador'" >Total de registros al día de hoy: <span style="font-weight: normal;">{{allCommerces}} </span> </h6>
     <h6>Registrados el día hoy:<span style="font-weight: normal;"> {{createdNow}} </span></h6>
     <h6>Registros cargados: <span style="font-weight: normal;"> {{allowedCommerces}} </span></h6>
-    <h6>Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span></h6>
+    <h6 *ngIf="rol === 'Administrador'" >Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span></h6>
 
   </div>
 </div>
@@ -121,7 +121,7 @@
       }" [disabled]="commerceList.length === 0" (click)="openAllowCommerceDialog()">
       Cargar
     </button>
-    <button *ngIf="rol === 'Administrador'" class="btn cursor-pointer" (click)="openDeleteCommerceDialog()" [ngClass]="{
+    <button  class="btn cursor-pointer" (click)="openDeleteCommerceDialog()" [ngClass]="{
         'btn-invalid': selectedCommercesID.length == 0,
         red: selectedCommercesID.length > 0
       }" [disabled]="selectedCommercesID.length == 0">
