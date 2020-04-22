@@ -73,9 +73,9 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
     phone = phone.slice(1, phone.length);
     phone = "593" + phone;
     if (window.innerWidth < 551) {
-      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`;
+      return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
     }
-    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20d%C3%ADas`;
+    return `http://web.whatsapp.com/send?phone=${phone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
   }
   ngOnDestroy() {
     if (this.commerceServiceSub) {
