@@ -120,7 +120,6 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
       if (data === "ok") {
         this.resultsObtained = true;
-        console.log("scrolling into view");
         document
           .querySelector("#container-commerce-list")
           .scrollIntoView({ behavior: "smooth" });
@@ -147,7 +146,6 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   getAddress(lat: number, lng: number) {
-    console.log("Finding Address");
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -160,15 +158,14 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           if (result != null) {
             /* this.direccion = result.formatted_address;
             this.registerForm.get('address').setValue(this.direccion); */
-            if (!result.formatted_address.includes("Quito")) {
+            if (!result.formatted_address.includes("Quito") && !result.formatted_address.includes("Sangolquí")) {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
               });
             } else {
               return;
             }
-            /* this.direccion = rsltAdrComponent[0].short_name;
-            console.log(this.direccion); */
+            /* this.direccion = rsltAdrComponent[0].short_name; */
           } else {
             alert(
               "No hay dirección disponible en este momento, llenela manualmente"

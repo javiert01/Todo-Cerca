@@ -31,7 +31,6 @@ export class VerifyRegisterDataComponent implements OnInit, OnDestroy {
       .createNewCommerce(this.comerceVerify)
       .subscribe(
         (data) => {
-          console.log("registro exitoso", data);
           this.commerceService.setCommerceFormData(null);
           this.changeThanksPage();
         },

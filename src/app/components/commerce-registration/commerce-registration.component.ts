@@ -365,7 +365,6 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   onSetCityMap(city) {
-    console.log(city);
     if(city === '18: Francisco de Orellana') {
       city = 'Orellana';
     }
@@ -385,7 +384,6 @@ export class CommerceRegistrationComponent implements OnInit {
           self.registerForm.get('ltd').setValue(self.markLat);
           self.registerForm.get('lng').setValue(self.markLng);
           self.mapZoom = 11;
-          console.log(self.lat);
           self.cdRef.detectChanges();
         } else {
           alert('Something got wrong ' + status);
@@ -395,7 +393,6 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   setMarker($event) {
-    // console.log($event.coords.lat);
     this.markLat = $event.coords.lat;
     this.markLng = $event.coords.lng;
     this.registerForm.get('ltd').setValue(this.markLat);
@@ -403,7 +400,6 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   getAddress(lat: number, lng: number) {
-    console.log('Finding Address');
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -488,18 +484,13 @@ export class CommerceRegistrationComponent implements OnInit {
     };
     this.commerceService.setCommerceFormData(this.registerForm.value);
     this.commerceService.setCommerce(this.commerce);
-
-    console.log(this.commerce);
     this.router.navigate(['/verificar']);
   }
 
   onFileChangedRecibo(event) {
-    // console.log("Cambio de valor en el bolean: ", this.imagenSubida);
     this.imagenSubida = true;
-    // console.log("Cambio de valor en el bolean 2: ", this.imagenSubida);
     this.selectedFile = event.target.files[0];
     this.imagenSeleccionada = true;
-    // console.log("OnFileChanged", this.selectedFile);
     if (event.target.files.length === 0) {
       this.imagenSeleccionada = false;
       this.imgURL = '../../../assets/06-no-image.png';
@@ -514,13 +505,11 @@ export class CommerceRegistrationComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = _event => {
-      console.log('Entra al cambio de reviboUrl: ', this.reciboURL);
       this.reciboURL = reader.result.toString();
     };
   }
   // INICIO GET-SIGNED-REQUEST METODO QUE SE LLAMA DESDE EL BOTON OPERAR
   getSignedRequest2(commerceName) {
-    // console.log("El archivo selecionado: ", this.selectedFile);
     const file = {
       fName_p: 'commerce/' + commerceName + '/' + this.selectedFile.name,
       fType_p: this.selectedFile.type
@@ -547,15 +536,12 @@ export class CommerceRegistrationComponent implements OnInit {
   operar(name: String) {
     name = name.replace(/\s/g, '');
     if (this.imagenSubida) {
-      // console.log("Operar -> Se crea la imagen - creando");
       // SI CARGA IMAGEN
       // INICIO-SI-SUBE-IMAGEN
-      // console.log("Empresa Nueva: ", this.empresa);
       this.getSignedRequest2(name).subscribe(data => {
         // INICIO SE LLAMA AL METODO UPLOAD
         this.onUpload2(this.selectedFile, data.signedRequest, data.url);
         // FIN SE LLAMA AL METODO UPLOAD
-        // console.log(data.url);
       });
       // FIN-SI-SUBE-IMAGEN
     }

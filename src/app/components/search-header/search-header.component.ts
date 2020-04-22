@@ -35,10 +35,8 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
       c.style.display = "none";
     }
     this.newsIndex += 1;
-    console.log(this.newsIndex);
     if (this.newsIndex > news.length) {
       this.newsIndex = 1;
-      console.log(this.newsIndex);
     }
     const n = news[this.newsIndex - 1] as HTMLElement;
     n.style.display = "flex";

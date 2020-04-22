@@ -51,7 +51,6 @@ export class CommerceListComponent implements OnInit, OnDestroy {
     this.commerceServiceSub = this.commerceService.commerceResultListChanged.subscribe(
       (data) => {
         this.commerces = data;
-        console.log(this.commerces);
       }
     );
     this.commerceServiceSub1 = this.commerceService.totalCommercesChanged.subscribe(
@@ -121,11 +120,8 @@ export class CommerceListComponent implements OnInit, OnDestroy {
         this.numeroItemsPorPagina
       )
       .subscribe((data) => {
-        console.log(this.coordinates.lng, this.coordinates.lat);
-        console.log(this.selectedCategory, this.currentPage);
         this.commerceService.setCommerceResultList(data["commercesPaginated"]);
         this.commerceService.setTotalCommerces(data["totalCommerces"]);
-        // console.log("changed page", data);
       });
   }
 

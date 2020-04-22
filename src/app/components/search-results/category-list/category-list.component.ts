@@ -39,15 +39,12 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.categoryServiceSub = this.categoryService.totalCategoriesChanged.subscribe(
       (data) => {
         this.totalCategories = data;
-        console.log(this.totalCategories);
         this.addTotalComerces(this.categoryList);
       }
     );
     this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
     this.addTotalComerces(this.categoryList);
-    console.log(this.categoryList);
-    console.log(this.totalCategories);
   }
 
   addImageURL(categoryList) {

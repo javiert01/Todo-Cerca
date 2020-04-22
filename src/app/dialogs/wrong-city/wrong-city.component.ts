@@ -14,7 +14,6 @@ export class WrongCityComponent implements OnInit {
   }
 
   close(message) {
-    console.log('closing dialog');
     this.dialogRef.close(message);
   }
 

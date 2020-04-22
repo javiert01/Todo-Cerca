@@ -56,9 +56,7 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   }
 
   onMouseOver(infoWindow, gm) {
-    console.log("mouse over");
     if (gm.lastOpen != null) {
-      console.log(gm.lastOpen);
       gm.lastOpen.close();
     }
 

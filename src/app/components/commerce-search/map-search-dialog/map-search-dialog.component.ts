@@ -83,7 +83,6 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
   }
 
   getAddress(lat: number, lng: number) {
-    console.log('Finding Address');
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
