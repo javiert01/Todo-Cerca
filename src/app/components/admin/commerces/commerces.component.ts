@@ -23,7 +23,21 @@ import { tap } from "rxjs/internal/operators/tap";
 })
 export class CommercesComponent implements OnInit, OnDestroy {
   commerceList = [];
-  titlesList = [];
+  titlesList = [
+    "id",
+    "Categoría",
+    "Nombre del comercio",
+    "Ciudad",
+    "Dirección",
+    "Horario de apertura	",
+    "Horario de cierre",
+    "Nombre Contacto",
+    "Apellido Contacto",
+    "Teléfono Contacto	",
+    "Mail Contacto",
+    "Foto",
+    "Fecha Registro",
+  ];
   fecha;
   allowed = true;
   allSelected = false;
@@ -85,18 +99,10 @@ export class CommercesComponent implements OnInit, OnDestroy {
         }
         this.listaPaginasSelected[0] = true;
         if (this.commerceList.length > 0) {
-          // tslint:disable-next-line: forin
-          for (const key in this.commerceList[0]) {
-            if (key !== "idAux" && key !== "showCommerce") {
-              this.titlesList.push(key);
-            }
-          }
           console.log(this.titlesList);
           for (const commerce of this.commerceList) {
             this.isCommerceSelectedList.push(false);
           }
-          this.translateTitleList(this.titlesList);
-          this.orderTitleList();
         }
       });
     this.getCommercesRegisterData();
@@ -140,83 +146,10 @@ export class CommercesComponent implements OnInit, OnDestroy {
     });
   }
 
-  orderTitleList() {
-    this.swap(this.titlesList, "id", this.titlesList[0]);
-    this.swap(this.titlesList, "Categoría", this.titlesList[1]);
-    this.swap(this.titlesList, "Nombre del comercio", this.titlesList[2]);
-    this.swap(this.titlesList, "Ciudad", this.titlesList[3]);
-    this.swap(this.titlesList, "Dirección", this.titlesList[4]);
-    this.swap(this.titlesList, "Horario de apertura", this.titlesList[5]);
-    this.swap(this.titlesList, "Horario de cierre", this.titlesList[6]);
-    this.swap(this.titlesList, "Nombre Contacto", this.titlesList[7]);
-    this.swap(this.titlesList, "Apellido Contacto", this.titlesList[8]);
-    this.swap(this.titlesList, "Teléfono Contacto", this.titlesList[9]);
-    this.swap(this.titlesList, "Mail Contacto", this.titlesList[10]);
-  }
-
-  swap(array, item1, item2) {
-    const idItem1 = array.indexOf(item1);
-    const idItem2 = array.indexOf(item2);
-    array[idItem1] = item2;
-    array[idItem2] = item1;
-  }
-
   onSetAllowed(flag) {
     this.currentPage = 1;
     this.allowed = flag;
     this.isSearching ? this.onSearchTerm() : this.loadCommerceList();
-  }
-
-  translateTitleList(titleList) {
-    for (let i = 0; i < titleList.length; i++) {
-      switch (titleList[i]) {
-        case "phone":
-          titleList[i] = "Teléfono Contacto";
-          break;
-        case "ownerName":
-          titleList[i] = "Nombre Contacto";
-          break;
-        case "ownerLastName":
-          titleList[i] = "Apellido Contacto";
-          break;
-        case "commerceName":
-          titleList[i] = "Nombre del comercio";
-          break;
-        case "category":
-          titleList[i] = "Categoría";
-          break;
-        case "frecuency":
-          titleList[i] = "Días de apertura";
-          break;
-        case "hourOpen":
-          titleList[i] = "Horario de apertura";
-          break;
-        case "hourClose":
-          titleList[i] = "Horario de cierre";
-          break;
-        case "city":
-          titleList[i] = "Ciudad";
-          break;
-        case "address":
-          titleList[i] = "Dirección";
-          break;
-        case "reference":
-          titleList[i] = "Referencia";
-          break;
-        case "commerceDescription":
-          titleList[i] = "Breve descripción";
-          break;
-        case "createdAt":
-          titleList[i] = "Fecha Registro";
-          break;
-        case "commercePhoto":
-          titleList[i] = "Foto";
-          break;
-        case "ownerEmail":
-          titleList[i] = "Mail Contacto";
-          break;
-      }
-    }
   }
 
   getNextServicios(numeroPagina) {
