@@ -156,3 +156,9 @@ select {
 	left: 35px;
 	top:50px;
 }
+
+.img-gif {
+  width: 50%;
+  height: 90%;
+  margin: auto;
+}

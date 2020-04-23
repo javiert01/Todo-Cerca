@@ -24,6 +24,7 @@ declare let google: any;
 })
 export class CommerceRegistrationComponent implements OnInit {
   // INICO PARA SUBIR LA IMAGEN
+  isLoading = false;
   imagenSubida = false;
   imagenSeleccionada = false;
   reciboURL: any;
@@ -484,6 +485,7 @@ export class CommerceRegistrationComponent implements OnInit {
     };
     this.commerceService.setCommerceFormData(this.registerForm.value);
     this.commerceService.setCommerce(this.commerce);
+    this.isLoading = false;
     this.router.navigate(['/verificar']);
   }
 
@@ -534,6 +536,7 @@ export class CommerceRegistrationComponent implements OnInit {
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
+    this.isLoading = true;
     name = name.replace(/\s/g, '');
     if (this.imagenSubida) {
       // SI CARGA IMAGEN

@@ -13,6 +13,7 @@ export class VerifyRegisterDataComponent implements OnInit, OnDestroy {
   comerceVerify: Commerce;
   lat = -0.1840506;
   lng = -78.503374;
+  isLoading = false;
   // =========================================
   // Close subs
   // =========================================
@@ -27,11 +28,13 @@ export class VerifyRegisterDataComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   postComerce() {
+    this.isLoading = true;
     this.commerceServiceSub = this.commerceService
       .createNewCommerce(this.comerceVerify)
       .subscribe(
         (data) => {
           this.commerceService.setCommerceFormData(null);
+          this.isLoading = false;
           this.changeThanksPage();
         },
         (err) => {

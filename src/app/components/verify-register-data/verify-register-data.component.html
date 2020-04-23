@@ -126,6 +126,7 @@
                   </div>
                   <div class="col">
                     <button
+                    *ngIf="!isLoading"
                       class="background-color1 white center button center-button"
                       (click)="postComerce()"
                       style="cursor: pointer; height: 42px;"
@@ -133,6 +134,9 @@
                       REGISTRARSE
                     </button>
                   </div>
+                </div>
+                <div class="col center" *ngIf="isLoading">
+                  <img src="assets/loading.gif" class="img-gif" />
                 </div>
             </div>
         </div>
