@@ -21,17 +21,20 @@
           <div class="slidenews-container">
             <div class="noticia fade" style="display: flex;">
               <p class="center white">
-                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda #QuedarteEnCasa para evitar los contagios 😉.
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
               </p>
             </div>
             <div class="noticia fade">
               <p class="center white">
-                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda #QuedarteEnCasa para evitar los contagios 😉.
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
               </p>
             </div>
             <div class="noticia fade">
               <p class="center white">
-                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda #QuedarteEnCasa para evitar los contagios 😉.
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
               </p>
             </div>
           </div>
@@ -42,26 +45,35 @@
   <header id="header">
     <div class="header-top">
       <div class="container">
-          <div style="display: flex; justify-content: flex-end;">
-            <div class="contador-container-out" >
-              <div class="contador-container-in">
-                <div class="text background-color3">
-                  <p class="white center">
-                    Establecimientos cerca
-                  </p>
-                </div>
-                <div class="number background-color5">
-                  <p class="white center">
-                    {{totalCommerces}}
-                  </p>
-                </div>
+        <div style="display: flex; justify-content: space-between;">
+          <div class="contador-container-out" (click)="onNavigateToRegister()" style="cursor: pointer;">
+            <div class="contador-container-in">
+              <div class="text background-color3">
+                <p class="white center">
+                  Registra tu comercio
+                </p>
               </div>
             </div>
           </div>
+          <div class="contador-container-out">
+            <div class="contador-container-in">
+              <div class="text background-color3">
+                <p class="white center">
+                  Establecimientos cerca
+                </p>
+              </div>
+              <div class="number background-color5">
+                <p class="white center">
+                  {{ totalCommerces }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="header-brand puntero" [routerLink]="['/home']">
-      <img src="assets/01-logo-color.svg">
+      <img src="assets/01-logo-color.svg" />
     </div>
   </header>
-
+</header>

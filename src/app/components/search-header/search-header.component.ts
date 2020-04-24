@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
 import { Subscription } from "rxjs";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-search-header",
@@ -16,7 +17,7 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
   //========================================
   commmerceServiceSub: Subscription;
 
-  constructor(private commmerceService: CommerceService) {}
+  constructor(private commmerceService: CommerceService, private router: Router) {}
 
   ngOnInit(): void {
     //this.showNews();
@@ -48,9 +49,14 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
     newsContainer.style.display = "none";
   }
 
+  onNavigateToRegister() {
+    this.router.navigate(['/registrar']);
+  }
+
   ngOnDestroy() {
     if (this.commmerceServiceSub) {
       this.commmerceServiceSub.unsubscribe();
     }
   }
+
 }
