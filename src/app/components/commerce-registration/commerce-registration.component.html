@@ -335,9 +335,8 @@
           [disabled]="registerForm.invalid && !imagenSeleccionada"
           class="background-color1 white center button center-button"
           (click)="
-            this.imagenSeleccionada
-              ? operar(this.registerForm.get('commerceName').value)
-              : submitCommerce()
+            this.imagenSeleccionada && this.registerForm.valid &&
+              operar(this.registerForm.get('commerceName').value)
           "
           [ngStyle]="{
             opacity: registerForm.valid && imagenSeleccionada ? '1' : '0.5',
