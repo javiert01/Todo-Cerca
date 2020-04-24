@@ -492,10 +492,10 @@ export class CommerceRegistrationComponent implements OnInit {
   onFileChangedRecibo(event) {
     this.imagenSubida = true;
     this.selectedFile = event.target.files[0];
-    this.imagenSeleccionada = true;
     if (event.target.files.length === 0) {
       this.imagenSeleccionada = false;
       this.imgURL = '../../../assets/06-no-image.png';
+      this.reciboURL = '';
       return;
     }
     const mimeType = event.target.files[0].type;
@@ -503,7 +503,7 @@ export class CommerceRegistrationComponent implements OnInit {
       this.message = 'Solo se permite subir imágenes!';
       return;
     }
-
+    this.imagenSeleccionada = true;
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = _event => {
