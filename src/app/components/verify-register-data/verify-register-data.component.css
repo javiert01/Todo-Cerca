@@ -58,3 +58,9 @@ p {
 agm-map {
   height: 500px;
 }
+
+.img-gif {
+  width: 272px;
+  height: 262px;
+  margin: auto;
+}
