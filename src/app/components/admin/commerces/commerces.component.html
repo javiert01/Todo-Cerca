@@ -20,11 +20,15 @@
 
   </div>
   <div class="displayInLineBlock">
-    <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
-    <h6 *ngIf="rol === 'Administrador'" >Total de registros al día de hoy: <span style="font-weight: normal;">{{allCommerces}} </span> </h6>
+    <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span
+        style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
+    <h6 *ngIf="rol === 'Administrador'">Total de registros al día de hoy: <span
+        style="font-weight: normal;">{{allCommerces}} </span> </h6>
     <h6>Registrados el día hoy:<span style="font-weight: normal;"> {{createdNow}} </span></h6>
     <h6>Registros cargados: <span style="font-weight: normal;"> {{allowedCommerces}} </span></h6>
-    <h6 *ngIf="rol === 'Administrador'" >Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span></h6>
+    <h6>Registros pendientes: <span style="font-weight: normal;"> {{pendings}} </span></h6>
+    <h6 *ngIf="rol === 'Administrador'">Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span>
+    </h6>
 
   </div>
 </div>
@@ -57,6 +61,15 @@
       <option value="all">Todos</option>
       <option [ngValue]="category.commerceCategory" *ngFor="let category of commerceCategories">
         {{ category.commerceCategory }}</option>
+    </select>
+  </div>
+  <div class="category-container">
+    <label class="color3" style="margin: 0px 15px;">Seleccione Ciudad</label>
+    <select (change)="onSetCity($event.target.value)">
+      <option value="all">Todos</option>
+      <!-- <option [ngValue]="category.commerceCategory" *ngFor="let city of cities"> -->
+      <option [ngValue]="city" *ngFor="let city of cities">
+        {{ city }}</option>
     </select>
   </div>
   <table>
@@ -121,7 +134,7 @@
       }" [disabled]="commerceList.length === 0" (click)="openAllowCommerceDialog()">
       Cargar
     </button>
-    <button  class="btn cursor-pointer" (click)="openDeleteCommerceDialog()" [ngClass]="{
+    <button class="btn cursor-pointer" (click)="openDeleteCommerceDialog()" [ngClass]="{
         'btn-invalid': selectedCommercesID.length == 0,
         red: selectedCommercesID.length > 0
       }" [disabled]="selectedCommercesID.length == 0">

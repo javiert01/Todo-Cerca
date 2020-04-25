@@ -56,6 +56,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   allCommerceSubscription: Subscription;
   searchCommerceSubscription: Subscription;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;
+  citySelected = "all";
 
   // ===========================
   // varaibles for registers
@@ -65,6 +66,41 @@ export class CommercesComponent implements OnInit, OnDestroy {
   allCommerces = 0;
   allowedCommerces = 0;
   deleted = 0;
+  pendings = 0;
+
+  // ===============================================================
+  // BEGIN ARRAY TO CITIES
+  // ===============================================================
+  cities = [
+    "Quito",
+    "Guayaquil",
+    "Cuenca",
+    "Guaranda",
+    "Azogues",
+    "Tulcán",
+    "Riobamba",
+    "Latacunga",
+    "Machala",
+    "Esmeraldas",
+    "Puerto Baquerizo Moreno",
+    "Ibarra",
+    "Loja",
+    "Babahoyo",
+    "Portoviejo",
+    "Macas",
+    "Tena",
+    "Francisco de Orellana",
+    "Puyo",
+    "Santa Elena",
+    "Santo Domingo",
+    "Nueva Loja",
+    "Ambato",
+    "Zamora",
+  ];
+
+  // ===============================================================
+  // END ARRAY TO CITIES
+  // ===============================================================
 
   constructor(
     private commerceService: CommerceService,
@@ -84,7 +120,12 @@ export class CommercesComponent implements OnInit, OnDestroy {
     }
     this.loadCategoryData();
     this.allCommerceSubscription = this.commerceService
-      .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
+      .getAllCommerces(
+        this.allowed,
+        this.currentPage,
+        this.categorySelected,
+        this.citySelected
+      )
       .subscribe((data) => {
         // console.log(data);
         const dataArray = new Array(data["commercesPaginated"]);
@@ -119,9 +160,14 @@ export class CommercesComponent implements OnInit, OnDestroy {
       this.allCommerceSubscription.unsubscribe();
     }
     this.allCommerceSubscription = this.commerceService
-      .getAllCommerces(this.allowed, this.currentPage, this.categorySelected)
+      .getAllCommerces(
+        this.allowed,
+        this.currentPage,
+        this.categorySelected,
+        this.citySelected
+      )
       .subscribe((data) => {
-        console.log(data);
+        console.log("Prueba test", data);
         const dataArray = new Array(data["commercesPaginated"]);
         this.commerceList = [...dataArray];
         this.commerceList = this.commerceList[0];
@@ -190,6 +236,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
     this.loadCommerceList();
   }
 
+  onSetCity(city) {
+    this.currentPage = 1;
+    this.citySelected = city;
+    this.loadCommerceList();
+  }
   onCheckCommerce(target, index) {
     this.isCommerceSelectedList[index] = true;
     if (target.checked) {
@@ -412,6 +463,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
           this.allowedCommerces = data["allowedCommerces"];
           this.createdNow = data["createdNow"];
           this.deleted = data["deleted"];
+          this.pendings = data["pendings"];
         })
       )
       .subscribe();

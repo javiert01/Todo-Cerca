@@ -31,7 +31,7 @@ export class CommerceService {
       `${this.urlBlueprint}/?id=${commerceID}`,
       this.httpOptions
     );*/
-    return this.http.post<any>(`${this.url}/delete`,{id:commerceID});
+    return this.http.post<any>(`${this.url}/delete`, { id: commerceID });
   }
 
   updateStatusCommerce(commerceID) {
@@ -45,9 +45,13 @@ export class CommerceService {
     );
   }
 
-  getAllCommerces(allowed, pageNumber, category) {
+  getAllCommerces(allowed, pageNumber, category, cityParam) {
+    // console.log("allowed: ", allowed);
+    // console.log("pageNumber", pageNumber);
+    // console.log("category: ", category);
+    // console.log("La ciudad: ", cityParam);
     return this.http.get<any>(
-      `${this.url}/all?allowed=${allowed}&pageNumber=${pageNumber}&category=${category}`,
+      `${this.url}/all?allowed=${allowed}&pageNumber=${pageNumber}&category=${category}&cityParam=${cityParam}`,
       this.httpOptions
     );
   }

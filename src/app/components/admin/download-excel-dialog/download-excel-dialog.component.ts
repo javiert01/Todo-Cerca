@@ -71,7 +71,7 @@ export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
   }
   downloadPage() {
     this.test = this.commerceService
-      .getAllCommerces(this.allowed, this.pageNumber, this.category)
+      .getAllCommerces(this.allowed, this.pageNumber, this.category, "all")
       .pipe(
         tap((content) => {
           // console.log("Contenido: ", content);
