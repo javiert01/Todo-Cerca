@@ -60,7 +60,7 @@
     <select (change)="onSetCategory($event.target.value)">
       <option value="all">Todos</option>
       <option [ngValue]="category.commerceCategory" *ngFor="let category of commerceCategories">
-        {{ category.commerceCategory }}</option>
+        {{ category.commerceCategory }} </option>
     </select>
   </div>
   <div class="category-container">
