@@ -22,7 +22,7 @@
                 {{ commerce.category[0].commerceCategory }}
               </p>
               <h5 class="color1 bebas titulo-comercio">
-                {{ commerce.commerceName }}
+                {{ commerce.commerceName | capitalPipe}}
                 <span id="id-negocio" class="color3">
                   Id: {{ commerce.idAux }}
                 </span>
