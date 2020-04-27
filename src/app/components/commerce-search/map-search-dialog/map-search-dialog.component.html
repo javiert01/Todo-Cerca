@@ -35,6 +35,7 @@
           CONFIRMAR UBICACIÓN
         </button>
         <button
+        *ngIf="type==='addressOK'"
         id="confirmar-ubicacion"
         class="button center-button background-color3 white center confirmar"
         (click) = "getGeoLocation()"

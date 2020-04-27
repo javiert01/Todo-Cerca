@@ -49,7 +49,7 @@
               </select>
             </div>
             <div class="col col4 tooltip">
-              <a
+                <a
                 (click)="searchCommerceForm.invalid ? getMessage(): openDialogMapSearch()"
                 class="background-color3 white center button center-button"
                 [ngClass]="{'a-invalid': searchCommerceForm.invalid,
@@ -58,7 +58,7 @@
                 id="buscar"
                 >BUSCAR</a
               >
-              <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Debes seleccionar una categoría</span>
+              <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span>
             </div>
           </div>
         </div>

@@ -5,22 +5,22 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-} from "@angular/core";
-import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
-import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/map-search-dialog.component";
-import { PlaceService } from "src/app/services/place.service";
-import { CategoryService } from "src/app/services/category.service";
-import { MapsAPILoader } from "@agm/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { WrongCityComponent } from "src/app/dialogs/wrong-city/wrong-city.component";
-import { Subscription } from "rxjs";
+} from '@angular/core';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { MapSearchDialogComponent } from '../commerce-search/map-search-dialog/map-search-dialog.component';
+import { PlaceService } from 'src/app/services/place.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { MapsAPILoader } from '@agm/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { WrongCityComponent } from 'src/app/dialogs/wrong-city/wrong-city.component';
+import { Subscription } from 'rxjs';
 
 declare let google: any;
 
 @Component({
-  selector: "app-commerce-search",
-  templateUrl: "./commerce-search.component.html",
-  styleUrls: ["./commerce-search.component.css"],
+  selector: 'app-commerce-search',
+  templateUrl: './commerce-search.component.html',
+  styleUrls: ['./commerce-search.component.css'],
 })
 export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
@@ -29,17 +29,17 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   lng;
   resultsObtained = false;
   searchCommerceForm: FormGroup;
-  @ViewChild("recomendations")
+  @ViewChild('recomendations')
   recomendations: ElementRef;
-  @ViewChild("search")
+  @ViewChild('search')
   public searchElementRef: ElementRef;
-  @ViewChild("listContainer")
+  @ViewChild('listContainer')
   listContainer: ElementRef;
   public searchControl: FormControl;
 
-  //=====================================================================
+  // =====================================================================
   // Close subs
-  //=====================================================================
+  // =====================================================================
   categoryServiceSub: Subscription;
   dialogRefSub: Subscription;
   dialogRef2Sub: Subscription;
@@ -55,23 +55,23 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cities = this.placeService.getCountryList();
     this.loadCategoryData();
-    this.searchControl = new FormControl("");
+    this.searchControl = new FormControl('');
     this.searchCommerceForm = new FormGroup({
-      category: new FormControl("", Validators.required),
-      city: new FormControl("Quito"),
+      category: new FormControl('', Validators.required),
+      city: new FormControl('Quito'),
     });
-    this.searchCommerceForm.get("city").disable();
+    this.searchCommerceForm.get('city').disable();
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ["address"],
+          types: ['address'],
         }
       );
       autocomplete.setComponentRestrictions({
-        country: ["ec"],
+        country: ['ec'],
       });
-      autocomplete.addListener("place_changed", () => {
+      autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
@@ -79,7 +79,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           }
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
-          if (this.searchElementRef.nativeElement !== "") {
+          if (this.searchElementRef.nativeElement !== '') {
             this.getAddress(this.lat, this.lng);
           } else {
             return;
@@ -101,46 +101,108 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "550px";
+    configuracionDialog.height = '550px';
+    let dialogRef;
     if (window.innerWidth < 551) {
-      configuracionDialog.minWidth = "100vw";
+      configuracionDialog.minWidth = '100vw';
     } else {
-      configuracionDialog.width = "640px";
+      configuracionDialog.width = '640px';
     }
+    if (this.searchControl.value == '') {
+      configuracionDialog.height = '470px';
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            this.lat = pos.lat;
+            this.lng = pos.lng;
+            configuracionDialog.data = {
+              lat: this.lat,
+              lng: this.lng,
+              category: this.searchCommerceForm.get('category').value,
+              type: 'noAddress'
+            };
+            dialogRef = this.dialog.open(
+              MapSearchDialogComponent,
+              configuracionDialog
+            );
 
-    configuracionDialog.data = {
-      lat: this.lat,
-      lng: this.lng,
-      category: this.searchCommerceForm.get("category").value,
-    };
-    const dialogRef = this.dialog.open(
-      MapSearchDialogComponent,
-      configuracionDialog
-    );
-    this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
-      if (data === "ok") {
-        this.resultsObtained = true;
-        document
-          .querySelector("#container-commerce-list")
-          .scrollIntoView({ behavior: "smooth" });
+            this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
+              if (data === 'ok') {
+                this.resultsObtained = true;
+                document
+                  .querySelector('#container-commerce-list')
+                  .scrollIntoView({ behavior: 'smooth' });
+              }
+            });
+          },
+          () => {}
+        );
+      } else {
+        alert(
+          'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
+        );
+        this.lat = -0.1840506;
+        this.lng = -78.503374;
+        configuracionDialog.data = {
+          lat: this.lat,
+          lng: this.lng,
+          category: this.searchCommerceForm.get('category').value,
+          type: 'noAddress'
+        };
+        dialogRef = this.dialog.open(
+          MapSearchDialogComponent,
+          configuracionDialog
+        );
+        this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
+          if (data === 'ok') {
+            this.resultsObtained = true;
+            document
+              .querySelector('#container-commerce-list')
+              .scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       }
-    });
+    } else {
+      configuracionDialog.data = {
+        lat: this.lat,
+        lng: this.lng,
+        category: this.searchCommerceForm.get('category').value,
+        type: 'addressOK'
+      };
+      dialogRef = this.dialog.open(
+        MapSearchDialogComponent,
+        configuracionDialog
+      );
+
+      this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
+        if (data === 'ok') {
+          this.resultsObtained = true;
+          document
+            .querySelector('#container-commerce-list')
+            .scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
   }
 
   getMessage() {
-    console.log("this is not allowed!");
+    console.log('this is not allowed!');
   }
 
   openDialogWrongCity() {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = "370px";
-    configuracionDialog.width = "400px";
+    configuracionDialog.height = '370px';
+    configuracionDialog.width = '400px';
     const dialogRef = this.dialog.open(WrongCityComponent, configuracionDialog);
     this.dialogRef2Sub = dialogRef.afterClosed().subscribe((data) => {
-      if (data === "ok") {
-        this.searchControl.setValue("");
+      if (data === 'ok') {
+        this.searchControl.setValue('');
       }
     });
   }
@@ -158,7 +220,10 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           if (result != null) {
             /* this.direccion = result.formatted_address;
             this.registerForm.get('address').setValue(this.direccion); */
-            if (!result.formatted_address.includes("Quito") && !result.formatted_address.includes("Sangolquí")) {
+            if (
+              !result.formatted_address.includes('Quito') &&
+              !result.formatted_address.includes('Sangolquí')
+            ) {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
               });
@@ -168,7 +233,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             /* this.direccion = rsltAdrComponent[0].short_name; */
           } else {
             alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
+              'No hay dirección disponible en este momento, llenela manualmente'
             );
           }
         }
@@ -177,16 +242,16 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   showCategories() {
-     if (this.recomendations) {
+    if (this.recomendations) {
       const menu_categorias = document.getElementById('menu-categorias');
       const menuIconos = document.getElementById('menu-iconos');
       const element2Position = this.listContainer.nativeElement.offsetTop;
       const scrollPosition = window.pageYOffset;
-      if(scrollPosition <= element2Position) {
+      if (scrollPosition <= element2Position) {
         menuIconos.classList.remove('menu-fixed');
         menu_categorias.classList.remove('mostrar-categorias');
       } else {
-        menuIconos.classList.add("menu-fixed");
+        menuIconos.classList.add('menu-fixed');
       }
     }
   }

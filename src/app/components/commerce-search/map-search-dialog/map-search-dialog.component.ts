@@ -22,6 +22,7 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
   markLng;
   category;
   itemsPerPage = 7;
+  type;
   myStyles =[
     {
         featureType: "poi",
@@ -45,6 +46,7 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.category = data.category;
+    this.type = data.type;
   }
 
   ngOnInit(): void {
