@@ -187,9 +187,13 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   loadCategoryData() {
-    this.categoryService.getCategoryList().subscribe((data: any) => {
-      this.commerceCategories = data;
-    });
+    this.categoryService
+      .getCategotyListDynamic(this.allowed, this.citySelected)
+      //.getCategoryList()
+      .subscribe((data: any) => {
+        console.log("Informacion", data);
+        this.commerceCategories = data;
+      });
   }
 
   onSetAllowed(flag) {
@@ -240,6 +244,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
     this.currentPage = 1;
     this.citySelected = city;
     this.loadCommerceList();
+    this.loadCategoryData();
   }
   onCheckCommerce(target, index) {
     this.isCommerceSelectedList[index] = true;
