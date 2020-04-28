@@ -14,6 +14,7 @@ export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
   allowed: boolean;
   pageNumber;
   category;
+  cityParam;
 
   selectedCommercesIndex = [];
   selectedCommerces = [];
@@ -37,6 +38,7 @@ export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
     this.allowed = data.allowed;
     this.pageNumber = data.pageNumber;
     this.category = data.category;
+    this.cityParam = data.cityParam;
     // console.log("this.allowed", this.allowed);
     // console.log("this.pageNumber", this.pageNumber);
     // console.log("this.category", this.category);
@@ -71,7 +73,12 @@ export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
   }
   downloadPage() {
     this.test = this.commerceService
-      .getAllCommerces(this.allowed, this.pageNumber, this.category, "all")
+      .getAllCommerces(
+        this.allowed,
+        this.pageNumber,
+        this.category,
+        this.cityParam
+      )
       .pipe(
         tap((content) => {
           // console.log("Contenido: ", content);
@@ -82,13 +89,15 @@ export class DownloadExcelDialogComponent implements OnInit, OnDestroy {
       )
       .subscribe();
   }
+  // THIS IS FOR DOWNLOAD ALL COMMERCES IN THIS MOMENT IT IS DISABLE 
+  // IS DANGEROUS FOR LOAD OF DATA 
   downloadAll() {
     this.test1 = this.commerceService
       .getAllCommercesNoPagination(this.allowed)
       .pipe(
         tap((content) => {
           // console.log("Contenido: ", content);
-          this.commercesBeforePrint = content["commerces"];
+          this.commercesBeforePrint = content["commercesUshift"];
           this.constructCommercePrint();
           this.exportAsXLSX();
         })

@@ -362,6 +362,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
       allowed: this.allowed,
       pageNumber: this.currentPage,
       category: this.categorySelected,
+      cityParam: this.citySelected,
       // disable or not butons
       commerceList: this.commerceList,
       selectedCommercesID: this.selectedCommercesID,
