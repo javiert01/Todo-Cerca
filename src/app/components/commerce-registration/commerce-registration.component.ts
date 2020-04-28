@@ -52,7 +52,13 @@ export class CommerceRegistrationComponent implements OnInit {
     'Solo fines de semana',
     'Todos los días'
   ];
-
+  myStyles = [
+    {
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [{ visibility: "off" }],
+    },
+  ];
  cities = []
   provinces = [
     'Azuay',
@@ -130,7 +136,7 @@ export class CommerceRegistrationComponent implements OnInit {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ['address']
+          types: ['geocode']
         }
       );
       autocomplete.setComponentRestrictions({

@@ -260,6 +260,8 @@
             [gestureHandling]="'cooperative'"
             [streetViewControl]="false"
             [mapTypeControl]="true"
+            [clickableIcons]="false"
+            [styles]="myStyles"
           >
             <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
           </agm-map>
@@ -331,11 +333,12 @@
         </div>
 
         <button
-        *ngIf="!isLoading"
+          *ngIf="!isLoading"
           [disabled]="registerForm.invalid && !imagenSeleccionada"
           class="background-color1 white center button center-button"
           (click)="
-            this.imagenSeleccionada && this.registerForm.valid &&
+            this.imagenSeleccionada &&
+              this.registerForm.valid &&
               operar(this.registerForm.get('commerceName').value)
           "
           [ngStyle]="{

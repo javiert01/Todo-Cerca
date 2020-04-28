@@ -64,3 +64,10 @@ agm-map {
   height: 262px;
   margin: auto;
 }
+
+@media only screen and (max-width: 550px) {
+  .col-3-equals {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+  }
+ }

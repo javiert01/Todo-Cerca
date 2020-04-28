@@ -45,6 +45,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
     this.addTotalComerces(this.categoryList);
+    console.log(this.categoryList);
   }
 
   addImageURL(categoryList) {
@@ -52,47 +53,52 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       if (categoryList[i].commerceCategory === "Tienda") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-2tienda.svg",
+          categoryIcon: "assets/tiendasengeneral-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Abarrotes") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-1abaarrotes.svg",
+          categoryIcon: "assets/abarrotestiendas-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Restaurante") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-3restaurante.svg",
+          categoryIcon: "assets/restaurantes-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Servicios Médicos") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-7medico.svg",
+          categoryIcon: "assets/serviciosmedicos-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Farmacia") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-8farmacias.svg",
+          categoryIcon: "assets/farmacias-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Víveres/frutería") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-4frutas.svg",
+          categoryIcon: "assets/frutasverduras-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Micromercado") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-5panaderia.svg",
+          categoryIcon: "assets/micromercados-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Mascotas") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-6mascota.svg",
+          categoryIcon: "assets/mascotas-01.svg",
         };
       } else if (categoryList[i].commerceCategory === "Otros") {
         categoryList[i] = {
           ...categoryList[i],
-          categoryIcon: "assets/07-9otros.svg",
+          categoryIcon: "assets/loquesea-01.svg",
+        };
+      } else if (categoryList[i].commerceCategory === "Panadería") {
+        categoryList[i] = {
+          ...categoryList[i],
+          categoryIcon: "assets/panaderias-01.svg",
         };
       }
     }

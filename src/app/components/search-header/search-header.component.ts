@@ -51,6 +51,9 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
 
   onNavigateToRegister() {
     this.router.navigate(['/registrar']);
+    if(this.commmerceService.getCommerceFormData()) {
+      this.commmerceService.setCommerceFormData(null);
+    }
   }
 
   ngOnDestroy() {

@@ -65,7 +65,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ['address'],
+          types: ['geocode'],
         }
       );
       autocomplete.setComponentRestrictions({
