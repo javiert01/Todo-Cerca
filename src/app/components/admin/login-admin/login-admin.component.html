@@ -1,40 +1,39 @@
 <div class="contenedor">
   <header>
-      <img
-      src="assets/01-logo-color.svg"
-      alt="TodosMasCerca"
-      style="width: 150px; height: 53px;">
-      <ul class="main-nav">
-        <li class="nav-item" >
-          <a class="nav-link" style="font-size: 25px; margin-left: 5px;">Administrador</a>
-        </li>
-      </ul>
-    </header>
+    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;">
+    <ul class="main-nav">
+      <li class="nav-item">
+        <a class="nav-link" style="font-size: 25px; margin-left: 5px;">Administrador <span
+            *ngIf="!production">Test</span></a>
+      </li>
+    </ul>
+  </header>
 </div>
 <div style="margin-top: 80px;">
-<h1 class="center txt-esquina" style="font-family: 'Roboto', sans-serif; font-size: 30px; font-weight: bold;">Ingrese con su cuenta de Administrador</h1>
+  <h1 class="center txt-esquina" style="font-family: 'Roboto', sans-serif; font-size: 30px; font-weight: bold;">Ingrese
+    con su cuenta de Administrador <span *ngIf="!production">Test</span></h1>
 </div>
 <div class="container">
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
       <form (ngSubmit)="onSignIn()" [formGroup]="loginForm" class="form-login">
-            <div class="form-group">
-              <label for="user" class="txt-esquina" style="font-family: 'Roboto', sans-serif;"></label>
-              <input type="text" id="username" name="username"
-              formControlName="username" class="form-control"
-              placeholder="Nombre de usuario">
-            </div>
-            <div class="form-group">
-              <input type="password" id="password" name="password"
-              formControlName="password" class="form-control"
-              placeholder="Contraseña">
-            </div>
-              <div id="wrapper">
-                <button class="ingresar-btn center" [ngStyle]="{'opacity':loginForm.valid === true ? '1' : '0.5' }" [disabled]="!loginForm.valid" type="submit">
-                  <span class="white" style="font-family: 'Roboto', sans-serif; font-weight: normal; font-size: 20px;">Ingresar</span>
-                </button>
-            </div>
+        <div class="form-group">
+          <label for="user" class="txt-esquina" style="font-family: 'Roboto', sans-serif;"></label>
+          <input type="text" id="username" name="username" formControlName="username" class="form-control"
+            placeholder="Nombre de usuario">
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" name="password" formControlName="password" class="form-control"
+            placeholder="Contraseña">
+        </div>
+        <div id="wrapper">
+          <button class="ingresar-btn center" [ngStyle]="{'opacity':loginForm.valid === true ? '1' : '0.5' }"
+            [disabled]="!loginForm.valid" type="submit">
+            <span class="white"
+              style="font-family: 'Roboto', sans-serif; font-weight: normal; font-size: 20px;">Ingresar</span>
+          </button>
+        </div>
       </form>
+    </div>
   </div>
-</div>
 </div>

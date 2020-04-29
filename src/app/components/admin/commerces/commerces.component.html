@@ -19,6 +19,9 @@
     </h6>
 
   </div>
+  <div *ngIf="!production" class="displayInLineBlock">
+    <h6>Entorno de test</h6>
+  </div>
   <div class="displayInLineBlock">
     <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span
         style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>

@@ -102,6 +102,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // END ARRAY TO CITIES
   // ===============================================================
 
+  // ===============================================================
+  // FLAG FOR PRODUCTION AND TEST, ONLY USE FOR DIVS WITH NGIF
+  // ===============================================================
+  production = false;
+
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
