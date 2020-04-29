@@ -118,6 +118,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
     if (this.authService.isTokenExpired()) {
       this.authService.logoutUser("Admin");
     }
+    setInterval(() => {
+      if (this.authService.isTokenExpired()) {
+        this.authService.logoutUser("Admin");
+      }
+    }, 30000);
     this.loadCategoryData();
     this.allCommerceSubscription = this.commerceService
       .getAllCommerces(
@@ -197,9 +202,13 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onSetAllowed(flag) {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     this.currentPage = 1;
     this.allowed = flag;
     this.isSearching ? this.onSearchTerm() : this.loadCommerceList();
+    this.loadCategoryData();
   }
 
   getNextServicios(numeroPagina) {
@@ -235,12 +244,18 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onSetCategory(category) {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     this.currentPage = 1;
     this.categorySelected = category;
     this.loadCommerceList();
   }
 
   onSetCity(city) {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     this.currentPage = 1;
     this.citySelected = city;
     this.loadCommerceList();
@@ -301,6 +316,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onSearchTerm() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     if (!this.isSearching) {
       this.currentPage = 1;
     }
@@ -350,6 +368,9 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onCleanSearch() {
+    if (this.authService.isTokenExpired()) {
+      this.authService.logoutUser("Admin");
+    }
     this.searchInput.nativeElement.value = "";
     this.loadCommerceList();
   }

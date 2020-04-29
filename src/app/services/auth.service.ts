@@ -21,6 +21,7 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     localStorage.removeItem("username");
+    // console.log("entro!!");
 
     switch (rol) {
       case "Administrador":
@@ -30,7 +31,7 @@ export class AuthService {
         this._router.navigate(["/login-admin"]);
         break;
       default:
-        this._router.navigate(["/registrar"]);
+        this._router.navigate(["/login-admin"]);
         break;
     }
   }
@@ -51,6 +52,8 @@ export class AuthService {
       } else {
         return false;
       }
+    } else {
+      return true;
     }
   }
 }
