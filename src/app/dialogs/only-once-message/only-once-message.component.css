@@ -17,4 +17,5 @@
   font-size: 20px;
   display: flex;
   border-radius: 50%;
+  cursor: pointer;
 }
