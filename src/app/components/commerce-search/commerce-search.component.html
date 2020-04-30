@@ -49,16 +49,16 @@
               </select>
             </div>
             <div class="col col4 tooltip">
-                <a
-                (click)="searchCommerceForm.invalid ? getMessage(): openDialogMapSearch()"
-                class="background-color3 white center button center-button"
-                [ngClass]="{'a-invalid': searchCommerceForm.invalid,
-                            'a-valid': searchCommerceForm.valid}"
-                value="BUSCAR"
-                id="buscar"
-                >BUSCAR</a
-              >
-              <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span>
+              <a
+              (click)="searchCommerceForm.invalid || searchControl.value === '' ? getMessage(): openDialogMapSearch()"
+              class="background-color3 white center button center-button"
+              [ngClass]="{'a-invalid': searchCommerceForm.invalid || searchControl.value === '',
+                          'a-valid': searchCommerceForm.valid && searchControl.value !== ''}"
+              value="BUSCAR"
+              id="buscar"
+              >BUSCAR</a
+            >
+              <!-- <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span> -->
             </div>
           </div>
         </div>
