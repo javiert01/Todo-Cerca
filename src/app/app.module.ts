@@ -32,6 +32,7 @@ import { CommerceResultsMapComponent } from './components/search-results/commerc
 import { SearchHeaderComponent } from './components/search-header/search-header.component';
 import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
 import { WorryComponent } from './components/worry/worry.component';
+import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-message.component';
 
 /*  */
 
@@ -57,6 +58,7 @@ import { WorryComponent } from './components/worry/worry.component';
     SearchHeaderComponent,
     WrongCityComponent,
     WorryComponent,
+    OnlyOnceMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,6 @@ import { WorryComponent } from './components/worry/worry.component';
     //{provide: OwlDateTimeIntl, useClass: DefaultIntl}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [MapSearchDialogComponent, WrongCityComponent],
+  entryComponents: [MapSearchDialogComponent, WrongCityComponent, OnlyOnceMessageComponent],
 })
 export class AppModule {}

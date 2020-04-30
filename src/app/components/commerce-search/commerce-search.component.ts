@@ -97,7 +97,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       });
   }
 
-  openDialogMapSearch() {
+  openDialogMapSearch(message) {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
@@ -108,23 +108,15 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     } else {
       configuracionDialog.width = '640px';
     }
-    if (this.searchControl.value == '') {
+    if (message === 'noAddress') {
       configuracionDialog.height = '470px';
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            };
-            this.lat = pos.lat;
-            this.lng = pos.lng;
-            configuracionDialog.data = {
+      configuracionDialog.data = {
               lat: this.lat,
               lng: this.lng,
               category: this.searchCommerceForm.get('category').value,
               type: 'noAddress'
             };
+            console.log('coordinates', this.lat+ ' ' + this.lng);
             dialogRef = this.dialog.open(
               MapSearchDialogComponent,
               configuracionDialog
@@ -138,35 +130,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
                   .scrollIntoView({ behavior: 'smooth' });
               }
             });
-          },
-          () => {}
-        );
       } else {
-        alert(
-          'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
-        );
-        this.lat = -0.1840506;
-        this.lng = -78.503374;
-        configuracionDialog.data = {
-          lat: this.lat,
-          lng: this.lng,
-          category: this.searchCommerceForm.get('category').value,
-          type: 'noAddress'
-        };
-        dialogRef = this.dialog.open(
-          MapSearchDialogComponent,
-          configuracionDialog
-        );
-        this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
-          if (data === 'ok') {
-            this.resultsObtained = true;
-            document
-              .querySelector('#container-commerce-list')
-              .scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      }
-    } else {
       configuracionDialog.data = {
         lat: this.lat,
         lng: this.lng,
@@ -218,8 +182,6 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            /* this.direccion = result.formatted_address;
-            this.registerForm.get('address').setValue(this.direccion); */
             if (
               !result.formatted_address.includes('Quito') &&
               !result.formatted_address.includes('Sangolquí')
@@ -238,6 +200,68 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           }
         }
       });
+    }
+  }
+
+  isLocationOnCity(city, lat, lng, fn) {
+    if (navigator.geolocation) {
+      const geocoder = new google.maps.Geocoder();
+      const latlng = new google.maps.LatLng(lat, lng);
+      const request = { latLng: latlng };
+      geocoder.geocode(request, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          const result = results[0];
+          const rsltAdrComponent = result.address_components;
+          const resultLength = rsltAdrComponent.length;
+          if (result != null) {
+            if (
+              !result.formatted_address.includes(city)
+            ) {
+              fn(false);
+              console.log('coordinates', lat+ ' ' + lng);
+            } else {
+              fn(true);
+              console.log('coordinates', lat+ ' ' + lng);
+            }
+          } else {
+            alert(
+              'No hay dirección disponible en este momento, llenela manualmente'
+            );
+          }
+        }
+      });
+    }
+  }
+
+  onOpenDialog() {
+    const def = this;
+    if (this.searchControl.value === '') {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            this.lat = pos.lat;
+            this.lng = pos.lng;
+            this.isLocationOnCity('Quito', pos.lat, pos.lng, function(flag) {
+              if (flag) {
+                def.ngZone.run(() => {
+                  def.openDialogMapSearch('noAddress');
+                })
+              } else {
+                def.ngZone.run(() => {
+                  def.openDialogWrongCity();
+                })
+              }
+            });
+          });
+        } else {
+          alert('Su navegador no soporta geolocalizacion')
+        }
+    } else {
+      this.openDialogMapSearch('addressOK');
     }
   }
 

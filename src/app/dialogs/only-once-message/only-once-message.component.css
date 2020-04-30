@@ -1,0 +1,22 @@
+#image-popup #popup {
+  padding: 10px 20px;
+  z-index: 9;
+  transition: top 0.5s;
+  -webkit-transition: top 0.5s;
+}
+
+#image-popup #popup #close-popup-mapa-home,
+#image-popup #popup .confirmar {
+  cursor: pointer;
+}
+#image-popup #popup #close-popup-mapa-home {
+  width: 30px;
+  height: 30px;
+  float: right;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

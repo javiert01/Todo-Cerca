@@ -50,7 +50,7 @@
             </div>
             <div class="col col4 tooltip">
                 <a
-                (click)="searchCommerceForm.invalid ? getMessage(): openDialogMapSearch()"
+                (click)="searchCommerceForm.invalid ? getMessage(): onOpenDialog()"
                 class="background-color3 white center button center-button"
                 [ngClass]="{'a-invalid': searchCommerceForm.invalid,
                             'a-valid': searchCommerceForm.valid}"
