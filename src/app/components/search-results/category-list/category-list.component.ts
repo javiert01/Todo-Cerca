@@ -45,17 +45,18 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
     this.addTotalComerces(this.categoryList);
+    console.log(this.totalCategories);
     console.log(this.categoryList);
   }
 
   addImageURL(categoryList) {
     for (let i = 0; i < categoryList.length; i++) {
-      if (categoryList[i].commerceCategory === "Tienda") {
+      if (categoryList[i].commerceCategory === "Tienda en general") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/tiendasengeneral-01.svg",
         };
-      } else if (categoryList[i].commerceCategory === "Abarrotes") {
+      } else if (categoryList[i].commerceCategory === "Tienda de abarrotes") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/abarrotestiendas-01.svg",
@@ -75,7 +76,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
           ...categoryList[i],
           categoryIcon: "assets/farmacias-01.svg",
         };
-      } else if (categoryList[i].commerceCategory === "Víveres/frutería") {
+      } else if (categoryList[i].commerceCategory === "Frutas/verduras") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/frutasverduras-01.svg",
@@ -85,12 +86,12 @@ export class CategoryListComponent implements OnInit, OnDestroy {
           ...categoryList[i],
           categoryIcon: "assets/micromercados-01.svg",
         };
-      } else if (categoryList[i].commerceCategory === "Mascotas") {
+      } else if (categoryList[i].commerceCategory === "Mascotas y Veterinarios") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/mascotas-01.svg",
         };
-      } else if (categoryList[i].commerceCategory === "Otros") {
+      } else if (categoryList[i].commerceCategory === "Lo que sea") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/loquesea-01.svg",
