@@ -1,15 +1,16 @@
-<section id="image-popup">
+<section id="image-popup" style="padding: 5px">
+  <p
+  id="close-popup-mapa-home"
+  class="background-color3 white center"
+  (click)="close(message)"
+> <span style="width: 100%; margin: 3px 2px 1px 2px">
+  x
+</span>
+</p>
   <div id="popup" class="show-popup-mapa-home">
     <div class="popup-overlay">
       <div class="popup-box-out background-white">
         <div class="popup-box-in">
-          <p
-            id="close-popup-mapa-home"
-            class="background-color3 white center"
-            (click)="close(message)"
-          >
-            x
-          </p>
          <img src="assets/popup-home.png" class="popup-image" *ngIf="message === 'home'">
          <img src="assets/popup-register.png" class="popup-image" *ngIf="message === 'register'">
         </div>

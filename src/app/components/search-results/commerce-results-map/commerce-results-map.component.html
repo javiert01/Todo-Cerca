@@ -44,28 +44,19 @@
                   </div>
                   <div class="col col-right">
                     <p class="color4 tipo-negocio">
-                        {{commerce.category.commerceCategory}}
+                      {{commerce.category.commerceCategory}}
                     </p>
                     <h5 class="color1 titulo-comercio">
-                        {{commerce.commerceName}}
+                      {{commerce.commerceName}} <span id="id-negocio" class="color3"><br>
+                        Id: {{commerce.idAux}}
+                        </span>
                     </h5>
-                    <span id="id-negocio" class="color3">
-                      Id: {{commerce.idAux}}
-                    </span>
                     <p class="color3 distancia">
                         <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
                     </p>
-                    <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
+                    <a  [href]="getWhatsappURL(commerce.phone)" class="whatsapp-button" target="_blank">
                       <div class="col-left center">
-                          <i class="fab fa-whatsapp white"></i>
-                        </div>
-                        <div class="col-right">
-                          <p class="white">
-                              CONTÁCTATE POR
-                          </p>
-                          <h6 class="white">
-                              WhatsApp
-                           </h6>
+                          <i class="fab fa-whatsapp color1"></i>
                         </div>
                     </a>
                   </div>
