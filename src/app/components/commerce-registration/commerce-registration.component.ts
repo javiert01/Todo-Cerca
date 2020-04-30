@@ -189,7 +189,7 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.maxLength(90)
       ]),
       ownerEmail: new FormControl(null, [
-        Validators.required,
+        // Validators.required,
         Validators.email
       ]),
       useConditions: new FormControl(

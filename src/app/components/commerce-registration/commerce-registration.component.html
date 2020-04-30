@@ -296,21 +296,21 @@
         </div>
         <div class="col-1">
           <label class="color3"
-            >Ingresa tu correo electrónico de contacto:</label
+            >Ingresa tu correo electrónico de contacto (Opcional):</label
           >
           <input
             type="email"
             placeholder="ejemplo@gmail.com"
             formControlName="ownerEmail"
           />
-          <span
+        <!--   <span
             class="help-block"
             *ngIf="
               registerForm.get('ownerEmail').errors?.required &&
               registerForm.get('ownerEmail').touched
             "
             >*Campo Obligatorio</span
-          ><br />
+          ><br /> -->
           <span
             class="help-block"
             *ngIf="registerForm.get('ownerEmail').errors?.email"

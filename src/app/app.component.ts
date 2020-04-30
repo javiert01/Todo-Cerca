@@ -21,9 +21,9 @@ export class AppComponent {
       if (e instanceof NavigationStart) {
         if (e.url === "/registrar") {
           this.routeHidden = true;
-          if(this.registerCounter === 1) {
+         /*  if(this.registerCounter === 1) {
             this.openMessageDialog('register');
-          }
+          } */
         } else {
           this.routeHidden = false;
         }
