@@ -22,11 +22,17 @@
                 {{ commerce.category[0].commerceCategory }}
               </p>
               <h5 class="color1 bebas titulo-comercio">
-                {{ commerce.commerceName | capitalPipe}}
+                {{ commerce.commerceName | capitalPipe }}
                 <span id="id-negocio" class="color3">
                   Id: {{ commerce.idAux }}
                 </span>
               </h5>
+              <a *ngIf="commerce.idAux === 'RES273'"
+                href="https://www.optimussocial.com/optimus/productov2/"
+                target="_blank"
+                class="link-online"
+                ><p class="color1" style="font-weight: bold">Ver tienda online</p></a
+              >
               <p>
                 <strong>Distancia:</strong
                 ><span> {{ commerce.dist.calculated | number: "3.2-2" }}m</span>
@@ -40,14 +46,16 @@
               <p class="descripcion color3">
                 {{ commerce.commerceDescription }}
               </p>
-              <p>
-                <strong>Días de apertura:</strong> {{commerce.frequency}}
-              </p>
+              <p><strong>Días de apertura:</strong> {{ commerce.frequency }}</p>
               <p class="horario color2">
                 <i class="far fa-clock color3"></i> {{ commerce.hourOpen }} -
                 {{ commerce.hourClose }}
               </p>
-              <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
+              <a
+                [href]="getWhatsappURL(commerce.phone)"
+                class="button whatsapp-button background-color2"
+                target="_blank"
+              >
                 <div class="col-left center">
                   <i class="fab fa-whatsapp white"></i>
                 </div>
@@ -73,7 +81,7 @@
               ></i>
             </div>
             <div class="col center">
-              <div class="page-number">{{currentPage}}</div>
+              <div class="page-number">{{ currentPage }}</div>
             </div>
             <div class="col center">
               <i

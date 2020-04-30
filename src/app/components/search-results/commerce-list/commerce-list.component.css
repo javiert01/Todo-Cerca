@@ -138,6 +138,13 @@
   border: 1px solid #dee2e6;
   background-color: #5c8f28;
 }
+.link-online {
+  text-decoration: none;
+}
+.link-online:hover {
+  text-decoration: underline;
+  text-decoration-color: #009b83;
+}
 
 /**/
 
