@@ -12,7 +12,7 @@ export class LoginAdminComponent implements OnInit {
   // ===============================================================
   // FLAG FOR PRODUCTION AND TEST, ONLY USE FOR DIVS WITH NGIF
   // ===============================================================
-  production = false;
+  production = true;
 
   loginForm: FormGroup;
   loginUserData = {

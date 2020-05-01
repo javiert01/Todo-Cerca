@@ -105,7 +105,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   // FLAG FOR PRODUCTION AND TEST, ONLY USE FOR DIVS WITH NGIF
   // ===============================================================
-  production = false;
+  production = true;
 
   constructor(
     private commerceService: CommerceService,
