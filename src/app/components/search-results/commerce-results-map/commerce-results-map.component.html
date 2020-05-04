@@ -1,4 +1,6 @@
 <div id="mapa" class="col col-right">
+  <div class="category-container">
+  </div>
   <div class="map-container" fxFlex="1 1 100%" #map>
     <agm-map
       id="angular-map"
@@ -35,6 +37,33 @@
         />
         <!-- <p>{{ commerce.commerceName }}</p> -->
         <agm-info-window [disableAutoPan]="false" #infoWindow>
+<!--           <div class="bubble-container">
+            <div id="local-container" class="col-2">
+                  <div class="col col-left only-desktop">
+                    <div class="img-container foto-local">
+                      <img [src]="commerce.commercePhoto"  class="img-center" alt="">
+                    </div>
+                  </div>
+                  <div class="col col-right">
+                    <p class="color4 tipo-negocio">
+                      {{commerce.category.commerceCategory}}
+                    </p>
+                    <h5 class="color1 titulo-comercio">
+                      {{commerce.commerceName}} <span id="id-negocio" class="color3"><br>
+                          Id: {{commerce.idAux}}
+                        </span>
+                    </h5>
+                    <p class="color3 distancia">
+                        <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
+                    </p>
+                    <a href="" class=" whatsapp-button">
+                      <div class="col-left center">
+                          <i class="fab fa-whatsapp color1"></i>
+                        </div>
+                    </a>
+                  </div>
+              </div>
+          </div> -->
           <div class="bubble-container">
             <div id="local-container" class="col-2">
                   <div class="col col-left only-desktop">
@@ -44,13 +73,13 @@
                   </div>
                   <div class="col col-right">
                     <p class="color4 tipo-negocio">
-                        {{commerce.category.commerceCategory}}
+                        {{commerce.category[0].commerceCategory}}
                     </p>
-                    <h5 class="color1 titulo-comercio">
-                        {{commerce.commerceName}}
+                    <h5 class="color1 titulo-comercio" style="margin-right: 10px;">
+                        {{commerce.commerceName | capitalPipe}}
                     </h5>
                     <span id="id-negocio" class="color3">
-                      Id: {{commerce.idAux}}
+                      <span class="bold">Id:</span>{{commerce.idAux}}
                     </span>
                     <p class="color3 distancia">
                         <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
@@ -76,3 +105,4 @@
     </agm-map>
   </div>
 </div>
+

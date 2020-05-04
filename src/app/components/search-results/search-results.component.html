@@ -8,12 +8,12 @@
   <div class="col only-mobile-tablet category-selector">
     <p>Estás viendo:</p>
     <select class="color1" [formControl]="categoryControl" style="background-color: white;" (change)="onSelectCategory($event.target.value)">
-      <option value="all" class="color1">Todas</option>
+      <option value="all" class="color1">Todas ({{totalCommerces}})</option>
       <option
         [value]="category.commerceCategory"
         class="color1"
         *ngFor="let category of categoryList"
-        >{{ category.commerceCategory }}</option
+        >{{ category.commerceCategory }} ({{ category.total}})</option
       >
     </select>
   </div>

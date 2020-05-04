@@ -26,6 +26,7 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.totalCommerces = data["allowedCommerces"];
       });
+
   }
 
   showNews() {

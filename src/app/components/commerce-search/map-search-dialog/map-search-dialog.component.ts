@@ -114,6 +114,10 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
       this.categoryService.setTotalCategories(data);
     })
     this.categoryService.setCategorySelected(this.category);
+    this.commerceService.getNearestCommerces(this.lng, this.lat, 'all', 1, this.itemsPerPage)
+    .subscribe((data) => {
+      this.commerceService.setTotalCommercesAllCategories(data['totalCommerces']);
+    });
     this.nearestCommerceSub = this.commerceService.getNearestCommerces(this.lng, this.lat, this.category, 1, this.itemsPerPage)
     .subscribe((data) => {
       this.commerceService.setCommerceResultList(data['commercesPaginated']);

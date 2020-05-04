@@ -3,7 +3,7 @@
     <div class="menu-categorias-in">
       <h6 class="color2">CATEGORÍAS</h6>
       <ul>
-        <li class="categoria" *ngFor="let category of categoryList" (click)="onSelectCategory(category.commerceCategory)">
+        <li class="categoria" [ngClass]="{'li-selected': category.selected === true}" *ngFor="let category of categoryList" (click)="onSelectCategory(category.commerceCategory)">
           <div class="col col-icon">
             <img [src]="category.categoryIcon" class="img-center categoria-icon">
           </div>

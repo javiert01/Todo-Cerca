@@ -234,6 +234,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   onOpenDialog() {
+    this.categoryService.setCategorySelected(this.searchCommerceForm.get('category').value);
     const def = this;
     if (this.searchControl.value === '') {
       if (navigator.geolocation) {

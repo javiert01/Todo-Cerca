@@ -133,33 +133,32 @@ export class CommerceRegistrationComponent implements OnInit {
     this.markLng = this.lng;
     this.searchControl = new FormControl();
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.searchElementRef.nativeElement,
-        {
-          types: ['geocode']
-        }
-      );
-      autocomplete.setComponentRestrictions({
-        country: ['ec']
-      });
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
+        const autocomplete = new google.maps.places.Autocomplete(
+          this.searchElementRef.nativeElement,
+          {
+            types: ['geocode']
           }
-          this.mapZoom = 18;
-          this.lat = place.geometry.location.lat();
-          this.lng = place.geometry.location.lng();
-          this.markLat = this.lat;
-          this.markLng = this.lng;
-          this.registerForm.get('ltd').setValue(this.markLat);
-          this.registerForm.get('lng').setValue(this.markLng);
-          this.getAddress(this.lat, this.lng);
+        );
+        autocomplete.setComponentRestrictions({
+          country: ['ec']
         });
-      });
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            if (place.geometry === undefined || place.geometry === null) {
+              return;
+            }
+            this.mapZoom = 18;
+            this.lat = place.geometry.location.lat();
+            this.lng = place.geometry.location.lng();
+            this.markLat = this.lat;
+            this.markLng = this.lng;
+            this.registerForm.get('ltd').setValue(this.markLat);
+            this.registerForm.get('lng').setValue(this.markLng);
+            this.getAddress(this.lat, this.lng);
+          });
+        });
     });
-
     this.registerForm = new FormGroup({
       ownerName: new FormControl(null, Validators.required),
       ownerLastName: new FormControl(null, Validators.required),

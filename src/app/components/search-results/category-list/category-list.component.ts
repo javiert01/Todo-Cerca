@@ -45,6 +45,13 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
     this.addTotalComerces(this.categoryList);
+    for(let i = 0; i < this.categoryList.length; i++) {
+      if(this.categoryList[i].commerceCategory === this.categoryService.getCategorySelected()) {
+        this.categoryList[i].selected = true;
+      } else {
+        this.categoryList[i].selected = false;
+      }
+    }
   }
 
   addImageURL(categoryList) {
@@ -110,6 +117,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
           categoryList[j] = {
             ...categoryList[j],
             total: this.totalCategories[i].total,
+            selected: false
           };
           break;
         }
@@ -119,6 +127,13 @@ export class CategoryListComponent implements OnInit, OnDestroy {
 
   onSelectCategory(category) {
     this.categoryService.setCategorySelected(category);
+    for(let i = 0; i < this.categoryList.length; i++) {
+      if(this.categoryList[i].commerceCategory === category) {
+        this.categoryList[i].selected = true;
+      } else {
+        this.categoryList[i].selected = false;
+      }
+    }
     this.commerceServiceSub = this.commerceService
       .getNearestCommerces(
         this.coordinates.lng,

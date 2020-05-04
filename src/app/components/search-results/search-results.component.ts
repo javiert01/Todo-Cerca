@@ -18,8 +18,11 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   categoryServiceSub: Subscription;
   commerceServiceSub: Subscription;
   commerceService1Sub: Subscription;
+  totalCommercesSub: Subscription;
 
   categoryList = [];
+  totalCategories = [];
+  totalCommerces;
   coordinates;
   selectedCategory;
   categoryControl: FormControl;
@@ -41,12 +44,28 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
     this.categoryServiceSub = this.categoryService.categorySelectedChanged.subscribe(
       (data) => {
         this.selectedCategory = data;
+        this.categoryControl.setValue(data);
       }
     );
+    this.totalCommercesSub = this.commerceService.totalCommercesChangedAllCategory.subscribe(
+      (data) => {
+        console.log('data', data);
+        this.totalCommerces = data;
+      }
+    );
+    this.categoryServiceSub = this.categoryService.totalCategoriesChanged.subscribe(
+      (data) => {
+        this.totalCategories = data;
+        this.addTotalComerces(this.categoryList);
+      }
+    );
+    this.totalCategories = this.categoryService.getTotalCategories();
     this.coordinates = this.placeService.getSelectedCoordinates();
+    this.totalCommerces = this.commerceService.getTotalCommercesAllCategories();
     this.selectedCategory = this.categoryService.getCategorySelected();
     this.categoryControl = new FormControl(this.selectedCategory);
   }
+
 
   onExpand() {
     const listaLocales = document.getElementById('lista-locales');
@@ -69,6 +88,20 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   toggleCategories() {
     const menu_categorias = document.getElementById("menu-categorias");
     menu_categorias.classList.toggle("mostrar-categorias");
+  }
+
+  addTotalComerces(categoryList) {
+    for (let i = 0; i < this.totalCategories.length; i++) {
+      for (let j = 0; j < categoryList.length; j++) {
+        if (categoryList[j].id === this.totalCategories[i].id) {
+          categoryList[j] = {
+            ...categoryList[j],
+            total: this.totalCategories[i].total,
+          };
+          break;
+        }
+      }
+    }
   }
 
   scrollToRecomendations() {

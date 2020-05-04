@@ -33,6 +33,9 @@
 .resultados-container .col-left .lista-locales-out .col-2 .col-left {
   width: 20%;
 }
+.li-selected {
+  background-color: lightgray;
+}
 .resultados-container
   .col-left
   .lista-locales-out
