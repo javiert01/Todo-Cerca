@@ -17,6 +17,8 @@ export class CommerceService {
   public totalCommercesResultListChanged = new Subject<any[]>();
   public totalCommerces = 0;
   public totalCommercesChanged = new Subject<any>();
+  public totalCommercesAllCategory = 0;
+  public totalCommercesChangedAllCategory = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -77,5 +79,16 @@ export class CommerceService {
 
   getTotalNearestCommerces(lng, lat, category) {
     return this.http.get<any>(`${this.url}/near/notpagination?longitud=${lng}&latitud=${lat}&category=${category}`);
+  }
+
+  setTotalCommercesAllCategories(num) {
+    this.totalCommercesAllCategory = num;
+    this.totalCommercesChangedAllCategory.next(this.totalCommercesAllCategory);
+  }
+  getTotalCommercesAllCategories() {
+    return this.totalCommercesAllCategory;
+  }
+  getAllCommercesByCity(city) {
+    return this.http.get<any>(`${this.url}/city?city=${city}`);
   }
 }

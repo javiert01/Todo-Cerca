@@ -18,6 +18,8 @@ import { Subscription } from "rxjs";
 export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   initialCoordinates;
   commerceCoordinates = [];
+  commerceListCopy = [];
+  viewAll = false;
   categories = [];
   @ViewChild("gm", { static: true }) gm;
   myStyles = [
@@ -53,6 +55,19 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
     );
     this.initialCoordinates = this.placeService.getSelectedCoordinates();
     this.commerceCoordinates = this.commerceService.getTotalCommerceResultList();
+  }
+
+  onSetViewAll(value) {
+    this.viewAll = value;
+    if(value) {
+      this.commerceListCopy = [...this.commerceCoordinates];
+      this.commerceService.getAllCommercesByCity('Quito')
+      .subscribe((data)=> {
+        this.commerceCoordinates = data;
+      });
+    }else {
+      this.commerceCoordinates = [...this.commerceListCopy];
+    }
   }
 
   onMouseOver(infoWindow, gm) {

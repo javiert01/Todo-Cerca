@@ -1,4 +1,12 @@
 <div id="mapa" class="col col-right">
+  <div class="category-container">
+    <button class="btn-next" [ngClass]="{ blue: viewAll, grey: !viewAll }" (click)="onSetViewAll(true)">
+      Cargados
+    </button>
+    <button class="btn-next" [ngClass]="{ blue: !viewAll, grey: viewAll }" (click)="onSetViewAll(false)">
+      En Revisión
+    </button>
+  </div>
   <div class="map-container" fxFlex="1 1 100%" #map>
     <agm-map
       id="angular-map"
@@ -52,9 +60,9 @@
                     <span id="id-negocio" class="color3">
                       Id: {{commerce.idAux}}
                     </span>
-                    <p class="color3 distancia">
+                   <!--  <p class="color3 distancia">
                         <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
-                    </p>
+                    </p> -->
                     <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
                       <div class="col-left center">
                           <i class="fab fa-whatsapp white"></i>
