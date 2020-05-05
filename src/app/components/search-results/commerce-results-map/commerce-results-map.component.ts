@@ -17,10 +17,10 @@ import { Subscription } from "rxjs";
 })
 export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   initialCoordinates;
-  commerceListCopy = [];
   commerceCoordinates = [];
-  categories = [];
+  commerceListCopy = [];
   viewAll = false;
+  categories = [];
   @ViewChild("gm", { static: true }) gm;
   myStyles = [
     {
@@ -65,7 +65,7 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
       .subscribe((data)=> {
         this.commerceCoordinates = data;
       });
-    }else {
+    } else {
       this.commerceCoordinates = [...this.commerceListCopy];
     }
   }
