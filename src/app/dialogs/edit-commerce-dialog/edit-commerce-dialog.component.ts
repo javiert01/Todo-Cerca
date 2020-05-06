@@ -157,7 +157,7 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
             data["commerceName"],
             Validators.required
           ),
-          category: new FormControl(data["category"].id, Validators.required),
+          category: new FormControl(data["category"], Validators.required),
           frecuency: new FormControl(data["frequency"], Validators.required),
           hourOpen: new FormControl(data["hourOpen"], [
             Validators.required,

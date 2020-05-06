@@ -247,7 +247,7 @@
               name=""
               class="background-color1 white center button center-button"
               value="EDITAR"
-              (click)="onClickEditButton()"
+              (click)="editForm.valid && onClickEditButton()"
               [ngStyle]="{
                 opacity: editForm.valid ? '1' : '0.5',
                 cursor: editForm.valid ? 'pointer' : 'not-allowed'
