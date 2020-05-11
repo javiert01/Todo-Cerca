@@ -214,14 +214,6 @@
           />
           <span
             class="help-block"
-            *ngIf="
-              editForm.get('ownerEmail').errors?.required &&
-              editForm.get('ownerEmail').touched
-            "
-            >*Campo Obligatorio</span
-          ><br />
-          <span
-            class="help-block"
             *ngIf="editForm.get('ownerEmail').errors?.email"
             >*Ingresa una dirección de correo electronico válida</span
           >

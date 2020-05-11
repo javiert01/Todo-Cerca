@@ -175,7 +175,6 @@ export class EditCommerceDialogComponent implements OnInit, OnDestroy {
             Validators.maxLength(90),
           ]),
           ownerEmail: new FormControl(data["ownerEmail"], [
-            Validators.required,
             Validators.email,
           ]),
         });
