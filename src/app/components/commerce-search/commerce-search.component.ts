@@ -54,13 +54,14 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.cities = this.placeService.getCountryList();
+    this.cities = [...this.cities.slice(0,2)];
     this.loadCategoryData();
     this.searchControl = new FormControl('');
     this.searchCommerceForm = new FormGroup({
       category: new FormControl('', Validators.required),
-      city: new FormControl('Quito'),
+      city: new FormControl('', Validators.required),
     });
-    this.searchCommerceForm.get('city').disable();
+    //this.searchCommerceForm.get('city').disable();
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
@@ -184,7 +185,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           if (result != null) {
             if (
               !result.formatted_address.includes('Quito') &&
-              !result.formatted_address.includes('Sangolquí')
+              !result.formatted_address.includes('Sangolquí') &&
+              !result.formatted_address.includes('Guayaquil')
             ) {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
