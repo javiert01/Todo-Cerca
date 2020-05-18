@@ -167,7 +167,7 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.pattern(new RegExp('^[0-9]*$')),
         Validators.minLength(10)
       ]),
-      commerceName: new FormControl(null, Validators.required),
+      commerceName: new FormControl(null, [Validators.required, Validators.maxLength(40)]),
       category: new FormControl('', Validators.required),
       frecuency: new FormControl('', Validators.required),
       hourOpen: new FormControl(null, [
@@ -188,7 +188,7 @@ export class CommerceRegistrationComponent implements OnInit {
         Validators.maxLength(90)
       ]),
       ownerEmail: new FormControl(null, [
-        // Validators.required,
+        Validators.required,
         Validators.email
       ]),
       useConditions: new FormControl(
@@ -221,6 +221,17 @@ export class CommerceRegistrationComponent implements OnInit {
           this.registerForm
             .get('commerceDescription')
             .setValue(data.substring(0, 90));
+        }
+      });
+
+      this.registerForm
+      .get('commerceName')
+      .valueChanges.subscribe(data => {
+        if (data.length > 40) {
+          this.cdRef.detectChanges();
+          this.registerForm
+            .get('commerceName')
+            .setValue(data.substring(0, 40));
         }
       });
 
