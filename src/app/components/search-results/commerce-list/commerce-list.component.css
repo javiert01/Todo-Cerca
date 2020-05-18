@@ -1,0 +1,204 @@
+.resultados-container {
+  display: flex;
+  position: relative;
+}
+.resultados-container .col-left,
+.resultados-container .col-right {
+  width: 50%;
+}
+.resultados-container .col-left .recomendaciones {
+  padding: 10px;
+}
+#lista-locales {
+  width: 100%;
+  position: relative;
+}
+#mapa {
+  width: 0;
+}
+.resultados-container .col-left .lista-locales-out .lista-locales-in h4 {
+  margin-top: 120px;
+}
+.resultados-container .col-left .lista-locales-out .lista-locales-in {
+  padding: 10px;
+}
+.resultados-container .col-left .lista-locales-out .lista-locales-in li {
+  padding: 10px;
+}
+.resultados-container .col-left .lista-locales-out .col-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-left {
+  width: 20%;
+}
+.li-selected {
+  background-color: lightgray;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-left
+  .img-container {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  margin: auto;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-left
+  .img-container
+  img {
+  width: 100%;
+  height: 100%;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-right {
+  width: 80%;
+}
+.resultados-container .col-left .lista-locales-out .col-2 .col-right p {
+  margin-top: 10px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  #id-negocio {
+  font-size: 12px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button {
+  display: flex;
+  align-items: center;
+  max-width: 180px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button
+  .col-left {
+  width: 50px;
+  font-size: 30px;
+}
+.resultados-container
+  .col-left
+  .lista-locales-out
+  .col-2
+  .col-right
+  .whatsapp-button
+  .col-right
+  p {
+  font-size: 10px;
+  margin-top: 0;
+  line-height: 5px;
+}
+#lista-locales {
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+}
+#mapa {
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+}
+.hide-locales {
+  width: 0 !important;
+  overflow: hidden;
+  height: 90vh;
+}
+.expand-map {
+  width: 100% !important;
+  position: absolute;
+  height: 100%;
+}
+
+.paginacion .col-3-equals {
+  max-width: 200px;
+  margin: 0 auto 20px;
+}
+.paginacion .col-3-equals .col i {
+  font-size: 50px;
+}
+
+.paginacion .page-number {
+  cursor: pointer;
+  color: white;
+  display: block;
+  padding: 5px 15px;
+  font-size: 30px;
+  border-radius: 40px;
+  border: 1px solid #dee2e6;
+  background-color: #5c8f28;
+}
+.link-online {
+  text-decoration: none;
+}
+.link-online:hover {
+  text-decoration: underline;
+  text-decoration-color: #009b83;
+}
+
+/**/
+
+/*imagenes*/
+.img-center {
+  display: block;
+  margin: auto;
+}
+
+@media only screen and (max-width: 768px){
+  .resultados-container .col-left .lista-locales-out .col-2{
+		flex-direction: column;
+	}
+	.resultados-container .col-left .lista-locales-out .col-2 .col-right .tipo-negocio,
+	.resultados-container .col-left .lista-locales-out .col-2 .col-right .titulo-comercio{
+		text-align: center;
+	}
+	.resultados-container .col-left .lista-locales-out .col-2 .col-right .whatsapp-button{
+		margin: 20px auto;
+	}
+}
+
+@media only screen and (max-width: 550px){
+  .col-3-equals{
+		grid-template-columns: 1fr;
+  }
+  .paginacion .col-3-equals {
+    grid-template-columns: 1fr 1fr 1fr !important;
+  }
+	.lista-locales-out .col-2{
+		flex-direction: column;
+	}
+	.resultados-container .col-left .lista-locales-out .col-2 .col-left .img-container{
+		border-radius: 50%;
+		width: 80px;
+		height: 80px;
+		overflow: hidden;
+		margin: auto;
+  }
+  .resultados-container .col-left .lista-locales-out .col-2 .col-left {
+    width: 100%;
+  }
+	.lista-locales-out .col-2 h5{
+		text-align: center;
+		margin-top: 5px;
+	}
+	.lista-locales-out .col-2 .tipo-negocio{
+		text-align: center;
+	}
+	.resultados-container .col-left .lista-locales-out .col-2 .col-right .whatsapp-button{
+		margin: 10px auto;
+		padding: 5px 10px 5px;
+	}
+}

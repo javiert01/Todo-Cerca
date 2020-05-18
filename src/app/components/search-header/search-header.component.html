@@ -1,0 +1,78 @@
+<header id="header">
+  <div id="news-container" class="news-container-out background-color5">
+    <div class="news-container-in">
+      <div class="top-news">
+        <div class="container">
+          <div class="top-news-content">
+            <div class="title-container center">
+              <i class="fas fa-exclamation-triangle white"></i>
+              <p class="center white">
+                Un mensaje para nuestros usuarios
+              </p>
+            </div>
+            <div class="cerrar-container" (click)="onCloseNews()">
+              <p class="white center" id="close-news">X</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-news">
+        <div class="container">
+          <div class="slidenews-container">
+            <div class="noticia fade" style="display: flex;">
+              <p class="center white">
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
+              </p>
+            </div>
+            <div class="noticia fade">
+              <p class="center white">
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
+              </p>
+            </div>
+            <div class="noticia fade">
+              <p class="center white">
+                El TOQUE DE QUEDA en ECUADOR, empieza a las 2pm. Recuerda
+                #QuedarteEnCasa para evitar los contagios 😉.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header id="header">
+    <div class="header-top">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between;">
+          <div class="registra-container" (click)="onNavigateToRegister()" style="cursor: pointer;">
+              <div class="text background-color3" style="padding: 3px 10px 3px 5px; display: inline-flex;">
+                <img src="assets/register-icon.png" class="register-icon">
+                <p class="white center" style="font-size: 12px;">
+                  Registra tu comercio
+                </p>
+              </div>
+          </div>
+          <div class="contador-container-out">
+            <div class="contador-container-in">
+              <div class="text background-color3">
+                <p class="white center">
+                  Establecimientos cerca
+                </p>
+              </div>
+              <div class="number background-color5">
+                <p class="white center">
+                  {{ totalCommerces }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-brand puntero" [routerLink]="['/home']">
+      <img src="assets/01-logo-color.svg" />
+    </div>
+  </header>
+</header>

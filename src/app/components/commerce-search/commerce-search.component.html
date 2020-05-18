@@ -1,0 +1,124 @@
+<section id="section-1-buscar">
+  <div class="container">
+    <h1 class="color1 center bebas">
+      ¡Todo tan cerca tuyo!
+    </h1>
+    <h4 class="color1 center bebas">
+      #QuédateEnCasa
+    </h4>
+    <form [formGroup]="searchCommerceForm">
+    <div>
+        <div class="search-container">
+          <div class="col-4-equals">
+            <div class="col col1">
+              <i class="fas fa-map-marker-alt color1"></i>
+              <select class="color1" formControlName="city" style="background-color: lightgray;">
+                <option value="" class="color1">Elije tu ciudad</option>
+                <option
+                  [value]="city"
+                  class="color1"
+                  *ngFor="let city of cities"
+                  >{{ city }}</option
+                >
+              </select>
+            </div>
+            <div class="col col2">
+              <div class="form-group">
+                <input
+                  placeholder="Ingresa tu calle del domicilio"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="off"
+                  type="text"
+                  class="form-control color1"
+                  #search
+                  [formControl]="searchControl"
+                />
+              </div>
+            </div>
+            <div class="col col3">
+              <select class="color1" formControlName="category" style="background-color: white;">
+                <option value="" class="color1">Elige la categoría</option>
+                <option value="all" class="color1">Todas</option>
+                <option
+                  [value]="category.commerceCategory"
+                  class="color1"
+                  *ngFor="let category of categories"
+                  >{{ category.commerceCategory }}</option
+                >
+              </select>
+            </div>
+            <div class="col col4 tooltip">
+                <a
+                (click)="searchCommerceForm.invalid ? getMessage(): onOpenDialog()"
+                class="background-color3 white center button center-button"
+                [ngClass]="{'a-invalid': searchCommerceForm.invalid,
+                            'a-valid': searchCommerceForm.valid}"
+                value="BUSCAR"
+                id="buscar"
+                >BUSCAR</a
+              >
+              <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p class="color2 center">
+      Si tienes dudas antes de realizar tu búsqueda revisa nuestras
+      <a [routerLink]="['/politicas-de-uso']" class="color2">Políticas de uso</a>.
+    </p>
+    <div class="container">
+      <div class="col-3-equals instrucciones">
+        <div class="col">
+          <div class="center icon-container">
+            <i class="fas fa-utensils color1"></i>
+          </div>
+          <div class="text-container">
+            <h6 class="color1">
+              1 Busca lo que necesites.
+            </h6>
+            <p class="color1">
+              Encontrarás los comercios que necesites a 1km a la redonda de tu
+              geoposición.
+            </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="center icon-container">
+            <i class="fab fa-whatsapp color1"></i>
+          </div>
+          <div class="text-container">
+            <h6 class="color1">
+              2 Comunícate con el comercio
+            </h6>
+            <p class="color1">
+              Conéctate con el comercio de manera ágil y rápida por whatsapp.
+            </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="center icon-container">
+            <i class="fas fa-motorcycle color1"></i>
+          </div>
+          <div class="text-container">
+            <h6 class="color1">
+              3 Pago y entrega
+            </h6>
+            <p class="color1">
+              La forma de pago y la entrega se deberá coordinar directamente con
+              el comercio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="container-commerce-list" #listContainer></div>
+<div style="display: block;" *ngIf="resultsObtained" (window:scroll)="showCategories()">
+  <app-search-results ></app-search-results>
+</div>
+<app-quienes-somos *ngIf="!resultsObtained"></app-quienes-somos>
+<div id="recomendations" #recomendations></div>
+<app-worry></app-worry>

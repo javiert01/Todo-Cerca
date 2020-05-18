@@ -1,0 +1,30 @@
+<header id="header">
+  <div class="header-top">
+    <div class="container">
+      <div class="col-4-equals">
+        <div class="col">
+          <i class="fas fa-map-marker-alt color1"></i>
+          <p class="color3 roboto">Ecuador</p>
+        </div>
+        <div class="col">
+          <i class="fas fa-wallet color1"></i>
+          <p class="color3 roboto"> Pagos a negociar con el usuario</p>
+        </div>
+        <div class="col">
+          <i class="fas fa-motorcycle color1"></i>
+          <p class="color3 roboto">Delivery a coordinar con el usuario
+        </div>
+        <div class="col">
+          <div class="box-hover-container">
+            <a [routerLink]="['/home']" class="button center-button  background-color3 white center buscar">
+              <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-brand puntero" [routerLink]="['/home']">
+    <img src="assets/01-logo-color.svg">
+  </div>
+</header>

@@ -1,0 +1,9 @@
+#section-3-registro{
+	padding: 30px 10px;
+}
+#section-3-registro i{
+	font-size: 140px;
+}
+#section-3-registro .center-button {
+  cursor: pointer;
+}

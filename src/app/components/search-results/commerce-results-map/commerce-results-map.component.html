@@ -1,0 +1,78 @@
+<div id="mapa" class="col col-right">
+  <div class="map-container" fxFlex="1 1 100%" #map>
+    <agm-map
+      id="angular-map"
+      #gm
+      [style.height.px]="map.offsetHeight"
+      [style.width.px]="map.offsetWidth"
+      [latitude]="initialCoordinates.lat"
+      [longitude]="initialCoordinates.lng"
+      [zoom]="15"
+      [scrollwheel]="null"
+      [gestureHandling]="'cooperative'"
+      [streetViewControl]="false"
+      [mapTypeControl]="true"
+      [clickableIcons] = "false"
+      [styles]="myStyles"
+    >
+      <agm-overlay
+        [latitude]="initialCoordinates.lat"
+        [longitude]="initialCoordinates.lng"
+      >
+        <img class="img-marker" src="assets/iconoverde-01.svg" />
+        <div class="marker-text-container">Tu estas aquí</div>
+      </agm-overlay>
+      <agm-overlay
+        *ngFor="let commerce of commerceCoordinates"
+        [latitude]="commerce.location.coordinates[1]"
+        [longitude]="commerce.location.coordinates[0]"
+      >
+        <img
+          class="img-marker"
+          src="assets/iconorojo-01.svg"
+          (mouseover)="onMouseOver(infoWindow, gm)"
+          (mouseleave)="onMouseLeave(infoWindow, gm)"
+        />
+        <!-- <p>{{ commerce.commerceName }}</p> -->
+        <agm-info-window [disableAutoPan]="false" #infoWindow>
+          <div class="bubble-container">
+            <div id="local-container" class="col-2">
+                  <div class="col col-left only-desktop">
+                    <div class="img-container foto-local">
+                      <img [src]="commerce.commercePhoto" class="img-center" alt="">
+                    </div>
+                  </div>
+                  <div class="col col-right">
+                    <p class="color4 tipo-negocio">
+                        {{commerce.category[0].commerceCategory}}
+                    </p>
+                    <h5 class="color1 titulo-comercio">
+                        {{commerce.commerceName}}
+                    </h5>
+                    <span id="id-negocio" class="color3">
+                      Id: {{commerce.idAux}}
+                    </span>
+                    <p class="color3 distancia">
+                        <span class="bold">Distancia: </span>{{ commerce.dist.calculated | number: "3.2-2" }}m
+                    </p>
+                    <a [href]="getWhatsappURL(commerce.phone)" class="button whatsapp-button background-color2" target="_blank">
+                      <div class="col-left center">
+                          <i class="fab fa-whatsapp white"></i>
+                        </div>
+                        <div class="col-right">
+                          <p class="white">
+                              CONTÁCTATE POR
+                          </p>
+                          <h6 class="white">
+                              WhatsApp
+                           </h6>
+                        </div>
+                    </a>
+                  </div>
+              </div>
+          </div>
+        </agm-info-window>
+      </agm-overlay>
+    </agm-map>
+  </div>
+</div>

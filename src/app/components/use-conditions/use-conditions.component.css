@@ -1,0 +1,9 @@
+#section-1-terminos{
+	padding: 30px 10px;
+}
+#section-1-terminos h2,
+#section-1-terminos h4,
+#section-1-terminos p,
+#section-1-terminos li{
+	margin-bottom: 20px;
+}

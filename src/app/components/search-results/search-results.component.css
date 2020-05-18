@@ -1,0 +1,152 @@
+#menu-iconos{
+	transition: top 0.5s;
+	-webkit-transition: top 0.5s;
+}
+.locales-menu-icons{
+	max-width: 250px;
+	display: block;
+	margin: auto;
+}
+.locales-menu-icons{
+	justify-content: center;
+	align-items: center;
+	grid-template-columns: 1fr;
+}
+.locales-menu-icons .col{
+	margin: 10px 0;
+}
+.locales-menu-icons a{
+	text-decoration: none;
+}
+.locales-menu-icons .col .icon-wrapper{
+	margin:15px;
+	border-radius: 50%;
+	width: 60px;
+	height: 60px;
+	margin:auto;
+}
+.locales-menu-icons .col i{
+	font-size: 30px;
+	cursor: pointer;
+	margin-top: 15px;
+}
+.global-results{
+	display: grid;
+	grid-template-columns: 250px 1fr;
+}
+
+.category-selector {
+  padding: 0px 20px;
+  text-align: center;
+}
+
+.category-selector select {
+  width: 100%;
+}
+
+.category-selector p {
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+}
+
+@media only screen and (max-width: 768px){
+
+  .locales-menu-icons .col-2-equals{
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: 1fr 1fr;
+	}
+	.global-results{
+		display: grid;
+		grid-template-columns: 0 1fr;
+	}
+
+	#section-4-buscar .container .col-2-equals{
+		grid-template-columns: 1fr;
+	}
+}
+
+@media only screen and (max-width: 550px){
+	.noticia{
+		height: 80px;
+	}
+	/*Tamaños de fuente*/
+	h1{
+		font-size: 35px;
+		line-height: 40px;
+	}
+
+	h2{
+		font-size: 30px;
+		line-height: 35px;
+	}
+	.h2-small{
+		font-size: 25px!important;
+	}
+	.h2-big{
+		font-size: 35px;
+	}
+	h3{
+		font-size: 25px;
+		line-height: 30px;
+	}
+	h4{
+		font-size: 23px;
+		line-height: 28px;
+	}
+	h5{
+		font-size: 20px;
+		line-height: 25px;
+	}
+	h6{
+		font-size: 18px;
+		line-height: 23px;
+	}
+	p{
+		font-size: 13px;
+		line-height: 18px;
+	}
+	.p2{
+		font-size: 11px;
+		line-height: 16px;
+	}
+	header .header-top .col-4-equals{
+		grid-template-columns: 1fr;
+	}
+	.only-mobile{
+		display: block!important;
+	}
+	.only-desktop{
+		display: none;
+	}
+	.ws-mobile{
+		display: flex!important;
+	}
+	.ws-desktop{
+		display: none;
+	}
+
+	/*Buscar.html*/
+
+  .locales-menu-icons .col-2-equals{
+		justify-content: center;
+		align-items: center;
+		grid-template-columns: 1fr 1fr;
+	}
+	.global-results{
+		display: grid;
+		grid-template-columns: 0 1fr;
+	}
+
+	#section-4-buscar .col-2-equals{
+		grid-template-columns: 1fr;
+	}
+
+	#section-4-buscar .col-2-equals .col-3-equals{
+		grid-template-columns: 1fr;
+	}
+	#section-5-buscar .col-2-equals{
+		grid-template-columns: 1fr;
+	}
+}

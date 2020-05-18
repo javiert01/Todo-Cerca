@@ -1,0 +1,16 @@
+#section-5-buscar{
+	padding: 30px 10px;
+}
+#section-5-buscar .col-2-equals {
+	margin-bottom:30px;
+}
+#section-5-buscar .seguridad-icon{
+	max-width: 200px;
+}
+#section-5-buscar ul{
+	max-width: 300px;
+	margin:auto;
+}
+#section-5-buscar ul li{
+	margin:5px 0;
+}

@@ -1,0 +1,23 @@
+.image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.image-popup {
+  width: auto;
+  height: auto;
+}
+
+.popup-description {
+  justify-content: center;
+}
+
+.ok-button {
+  border-radius: 20px;
+  background-color: #009b83;
+  color: white;
+  font-weight: bold;
+  width: 150px;
+  padding: 10px 0px;
+  cursor: pointer;
+}

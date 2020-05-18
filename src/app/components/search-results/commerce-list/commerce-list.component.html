@@ -1,0 +1,101 @@
+<div class="resultados-container">
+  <div id="lista-locales" class="col col-left">
+    <div class="lista-locales-out background-white">
+      <div class="lista-locales-in">
+        <h4 class="bebas center color1">
+          Hemos encontrado
+          <span class="color4">{{ totalCommerces }}</span> comercios para tí
+        </h4>
+        <ul>
+          <li
+            id="local-container"
+            class="col-2"
+            *ngFor="let commerce of commerces"
+          >
+            <div class="col col-left">
+              <div class="img-container foto-local">
+                <img [src]="commerce.commercePhoto" class="img-center" alt="" />
+              </div>
+            </div>
+            <div class="col col-right">
+              <p class="color4 tipo-negocio">
+                {{ commerce.category[0].commerceCategory }}
+              </p>
+              <h5 class="color1 bebas titulo-comercio">
+                {{ commerce.commerceName | capitalPipe }}
+                <span id="id-negocio" class="color3">
+                  Id: {{ commerce.idAux }}
+                </span>
+              </h5>
+              <a *ngIf="commerce.idAux === 'RES273'"
+                href="https://www.labellaitaliaristorante.com"
+                target="_blank"
+                class="link-online"
+                ><p class="color1" style="font-weight: bold">Ver tienda online</p></a
+              >
+              <p>
+                <strong>Distancia:</strong
+                ><span> {{ commerce.dist.calculated | number: "3.2-2" }}m</span>
+              </p>
+              <p class="color3">
+                <span clas="direccion"
+                  ><i class="fas fa-map-marker-alt color2"></i>
+                  {{ commerce.address }} </span
+                >| <span class="referencia bold">{{ commerce.reference }}</span>
+              </p>
+              <p class="descripcion color3">
+                {{ commerce.commerceDescription }}
+              </p>
+              <p><strong>Días de apertura:</strong> {{ commerce.frequency }}</p>
+              <p class="horario color2">
+                <i class="far fa-clock color3"></i> {{ commerce.hourOpen }} -
+                {{ commerce.hourClose }}
+              </p>
+              <a
+                [href]="getWhatsappURL(commerce.phone)"
+                class="button whatsapp-button background-color2"
+                target="_blank"
+              >
+                <div class="col-left center">
+                  <i class="fab fa-whatsapp white"></i>
+                </div>
+                <div class="col-right">
+                  <p class="white">
+                    CONTÁCTATE POR
+                  </p>
+                  <h6 class="white">
+                    WhatsApp
+                  </h6>
+                </div>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <div class="paginacion">
+          <div class="col-3-equals">
+            <div class="col center">
+              <i
+                class="fas fa-arrow-alt-circle-left color2"
+                *ngIf="numeroPaginas > 1 && currentPage !== 1"
+                (click)="navigateToPage('atras')"
+              ></i>
+            </div>
+            <div class="col center">
+              <div class="page-number">{{ currentPage }}</div>
+            </div>
+            <div class="col center">
+              <i
+                class="fas fa-arrow-alt-circle-right color2"
+                *ngIf="
+                  numeroPaginas > 1 && currentPage !== listaNumeroPaginas.length
+                "
+                (click)="navigateToPage('adelante')"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-commerce-results-map></app-commerce-results-map>
+</div>
