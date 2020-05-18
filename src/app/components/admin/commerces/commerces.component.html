@@ -61,7 +61,7 @@
   <div class="category-container">
     <label class="color3" style="margin: 0px 15px;">Seleccione Categoría</label>
     <select (change)="onSetCategory($event.target.value)">
-      <option value="all">Todos</option>
+      <option value="all">Todos <span>( {{ allCommercesPerCategory }} )</span> </option>
       <option [value]="category.commerceCategory" *ngFor="let category of commerceCategories">
         {{ category.commerceCategory }} <span>( {{category.total}} )</span> </option>
     </select>

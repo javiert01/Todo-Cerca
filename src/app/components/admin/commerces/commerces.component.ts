@@ -107,6 +107,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   production = true;
 
+  // ==================================================================
+  // TOTAL COMMERCES FOR CITY AND ALL, VALUE THAT IT SHOWED IN COMBOBOX
+  // ==================================================================
+  allCommercesPerCategory;
+
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
@@ -144,6 +149,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.numeroPaginas = Math.ceil(
           data["totalCommerces"] / this.numeroItemsPorPagina
         );
+        this.setallCommercesPerCategory(data["totalCommerces"]);
         for (let i = 0; i < this.numeroPaginas; i++) {
           this.listaNumeroPaginas.push(i + 1);
           this.listaPaginasSelected.push(false);
@@ -184,6 +190,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.numeroPaginas = Math.ceil(
           data["totalCommerces"] / this.numeroItemsPorPagina
         );
+        this.setallCommercesPerCategory(data["totalCommerces"]);
         for (let i = 0; i < this.numeroPaginas; i++) {
           this.listaNumeroPaginas.push(i + 1);
           this.listaPaginasSelected.push(false);
@@ -499,6 +506,10 @@ export class CommercesComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  setallCommercesPerCategory(numberCommerces) {
+    this.allCommercesPerCategory = numberCommerces;
   }
 
   ngOnDestroy() {
