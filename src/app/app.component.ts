@@ -13,7 +13,6 @@ export class AppComponent {
   title = "Frontend";
   routeHidden;
   registerCounter = 1;
-  homeCounter = 1;
   dialogSub: Subscription;
 
   constructor(private _router: Router, private dialog: MatDialog) {
@@ -27,11 +26,6 @@ export class AppComponent {
         } else {
           this.routeHidden = false;
         }
-      if(e.url === "/home"){
-        if(this.homeCounter === 1) {
-          this.openMessageDialog('home')
-        }
-      }
       }
     });
   }
@@ -55,8 +49,6 @@ export class AppComponent {
       this.dialogSub = dialogRef.afterClosed().subscribe((data) => {
         if (data === 'register') {
           this.registerCounter ++;
-        } else {
-          this.homeCounter++;
         }
       });
     }

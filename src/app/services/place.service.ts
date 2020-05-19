@@ -43,6 +43,18 @@ export class PlaceService {
 
   }
 
+  getAllowedCountryList() {
+    return [
+      'Quito',
+      'Guayaquil',
+      'Cuenca',
+      'Sangolquí',
+      'Daule',
+      'Durán',
+      'Chordeleg'
+    ];
+  }
+
   setSelectedCoordinates(lat, lng) {
     this.selectedCoordinates = {lat: lat, lng: lng};
     this.selectedCoordinatesChanged.next(this.selectedCoordinates);

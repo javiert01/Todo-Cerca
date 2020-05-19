@@ -14,6 +14,8 @@ import { MapsAPILoader } from '@agm/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { WrongCityComponent } from 'src/app/dialogs/wrong-city/wrong-city.component';
 import { Subscription } from 'rxjs';
+import { OnlyOnceMessageComponent } from 'src/app/dialogs/only-once-message/only-once-message.component';
+import { StatsService } from 'src/app/services/stats.service';
 
 declare let google: any;
 
@@ -24,6 +26,7 @@ declare let google: any;
 })
 export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
+  allowedCities = [];
   categories = [];
   lat;
   lng;
@@ -43,25 +46,32 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   categoryServiceSub: Subscription;
   dialogRefSub: Subscription;
   dialogRef2Sub: Subscription;
+  dialogRef3Sub: Subscription;
 
   constructor(
     private dialog: MatDialog,
     private placeService: PlaceService,
     private categoryService: CategoryService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
-  ) {}
+    private ngZone: NgZone,
+    private statsService: StatsService
+  ) {
+    if (!this.statsService.isHomeVisited) {
+      this.openMessageDialog('home');
+    }
+  }
 
   ngOnInit(): void {
-    this.cities = this.placeService.getCountryList();
-    this.cities = [...this.cities.slice(0,2)];
+    /* this.cities = this.placeService.getCountryList();
+    this.cities = [...this.cities.slice(0,2)]; */
+    this.allowedCities = this.placeService.getAllowedCountryList();
     this.loadCategoryData();
     this.searchControl = new FormControl('');
     this.searchCommerceForm = new FormGroup({
       category: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
+      // city: new FormControl('', Validators.required),
     });
-    //this.searchCommerceForm.get('city').disable();
+    // this.searchCommerceForm.get('city').disable();
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
@@ -117,7 +127,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
               category: this.searchCommerceForm.get('category').value,
               type: 'noAddress'
             };
-            console.log('coordinates', this.lat+ ' ' + this.lng);
+            console.log('coordinates', this.lat + ' ' + this.lng);
             dialogRef = this.dialog.open(
               MapSearchDialogComponent,
               configuracionDialog
@@ -173,6 +183,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   getAddress(lat: number, lng: number) {
+    let flag = false;
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -183,11 +194,13 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            if (
-              !result.formatted_address.includes('Quito') &&
-              !result.formatted_address.includes('Sangolquí') &&
-              !result.formatted_address.includes('Guayaquil')
-            ) {
+            for (let i = 0; i < this.allowedCities.length; i++) {
+              if (result.formatted_address.includes(this.allowedCities[i])) {
+                flag = true;
+              }
+            }
+            if (!flag)
+            {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
               });
@@ -205,7 +218,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  isLocationOnCity(city, lat, lng, fn) {
+  isLocationOnCity(cityList, lat, lng, fn) {
+    let flag = false;
     if (navigator.geolocation) {
       const geocoder = new google.maps.Geocoder();
       const latlng = new google.maps.LatLng(lat, lng);
@@ -216,14 +230,17 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            if (
-              !result.formatted_address.includes(city)
-            ) {
+            for (let i = 0; i < cityList.length; i++) {
+              if (result.formatted_address.includes(cityList[i])) {
+                flag = true;
+              }
+            }
+            if (!flag) {
               fn(false);
-              console.log('coordinates', lat+ ' ' + lng);
+              console.log('coordinates', lat + ' ' + lng);
             } else {
               fn(true);
-              console.log('coordinates', lat+ ' ' + lng);
+              console.log('coordinates', lat + ' ' + lng);
             }
           } else {
             alert(
@@ -248,24 +265,66 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             };
             this.lat = pos.lat;
             this.lng = pos.lng;
-            this.isLocationOnCity('Quito', pos.lat, pos.lng, function(flag) {
+            this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function(flag) {
               if (flag) {
                 def.ngZone.run(() => {
                   def.openDialogMapSearch('noAddress');
-                })
+                });
               } else {
                 def.ngZone.run(() => {
                   def.openDialogWrongCity();
-                })
+                });
               }
             });
           });
         } else {
-          alert('Su navegador no soporta geolocalizacion')
+          alert('Su navegador no soporta geolocalizacion');
         }
     } else {
       this.openDialogMapSearch('addressOK');
     }
+  }
+
+  openMessageDialog(message) {
+    const configuracionDialog = new MatDialogConfig();
+    configuracionDialog.disableClose = false;
+    configuracionDialog.autoFocus = true;
+    if (window.innerWidth < 551) {
+      configuracionDialog.height = '324px';
+    } else if (window.innerWidth < 769) {
+      configuracionDialog.height = '424px';
+    } else {
+      configuracionDialog.height = '524px';
+    }
+    configuracionDialog.width = '500px';
+    configuracionDialog.data = {
+      message: message
+    };
+    const dialogRef = this.dialog.open(OnlyOnceMessageComponent, configuracionDialog);
+    this.dialogRef3Sub = dialogRef.afterClosed().subscribe((data) => {
+      const def = this;
+      this.statsService.setIsHomeVisited(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            this.lat = pos.lat;
+            this.lng = pos.lng;
+            this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function(flag) {
+              if (!flag) {
+                def.ngZone.run(() => {
+                  def.openDialogWrongCity();
+                });
+              }
+            });
+          });
+        } else {
+          alert('Su navegador no soporta geolocalizacion');
+        }
+    });
   }
 
   showCategories() {
