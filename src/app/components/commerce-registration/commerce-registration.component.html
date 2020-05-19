@@ -88,22 +88,28 @@
             >
           </div>
           <div class="col">
-            <label class="color3">Nombre del comercio (máx 40 caracteres)</label>
+            <label class="color3">Nombre del comercio</label>
             <input
               type="text"
               name="comercio"
-              placeholder="Ingresa el nombre de tu negocio"
+              placeholder="Ingresa el nombre de tu negocio (máximo 40 caracteres)"
               formControlName="commerceName"
               (blur)="onCapitalizeLetter($event.target.value, 'commerceName')"
             />
             <span
-              class="help-block"
-              *ngIf="
-                registerForm.get('commerceName').errors?.required &&
-                registerForm.get('commerceName').touched
-              "
-              >*Campo Obligatorio</span
-            >
+            class="help-block"
+            *ngIf="
+              registerForm.get('commerceName').errors?.required &&
+              registerForm.get('commerceName').touched
+            "
+            >*Campo Obligatorio</span
+          >
+          <br  *ngIf="registerForm.get('commerceName').value?.length === 40">
+          <span
+          *ngIf="registerForm.get('commerceName')?.value?.length === 40"
+          class="help-block"
+            >*Has llegado al número máximo de caracteres (40)</span
+          >
           </div>
         </div>
         <div class="col-2-equals">
