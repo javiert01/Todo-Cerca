@@ -292,8 +292,11 @@ export class CommercesComponent implements OnInit, OnDestroy {
           return element + "" === target.value;
         })
       ) {
-        const targetIndex = this.selectedCommercesID.indexOf(target.value);
-        console.log("entra aqui");
+        console.log("target.value: ", parseInt(target.value));
+        const targetIndex = this.selectedCommercesID.indexOf(
+          parseInt(target.value)
+        );
+        console.log("entra aqui: ", targetIndex);
         this.selectedCommercesID.splice(targetIndex, 1);
       } else {
         return;
