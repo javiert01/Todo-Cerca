@@ -276,6 +276,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   onCheckCommerce(target, index) {
     this.isCommerceSelectedList[index] = true;
     if (target.checked) {
+      console.log("checado");
       if (
         this.selectedCommercesID.find((element) => element === target.value)
       ) {
@@ -284,11 +285,15 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.selectedCommercesID.push(target.value);
       }
     } else {
+      console.log("deschecado");
       this.isCommerceSelectedList[index] = false;
       if (
-        this.selectedCommercesID.find((element) => element === target.value)
+        this.selectedCommercesID.find((element) => {
+          return element + "" === target.value;
+        })
       ) {
         const targetIndex = this.selectedCommercesID.indexOf(target.value);
+        console.log("entra aqui");
         this.selectedCommercesID.splice(targetIndex, 1);
       } else {
         return;
@@ -298,11 +303,13 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onSelectAll(flag) {
+    console.log("flag", flag);
     if (flag) {
       this.selectedCommercesID = [];
       this.allSelected = true;
       for (let i = 0; i < this.commerceList.length; i++) {
         this.isCommerceSelectedList[i] = true;
+        console.log(i);
         this.selectedCommercesID.push(i);
       }
     } else {
