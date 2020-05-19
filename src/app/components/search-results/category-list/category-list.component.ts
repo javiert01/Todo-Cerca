@@ -96,7 +96,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
           ...categoryList[i],
           categoryIcon: "assets/mascotas-01.svg",
         };
-      } else if (categoryList[i].commerceCategory === "Lo que sea") {
+      } else if (categoryList[i].commerceCategory === "Otros") {
         categoryList[i] = {
           ...categoryList[i],
           categoryIcon: "assets/loquesea-01.svg",
