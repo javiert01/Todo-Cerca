@@ -38,8 +38,8 @@ export class CommerceRegistrationComponent implements OnInit {
   imgURL: any;
   public message: string;
   // FIN VARAIBLES PREVIEW IMAGEN
-  lat = -0.1840506;
-  lng = -78.503374;
+  lat = 20.662540;
+  lng = -103.348578;
   markLat;
   markLng;
   direccion;
@@ -59,33 +59,7 @@ export class CommerceRegistrationComponent implements OnInit {
       stylers: [{ visibility: "off" }],
     },
   ];
- cities = []
-  provinces = [
-    'Azuay',
-    'Bolívar',
-    'Cañar',
-    'Carchi',
-    'Chimborazo',
-    'Cotopaxi',
-    'El Oro',
-    'Esmeraldas',
-    'Galápagos',
-    'Guayas',
-    'Imbabura',
-    'Loja',
-    'Los Ríos',
-    'Manabí',
-    'Morona Santiago',
-    'Napo',
-    'Orellana',
-    'Pastaza',
-    'Pichincha',
-    'Santa Elena',
-    'Santo Domingo de los Tsáchilas',
-    'Sucumbíos',
-    'Tungurahua',
-    'Zamora Chinchipe'
-  ];
+ cities = [];
 
   registerForm: FormGroup;
   commerce;
@@ -140,7 +114,7 @@ export class CommerceRegistrationComponent implements OnInit {
           }
         );
         autocomplete.setComponentRestrictions({
-          country: ['ec']
+          country: ['mx']
         });
         autocomplete.addListener('place_changed', () => {
           this.ngZone.run(() => {
@@ -382,10 +356,7 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   onSetCityMap(city) {
-    if(city === '18: Francisco de Orellana') {
-      city = 'Orellana';
-    }
-    city = city + ', EC';
+    city = city + ', MX';
     const geocoder = new google.maps.Geocoder();
     const self = this;
     geocoder.geocode(

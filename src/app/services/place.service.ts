@@ -15,43 +15,16 @@ export class PlaceService {
 
   getCountryList() {
     return  [
-      'Quito',
-      'Guayaquil',
-      'Cuenca',
-      'Guaranda',
-      'Azogues',
-      'Tulcán',
-      'Riobamba',
-      'Latacunga',
-      'Machala',
-      'Esmeraldas',
-      'Puerto Baquerizo Moreno',
-      'Ibarra',
-      'Loja',
-      'Babahoyo',
-      'Portoviejo',
-      'Macas',
-      'Tena',
-      'Francisco de Orellana',
-      'Puyo',
-      'Santa Elena',
-      'Santo Domingo',
-      'Nueva Loja',
-      'Ambato',
-      'Zamora'
+      'Guadalajara',
+      'Zapopan'
     ];
 
   }
 
   getAllowedCountryList() {
     return [
-      'Quito',
-      'Guayaquil',
-      'Cuenca',
-      'Sangolquí',
-      'Daule',
-      'Durán',
-      'Chordeleg'
+     'Guadalajara',
+     'Zapopan'
     ];
   }
 
