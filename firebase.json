@@ -16,6 +16,21 @@
       ]
     },
     {
+      "target": "admin-prod-mx",
+      "public": "dist/admin-mx",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
       "target": "admin-test",
       "public": "dist/admin-test",
       "ignore": [
