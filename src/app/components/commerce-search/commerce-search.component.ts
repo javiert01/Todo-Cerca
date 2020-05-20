@@ -5,24 +5,24 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-} from '@angular/core';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { MapSearchDialogComponent } from '../commerce-search/map-search-dialog/map-search-dialog.component';
-import { PlaceService } from 'src/app/services/place.service';
-import { CategoryService } from 'src/app/services/category.service';
-import { MapsAPILoader } from '@agm/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { WrongCityComponent } from 'src/app/dialogs/wrong-city/wrong-city.component';
-import { Subscription } from 'rxjs';
-import { OnlyOnceMessageComponent } from 'src/app/dialogs/only-once-message/only-once-message.component';
-import { StatsService } from 'src/app/services/stats.service';
+} from "@angular/core";
+import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
+import { MapSearchDialogComponent } from "../commerce-search/map-search-dialog/map-search-dialog.component";
+import { PlaceService } from "src/app/services/place.service";
+import { CategoryService } from "src/app/services/category.service";
+import { MapsAPILoader } from "@agm/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { WrongCityComponent } from "src/app/dialogs/wrong-city/wrong-city.component";
+import { Subscription } from "rxjs";
+import { OnlyOnceMessageComponent } from "src/app/dialogs/only-once-message/only-once-message.component";
+import { StatsService } from "src/app/services/stats.service";
 
 declare let google: any;
 
 @Component({
-  selector: 'app-commerce-search',
-  templateUrl: './commerce-search.component.html',
-  styleUrls: ['./commerce-search.component.css'],
+  selector: "app-commerce-search",
+  templateUrl: "./commerce-search.component.html",
+  styleUrls: ["./commerce-search.component.css"],
 })
 export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
@@ -32,11 +32,11 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   lng;
   resultsObtained = false;
   searchCommerceForm: FormGroup;
-  @ViewChild('recomendations')
+  @ViewChild("recomendations")
   recomendations: ElementRef;
-  @ViewChild('search')
+  @ViewChild("search")
   public searchElementRef: ElementRef;
-  @ViewChild('listContainer')
+  @ViewChild("listContainer")
   listContainer: ElementRef;
   public searchControl: FormControl;
 
@@ -57,7 +57,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     private statsService: StatsService
   ) {
     if (!this.statsService.isHomeVisited) {
-      this.openMessageDialog('home');
+      this.openMessageDialog("home");
     }
   }
 
@@ -66,9 +66,9 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     this.cities = [...this.cities.slice(0,2)]; */
     this.allowedCities = this.placeService.getAllowedCountryList();
     this.loadCategoryData();
-    this.searchControl = new FormControl('');
+    this.searchControl = new FormControl("");
     this.searchCommerceForm = new FormGroup({
-      category: new FormControl('', Validators.required),
+      category: new FormControl("", Validators.required),
       // city: new FormControl('', Validators.required),
     });
     // this.searchCommerceForm.get('city').disable();
@@ -76,13 +76,13 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       const autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ['geocode'],
+          types: ["geocode"],
         }
       );
       autocomplete.setComponentRestrictions({
-        country: ['ec'],
+        country: ["ec"],
       });
-      autocomplete.addListener('place_changed', () => {
+      autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
@@ -90,7 +90,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           }
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
-          if (this.searchElementRef.nativeElement !== '') {
+          if (this.searchElementRef.nativeElement !== "") {
             this.getAddress(this.lat, this.lng);
           } else {
             return;
@@ -112,41 +112,41 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = '550px';
+    configuracionDialog.height = "550px";
     let dialogRef;
     if (window.innerWidth < 551) {
-      configuracionDialog.minWidth = '100vw';
+      configuracionDialog.minWidth = "100vw";
     } else {
-      configuracionDialog.width = '640px';
+      configuracionDialog.width = "640px";
     }
-    if (message === 'noAddress') {
-      configuracionDialog.height = '470px';
-      configuracionDialog.data = {
-              lat: this.lat,
-              lng: this.lng,
-              category: this.searchCommerceForm.get('category').value,
-              type: 'noAddress'
-            };
-            console.log('coordinates', this.lat + ' ' + this.lng);
-            dialogRef = this.dialog.open(
-              MapSearchDialogComponent,
-              configuracionDialog
-            );
-
-            this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
-              if (data === 'ok') {
-                this.resultsObtained = true;
-                document
-                  .querySelector('#container-commerce-list')
-                  .scrollIntoView({ behavior: 'smooth' });
-              }
-            });
-      } else {
+    if (message === "noAddress") {
+      configuracionDialog.height = "470px";
       configuracionDialog.data = {
         lat: this.lat,
         lng: this.lng,
-        category: this.searchCommerceForm.get('category').value,
-        type: 'addressOK'
+        category: this.searchCommerceForm.get("category").value,
+        type: "noAddress",
+      };
+      console.log("coordinates", this.lat + " " + this.lng);
+      dialogRef = this.dialog.open(
+        MapSearchDialogComponent,
+        configuracionDialog
+      );
+
+      this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
+        if (data === "ok") {
+          this.resultsObtained = true;
+          document
+            .querySelector("#container-commerce-list")
+            .scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    } else {
+      configuracionDialog.data = {
+        lat: this.lat,
+        lng: this.lng,
+        category: this.searchCommerceForm.get("category").value,
+        type: "addressOK",
       };
       dialogRef = this.dialog.open(
         MapSearchDialogComponent,
@@ -154,30 +154,30 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       );
 
       this.dialogRefSub = dialogRef.afterClosed().subscribe((data) => {
-        if (data === 'ok') {
+        if (data === "ok") {
           this.resultsObtained = true;
           document
-            .querySelector('#container-commerce-list')
-            .scrollIntoView({ behavior: 'smooth' });
+            .querySelector("#container-commerce-list")
+            .scrollIntoView({ behavior: "smooth" });
         }
       });
     }
   }
 
   getMessage() {
-    console.log('this is not allowed!');
+    console.log("this is not allowed!");
   }
 
   openDialogWrongCity() {
     const configuracionDialog = new MatDialogConfig();
     configuracionDialog.disableClose = true;
     configuracionDialog.autoFocus = true;
-    configuracionDialog.height = '370px';
-    configuracionDialog.width = '400px';
+    configuracionDialog.height = "370px";
+    configuracionDialog.width = "400px";
     const dialogRef = this.dialog.open(WrongCityComponent, configuracionDialog);
     this.dialogRef2Sub = dialogRef.afterClosed().subscribe((data) => {
-      if (data === 'ok') {
-        this.searchControl.setValue('');
+      if (data === "ok") {
+        this.searchControl.setValue("");
       }
     });
   }
@@ -199,8 +199,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
                 flag = true;
               }
             }
-            if (!flag)
-            {
+            if (!flag) {
               this.ngZone.run(() => {
                 this.openDialogWrongCity();
               });
@@ -210,7 +209,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             /* this.direccion = rsltAdrComponent[0].short_name; */
           } else {
             alert(
-              'No hay dirección disponible en este momento, llenela manualmente'
+              "No hay dirección disponible en este momento, llenela manualmente"
             );
           }
         }
@@ -237,14 +236,14 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             }
             if (!flag) {
               fn(false);
-              console.log('coordinates', lat + ' ' + lng);
+              console.log("coordinates", lat + " " + lng);
             } else {
               fn(true);
-              console.log('coordinates', lat + ' ' + lng);
+              console.log("coordinates", lat + " " + lng);
             }
           } else {
             alert(
-              'No hay dirección disponible en este momento, llenela manualmente'
+              "No hay dirección disponible en este momento, llenela manualmente"
             );
           }
         }
@@ -253,35 +252,59 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   onOpenDialog() {
-    this.categoryService.setCategorySelected(this.searchCommerceForm.get('category').value);
+    this.categoryService.setCategorySelected(
+      this.searchCommerceForm.get("category").value
+    );
     const def = this;
-    if (this.searchControl.value === '') {
+    if (this.searchControl.value === "") {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
+        if (this.lat && this.lng) {
+          console.log('aceptado la unbiacione!')
+          this.isLocationOnCity(this.allowedCities, this.lat, this.lng, function (
+            flag
+          ) {
+            if (flag) {
+              def.ngZone.run(() => {
+                def.openDialogMapSearch("noAddress");
+              });
+            } else {
+              def.ngZone.run(() => {
+                def.openDialogWrongCity();
+              });
+            }
+          });
+        } else {
+          alert('Debe permitir el acceso a la ubicación o seleccionar una calle para continuar');
+          navigator.geolocation.getCurrentPosition((position) => {
             const pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude,
             };
             this.lat = pos.lat;
             this.lng = pos.lng;
-            this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function(flag) {
-              if (flag) {
-                def.ngZone.run(() => {
-                  def.openDialogMapSearch('noAddress');
-                });
-              } else {
-                def.ngZone.run(() => {
-                  def.openDialogWrongCity();
-                });
+            this.isLocationOnCity(
+              this.allowedCities,
+              pos.lat,
+              pos.lng,
+              function (flag) {
+                if (flag) {
+                  def.ngZone.run(() => {
+                    def.openDialogMapSearch("noAddress");
+                  });
+                } else {
+                  def.ngZone.run(() => {
+                    def.openDialogWrongCity();
+                  });
+                }
               }
-            });
+            );
           });
-        } else {
-          alert('Su navegador no soporta geolocalizacion');
         }
+      } else {
+        alert("Su navegador no soporta geolocalizacion");
+      }
     } else {
-      this.openDialogMapSearch('addressOK');
+      this.openDialogMapSearch("addressOK");
     }
   }
 
@@ -290,54 +313,58 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     configuracionDialog.disableClose = false;
     configuracionDialog.autoFocus = true;
     if (window.innerWidth < 551) {
-      configuracionDialog.height = '324px';
+      configuracionDialog.height = "324px";
     } else if (window.innerWidth < 769) {
-      configuracionDialog.height = '424px';
+      configuracionDialog.height = "424px";
     } else {
-      configuracionDialog.height = '524px';
+      configuracionDialog.height = "524px";
     }
-    configuracionDialog.width = '500px';
+    configuracionDialog.width = "500px";
     configuracionDialog.data = {
-      message: message
+      message: message,
     };
-    const dialogRef = this.dialog.open(OnlyOnceMessageComponent, configuracionDialog);
+    const dialogRef = this.dialog.open(
+      OnlyOnceMessageComponent,
+      configuracionDialog
+    );
     this.dialogRef3Sub = dialogRef.afterClosed().subscribe((data) => {
       const def = this;
       this.statsService.setIsHomeVisited(true);
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            };
-            this.lat = pos.lat;
-            this.lng = pos.lng;
-            this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function(flag) {
-              if (!flag) {
-                def.ngZone.run(() => {
-                  def.openDialogWrongCity();
-                });
-              }
-            });
+        navigator.geolocation.getCurrentPosition((position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          this.lat = pos.lat;
+          this.lng = pos.lng;
+          this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function (
+            flag
+          ) {
+            if (!flag) {
+              def.ngZone.run(() => {
+                def.openDialogWrongCity();
+              });
+            }
           });
-        } else {
-          alert('Su navegador no soporta geolocalizacion');
-        }
+        });
+      } else {
+        alert("Su navegador no soporta geolocalizacion");
+      }
     });
   }
 
   showCategories() {
     if (this.recomendations) {
-      const menu_categorias = document.getElementById('menu-categorias');
-      const menuIconos = document.getElementById('menu-iconos');
+      const menu_categorias = document.getElementById("menu-categorias");
+      const menuIconos = document.getElementById("menu-iconos");
       const element2Position = this.listContainer.nativeElement.offsetTop;
       const scrollPosition = window.pageYOffset;
       if (scrollPosition <= element2Position) {
-        menuIconos.classList.remove('menu-fixed');
-        menu_categorias.classList.remove('mostrar-categorias');
+        menuIconos.classList.remove("menu-fixed");
+        menu_categorias.classList.remove("mostrar-categorias");
       } else {
-        menuIconos.classList.add('menu-fixed');
+        menuIconos.classList.add("menu-fixed");
       }
     }
   }
