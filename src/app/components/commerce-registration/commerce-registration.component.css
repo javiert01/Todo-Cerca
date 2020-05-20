@@ -81,6 +81,11 @@ agm-map {
   font-size: small;
 }
 
+.warning-block {
+  color: #2e4a5c;
+  font-size: small;
+}
+
 select {
   background-color: white;
 }

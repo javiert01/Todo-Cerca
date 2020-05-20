@@ -9,10 +9,10 @@
     <form [formGroup]="searchCommerceForm">
     <div>
         <div class="search-container">
-          <div class="col-3-equals">
-           <!--  <div class="col col1">
+          <div class="col-4-equals">
+            <div class="col col1">
               <i class="fas fa-map-marker-alt color1"></i>
-              <select class="color1" formControlName="city" [ngStyle]="{'background-color': searchCommerceForm.get('city').value !== '' ? 'lightgray':'white'}">
+            <!--   <select class="color1" formControlName="city" [ngStyle]="{'background-color': searchCommerceForm.get('city').value !== '' ? 'lightgray':'white'}">
                 <option value="" class="color1">Elije tu ciudad</option>
                 <option
                   [value]="city"
@@ -20,10 +20,7 @@
                   *ngFor="let city of cities"
                   >{{ city }}</option
                 >
-              </select>
-            </div> -->
-            <div class="col col2">
-              <div class="form-group">
+              </select> -->
                 <input
                   placeholder="Ingresa tu calle del domicilio"
                   autocorrect="off"
@@ -34,8 +31,10 @@
                   #search
                   [formControl]="searchControl"
                 />
-              </div>
             </div>
+          <!--   <div class="col col2">
+
+            </div> -->
             <div class="col col3">
               <select class="color1" formControlName="category" style="background-color: white;">
                 <option value="" class="color1">Elige la categoría</option>
