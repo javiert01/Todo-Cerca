@@ -506,7 +506,7 @@ export class CommerceRegistrationComponent implements OnInit {
 
     // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
     return this.http.get<any>(
-      'https://todo-mas-cerca-1.herokuapp.com/image/upload?fName_p=' +
+      'https://todo-mas-cerca-1-mx.herokuapp.com/image/upload?fName_p=' +
         file.fName_p +
         '&fType_p=' +
         file.fType_p
