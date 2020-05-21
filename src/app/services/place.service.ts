@@ -43,6 +43,24 @@ export class PlaceService {
 
   }
 
+  getAllowedCountryList() {
+    return [
+      'Quito',
+      'Guayaquil',
+      'Cuenca',
+      'Sangolquí',
+      'Daule',
+      'Durán',
+      'Chordeleg',
+      'Atarazana',
+      'Salitre'
+    ];
+  }
+
+  getPolygonBoundariesArea() {
+
+  }
+
   setSelectedCoordinates(lat, lng) {
     this.selectedCoordinates = {lat: lat, lng: lng};
     this.selectedCoordinatesChanged.next(this.selectedCoordinates);

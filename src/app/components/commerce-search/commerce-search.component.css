@@ -18,13 +18,19 @@
 #section-1-buscar .search-container{
 	padding: 5px 10px;
 	border-radius: 10px;
-	margin: 20px 0;
+	margin: 20px auto;
 	border:1px solid #009b83;
 }
 #section-1-buscar .search-container .col-4-equals{
 	grid-gap: 5px;
 }
+#section-1-buscar .search-container .col-3-equals{
+	grid-gap: 5px;
+}
 #section-1-buscar .search-container .col-4-equals .col{
+	margin: 0;
+}
+#section-1-buscar .search-container .col-3-equals .col{
 	margin: 0;
 }
 #section-1-buscar .search-container .col-4-equals .col1{
@@ -32,7 +38,15 @@
 	align-items: center;
 	justify-content: space-between;
 }
+#section-1-buscar .search-container .col-3-equals .col1{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
 #section-1-buscar .search-container .col-4-equals .col i{
+	font-size: 30px;
+}
+#section-1-buscar .search-container .col-3-equals .col i{
 	font-size: 30px;
 }
 #section-1-buscar .search-container select{
@@ -40,6 +54,7 @@
 	height: 40px;
 	font-size: 20px;
 	font-weight: bold;
+	background-color: #ffffff;
 }
 #section-1-buscar .search-container input{
 	width: 100%;
@@ -52,6 +67,17 @@
 #section-1-buscar .search-container a{
 	margin:auto;
 	cursor: pointer;
+}
+#section-1-buscar .search-container #inputUbicacionContainer select{
+	margin-left: 10px;
+}
+#section-1-buscar .search-container #inputCategoriaContainer select{
+	margin:auto;
+	display: block;
+}
+.change-width{
+	max-width: 840px;
+	margin: auto;
 }
 .a-invalid {
   cursor: not-allowed !important;
@@ -112,6 +138,9 @@
 	top: 0!important;
 }
 
+.form-control {
+  border: 1px solid black;
+}
 /*Tooltip */
 /* Tooltip container */
 .tooltip {
@@ -151,51 +180,69 @@
 }
 
 @media only screen and (max-width: 768px) {
-  #section-1-buscar .search-container .col-4-equals {
-    grid-template-columns: 1fr;
-    justify-content: center;
-  }
-  #section-1-buscar .search-container .col-4-equals .col {
-    margin: 5px 0;
-  }
-  #section-1-buscar .search-container .col-4-equals .col1 i {
-    display: none;
-  }
-  #section-1-buscar .search-container .col-4-equals select {
-    width: 100%;
-  }
-  #section-1-buscar .search-container .col-4-equals select {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  #section-1-buscar .instrucciones {
-    grid-template-columns: 1fr;
-  }
+  #section-1-buscar .search-container .col-4-equals{
+		grid-template-columns: 1fr;
+		justify-content: center;
+	}
+	#section-1-buscar .search-container .col-4-equals .col{
+		margin: 5px 0;
+	}
+	#section-1-buscar .search-container .col-4-equals .col1 i{
+		display: none
+	}
+	#section-1-buscar .search-container .col-4-equals select{
+		width: 100%;
+	}
+	#section-1-buscar .search-container .col-4-equals select{
+		border:1px solid rgba(0,0,0,0.2);
+	}
+	#section-1-buscar .search-container .col-3-equals{
+		grid-template-columns: 1fr;
+		justify-content: center;
+	}
+	#section-1-buscar .search-container .col-3-equals .col{
+		margin: 5px 0;
+	}
+	#section-1-buscar .search-container .col-3-equals .col1 i{
+		display: none
+	}
+	#section-1-buscar .search-container .col-3-equals select{
+		width: 100%;
+	}
+	#section-1-buscar .search-container .col-3-equals select{
+		border:1px solid rgba(0,0,0,0.2);
+	}
+	#section-1-buscar .instrucciones{
+		grid-template-columns: 1fr;
+	}
 }
 
 @media only screen and (max-width: 550px) {
-  #section-1-buscar .search-container .col-4-equals {
-    grid-template-columns: 1fr;
-  }
-  #section-1-buscar .search-container .col-4-equals .col {
-    margin: 5px 0;
-  }
-  #section-1-buscar .search-container .col-4-equals .col1 i {
-    display: none;
-  }
-  #section-1-buscar .search-container .col-4-equals select {
-    width: 100%;
-  }
-  #section-1-buscar .search-container .col-4-equals select {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  #section-1-buscar .instrucciones {
-    grid-template-columns: 1fr;
-  }
-  #section-1-buscar #popup #close-popup-mapa-home {
-    position: relative;
-    top: -20px;
-    right: -20px;
-  }
+  #section-1-buscar .search-container .col-4-equals{
+		grid-template-columns: 1fr;
+	}
+	#section-1-buscar .search-container .col-4-equals .col{
+		margin: 5px 0;
+	}
+	#section-1-buscar .search-container .col-4-equals .col1 i{
+		display: none
+	}
+	#section-1-buscar .search-container .col-4-equals select{
+		width: 100%;
+		border:1px solid rgba(0,0,0,0.2);
+		text-align: center;
+	}
+	#section-1-buscar .search-container #inputUbicacionContainer select{
+		margin-left: 0;
+	}
+	#section-1-buscar .instrucciones{
+		grid-template-columns: 1fr;
+	}
+	#section-1-buscar #popup #close-popup-mapa-home{
+		position: relative;
+		top: -20px;
+		right: -20px;
+	}
   .tooltip .tooltiptext {
     margin: 0px 33px;
   }

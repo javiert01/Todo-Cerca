@@ -7,12 +7,12 @@
       #QuédateEnCasa
     </h4>
     <form [formGroup]="searchCommerceForm">
-    <div>
+   <!--  <div>
         <div class="search-container">
           <div class="col-4-equals">
             <div class="col col1">
               <i class="fas fa-map-marker-alt color1"></i>
-              <select class="color1" formControlName="city" style="background-color: lightgray;">
+              <select class="color1" formControlName="city" [ngStyle]="{'background-color': searchCommerceForm.get('city').value !== '' ? 'lightgray':'white'}">
                 <option value="" class="color1">Elije tu ciudad</option>
                 <option
                   [value]="city"
@@ -21,9 +21,6 @@
                   >{{ city }}</option
                 >
               </select>
-            </div>
-            <div class="col col2">
-              <div class="form-group">
                 <input
                   placeholder="Ingresa tu calle del domicilio"
                   autocorrect="off"
@@ -34,7 +31,6 @@
                   #search
                   [formControl]="searchControl"
                 />
-              </div>
             </div>
             <div class="col col3">
               <select class="color1" formControlName="category" style="background-color: white;">
@@ -61,6 +57,53 @@
               <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span>
             </div>
           </div>
+        </div>
+      </div> -->
+      <div class="search-container change-width" id="searchContainer">
+        <div class="col-3-equals" id="search-columns-container">
+          <div class="col col1" id="inputUbicacionContainer">
+            <i class="fas fa-map-marker-alt color1"></i>
+            <select class="color1" id="inputUbicacion" (change)="setInputSearch($event.target.value)">
+              <option [value]="true" clas="color1">Mi ubicación</option>
+              <option [value]="false" clas="color1">Otro lugar</option>
+            </select>
+          </div>
+          <div class="col col2 display-none" id="inputCalleContainer">
+            <input
+            placeholder="Ingresa la calle del lugar"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="off"
+            type="text"
+            class="form-control color1"
+            #search
+            [formControl]="searchControl"
+          />
+          </div>
+          <div class="col col3" id="inputCategoriaContainer">
+            <select class="color1" formControlName="category" style="background-color: white;">
+              <option value="" class="color1">Elige la categoría</option>
+              <option value="all" class="color1">Todas</option>
+              <option
+                [value]="category.commerceCategory"
+                class="color1"
+                *ngFor="let category of categories"
+                >{{ category.commerceCategory }}</option
+              >
+            </select>
+          </div>
+          <div class="col col4 tooltip" id="inputButtonContainer">
+            <a
+            (click)="searchCommerceForm.invalid ? getMessage(): onOpenDialog()"
+            class="background-color3 white center button center-button"
+            [ngClass]="{'a-invalid': searchCommerceForm.invalid,
+                        'a-valid': searchCommerceForm.valid}"
+            value="BUSCAR"
+            id="buscar"
+            >BUSCAR</a
+          >
+          <span class="tooltiptext" *ngIf="searchCommerceForm.invalid">Selecciona una categoría</span>
+        </div>
         </div>
       </div>
     </form>
