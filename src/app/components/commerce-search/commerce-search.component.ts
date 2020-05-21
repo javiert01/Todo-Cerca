@@ -194,6 +194,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
+            console.log('la localizacion es:', result.formatted_address);
             for (let i = 0; i < this.allowedCities.length; i++) {
               if (result.formatted_address.includes(this.allowedCities[i])) {
                 flag = true;
@@ -229,6 +230,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
+            console.log('la localizacion es:', result.formatted_address);
             for (let i = 0; i < cityList.length; i++) {
               if (result.formatted_address.includes(cityList[i])) {
                 flag = true;

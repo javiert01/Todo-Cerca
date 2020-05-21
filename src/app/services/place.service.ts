@@ -51,8 +51,14 @@ export class PlaceService {
       'Sangolquí',
       'Daule',
       'Durán',
-      'Chordeleg'
+      'Chordeleg',
+      'Atarazana',
+      'Salitre'
     ];
+  }
+
+  getPolygonBoundariesArea() {
+
   }
 
   setSelectedCoordinates(lat, lng) {
