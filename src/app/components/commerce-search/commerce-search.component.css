@@ -18,16 +18,19 @@
 #section-1-buscar .search-container{
 	padding: 5px 10px;
 	border-radius: 10px;
-	margin: 20px 0;
+	margin: 20px auto;
 	border:1px solid #009b83;
-}
-.col-4-equals {
-  grid-template-columns: 2fr 1fr 1fr;
 }
 #section-1-buscar .search-container .col-4-equals{
 	grid-gap: 5px;
 }
+#section-1-buscar .search-container .col-3-equals{
+	grid-gap: 5px;
+}
 #section-1-buscar .search-container .col-4-equals .col{
+	margin: 0;
+}
+#section-1-buscar .search-container .col-3-equals .col{
 	margin: 0;
 }
 #section-1-buscar .search-container .col-4-equals .col1{
@@ -43,6 +46,7 @@
 	height: 40px;
 	font-size: 20px;
 	font-weight: bold;
+	background-color: #ffffff;
 }
 #section-1-buscar .search-container input{
 	width: 100%;
@@ -55,6 +59,17 @@
 #section-1-buscar .search-container a{
 	margin:auto;
 	cursor: pointer;
+}
+#section-1-buscar .search-container #inputUbicacionContainer select{
+	margin-left: 10px;
+}
+#section-1-buscar .search-container #inputCategoriaContainer select{
+	margin:auto;
+	display: block;
+}
+.change-width{
+	max-width: 840px;
+	margin: auto;
 }
 .a-invalid {
   cursor: not-allowed !important;

@@ -30,6 +30,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   categories = [];
   lat;
   lng;
+  latMyUb;
+  lngMyUb;
   resultsObtained = false;
   searchCommerceForm: FormGroup;
   @ViewChild("recomendations")
@@ -178,6 +180,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     this.dialogRef2Sub = dialogRef.afterClosed().subscribe((data) => {
       if (data === "ok") {
         this.searchControl.setValue("");
+        this.setInputSearch('false');
       }
     });
   }
@@ -194,7 +197,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            console.log('la localizacion es:', result.formatted_address);
+            console.log("la localizacion es:", result.formatted_address);
             for (let i = 0; i < this.allowedCities.length; i++) {
               if (result.formatted_address.includes(this.allowedCities[i])) {
                 flag = true;
@@ -230,7 +233,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            console.log('la localizacion es:', result.formatted_address);
+            console.log("la localizacion es:", result.formatted_address);
             for (let i = 0; i < cityList.length; i++) {
               if (result.formatted_address.includes(cityList[i])) {
                 flag = true;
@@ -238,10 +241,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             }
             if (!flag) {
               fn(false);
-              console.log("coordinates", lat + " " + lng);
             } else {
               fn(true);
-              console.log("coordinates", lat + " " + lng);
             }
           } else {
             alert(
@@ -261,22 +262,26 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     if (this.searchControl.value === "") {
       if (navigator.geolocation) {
         if (this.lat && this.lng) {
-          console.log('aceptado la unbiacione!')
-          this.isLocationOnCity(this.allowedCities, this.lat, this.lng, function (
-            flag
-          ) {
-            if (flag) {
-              def.ngZone.run(() => {
-                def.openDialogMapSearch("noAddress");
-              });
-            } else {
-              def.ngZone.run(() => {
-                def.openDialogWrongCity();
-              });
+          this.isLocationOnCity(
+            this.allowedCities,
+            this.lat,
+            this.lng,
+            function (flag) {
+              if (flag) {
+                def.ngZone.run(() => {
+                  def.openDialogMapSearch("noAddress");
+                });
+              } else {
+                def.ngZone.run(() => {
+                  def.openDialogWrongCity();
+                });
+              }
             }
-          });
+          );
         } else {
-          alert('Debe permitir el acceso a la ubicación o seleccionar una calle para continuar');
+          alert(
+            "Debe permitir el acceso a la ubicación o seleccionar una calle para continuar"
+          );
           navigator.geolocation.getCurrentPosition((position) => {
             const pos = {
               lat: position.coords.latitude,
@@ -338,6 +343,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          this.latMyUb = pos.lat;
+          this.lngMyUb = pos.lng;
           this.lat = pos.lat;
           this.lng = pos.lng;
           this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function (
@@ -370,6 +377,30 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+  setInputSearch(isMyUbication) {
+    isMyUbication = (isMyUbication === 'true');
+    console.log(isMyUbication);
+    const searchColumnsContainer = document.getElementById(
+      "search-columns-container"
+    );
+    const inputCalleContainer = document.getElementById("inputCalleContainer");
+    const searchContainer = document.getElementById("searchContainer");
+    if (isMyUbication) {
+      searchColumnsContainer.classList.remove("col-4-equals");
+      searchColumnsContainer.classList.add("col-3-equals");
+      inputCalleContainer.classList.add("display-none");
+      searchContainer.classList.add("change-width");
+      this.lat = this.latMyUb;
+      this.lng = this.lngMyUb;
+    } else {
+      searchColumnsContainer.classList.add("col-4-equals");
+      searchColumnsContainer.classList.remove("col-3-equals");
+      inputCalleContainer.classList.remove("display-none");
+      searchContainer.classList.remove("change-width");
+    }
+  }
+
   ngOnDestroy() {
     if (this.categoryServiceSub) {
       this.categoryServiceSub.unsubscribe();
