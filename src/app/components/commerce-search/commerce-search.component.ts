@@ -71,6 +71,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     this.searchControl = new FormControl("");
     this.searchCommerceForm = new FormGroup({
       category: new FormControl("", Validators.required),
+      // ubicationType: new FormControl(null, Validators.required)
       // city: new FormControl('', Validators.required),
     });
     // this.searchCommerceForm.get('city').disable();
