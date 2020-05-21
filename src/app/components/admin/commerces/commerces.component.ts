@@ -71,7 +71,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   // BEGIN ARRAY TO CITIES
   // ===============================================================
-  cities = [
+  /*cities = [
     "Quito",
     "Guayaquil",
     "Cuenca",
@@ -97,7 +97,40 @@ export class CommercesComponent implements OnInit, OnDestroy {
     "Ambato",
     "Zamora",
   ];
-
+*/
+  cities = [
+    "Aguascalientes",
+    "Mexicali",
+    "La Paz",
+    "San Francisco de Campeche",
+    "Chihuahua",
+    "Tuxtla Gutiérrez",
+    "Saltillo",
+    "Colima",
+    "Victoria de Durango",
+    "Guanajuato",
+    "Chilpancingo de los Bravo",
+    "Pachuca de Soto",
+    "Guadalajara",
+    "Toluca de Lerdo",
+    "Morelia",
+    "Cuernavaca",
+    "Tepic",
+    "Monterrey",
+    "Oaxaca de Juárez",
+    "Puebla de Zaragoza",
+    "Santiago de Querétaro",
+    "Chetumal",
+    "San Luis Potosí",
+    "Culiacán Rosales",
+    "Hermosillo",
+    "Villahermosa",
+    "Ciudad Victoria",
+    "Tlaxcala de Xicohténcatl",
+    "Xalapa-Enríquez",
+    "Mérida",
+    "Zacatecas",
+  ];
   // ===============================================================
   // END ARRAY TO CITIES
   // ===============================================================
