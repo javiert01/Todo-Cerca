@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HOST } from "../shared/var.constants";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 
@@ -8,7 +7,7 @@ const EXCEL_TYPE =
 const EXCEL_EXTENSION = ".xlsx";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class FileService {
   constructor() {}
@@ -16,11 +15,11 @@ export class FileService {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const workbook: XLSX.WorkBook = {
       Sheets: { data: worksheet },
-      SheetNames: ["data"]
+      SheetNames: ["data"],
     };
     const excelBuffer: any = XLSX.write(workbook, {
       bookType: "xlsx",
-      type: "array"
+      type: "array",
     });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }

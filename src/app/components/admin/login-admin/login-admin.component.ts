@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
+import { DinamicUrlService } from "src/app/services/dinamic-url.service";
 
 @Component({
   selector: "app-login-admin",
@@ -14,13 +15,21 @@ export class LoginAdminComponent implements OnInit {
   // ===============================================================
   production = true;
 
+
   loginForm: FormGroup;
   loginUserData = {
     userName: "",
     pass: "",
+    role: "",
   };
   flagUrl = "assets/ecuador.png";
-  constructor(private _auth: AuthService, private _router: Router) {}
+  constructor(
+    private _auth: AuthService,
+    private _router: Router,
+    public _dinamicUrl: DinamicUrlService
+  ) {
+    this.setCountry("ecuador");
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -31,9 +40,19 @@ export class LoginAdminComponent implements OnInit {
   }
 
   onSignIn() {
+    let role;
+    if (this.loginForm.get("username").value === "admin") {
+      role = "Administrador";
+    }
+
+    if (this.loginForm.get("username").value !== "admin") {
+      role = "ATC";
+    }
+
     this.loginUserData = {
       userName: this.loginForm.get("username").value,
       pass: this.loginForm.get("password").value,
+      role: role,
     };
 
     this._auth.usuarioLogin(this.loginUserData).subscribe(
@@ -63,5 +82,10 @@ export class LoginAdminComponent implements OnInit {
       default:
         break;
     }
+  }
+  setCountry(country) {
+    this._dinamicUrl.setUrlFromCountry(country);
+    this._dinamicUrl.setCities(country);
+    // this._dinamicUrl.setUrlFromCountry("mexico");
   }
 }

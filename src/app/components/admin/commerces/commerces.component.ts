@@ -16,6 +16,7 @@ import { AllowCommerceDialogComponent } from "src/app/dialogs/allow-commerce-dia
 import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialog/edit-commerce-dialog.component";
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/internal/operators/tap";
+import { DinamicUrlService } from "src/app/services/dinamic-url.service";
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
@@ -71,33 +72,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   // BEGIN ARRAY TO CITIES
   // ===============================================================
-  cities = [
-    "Quito",
-    "Guayaquil",
-    "Cuenca",
-    "Guaranda",
-    "Azogues",
-    "Tulcán",
-    "Riobamba",
-    "Latacunga",
-    "Machala",
-    "Esmeraldas",
-    "Puerto Baquerizo Moreno",
-    "Ibarra",
-    "Loja",
-    "Babahoyo",
-    "Portoviejo",
-    "Macas",
-    "Tena",
-    "Francisco de Orellana",
-    "Puyo",
-    "Santa Elena",
-    "Santo Domingo",
-    "Nueva Loja",
-    "Ambato",
-    "Zamora",
-  ];
-
+  cities = this._dinamicUrl.cities;
   // ===============================================================
   // END ARRAY TO CITIES
   // ===============================================================
@@ -107,12 +82,18 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   production = true;
 
+  // ==================================================================
+  // TOTAL COMMERCES FOR CITY AND ALL, VALUE THAT IT SHOWED IN COMBOBOX
+  // ==================================================================
+  allCommercesPerCategory;
+
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
     private fileService: FileService,
     private categoryService: CategoryService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public _dinamicUrl: DinamicUrlService
   ) {
     setInterval(() => {
       this.fecha = new Date();
@@ -144,6 +125,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.numeroPaginas = Math.ceil(
           data["totalCommerces"] / this.numeroItemsPorPagina
         );
+        this.setallCommercesPerCategory(data["totalCommerces"]);
         for (let i = 0; i < this.numeroPaginas; i++) {
           this.listaNumeroPaginas.push(i + 1);
           this.listaPaginasSelected.push(false);
@@ -184,6 +166,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.numeroPaginas = Math.ceil(
           data["totalCommerces"] / this.numeroItemsPorPagina
         );
+        this.setallCommercesPerCategory(data["totalCommerces"]);
         for (let i = 0; i < this.numeroPaginas; i++) {
           this.listaNumeroPaginas.push(i + 1);
           this.listaPaginasSelected.push(false);
@@ -269,6 +252,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   onCheckCommerce(target, index) {
     this.isCommerceSelectedList[index] = true;
     if (target.checked) {
+      console.log("checado");
       if (
         this.selectedCommercesID.find((element) => element === target.value)
       ) {
@@ -277,11 +261,18 @@ export class CommercesComponent implements OnInit, OnDestroy {
         this.selectedCommercesID.push(target.value);
       }
     } else {
+      console.log("deschecado");
       this.isCommerceSelectedList[index] = false;
       if (
-        this.selectedCommercesID.find((element) => element === target.value)
+        this.selectedCommercesID.find((element) => {
+          return element + "" === target.value;
+        })
       ) {
-        const targetIndex = this.selectedCommercesID.indexOf(target.value);
+        console.log("target.value: ", parseInt(target.value));
+        const targetIndex = this.selectedCommercesID.indexOf(
+          parseInt(target.value)
+        );
+        console.log("entra aqui: ", targetIndex);
         this.selectedCommercesID.splice(targetIndex, 1);
       } else {
         return;
@@ -291,11 +282,13 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   onSelectAll(flag) {
+    console.log("flag", flag);
     if (flag) {
       this.selectedCommercesID = [];
       this.allSelected = true;
       for (let i = 0; i < this.commerceList.length; i++) {
         this.isCommerceSelectedList[i] = true;
+        console.log(i);
         this.selectedCommercesID.push(i);
       }
     } else {
@@ -499,6 +492,10 @@ export class CommercesComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  setallCommercesPerCategory(numberCommerces) {
+    this.allCommercesPerCategory = numberCommerces;
   }
 
   ngOnDestroy() {
