@@ -236,10 +236,8 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             }
             if (!flag) {
               fn(false);
-              console.log("coordinates", lat + " " + lng);
             } else {
               fn(true);
-              console.log("coordinates", lat + " " + lng);
             }
           } else {
             alert(
