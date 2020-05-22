@@ -19,12 +19,14 @@ export class LoginAdminComponent implements OnInit {
     userName: "",
     pass: "",
   };
+  flagUrl = "assets/ecuador.png";
   constructor(private _auth: AuthService, private _router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
+      country: new FormControl("", Validators.required),
     });
   }
 
@@ -45,5 +47,21 @@ export class LoginAdminComponent implements OnInit {
         alert("Credenciales inválidas, vuelva a intentarlo");
       }
     );
+  }
+
+  changeFlagUrl(country) {
+    switch (country) {
+      case "ecuador":
+        this.flagUrl = "assets/ecuador.png";
+        break;
+      case "mexico":
+        this.flagUrl = "assets/mexico.png";
+        break;
+      case 'españa':
+        this.flagUrl = "assets/españa.png";
+        break;
+      default:
+        break;
+    }
   }
 }
