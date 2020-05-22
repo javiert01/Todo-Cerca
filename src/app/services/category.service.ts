@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { DinamicUrlService } from "./dinamic-url.service";
-import { tap } from "rxjs/operators";
-// import { HOST } from "../shared/var.constants";
 
 @Injectable({
   providedIn: "root",

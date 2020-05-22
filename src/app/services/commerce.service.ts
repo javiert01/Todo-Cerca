@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Commerce } from "../models/commerce.model";
 import { DinamicUrlService } from "./dinamic-url.service";
-import { tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",

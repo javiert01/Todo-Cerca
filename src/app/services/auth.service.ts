@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-// import { HOST } from "../shared/var.constants";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { DinamicUrlService } from "./dinamic-url.service";
 import { tap } from "rxjs/operators";
