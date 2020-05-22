@@ -15,7 +15,6 @@ export class LoginAdminComponent implements OnInit {
   // ===============================================================
   production = true;
 
-  lista: string[] = ["ecuador", "mexico"];
 
   loginForm: FormGroup;
   loginUserData = {
@@ -23,6 +22,7 @@ export class LoginAdminComponent implements OnInit {
     pass: "",
     role: "",
   };
+  flagUrl = "assets/ecuador.png";
   constructor(
     private _auth: AuthService,
     private _router: Router,
@@ -35,6 +35,7 @@ export class LoginAdminComponent implements OnInit {
     this.loginForm = new FormGroup({
       username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
+      country: new FormControl("", Validators.required),
     });
   }
 
@@ -67,14 +68,24 @@ export class LoginAdminComponent implements OnInit {
     );
   }
 
+  changeFlagUrl(country) {
+    switch (country) {
+      case "ecuador":
+        this.flagUrl = "assets/ecuador.png";
+        break;
+      case "mexico":
+        this.flagUrl = "assets/mexico.png";
+        break;
+      case 'españa':
+        this.flagUrl = "assets/españa.png";
+        break;
+      default:
+        break;
+    }
+  }
   setCountry(country) {
-    console.log("Setting country", country);
     this._dinamicUrl.setUrlFromCountry(country);
     this._dinamicUrl.setCities(country);
     // this._dinamicUrl.setUrlFromCountry("mexico");
-  }
-  onSetCountry(country) {
-    console.log(country);
-    this.setCountry(country);
   }
 }
