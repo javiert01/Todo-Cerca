@@ -16,6 +16,7 @@ import { AllowCommerceDialogComponent } from "src/app/dialogs/allow-commerce-dia
 import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialog/edit-commerce-dialog.component";
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/internal/operators/tap";
+import { DinamicUrlService } from "src/app/services/dinamic-url.service";
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
@@ -71,66 +72,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ===============================================================
   // BEGIN ARRAY TO CITIES
   // ===============================================================
-  /*cities = [
-    "Quito",
-    "Guayaquil",
-    "Cuenca",
-    "Guaranda",
-    "Azogues",
-    "Tulcán",
-    "Riobamba",
-    "Latacunga",
-    "Machala",
-    "Esmeraldas",
-    "Puerto Baquerizo Moreno",
-    "Ibarra",
-    "Loja",
-    "Babahoyo",
-    "Portoviejo",
-    "Macas",
-    "Tena",
-    "Francisco de Orellana",
-    "Puyo",
-    "Santa Elena",
-    "Santo Domingo",
-    "Nueva Loja",
-    "Ambato",
-    "Zamora",
-  ];
-*/
-  cities = [
-    "Aguascalientes",
-    "Mexicali",
-    "La Paz",
-    "San Francisco de Campeche",
-    "Chihuahua",
-    "Tuxtla Gutiérrez",
-    "Saltillo",
-    "Colima",
-    "Victoria de Durango",
-    "Guanajuato",
-    "Chilpancingo de los Bravo",
-    "Pachuca de Soto",
-    "Guadalajara",
-    "Toluca de Lerdo",
-    "Morelia",
-    "Cuernavaca",
-    "Tepic",
-    "Monterrey",
-    "Oaxaca de Juárez",
-    "Puebla de Zaragoza",
-    "Santiago de Querétaro",
-    "Chetumal",
-    "San Luis Potosí",
-    "Culiacán Rosales",
-    "Hermosillo",
-    "Villahermosa",
-    "Ciudad Victoria",
-    "Tlaxcala de Xicohténcatl",
-    "Xalapa-Enríquez",
-    "Mérida",
-    "Zacatecas",
-  ];
+  cities = this._dinamicUrl.cities;
   // ===============================================================
   // END ARRAY TO CITIES
   // ===============================================================
@@ -150,7 +92,8 @@ export class CommercesComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private fileService: FileService,
     private categoryService: CategoryService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public _dinamicUrl: DinamicUrlService
   ) {
     setInterval(() => {
       this.fecha = new Date();
