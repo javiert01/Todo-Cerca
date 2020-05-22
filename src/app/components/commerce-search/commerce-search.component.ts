@@ -198,11 +198,13 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           const rsltAdrComponent = result.address_components;
           const resultLength = rsltAdrComponent.length;
           if (result != null) {
-            console.log("la localizacion es:", result.formatted_address);
             for (let i = 0; i < this.allowedCities.length; i++) {
-              if (result.formatted_address.includes(this.allowedCities[i])) {
-                flag = true;
-              }
+                for(let j = 0; j < result.address_components.length; j++) {
+                  if (result.address_components[j].long_name.includes(this.allowedCities[i])) {
+                    flag = true;
+                    break;
+                  }
+                }
             }
             if (!flag) {
               this.ngZone.run(() => {

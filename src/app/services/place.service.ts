@@ -53,7 +53,8 @@ export class PlaceService {
       'Durán',
       'Chordeleg',
       'Atarazana',
-      'Salitre'
+      'Salitre',
+      'Samanes'
     ];
   }
 
