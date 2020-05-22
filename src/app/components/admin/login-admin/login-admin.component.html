@@ -35,5 +35,11 @@
         </div>
       </form>
     </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <select name="miselect"
+      (change)="onSetCountry($event.target.value)">
+        <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+      </select>
+    </div>
   </div>
 </div>

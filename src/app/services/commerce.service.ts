@@ -1,19 +1,26 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { HOST } from "../shared/var.constants";
 import { Commerce } from "../models/commerce.model";
+import { DinamicUrlService } from "./dinamic-url.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class CommerceService {
-  url = `${HOST}/commerces`;
-  urlBlueprint = `${HOST}/commerce`;
+  // urlAux;
+  // url = `${this.urlAux}/commerces`;
+  url = `${this._dinamicUrl.url_backend_fija}/commerces`;
+  // urlBlueprint = `${this.urlAux}/commerce`;
+  urlBlueprint = `${this._dinamicUrl.url_backend_fija}/commerce`;
+
   public commerce: Commerce;
   public commerceFormData = null;
   httpOptions;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private _dinamicUrl: DinamicUrlService
+  ) {
     this.httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",

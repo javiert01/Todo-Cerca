@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
+import { DinamicUrlService } from "src/app/services/dinamic-url.service";
 
 @Component({
   selector: "app-login-admin",
@@ -14,12 +15,21 @@ export class LoginAdminComponent implements OnInit {
   // ===============================================================
   production = true;
 
+  lista: string[] = ["ecuador", "mexico"];
+
   loginForm: FormGroup;
   loginUserData = {
     userName: "",
     pass: "",
+    role: "",
   };
-  constructor(private _auth: AuthService, private _router: Router) {}
+  constructor(
+    private _auth: AuthService,
+    private _router: Router,
+    public _dinamicUrl: DinamicUrlService
+  ) {
+    this.setCountry("ecuador");
+  }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -29,9 +39,19 @@ export class LoginAdminComponent implements OnInit {
   }
 
   onSignIn() {
+    let role;
+    if (this.loginForm.get("username").value === "admin") {
+      role = "Administrador";
+    }
+
+    if (this.loginForm.get("username").value !== "admin") {
+      role = "ATC";
+    }
+
     this.loginUserData = {
       userName: this.loginForm.get("username").value,
       pass: this.loginForm.get("password").value,
+      role: role,
     };
 
     this._auth.usuarioLogin(this.loginUserData).subscribe(
@@ -45,5 +65,16 @@ export class LoginAdminComponent implements OnInit {
         alert("Credenciales inválidas, vuelva a intentarlo");
       }
     );
+  }
+
+  setCountry(country) {
+    console.log("Setting country", country);
+    this._dinamicUrl.setUrlFromCountry(country);
+    this._dinamicUrl.setCities(country);
+    // this._dinamicUrl.setUrlFromCountry("mexico");
+  }
+  onSetCountry(country) {
+    console.log(country);
+    this.setCountry(country);
   }
 }

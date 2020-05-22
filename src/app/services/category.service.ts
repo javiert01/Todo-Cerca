@@ -1,13 +1,17 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { HOST } from "../shared/var.constants";
+import { DinamicUrlService } from "./dinamic-url.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class CategoryService {
-  url = `${HOST}/categories`;
-  constructor(private http: HttpClient) {}
+  url = `${this._dinamicUrl.url_backend_fija}/categories`;
+
+  constructor(
+    private http: HttpClient,
+    private _dinamicUrl: DinamicUrlService
+  ) {}
 
   getCategoryList() {
     return this.http.get(`${this.url}/list`);
