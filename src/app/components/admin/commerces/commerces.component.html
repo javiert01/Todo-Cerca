@@ -1,6 +1,11 @@
 <div class="contenedor">
   <header>
-    <img src="assets/01-logo-color.svg" alt="TodosMasCerca" style="width: 150px; height: 53px;" />
+    <img *ngIf="userName === 'admin'" src="assets/01-logo-color.svg" alt="TodosMasCerca"
+      style="width: 150px; height: 53px;" />
+    <img *ngIf="userName === 'ATC'" src="assets/01-logo-ec.png" alt="TodosMasCerca"
+      style="width: 150px; height: 53px;" />
+    <img *ngIf="userName === 'ATC-MX'" src="assets/01-logo-mx.png" alt="TodosMasCerca"
+      style="width: 150px; height: 53px;" />
     <ul class="main-nav">
       <li class="nav-item">
         <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
