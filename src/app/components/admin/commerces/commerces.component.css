@@ -294,6 +294,7 @@ li {
 
 .center_image {
   margin: auto;
+  padding-left: 100px;
 }
 
 .imgen_styles {
