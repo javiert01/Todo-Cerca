@@ -14,6 +14,7 @@ export class LoginAdminComponent implements OnInit {
   // FLAG FOR PRODUCTION AND TEST, ONLY USE FOR DIVS WITH NGIF
   // ===============================================================
   production = true;
+  seleccionado = "";
 
   loginForm: FormGroup;
   loginUserData = {

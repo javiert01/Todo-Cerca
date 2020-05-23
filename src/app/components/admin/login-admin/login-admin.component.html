@@ -1,10 +1,6 @@
 <div class="background-container">
   <div class="img-container">
-    <img
-      src="assets/administradorlogo.png"
-      alt="TodosMasCerca"
-      class="header-img"
-    />
+    <img src="assets/administradorlogo.png" alt="TodosMasCerca" class="header-img" />
   </div>
   <div class="form-container">
     <div class="text-container">
@@ -12,50 +8,36 @@
     </div>
     <form (ngSubmit)="onSignIn()" [formGroup]="loginForm" class="form-login">
       <div class="form-group">
-        <img src="assets/icon-user.png" alt="" class="img-padding"/>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          formControlName="username"
-          class="form-control"
-          placeholder="Nombre de usuario"
-        />
+        <img src="assets/icon-user.png" alt="" class="img-padding" />
+        <input type="text" id="username" name="username" formControlName="username" class="form-control"
+          [ngClass]="{'border_bottom': loginForm.get('username').errors?.required && loginForm.get('username').touched}"
+          placeholder="Nombre de usuario" />
       </div>
       <div class="form-group">
         <img src="assets/icon-password.png" alt="" class="img-padding" />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          formControlName="password"
-          class="form-control"
-          placeholder="Contraseña"
-        />
+        <input type="password" id="password" name="password" formControlName="password" class="form-control"
+          [ngClass]="{'border_bottom': loginForm.get('password').errors?.required && loginForm.get('password').touched}"
+          placeholder="Contraseña" />
       </div>
       <div class="form-group">
         <img [src]="flagUrl" alt="" class="img-icon" />
-        <select formControlName="country" (change)="changeFlagUrl($event.target.value); setCountry($event.target.value)">
+        <select formControlName="country"
+          [ngClass]="{'border_bottom': loginForm.get('country').errors?.required && (loginForm.get('country').touched || loginForm.get('country').dirty) }"
+          [(ngModel)]="seleccionado" (change)="changeFlagUrl($event.target.value); setCountry($event.target.value)">
           <option value="">Selecciona tu país</option>
           <option value="ecuador">Ecuador</option>
           <option value="mexico">México</option>
         </select>
+
       </div>
       <div id="wrapper">
-        <button
-          class="ingresar-btn center"
-          [ngStyle]="{ opacity: loginForm.valid === true ? '1' : '0.6' }"
-          [disabled]="!loginForm.valid"
-          type="submit"
-        >
-          <span
-            style="
+        <button class="ingresar-btn center" [ngStyle]="{ opacity: loginForm.valid === true ? '1' : '0.6' }"
+          [disabled]="!loginForm.valid" type="submit">
+          <span style="
               font-family: 'Roboto', sans-serif;
               font-weight: bold;
               font-size: 20px;
-            "
-            >INGRESA</span
-          >
+            ">INGRESA</span>
         </button>
       </div>
     </form>
