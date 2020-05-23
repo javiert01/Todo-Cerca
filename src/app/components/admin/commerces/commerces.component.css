@@ -291,3 +291,13 @@ li {
 .input-search {
   width: 270px;
 }
+
+.center_image {
+  margin: auto;
+  padding-left: 100px;
+}
+
+.imgen_styles {
+  height: 100px;
+  width: 200px;
+}

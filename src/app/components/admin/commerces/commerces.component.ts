@@ -54,6 +54,7 @@ export class CommercesComponent implements OnInit, OnDestroy {
   fileName = "...";
   isSearching = false;
   rol = localStorage.getItem("rol");
+  userName = localStorage.getItem("username") || "ATC";
   allCommerceSubscription: Subscription;
   searchCommerceSubscription: Subscription;
   @ViewChild("searchInput", { static: true }) searchInput: ElementRef;

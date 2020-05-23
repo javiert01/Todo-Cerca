@@ -14,7 +14,7 @@ export class LoginAdminComponent implements OnInit {
   // FLAG FOR PRODUCTION AND TEST, ONLY USE FOR DIVS WITH NGIF
   // ===============================================================
   production = true;
-
+  seleccionado = "";
 
   loginForm: FormGroup;
   loginUserData = {
@@ -60,6 +60,7 @@ export class LoginAdminComponent implements OnInit {
         console.log(res);
         localStorage.setItem("token", res.token);
         localStorage.setItem("rol", res.role);
+        localStorage.setItem("username", this.loginUserData.userName);
         this._router.navigate(["/inicio-admin"]);
       },
       (err) => {
@@ -76,7 +77,7 @@ export class LoginAdminComponent implements OnInit {
       case "mexico":
         this.flagUrl = "assets/mexico.png";
         break;
-      case 'españa':
+      case "españa":
         this.flagUrl = "assets/españa.png";
         break;
       default:
