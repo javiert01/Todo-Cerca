@@ -6,8 +6,11 @@
 	align-items: center;
 }
 #section-1-registro .col-2-equals .col img{
-	max-width: 540px;
+	max-width: 400px;
 }
 #section-1-registro .button {
   cursor: pointer;
+}
+.img-center {
+  height: 650px;
 }
