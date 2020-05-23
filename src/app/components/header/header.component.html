@@ -15,16 +15,17 @@
           <p class="color3 roboto">Delivery a coordinar con el usuario
         </div>
         <div class="col">
-          <div class="box-hover-container">
+          <div class="box-hover-container tooltip">
             <a class="button center-button  background-grey2 white center buscar">
               <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
             </a>
+            <span class="tooltiptext">Próximamente</span>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="header-brand puntero" >
+  <div class="header-brand puntero" [routerLink]="['/registrar']">
     <img src="assets/01-logo-color.png">
   </div>
 </header>
