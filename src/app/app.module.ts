@@ -68,7 +68,7 @@ import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-
     MatDialogModule,
     PipesModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDc2DxN8sUf0_km07VKhCxY7UmdLSSCjUQ", //prod
+      apiKey: "AIzaSyBgkams1Ep8gzW47PPx6Rm2mM_q-tjgsCY", //prod
       language: 'es-ES',
       libraries: ["places"],
     }),
