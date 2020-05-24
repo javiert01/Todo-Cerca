@@ -213,6 +213,26 @@ input {
 .displayInLineBlock {
   margin: 30px;
   display: inline-block;
+
+}
+
+.background-container {
+  background-image: url('../../../../assets/fondo-03.png');
+  background-size: cover;
+}
+
+.background-img{
+  background-image: url('../../../../assets/administrador-21.png');
+  background-size: cover;
+  height: auto;
+  padding: 30px 20px;
+  color: white;
+  border-radius: 30px;
+}
+
+.img-icon {
+  height: 30px;
+  width: 30px;
 }
 
 .cajaGrande {

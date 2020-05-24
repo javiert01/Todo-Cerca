@@ -1,3 +1,4 @@
+<div class="background-container">
 <div class="contenedor">
 
   <header style="margin-bottom: 0px; padding-bottom: 0px;">
@@ -28,7 +29,8 @@
   <div *ngIf="!production" class="displayInLineBlock">
     <h6>Entorno de test</h6>
   </div>
-  <div class="displayInLineBlock">
+  <div class="displayInLineBlock background-img">
+    <img src="assets/administrador-22.png" alt="" class="img-icon">
     <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span
         style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
     <h6 *ngIf="rol === 'Administrador'">Total de registros al día de hoy: <span
@@ -81,6 +83,7 @@
         {{ city }}</option>
     </select>
   </div>
+</div>
   <table>
     <tr>
       <th style="text-align: center; width: auto;">
