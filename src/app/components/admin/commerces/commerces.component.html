@@ -35,30 +35,48 @@
   <div class="displayInLineBlock background-img">
     <img src="assets/administrador-22.png" alt="" class="img-icon">
     <div class="between-container" *ngIf="rol === 'Administrador'">
-      <h6 >TOTAL REGISTROS AYER:</h6>
+      <div class="text-stat-container">
+        <div class="small-circle background-blue"></div>
+        <h6 >TOTAL REGISTROS AYER:</h6>
+      </div>
       <span
         class="numberStats">{{createUntilYesterday}} </span>
     </div>
     <div class="between-container"  *ngIf="rol === 'Administrador'">
+     <div class="text-stat-container">
+      <div class="small-circle background-blue-g"></div>
       <h6>TOTAL REGISTROS HOY: </h6>
+     </div>
       <span
         class="numberStats">{{allCommerces}} </span>
     </div>
     <div class="between-container">
-      <h6>REGISTRADOS HOY:</h6>
+      <div class="text-stat-container">
+        <div class="small-circle background-blue-l"></div>
+        <h6>REGISTRADOS HOY:</h6>
+      </div>
       <span class="numberStats"> {{createdNow}} </span>
     </div>
     <div class="between-container">
-      <h6>REGISTROS CARGADOS:</h6>
+      <div class="text-stat-container">
+        <div class="small-circle background-green"></div>
+        <h6>REGISTROS CARGADOS:</h6>
+      </div>
       <span class="numberStats"> {{allowedCommerces}} </span>
     </div>
     <div class="between-container">
-      <h6>REGISTROS PENDIENTES:</h6>
+      <div class="text-stat-container">
+        <div class="small-circle background-yellow"></div>
+        <h6>REGISTROS PENDIENTES:</h6>
+      </div>
       <span class="numberStats"> {{pendings}} </span>
     </div>
     <div class="between-container" *ngIf="rol === 'Administrador'">
-      <h6 >REGISTROS ELIMINADOS:
-      </h6>
+      <div class="text-stat-container">
+        <div class="small-circle background-pink"></div>
+        <h6 >REGISTROS ELIMINADOS:
+        </h6>
+      </div>
       <span class="numberStats"> {{deleted}} </span>
     </div>
   </div>

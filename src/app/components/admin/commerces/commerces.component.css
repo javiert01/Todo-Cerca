@@ -81,6 +81,31 @@ th {
   opacity: 0.5;
 }
 
+.background-blue {
+  background-color: rgb(49, 0, 255);
+}
+
+.background-blue-g {
+  background-color: rgb(66, 124, 206);
+}
+
+.background-blue-l {
+  background-color: rgb(6, 169, 206);
+}
+
+.background-green {
+  background-color: rgb(44, 155, 139);
+}
+
+.background-yellow {
+  background-color: rgb(204, 140, 13);
+}
+
+.background-pink {
+  background-color: rgb(204, 14, 127);
+}
+
+
 .btn-outline-sfuturo-active {
   background-color: #94c15b;
   color: white;
@@ -125,14 +150,23 @@ h1 {
 }
 h6 {
   font-size: medium;
+}
+.text-stat-container  {
   margin: 10px 40px 0px 0px;
   background-color: white;
   color: #2e4a5c;
-  width: 200px;
-  padding: 0px 10px;
+  width: 230px;
+  padding: 5px 10px 5px 3px;
   border-radius: 20px;
+  display: inline-flex;
 }
 
+.small-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  margin-right: 3px;
+}
 .contenedor {
   display: flex;
   display: -webkit-flex;
