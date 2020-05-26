@@ -123,6 +123,15 @@ th {
 h1 {
   font-family: "Roboto", sans-serif !important;
 }
+h6 {
+  font-size: medium;
+  margin: 10px 40px 0px 0px;
+  background-color: white;
+  color: #2e4a5c;
+  width: 200px;
+  padding: 0px 10px;
+  border-radius: 20px;
+}
 
 .contenedor {
   display: flex;
@@ -212,8 +221,16 @@ input {
 
 .displayInLineBlock {
   margin: 30px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 
+}
+
+.numberStats {
+  padding: 0px 10px;
+  margin-top: 15px;
+  background-color: white;
+  color: #2e4a5c;
 }
 
 .background-container {
@@ -233,6 +250,64 @@ input {
 .img-icon {
   height: 30px;
   width: 30px;
+}
+
+.inline-flex-end {
+  display: inline-flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.inline-flex-between {
+  display: inline-flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.logout-container {
+  display: inline-flex;
+  margin: 0px 35px 0px 0px;
+  cursor: pointer;
+}
+
+.logout-img {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  right: 115px;
+}
+
+.text-logout-container {
+  margin-top: 5px;
+  padding: 10px 20px 10px 30px;
+  background-color: #2e4a5c;
+  color: white;
+  border-radius: 20px;
+}
+
+.date-container {
+  background-image: url(../../../../assets/administrador-20.png);
+  background-size: cover;
+  display: inline-flex;
+  color: white;
+  padding: 10px 20px 5px 20px;
+  margin-left: 30px;
+  border-radius: 20px;
+}
+
+.date-subcontainer {
+  display: inline-flex;
+  margin: 0px 10px;
+}
+
+.date-img {
+  width: 40px;
+  height: 40px;
+}
+
+.between-container {
+  display: inline-flex;
+  justify-content: space-between;
 }
 
 .cajaGrande {

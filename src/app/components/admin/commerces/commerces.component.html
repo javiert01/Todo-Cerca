@@ -1,46 +1,66 @@
 <div class="background-container">
 <div class="contenedor">
-
   <header style="margin-bottom: 0px; padding-bottom: 0px;">
     <div class=center_image>
       <img *ngIf="userName === 'admin'" src="assets/01-logo-sa.png" alt="TodosMasCerca" class="imgen_styles" />
       <img *ngIf="userName === 'ATC'" src="assets/01-logo-ec.png" alt="TodosMasCerca" class="imgen_styles" />
       <img *ngIf="userName === 'ATC-MX'" src="assets/01-logo-mx.png" alt="TodosMasCerca" class="imgen_styles" />
     </div>
-
-    <ul class="main-nav">
-      <li class="nav-item">
-        <a class="nav-link cursorPnt" style="font-size: 25px; margin-left: 5px;" (click)="onLogout()">Log Out</a>
-      </li>
-    </ul>
   </header>
 </div>
-<div class="inlineAt">
-  <div class="displayInLineBlock">
-    <h6 class="">
-      Fecha:<span style="font-weight: normal;"> {{ fecha | date }} </span>
-    </h6>
-    <h6 class="">
-      Hora:
-      <span style="font-weight: normal;"> {{ fecha | date: "HH:mm:ss" }}</span>
-    </h6>
-
+<div class="inline-flex-end">
+  <div class="logout-container"  (click)="onLogout()">
+    <img src="assets/administrador-24.png" alt="" class="logout-img">
+    <div class="text-logout-container">
+      <p>LOG OUT</p>
+    </div>
   </div>
+</div>
+<div class="inline-flex-between">
+  <div class="date-container">
+    <div class="date-subcontainer">
+        <img src="assets/administrador-25.png" alt="" class="date-img">
+        <span style="font-weight: normal; margin-top: 6px"> {{ fecha | date: "HH:mm:ss" }}</span>
+    </div>
+    <div class="date-subcontainer">
+      <img src="assets/administrador-26.png" alt="" class="date-img">
+      <span style="font-weight: normal; margin-top: 6px"> {{ fecha | date }} </span>
+    </div>
+  </div>
+</div>
+<div class="inline-flex-end">
   <div *ngIf="!production" class="displayInLineBlock">
     <h6>Entorno de test</h6>
   </div>
   <div class="displayInLineBlock background-img">
     <img src="assets/administrador-22.png" alt="" class="img-icon">
-    <h6 *ngIf="rol === 'Administrador'">Total de registro al día de ayer: <span
-        style="font-weight: normal;">{{createUntilYesterday}} </span> </h6>
-    <h6 *ngIf="rol === 'Administrador'">Total de registros al día de hoy: <span
-        style="font-weight: normal;">{{allCommerces}} </span> </h6>
-    <h6>Registrados el día hoy:<span style="font-weight: normal;"> {{createdNow}} </span></h6>
-    <h6>Registros cargados: <span style="font-weight: normal;"> {{allowedCommerces}} </span></h6>
-    <h6>Registros pendientes: <span style="font-weight: normal;"> {{pendings}} </span></h6>
-    <h6 *ngIf="rol === 'Administrador'">Registros eliminados: <span style="font-weight: normal;"> {{deleted}} </span>
-    </h6>
-
+    <div class="between-container" *ngIf="rol === 'Administrador'">
+      <h6 >TOTAL REGISTROS AYER:</h6>
+      <span
+        class="numberStats">{{createUntilYesterday}} </span>
+    </div>
+    <div class="between-container"  *ngIf="rol === 'Administrador'">
+      <h6>TOTAL REGISTROS HOY: </h6>
+      <span
+        class="numberStats">{{allCommerces}} </span>
+    </div>
+    <div class="between-container">
+      <h6>REGISTRADOS HOY:</h6>
+      <span class="numberStats"> {{createdNow}} </span>
+    </div>
+    <div class="between-container">
+      <h6>REGISTROS CARGADOS:</h6>
+      <span class="numberStats"> {{allowedCommerces}} </span>
+    </div>
+    <div class="between-container">
+      <h6>REGISTROS PENDIENTES:</h6>
+      <span class="numberStats"> {{pendings}} </span>
+    </div>
+    <div class="between-container" *ngIf="rol === 'Administrador'">
+      <h6 >REGISTROS ELIMINADOS:
+      </h6>
+      <span class="numberStats"> {{deleted}} </span>
+    </div>
   </div>
 </div>
 <div style="width: 97%; margin: auto;">
