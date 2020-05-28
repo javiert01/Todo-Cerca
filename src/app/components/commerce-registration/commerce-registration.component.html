@@ -336,36 +336,15 @@
             (change)="onFileChangedRecibo($event)"
           />
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
+          <span class="color3">(No obligatorio, sin embargo, podría aumentar el interés de tus clientes)</span>
         </div>
-
-        <button
-          *ngIf="!isLoading"
-          [disabled]="registerForm.invalid && !imagenSeleccionada"
-          class="background-color1 white center button center-button"
-          (click)="
-            this.imagenSeleccionada &&
-              this.registerForm.valid &&
-              operar(this.registerForm.get('commerceName').value)
-          "
-          [ngStyle]="{
-            opacity: registerForm.valid && imagenSeleccionada ? '1' : '0.5',
-            cursor:
-              registerForm.valid && imagenSeleccionada
-                ? 'pointer'
-                : 'not-allowed'
-          }"
-        >
-          REGISTRARSE
-        </button>
-        <div class="col center" *ngIf="isLoading">
-          <img src="assets/loading.gif" class="img-gif" />
-        </div>
+        <br>
         <div class="col">
           <div style="display: inline-flex;">
             <label class="color3 center" for="useConditionCheck"
               >Acepto las
               <a
-                href="https://todosmascerca.com/politicas-de-uso"
+                href="https://todosmascerca.com.ec/politicas-de-uso"
                 target="_blank"
                 >políticas de uso</a
               >
@@ -379,6 +358,27 @@
             />
           </div>
         </div>
+        <button
+          *ngIf="!isLoading"
+          [disabled]="registerForm.invalid"
+          class="background-color1 white center button center-button"
+          (click)="
+              this.registerForm.valid &&
+              operar(this.registerForm.get('commerceName').value)
+          "
+          [ngStyle]="{
+            opacity: registerForm.valid ? '1' : '0.5',
+            cursor:
+              registerForm.valid
+                ? 'pointer'
+                : 'not-allowed'
+          }"
+        >
+          REGISTRARSE
+        </button>
+        <div class="col center" *ngIf="isLoading">
+          <img src="assets/loading.gif" class="img-gif" />
+        </div>
         <span
           *ngIf="
             registerForm.hasError('isChecked', 'useConditions') ||
@@ -391,14 +391,14 @@
           >*Debe llenar todos los campos para continuar con el registro</span
         >
         <br *ngIf="invalidControls.length > 0 || imagenSeleccionada" />
-        <div *ngIf="invalidControls.length > 0 || !imagenSeleccionada">
+        <div *ngIf="invalidControls.length > 0">
           <span class="help-block">Revise los siguientes campos: </span>
           <span class="help-block" *ngFor="let name of invalidControls"
             >{{ name }},
           </span>
-          <span class="help-block" *ngIf="!imagenSeleccionada"
+          <!-- <span class="help-block" *ngIf="!imagenSeleccionada"
             >Foto de tu local o producto</span
-          >
+          > -->
         </div>
       </form>
     </div>
