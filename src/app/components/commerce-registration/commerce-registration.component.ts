@@ -102,7 +102,7 @@ export class CommerceRegistrationComponent implements OnInit {
         window.scroll(0, Math.round(scrollHeight * 0.35));
       }
     });
-    this.imgURL = '../../../assets/06-no-image.png';
+    this.imgURL = 'assets/06-no-image.png';
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
@@ -523,17 +523,21 @@ export class CommerceRegistrationComponent implements OnInit {
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
-    this.isLoading = true;
-    name = name.replace(/\s/g, '');
-    if (this.imagenSubida) {
-      // SI CARGA IMAGEN
-      // INICIO-SI-SUBE-IMAGEN
-      this.getSignedRequest2(name).subscribe(data => {
-        // INICIO SE LLAMA AL METODO UPLOAD
-        this.onUpload2(this.selectedFile, data.signedRequest, data.url);
-        // FIN SE LLAMA AL METODO UPLOAD
-      });
-      // FIN-SI-SUBE-IMAGEN
+    if(this.imagenSeleccionada) {
+      this.isLoading = true;
+      name = name.replace(/\s/g, '');
+      if (this.imagenSubida) {
+        // SI CARGA IMAGEN
+        // INICIO-SI-SUBE-IMAGEN
+        this.getSignedRequest2(name).subscribe(data => {
+          // INICIO SE LLAMA AL METODO UPLOAD
+          this.onUpload2(this.selectedFile, data.signedRequest, data.url);
+          // FIN SE LLAMA AL METODO UPLOAD
+        });
+        // FIN-SI-SUBE-IMAGEN
+      }
+    } else {
+      this.submitCommerce();
     }
   }
 }
