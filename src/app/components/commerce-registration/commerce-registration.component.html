@@ -324,7 +324,8 @@
           >
         </div>
         <div class="col-1">
-          <label class="color3 background-color1 white" for="foto"
+          <span class="color3" *ngIf="!imagenSeleccionada">(No obligatorio, sin embargo, podría aumentar el interés de tus clientes)</span>
+          <label class="color3 background-color1 white" for="foto" style="margin-top: 6px;"
             ><i class="fas fa-camera white"></i> Sube una foto de tu producto o
             servicio</label
           >
@@ -334,7 +335,6 @@
             id="foto"
             (change)="onFileChangedRecibo($event)"
           />
-          <span class="color3" *ngIf="!imagenSeleccionada">(No obligatorio, sin embargo, podría aumentar el interés de tus clientes)</span>
           <img *ngIf="reciboURL" [src]="reciboURL | safe: 'resourceUrl'" />
         </div>
         <br>
