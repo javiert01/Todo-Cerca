@@ -8,6 +8,15 @@ h5 {
   font-weight: normal;
 }
 
+.version-container {
+  width: 95%;
+  margin-top: 40px;
+  margin-right: 20px;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
 .text-container {
   text-align: center;
   padding: 50px 40px;
