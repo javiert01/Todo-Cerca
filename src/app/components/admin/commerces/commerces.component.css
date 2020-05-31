@@ -18,6 +18,10 @@ th {
   padding: 8px;
 }
 
+tr {
+  background-color: white;
+}
+
 tr:hover {
   background-color: #ddd;
 }
@@ -50,7 +54,7 @@ th {
 }
 
 .btn-next {
-  color: black;
+  color: white;
   font-weight: bold;
   margin: 0px;
   padding: 15px 80px;
@@ -77,8 +81,7 @@ th {
 }
 
 .grey {
-  background-color: lightgray;
-  opacity: 0.5;
+  background-color: rgb(65,129,165);
 }
 
 .background-blue {
@@ -269,7 +272,7 @@ input {
 
 .background-container {
   background-image: url('../../../../assets/fondo-03.png');
-  background-size: cover;
+  background-size: contain;
 }
 
 .background-img{
