@@ -43,6 +43,7 @@ export class AuthService {
     localStorage.removeItem("token");
     localStorage.removeItem("rol");
     localStorage.removeItem("username");
+    localStorage.removeItem("url_backend_fija");
     // console.log("entro!!");
 
     switch (rol) {
