@@ -61,6 +61,10 @@ export class LoginAdminComponent implements OnInit {
         localStorage.setItem("token", res.token);
         localStorage.setItem("rol", res.role);
         localStorage.setItem("username", this.loginUserData.userName);
+        localStorage.setItem(
+          "url_backend_fija",
+          this._dinamicUrl.url_backend_fija
+        );
         this._router.navigate(["/inicio-admin"]);
       },
       (err) => {

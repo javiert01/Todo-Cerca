@@ -8,10 +8,15 @@ import { DinamicUrlService } from "./dinamic-url.service";
 })
 export class CommerceService {
   // urlAux;
-  // url = `${this.urlAux}/commerces`;
-  url = `${this._dinamicUrl.url_backend_fija}/commerces`;
+
+  //url = `${this._dinamicUrl.url_backend_fija}/commerces`;
+  dinamicUrlAux =
+    localStorage.getItem("url_backend_fija") ||
+    this._dinamicUrl.url_backend_fija;
+
+  url = `${this.dinamicUrlAux}/commerces`;
   // urlBlueprint = `${this.urlAux}/commerce`;
-  urlBlueprint = `${this._dinamicUrl.url_backend_fija}/commerce`;
+  urlBlueprint = `${this.dinamicUrlAux}/commerce`;
 
   public commerce: Commerce;
   public commerceFormData = null;
