@@ -150,6 +150,7 @@ export class CommerceRegistrationComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+          this.center = new LatLng(place.geometry.location.lat(), place.geometry.location.lng());
           this.mapZoom = 18;
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
