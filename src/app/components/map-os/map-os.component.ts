@@ -11,7 +11,7 @@ Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() center = new LatLng(-0.1840506, -78.503374);
   @Input() zoom = 18;
-  @Output() latlng = new EventEmitter<LatLng>();
+  @Output() mapClick = new EventEmitter<LatLng>();
   private _map: Map;
   private _marker: Marker;
 
@@ -46,7 +46,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
 
   private _onMapClick: (e: LeafletMouseEvent) => void = ({ latlng }) => {
     this._marker.setLatLng(latlng);
-    this.latlng.emit(latlng);
+    this.mapClick.emit(latlng);
   };
 
   private _handlePropChanges(changes: SimpleChanges) {

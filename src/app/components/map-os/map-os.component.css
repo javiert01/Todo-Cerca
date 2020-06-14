@@ -3,6 +3,11 @@
   width: 100%;
 }
 
+:host-context(.small-map) .map-container {
+  height: 250px;
+  width: 100%;
+}
+
 .map-frame {
   height: 100%;
 }
