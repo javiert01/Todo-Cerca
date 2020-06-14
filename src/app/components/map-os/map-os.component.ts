@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { AfterViewInit, Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from "@angular/core";
 import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng } from "leaflet";
 
 @Component({
@@ -6,7 +6,7 @@ import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng } from "leaflet";
   templateUrl: "./map-os.component.html",
   styleUrls: ["./map-os.component.css"],
 })
-export class MapOSComponent implements AfterViewInit, OnInit {
+export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() center = new LatLng(-0.1840506, -78.503374);
   @Input() zoom = 18;
   @Output() latlng = new EventEmitter<LatLng>();
@@ -15,9 +15,13 @@ export class MapOSComponent implements AfterViewInit, OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges) {
+    this._handlePropChanges(changes);
+  }
 
-  ngAfterViewInit(): void {
+  ngOnInit() {}
+
+  ngAfterViewInit() {
     this._initMap();
   }
 
@@ -41,4 +45,25 @@ export class MapOSComponent implements AfterViewInit, OnInit {
     this._marker.setLatLng(latlng);
     this.latlng.emit(latlng);
   };
+
+  private _handlePropChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      let change = changes[propName];
+      switch (propName) {
+        case "center":
+          this._handleCenterChanges(change);
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  private _handleCenterChanges(change: SimpleChange) {
+    const { currentValue, previousValue } = change;
+    if (!change.isFirstChange() && currentValue !== previousValue) {
+      this._map.setView(currentValue, this.zoom);
+      this._marker.setLatLng(currentValue);
+    }
+  }
 }

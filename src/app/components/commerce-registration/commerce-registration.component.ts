@@ -41,6 +41,7 @@ export class CommerceRegistrationComponent implements OnInit {
   // FIN VARAIBLES PREVIEW IMAGEN
   lat = -0.1840506;
   lng = -78.503374;
+  center = new LatLng(this.lat, this.lng);
   markLat;
   markLng;
   direccion;
@@ -452,6 +453,7 @@ export class CommerceRegistrationComponent implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          this.center = new LatLng(pos.lat, pos.lng);
           this.mapZoom = 18;
           this.lat = pos.lat;
           this.lng = pos.lng;
