@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CategoryService } from "src/app/services/category.service";
 import { Observable, Subscription } from "rxjs";
 import { PlaceService } from "src/app/services/place.service";
+import { LatLng } from "leaflet";
 
 declare let google: any;
 
@@ -408,9 +409,14 @@ export class CommerceRegistrationComponent implements OnInit {
     );
   }
 
+  onMapClick(latlng: LatLng) {
+    this.setMarker(latlng);
+    this.getAddress(latlng.lat, latlng.lng);
+  }
+
   setMarker($event) {
-    this.markLat = $event.coords.lat;
-    this.markLng = $event.coords.lng;
+    this.markLat = $event.lat;
+    this.markLng = $event.lng;
     this.registerForm.get("ltd").setValue(this.markLat);
     this.registerForm.get("lng").setValue(this.markLng);
   }

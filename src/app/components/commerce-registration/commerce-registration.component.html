@@ -257,6 +257,7 @@
               [formControl]="searchControl"
             />
           </div>
+          <app-map-os (latlng)="onMapClick($event)" ></app-map-os>
           <agm-map
             [latitude]="lat"
             [longitude]="lng"
