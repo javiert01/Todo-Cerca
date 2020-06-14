@@ -5,6 +5,7 @@ import { CommerceService } from 'src/app/services/commerce.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { PlaceService } from 'src/app/services/place.service';
 import { Subscription } from 'rxjs';
+import { LatLng } from "leaflet";
 
 declare let google: any;
 
@@ -18,6 +19,7 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
   mapZoom = 18;
   lat = -0.1840506;
   lng = -78.503374;
+  center = new LatLng(this.lat, this.lng);
   markLat;
   markLng;
   category;
@@ -53,10 +55,15 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
 
   }
 
+  onMapClick(latlng: LatLng) {
+    this.center = latlng;
+    this.setMarker(latlng);
+    this.getAddress(latlng.lat, latlng.lng);
+  }
 
   setMarker($event) {
-    this.markLat = $event.coords.lat;
-    this.markLng = $event.coords.lng;
+    this.markLat = $event.lat;
+    this.markLng = $event.lng;
     this.lat = this.markLat;
     this.lng = this.markLng;
   }
