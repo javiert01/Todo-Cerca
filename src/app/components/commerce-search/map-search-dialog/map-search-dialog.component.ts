@@ -43,6 +43,7 @@ export class MapSearchDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) data, private commerceService: CommerceService,
       private categoryService: CategoryService, private placeService: PlaceService
   ) {
+    this.center = new LatLng(data.lat, data.lng);
     this.lat = data.lat;
     this.lng = data.lng;
     this.markLat = this.lat;
