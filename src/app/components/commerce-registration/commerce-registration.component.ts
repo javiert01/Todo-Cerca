@@ -389,21 +389,24 @@ export class CommerceRegistrationComponent implements OnInit {
     }
     city = city + ", EC";
     const geocoder = new google.maps.Geocoder();
-    const self = this;
     geocoder.geocode(
       {
         address: city,
       },
-      function (results, status) {
+      (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
-          self.lat = results[0].geometry.location.lat();
-          self.lng = results[0].geometry.location.lng();
-          self.markLat = results[0].geometry.location.lat();
-          self.markLng = results[0].geometry.location.lng();
-          self.registerForm.get("ltd").setValue(self.markLat);
-          self.registerForm.get("lng").setValue(self.markLng);
-          self.mapZoom = 11;
-          self.cdRef.detectChanges();
+          const [place] = results;
+          const newLat = place.geometry.location.lat();
+          const newLng = place.geometry.location.lng();
+          this.center = new LatLng(newLat, newLng);
+          this.lat = newLat;
+          this.lng = newLng;
+          this.markLat = newLat;
+          this.markLng = newLng;
+          this.registerForm.get("ltd").setValue(this.markLat);
+          this.registerForm.get("lng").setValue(this.markLng);
+          this.mapZoom = 11;
+          this.cdRef.detectChanges();
         } else {
           alert("Something got wrong " + status);
         }
