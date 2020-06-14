@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from "@angular/core";
 import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng } from "leaflet";
+import GestureHandling from "leaflet-gesture-handling";
+Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
 @Component({
   selector: "app-map-os",
@@ -29,7 +31,8 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
     this._map = new Map("map", {
       center: this.center,
       zoom: this.zoom,
-    });
+      gestureHandling: true,
+    } as any);
     this._map.on({ click: this._onMapClick });
     const tiles = new TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
