@@ -1,0 +1,12 @@
+<div class="map-container">
+  <button (click)="getCurrentLocation()">MARCA MI POSICIÓN</button>
+  <div class="map-frame">
+    <div style="height: 100%;"
+     leaflet
+     [leafletOptions]="options"
+     [leafletLayersControl]="layersControl"
+     [leafletLayers]="layers"
+     (leafletClick)="onMapClick($event)">
+</div>
+  </div>
+</div>

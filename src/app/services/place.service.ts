@@ -11,7 +11,7 @@ export class PlaceService {
   url = `${HOST}/categories`;
   selectedCoordinates ;
   selectedCoordinatesChanged = new Subject<any>();
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getCountryList() {
     return  [
@@ -68,5 +68,26 @@ export class PlaceService {
   }
   getSelectedCoordinates() {
     return this.selectedCoordinates;
+  }
+  getReverseGeocode(lat, lng ) {
+    return this.http.get<any>(`https://nominatim.openstreetmap.org/reverse?format=geojson&lat=${lat}&lon=${lng}`);
+  }
+
+  async getCurrentLocation() {
+    if (navigator.geolocation) {
+    const promise = await navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          console.log('position in service', pos);
+        },
+        () => {}
+      );
+      return promise;
+    } else {
+     return null;
+    }
   }
 }

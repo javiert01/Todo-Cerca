@@ -5,6 +5,7 @@ import { ThankyouComponent } from "./components/thankyou/thankyou.component";
 import { CommerceRegistrationComponent } from "./components/commerce-registration/commerce-registration.component";
 import { UseConditionsComponent } from "./components/use-conditions/use-conditions.component";
 import { CommerceSearchComponent } from "./components/commerce-search/commerce-search.component";
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: "verificar", component: VerifyRegisterDataComponent },
   { path: "gracias", component: ThankyouComponent },
   { path: "politicas-de-uso", component: UseConditionsComponent },
-  { path: "home", component: CommerceSearchComponent}
+  { path: "home", component: CommerceSearchComponent},
+  { path: "mapa", component: MapComponent}
 ];
 
 @NgModule({

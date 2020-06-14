@@ -9,6 +9,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { MatDialogModule } from "@angular/material/dialog";
 
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
@@ -33,6 +35,7 @@ import { SearchHeaderComponent } from './components/search-header/search-header.
 import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
 import { WorryComponent } from './components/worry/worry.component';
 import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-message.component';
+import { MapComponent } from './map/map.component';
 
 /*  */
 
@@ -59,6 +62,7 @@ import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-
     WrongCityComponent,
     WorryComponent,
     OnlyOnceMessageComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,7 @@ import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-
       libraries: ["places"],
     }),
     AgmOverlays,
+    LeafletModule,
     BrowserAnimationsModule,
     MatTooltipModule,
     NgxMaterialTimepickerModule,
