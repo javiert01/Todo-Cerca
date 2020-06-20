@@ -57,13 +57,15 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private statsService: StatsService
-  ) {
-    if (!this.statsService.isHomeVisited) {
-      this.openMessageDialog("home");
-    }
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.statsService.getIsHomeVisited()
+      .subscribe(isHomeVisited => {
+        if (!isHomeVisited) {
+          this.openMessageDialog("home");
+        }
+      })
     /* this.cities = this.placeService.getCountryList();
     this.cities = [...this.cities.slice(0,2)]; */
     this.allowedCities = this.placeService.getAllowedCountryList();
