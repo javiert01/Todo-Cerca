@@ -26,7 +26,7 @@ declare let google: any;
 })
 export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
-  allowedCities = [];
+  allowedCities: string[] = [];
   categories = [];
   lat;
   lng;
@@ -68,7 +68,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       })
     /* this.cities = this.placeService.getCountryList();
     this.cities = [...this.cities.slice(0,2)]; */
-    this.allowedCities = this.placeService.getAllowedCountryList();
+    this.allowedCities = this.placeService.getAllowedCountries();
     this.loadCategoryData();
     this.searchControl = new FormControl("");
     this.searchCommerceForm = new FormGroup({

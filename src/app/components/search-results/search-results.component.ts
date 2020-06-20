@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
 import { CategoryService } from "src/app/services/category.service";
-import { PlaceService } from "src/app/services/place.service";
+import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 
@@ -14,7 +14,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // ==============================================================
   // Close subs
   // ==============================================================
-  placeServiceSub: Subscription;
   categoryServiceSub: Subscription;
   commerceServiceSub: Subscription;
   commerceService1Sub: Subscription;
@@ -23,7 +22,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   categoryList = [];
   totalCategories = [];
   totalCommerces;
-  coordinates;
+  coordinates: LocalCoordinates;
   selectedCategory;
   categoryControl: FormControl;
   itemsPerPage = 7;
@@ -36,11 +35,9 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.categoryList = this.categoryService.categoryList;
-    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
-      (data) => {
-        this.coordinates = data;
-      }
-    );
+    this.placeService.getSelectedCoordinates().subscribe(coordinates => {
+      this.coordinates = coordinates;
+    });
     this.categoryServiceSub = this.categoryService.categorySelectedChanged.subscribe(
       (data) => {
         this.selectedCategory = data;
@@ -60,7 +57,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
       }
     );
     this.totalCategories = this.categoryService.getTotalCategories();
-    this.coordinates = this.placeService.getSelectedCoordinates();
     this.totalCommerces = this.commerceService.getTotalCommercesAllCategories();
     this.selectedCategory = this.categoryService.getCategorySelected();
     this.categoryControl = new FormControl(this.selectedCategory);
@@ -138,9 +134,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    if (this.placeServiceSub) {
-      this.placeServiceSub.unsubscribe();
-    }
     if (this.categoryServiceSub) {
       this.categoryServiceSub.unsubscribe();
     }

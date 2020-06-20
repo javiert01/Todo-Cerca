@@ -61,7 +61,7 @@ export class CommerceRegistrationComponent implements OnInit {
       stylers: [{ visibility: "off" }],
     },
   ];
-  cities = [];
+  cities: string[] = [];
   provinces = [
     "Azuay",
     "Bolívar",
@@ -121,7 +121,7 @@ export class CommerceRegistrationComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.cities = this.placeService.getCountryList();
+    this.cities = this.placeService.getCities();
     this.route.queryParams.subscribe((params) => {
       this.scrollToForm = params.formulario;
 
