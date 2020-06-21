@@ -12,9 +12,13 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() center = new LatLng(-0.1840506, -78.503374);
   @Input() zoom = 18;
   @Input() customIcon = false;
+  @Input() extraCoordinates: LatLng[] = [];
+  @Input() allowMapClick = true;
   @Output() mapClick = new EventEmitter<LatLng>();
   private _map: Map;
   private _marker: Marker;
+  private _commerceIcon: Icon;
+  private _commercesMarkers: Marker[] = [];
 
   constructor() {}
 
@@ -56,11 +60,36 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       this._marker.bindTooltip(tooltip).setTooltipContent("Tú estás aquí").openTooltip();
     }
     this._marker.addTo(this._map);
+    this._initCommercesMarkers();
+  }
+
+  private _initCommercesMarkers() {
+    if (this._commercesMarkers.length) {
+      this._commercesMarkers.forEach((marker) => {
+        this._map.removeLayer(marker);
+      });
+      this._commercesMarkers.length = 0;
+    }
+    this.extraCoordinates.forEach((coordinate) => {
+      let commerceMarker = new Marker(coordinate, { icon: this._commerceIcon });
+      this._commercesMarkers.push(commerceMarker);
+      commerceMarker.addTo(this._map);
+    });
+  }
+
+  private _initCommerceIcon() {
+    this._commerceIcon = new Icon({
+      iconUrl: "assets/iconorojo-01.svg",
+      iconSize: [40, 50],
+      iconAnchor: [20, 50], // point of the icon which will correspond to marker's location
+    });
   }
 
   private _onMapClick: (e: LeafletMouseEvent) => void = ({ latlng }) => {
-    this._marker.setLatLng(latlng);
-    this.mapClick.emit(latlng);
+    if (this.allowMapClick) {
+      this._marker.setLatLng(latlng);
+      this.mapClick.emit(latlng);
+    }
   };
 
   private _handlePropChanges(changes: SimpleChanges) {
@@ -69,6 +98,9 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       switch (propName) {
         case "center":
           this._handleCenterChanges(change);
+          break;
+        case "extraCoordinates":
+          this._handleExtraCoordinatesChanges(change);
           break;
         default:
           break;
@@ -81,6 +113,16 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
     if (!change.isFirstChange() && currentValue !== previousValue) {
       this._map.setView(currentValue, this.zoom);
       this._marker.setLatLng(currentValue);
+    }
+  }
+
+  private _handleExtraCoordinatesChanges(change: SimpleChange) {
+    const { currentValue, previousValue } = change;
+    if (change.isFirstChange()) {
+      this._initCommerceIcon();
+    }
+    if (!change.isFirstChange() && currentValue !== previousValue) {
+      this._initCommercesMarkers();
     }
   }
 }
