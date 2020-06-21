@@ -4,6 +4,7 @@ import { CategoryService } from "src/app/services/category.service";
 import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { LatLng } from "leaflet";
 
 @Component({
   selector: "app-search-results",
@@ -27,6 +28,10 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   categoryControl: FormControl;
   itemsPerPage = 7;
 
+  viewMap = false;
+  visualizeLabel: string;
+  mapCoordinates: LatLng[];
+
   constructor(
     private commerceService: CommerceService,
     private categoryService: CategoryService,
@@ -34,6 +39,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.visualizeLabel = "Ver Mapa";
     this.categoryList = this.categoryService.categoryList;
     this.placeService.getSelectedCoordinates().subscribe(coordinates => {
       this.coordinates = coordinates;
@@ -56,6 +62,12 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
         this.addTotalComerces(this.categoryList);
       }
     );
+    this.commerceService.totalCommercesResultListChanged.subscribe(commerces => {
+      this.mapCoordinates = commerces.map(commerce => {
+        const [lng, lat] = commerce.location.coordinates;
+        return new LatLng(lat, lng);
+      });
+    });
     this.totalCategories = this.categoryService.getTotalCategories();
     this.totalCommerces = this.commerceService.getTotalCommercesAllCategories();
     this.selectedCategory = this.categoryService.getCategorySelected();
@@ -64,21 +76,15 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
 
   onExpand() {
-    const listaLocales = document.getElementById('lista-locales');
-    const mapa = document.getElementById('mapa');
-    const angularMap = document.getElementById('angular-map');
-    const iconList = document.getElementById('icon-list');
-    const iconMap = document.getElementById('icon-map');
-    const verMapaText = document.getElementById('ver-mapa');
-    const verListaText = document.getElementById('ver-lista');
-    angularMap.setAttribute("style",'width: 100vh; height: 100vh');
-    listaLocales.classList.toggle('hide-locales');
-    mapa.classList.toggle('expand-map');
-    iconMap.classList.toggle('display-none');
-    iconList.classList.toggle('display-none');
-    verMapaText.classList.toggle('display-none');
-    verListaText.classList.toggle('display-none');
-    document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
+    this.viewMap = !this.viewMap;
+    this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
+    // const listaLocales = document.getElementById('lista-locales');
+    // const mapa = document.getElementById('mapa');
+    // const angularMap = document.getElementById('angular-map');
+    // angularMap.setAttribute("style",'width: 100vh; height: 100vh');
+    // listaLocales.classList.toggle('hide-locales');
+    // mapa.classList.toggle('expand-map');
+    // document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
   }
 
   toggleCategories() {
