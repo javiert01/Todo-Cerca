@@ -30,7 +30,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
   viewMap = false;
   visualizeLabel: string;
-  mapCoordinates: LatLng[];
+  mapCommerces: any[];
 
   constructor(
     private commerceService: CommerceService,
@@ -63,10 +63,7 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
       }
     );
     this.commerceService.totalCommercesResultListChanged.subscribe(commerces => {
-      this.mapCoordinates = commerces.map(commerce => {
-        const [lng, lat] = commerce.location.coordinates;
-        return new LatLng(lat, lng);
-      });
+      this.mapCommerces = commerces;
     });
     this.totalCategories = this.categoryService.getTotalCategories();
     this.totalCommerces = this.commerceService.getTotalCommercesAllCategories();

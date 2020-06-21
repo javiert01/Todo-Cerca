@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from "@angular/core";
-import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng, Icon, MarkerOptions, Tooltip } from "leaflet";
+import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng, Icon, MarkerOptions, Tooltip, Popup } from "leaflet";
 import GestureHandling from "leaflet-gesture-handling";
 Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
@@ -12,7 +12,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() center = new LatLng(-0.1840506, -78.503374);
   @Input() zoom = 18;
   @Input() customIcon = false;
-  @Input() extraCoordinates: LatLng[] = [];
+  @Input() commerces: any[] = [];
   @Input() allowMapClick = true;
   @Output() mapClick = new EventEmitter<LatLng>();
   private _map: Map;
@@ -70,9 +70,11 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       });
       this._commercesMarkers.length = 0;
     }
-    this.extraCoordinates.forEach((coordinate) => {
-      let commerceMarker = new Marker(coordinate, { icon: this._commerceIcon });
+    this.commerces.forEach((commerce) => {
+      const [lng, lat] = commerce.location.coordinates;
+      const commerceMarker = new Marker(new LatLng(lat, lng), { icon: this._commerceIcon });
       this._commercesMarkers.push(commerceMarker);
+      commerceMarker.on({ mouseover: (event) => this._onCommerceMarkeHover(event, commerce) });
       commerceMarker.addTo(this._map);
     });
   }
@@ -82,6 +84,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       iconUrl: "assets/iconorojo-01.svg",
       iconSize: [40, 50],
       iconAnchor: [20, 50], // point of the icon which will correspond to marker's location
+      popupAnchor: [-10, -50],
     });
   }
 
@@ -92,6 +95,65 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
     }
   };
 
+  private _onCommerceMarkeHover(event: LeafletMouseEvent, commerce: any) {
+    const { latlng, sourceTarget } = event;
+    const popup = new Popup();
+    popup.setLatLng(latlng).setContent(this._getCommercePopupView(commerce));
+    sourceTarget.bindPopup(popup).openPopup();
+  }
+
+  private _getCommercePopupView(commerce) {
+    const { commercePhoto, category, commerceName, idAux, dist, phone } = commerce;
+    const [firsCategory] = category;
+    const { commerceCategory } = firsCategory;
+    return /*html*/ `
+      <div class="bubble-container">
+        <div id="local-container" class="col-2">
+          <div class="col col-left only-desktop">
+            <div class="img-container foto-local">
+              <img src="${commercePhoto}" class="img-center" alt="">
+            </div>
+          </div>
+          <div class="col col-right">
+            <p class="color4 tipo-negocio">
+                ${commerceCategory}
+            </p>
+            <h5 class="color1 titulo-comercio">
+                ${commerceName}
+            </h5>
+            <span id="id-negocio" class="color3">
+              Id: ${idAux}
+            </span>
+            <p class="color3 distancia">
+                <span class="bold">Distancia: </span>${dist.calculated.toFixed(2)}m
+            </p>
+            <a href="${this._getWhatsappURL(phone)}" class="button whatsapp-button background-color2" target="_blank">
+              <div class="col-left center">
+                  <i class="fab fa-whatsapp white"></i>
+                </div>
+                <div class="col-right">
+                  <p class="white">
+                      CONTÁCTATE POR
+                  </p>
+                  <h6 class="white">
+                      WhatsApp
+                    </h6>
+                </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  private _getWhatsappURL(phone: string) {
+    const newPhone = `593${phone.slice(1)}`;
+    if (window.innerWidth < 551) {
+      return `http://api.whatsapp.com/send?phone=${newPhone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
+    }
+    return `http://web.whatsapp.com/send?phone=${newPhone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
+  }
+
   private _handlePropChanges(changes: SimpleChanges) {
     for (let propName in changes) {
       let change = changes[propName];
@@ -99,7 +161,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
         case "center":
           this._handleCenterChanges(change);
           break;
-        case "extraCoordinates":
+        case "commerces":
           this._handleExtraCoordinatesChanges(change);
           break;
         default:

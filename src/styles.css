@@ -614,3 +614,86 @@ body {
   padding: 0px !important;
 }
 
+/* Popup map styles */
+
+.bubble-container {
+  width: 300px;
+  margin: -13px -19px; /* this is to compensate the added margin by leaflet's class leaflet-popup-content */
+}
+
+.bubble-container .col-2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.bubble-container .col-2 .col-left {
+  width: 40%;
+}
+.bubble-container .col-2 .col-left .img-container {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  margin: auto;
+}
+.bubble-container .col-2 .col-left .img-container img {
+  width: 100%;
+  height: 100%;
+}
+
+.bubble-container .col-2 .col-right {
+  width: 60%;
+}
+.bubble-container .col-2 .col-right .close-button-container {
+  display: block;
+  position: relative;
+  height: 15px;
+}
+.bubble-container .col-2 .col-right .close-bubble {
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+.bubble-container .col-2 .col-right .titulo-comercio {
+  font-size: 16px;
+  margin-bottom: 0px;
+  line-height: 20px;
+}
+.bubble-container .col-2 .col-right .distancia {
+  margin-top: 0;
+}
+
+.bubble-container .col-2 .col-right #id-negocio {
+  font-size: 12px;
+}
+.bubble-container .col-2 .col-right .whatsapp-button {
+  display: flex;
+  align-items: center;
+  max-width: 130px;
+  margin: 10px 0 10px 0;
+}
+.bubble-container .col-2 .col-right .whatsapp-button .col-left {
+  width: 40px;
+  font-size: 30px;
+}
+.bubble-container .col-2 .col-right .whatsapp-button .col-right p {
+  font-size: 8px;
+  margin-top: 0;
+  line-height: 5px;
+}
+
+@media only screen and (max-width: 550px) {
+  .bubble-container {
+    width: 100%;
+    max-width: 180px;
+    padding: 10px;
+  }
+
+  .bubble-container .col-2 .col-right {
+    width: 100%;
+  }
+  .bubble-container .col-2 .col-right .whatsapp-button {
+    margin: 10px auto;
+  }
+}
