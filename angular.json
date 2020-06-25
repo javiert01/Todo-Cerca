@@ -25,6 +25,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/leaflet-gesture-handling/dist/leaflet-gesture-handling.css",
               "src/styles.css"
             ],
             "scripts": []

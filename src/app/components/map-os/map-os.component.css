@@ -1,0 +1,22 @@
+.map-container {
+  height: 500px;
+  width: 100%;
+}
+
+:host-context(.small-map) .map-container {
+  height: 250px;
+  width: 100%;
+}
+
+:host-context(.big-map) .map-container {
+  height: 100vh;
+  width: 100vh;
+}
+
+.map-frame {
+  height: 100%;
+}
+
+#map {
+  height: 100%;
+}

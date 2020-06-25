@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
 import { CategoryService } from "src/app/services/category.service";
-import { PlaceService } from "src/app/services/place.service";
+import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
+import { LatLng } from "leaflet";
 
 @Component({
   selector: "app-search-results",
@@ -14,7 +15,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // ==============================================================
   // Close subs
   // ==============================================================
-  placeServiceSub: Subscription;
   categoryServiceSub: Subscription;
   commerceServiceSub: Subscription;
   commerceService1Sub: Subscription;
@@ -23,10 +23,14 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   categoryList = [];
   totalCategories = [];
   totalCommerces;
-  coordinates;
+  coordinates: LocalCoordinates;
   selectedCategory;
   categoryControl: FormControl;
   itemsPerPage = 7;
+
+  viewMap = false;
+  visualizeLabel: string;
+  mapCommerces: any[];
 
   constructor(
     private commerceService: CommerceService,
@@ -35,12 +39,11 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.visualizeLabel = "Ver Mapa";
     this.categoryList = this.categoryService.categoryList;
-    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
-      (data) => {
-        this.coordinates = data;
-      }
-    );
+    this.placeService.getSelectedCoordinates().subscribe(coordinates => {
+      this.coordinates = coordinates;
+    });
     this.categoryServiceSub = this.categoryService.categorySelectedChanged.subscribe(
       (data) => {
         this.selectedCategory = data;
@@ -59,8 +62,10 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
         this.addTotalComerces(this.categoryList);
       }
     );
+    this.commerceService.totalCommercesResultListChanged.subscribe(commerces => {
+      this.mapCommerces = commerces;
+    });
     this.totalCategories = this.categoryService.getTotalCategories();
-    this.coordinates = this.placeService.getSelectedCoordinates();
     this.totalCommerces = this.commerceService.getTotalCommercesAllCategories();
     this.selectedCategory = this.categoryService.getCategorySelected();
     this.categoryControl = new FormControl(this.selectedCategory);
@@ -68,21 +73,15 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
 
   onExpand() {
-    const listaLocales = document.getElementById('lista-locales');
-    const mapa = document.getElementById('mapa');
-    const angularMap = document.getElementById('angular-map');
-    const iconList = document.getElementById('icon-list');
-    const iconMap = document.getElementById('icon-map');
-    const verMapaText = document.getElementById('ver-mapa');
-    const verListaText = document.getElementById('ver-lista');
-    angularMap.setAttribute("style",'width: 100vh; height: 100vh');
-    listaLocales.classList.toggle('hide-locales');
-    mapa.classList.toggle('expand-map');
-    iconMap.classList.toggle('display-none');
-    iconList.classList.toggle('display-none');
-    verMapaText.classList.toggle('display-none');
-    verListaText.classList.toggle('display-none');
-    document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
+    this.viewMap = !this.viewMap;
+    this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
+    // const listaLocales = document.getElementById('lista-locales');
+    // const mapa = document.getElementById('mapa');
+    // const angularMap = document.getElementById('angular-map');
+    // angularMap.setAttribute("style",'width: 100vh; height: 100vh');
+    // listaLocales.classList.toggle('hide-locales');
+    // mapa.classList.toggle('expand-map');
+    // document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
   }
 
   toggleCategories() {
@@ -138,9 +137,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    if (this.placeServiceSub) {
-      this.placeServiceSub.unsubscribe();
-    }
     if (this.categoryServiceSub) {
       this.categoryServiceSub.unsubscribe();
     }

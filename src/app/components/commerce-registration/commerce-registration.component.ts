@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CategoryService } from "src/app/services/category.service";
 import { Observable, Subscription } from "rxjs";
 import { PlaceService } from "src/app/services/place.service";
+import { LatLng } from "leaflet";
 
 declare let google: any;
 
@@ -40,6 +41,7 @@ export class CommerceRegistrationComponent implements OnInit {
   // FIN VARAIBLES PREVIEW IMAGEN
   lat = -0.1840506;
   lng = -78.503374;
+  center = new LatLng(this.lat, this.lng);
   markLat;
   markLng;
   direccion;
@@ -59,7 +61,7 @@ export class CommerceRegistrationComponent implements OnInit {
       stylers: [{ visibility: "off" }],
     },
   ];
-  cities = [];
+  cities: string[] = [];
   provinces = [
     "Azuay",
     "Bolívar",
@@ -119,7 +121,7 @@ export class CommerceRegistrationComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.cities = this.placeService.getCountryList();
+    this.cities = this.placeService.getCities();
     this.route.queryParams.subscribe((params) => {
       this.scrollToForm = params.formulario;
 
@@ -148,6 +150,7 @@ export class CommerceRegistrationComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
+          this.center = new LatLng(place.geometry.location.lat(), place.geometry.location.lng());
           this.mapZoom = 18;
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
@@ -386,21 +389,24 @@ export class CommerceRegistrationComponent implements OnInit {
     }
     city = city + ", EC";
     const geocoder = new google.maps.Geocoder();
-    const self = this;
     geocoder.geocode(
       {
         address: city,
       },
-      function (results, status) {
+      (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
-          self.lat = results[0].geometry.location.lat();
-          self.lng = results[0].geometry.location.lng();
-          self.markLat = results[0].geometry.location.lat();
-          self.markLng = results[0].geometry.location.lng();
-          self.registerForm.get("ltd").setValue(self.markLat);
-          self.registerForm.get("lng").setValue(self.markLng);
-          self.mapZoom = 11;
-          self.cdRef.detectChanges();
+          const [place] = results;
+          const newLat = place.geometry.location.lat();
+          const newLng = place.geometry.location.lng();
+          this.center = new LatLng(newLat, newLng);
+          this.lat = newLat;
+          this.lng = newLng;
+          this.markLat = newLat;
+          this.markLng = newLng;
+          this.registerForm.get("ltd").setValue(this.markLat);
+          this.registerForm.get("lng").setValue(this.markLng);
+          this.mapZoom = 11;
+          this.cdRef.detectChanges();
         } else {
           alert("Something got wrong " + status);
         }
@@ -408,9 +414,14 @@ export class CommerceRegistrationComponent implements OnInit {
     );
   }
 
+  onMapClick(latlng: LatLng) {
+    this.setMarker(latlng);
+    this.getAddress(latlng.lat, latlng.lng);
+  }
+
   setMarker($event) {
-    this.markLat = $event.coords.lat;
-    this.markLng = $event.coords.lng;
+    this.markLat = $event.lat;
+    this.markLng = $event.lng;
     this.registerForm.get("ltd").setValue(this.markLat);
     this.registerForm.get("lng").setValue(this.markLng);
   }
@@ -446,6 +457,7 @@ export class CommerceRegistrationComponent implements OnInit {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
+          this.center = new LatLng(pos.lat, pos.lng);
           this.mapZoom = 18;
           this.lat = pos.lat;
           this.lng = pos.lng;

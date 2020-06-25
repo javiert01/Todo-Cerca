@@ -13,6 +13,7 @@
           <h6 class="center color1">
             Para una mejor experiencia, mueve el pin a la ubicación exacta.
           </h6>
+          <app-map-os (mapClick)="onMapClick($event)" [center]="center" class="small-map"></app-map-os>
           <agm-map
             [latitude]="lat"
             [longitude]="lng"

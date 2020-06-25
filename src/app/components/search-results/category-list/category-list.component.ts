@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CategoryService } from "src/app/services/category.service";
 import { CommerceService } from "src/app/services/commerce.service";
-import { PlaceService } from "src/app/services/place.service";
+import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -12,12 +12,11 @@ import { Subscription } from "rxjs";
 export class CategoryListComponent implements OnInit, OnDestroy {
   categoryList = [];
   totalCategories = [];
-  coordinates;
+  coordinates: LocalCoordinates;
   itemsPerPage = 7;
   // =========================================
   // Close subs
   // =========================================
-  placeServiceSub: Subscription;
   categoryServiceSub: Subscription;
   commerceServiceSub: Subscription;
   commerceServiceSub1: Subscription;
@@ -31,11 +30,9 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.categoryList = this.categoryService.categoryList;
     this.addImageURL(this.categoryList);
-    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
-      (data) => {
-        this.coordinates = data;
-      }
-    );
+    this.placeService.getSelectedCoordinates().subscribe(coordinates => {
+      this.coordinates = coordinates;
+    })
     this.categoryServiceSub = this.categoryService.totalCategoriesChanged.subscribe(
       (data) => {
         this.totalCategories = data;
@@ -43,7 +40,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       }
     );
     this.totalCategories = this.categoryService.getTotalCategories();
-    this.coordinates = this.placeService.getSelectedCoordinates();
     this.addTotalComerces(this.categoryList);
     for(let i = 0; i < this.categoryList.length; i++) {
       if(this.categoryList[i].commerceCategory === this.categoryService.getCategorySelected()) {
@@ -165,9 +161,6 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     }
     if (this.commerceServiceSub1) {
       this.commerceServiceSub1.unsubscribe();
-    }
-    if (this.placeServiceSub) {
-      this.placeServiceSub.unsubscribe();
     }
   }
 }

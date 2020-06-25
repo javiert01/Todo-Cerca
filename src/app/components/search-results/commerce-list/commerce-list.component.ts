@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommerceService } from "src/app/services/commerce.service";
-import { PlaceService } from "src/app/services/place.service";
+import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { CategoryService } from "src/app/services/category.service";
 import { Subscription } from "rxjs";
 
@@ -17,13 +17,12 @@ export class CommerceListComponent implements OnInit, OnDestroy {
   listaPaginasSelected = [];
   listaNumeroPaginas = [];
   currentPage = 1;
-  coordinates;
+  coordinates: LocalCoordinates;
   selectedCategory;
   // =========================================
   // Close subs
   // =========================================
   categoryServiceSub: Subscription;
-  placeServiceSub: Subscription;
   commerceServiceSub: Subscription;
   commerceServiceSub1: Subscription;
   commerceServiceSub2: Subscription;
@@ -42,11 +41,9 @@ export class CommerceListComponent implements OnInit, OnDestroy {
         this.currentPage = 1;
       }
     );
-    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
-      (data) => {
-        this.coordinates = data;
-      }
-    );
+    this.placeService.getSelectedCoordinates().subscribe(coordinates => {
+      this.coordinates = coordinates;
+    });
 
     this.commerceServiceSub = this.commerceService.commerceResultListChanged.subscribe(
       (data) => {
@@ -74,7 +71,6 @@ export class CommerceListComponent implements OnInit, OnDestroy {
     this.numeroPaginas = Math.ceil(
       this.totalCommerces / this.numeroItemsPorPagina
     );
-    this.coordinates = this.placeService.getSelectedCoordinates();
     for (let i = 0; i < this.numeroPaginas; i++) {
       this.listaNumeroPaginas.push(i + 1);
       this.listaPaginasSelected.push(false);
@@ -145,9 +141,6 @@ export class CommerceListComponent implements OnInit, OnDestroy {
     }
     if (this.commerceServiceSub2) {
       this.commerceServiceSub2.unsubscribe();
-    }
-    if (this.placeServiceSub) {
-      this.placeServiceSub.unsubscribe();
     }
   }
 }

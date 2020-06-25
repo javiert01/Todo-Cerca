@@ -33,6 +33,7 @@ import { SearchHeaderComponent } from './components/search-header/search-header.
 import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
 import { WorryComponent } from './components/worry/worry.component';
 import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-message.component';
+import { MapOSComponent } from './components/map-os/map-os.component';
 
 /*  */
 
@@ -59,6 +60,7 @@ import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-
     WrongCityComponent,
     WorryComponent,
     OnlyOnceMessageComponent,
+    MapOSComponent,
   ],
   imports: [
     BrowserModule,
