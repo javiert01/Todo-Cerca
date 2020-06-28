@@ -39,7 +39,7 @@ export class GeoOSMService {
     );
   }
 
-  getGeoCoordinates(city: string, countryCode: string): Observable<LatLng | null> {
+  getGeoCoordinates(city: string, countryCode: string) {
     return this._http.get<GeoOSMResponse>(`${this._forwardUrl}&city=${city}&country=${countryCode}`).pipe(
       switchMap((res) => {
         const { features = [] } = res;
@@ -50,10 +50,10 @@ export class GeoOSMService {
         if (lat && lng) {
           return observableOf(new LatLng(lat, lng));
         } else {
-          return observableOf(null);
+          return observableOf<null>(null);
         }
       }),
-      catchError(this._handleError<string>("getGeoCoordinates", null))
+      catchError(this._handleError<null>("getGeoCoordinates", null))
     );
   }
 
