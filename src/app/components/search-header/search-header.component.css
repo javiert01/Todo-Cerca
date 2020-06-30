@@ -16,6 +16,10 @@ header .header-top .col-4-equals .col .center-button {
 header .header-brand {
   margin-bottom: 10px;
 }
+header .header-brand img{
+  height: 80px;
+  width: 170px;
+}
 header .news-container-in .top-news {
   border-bottom: 1px solid rgba(255, 255, 255, 1);
   padding: 5px;
@@ -48,15 +52,6 @@ header .container .col-2-equals .col {
   margin-bottom: 10px;
 }
 
-header .header-brand {
-  padding: 5px;
-}
-header .header-brand img {
-  display: block;
-  margin: auto;
-  max-width: 100px;
-}
-
 header .contador-container-out {
   max-width: 270px;
 }
@@ -80,12 +75,9 @@ header .contador-container-out .contador-container-in .number {
 header .contador-container-out .contador-container-in p {
   font-size: 12px;
 }
-header .header-brand {
-  padding: 20px;
-}
+
 header .header-brand img {
   display: block;
-  margin: auto;
   max-width: 256px;
 }
 .puntero {

@@ -17,7 +17,7 @@
       >
     </select>
   </div>
-<div class="locales-menu-icons">
+<!-- <div class="locales-menu-icons">
     <div class="col">
       <a id="boton-expand" class="col center" (click)="onExpand()">
           <div class="icon-wrapper background-white">
@@ -29,13 +29,29 @@
           </p>
       </a>
     </div>
+</div> -->
+<div class="locales-menu-icons">
+  <div class="col">
+    <a id="boton-expand" class="col center" (click)="onExpand()">
+        <div class="icon-wrapper background-white">
+          <i id="icon-map" class="fas fa-map-marked-alt color3"></i>
+          <i id="icon-list" class="far fa-list-alt color3 display-none"></i>
+        </div>
+        <p class="white center" id="ver-mapa">
+          Ver Mapa
+        </p>
+        <p class="white center display-none" id="ver-lista">
+          Ver Lista
+        </p>
+    </a>
+  </div>
 </div>
 </div>
 <div class="global-results container" id="global-results" style="margin-bottom: 100px;">
   <app-category-list></app-category-list>
-  <!-- <app-commerce-list></app-commerce-list> -->
-  <app-commerce-list *ngIf="!viewMap"></app-commerce-list>
-  <app-map-os
+  <app-commerce-list></app-commerce-list>
+ <!--  <app-commerce-list *ngIf="!viewMap"></app-commerce-list> -->
+<!--   <app-map-os
     *ngIf="viewMap"
     [center]="coordinates"
     [customIcon]="true"
@@ -44,5 +60,5 @@
     [allowMapClick]="false"
     [zoom]="15"
     class="big-map">
-  </app-map-os>
+  </app-map-os> -->
 </div>

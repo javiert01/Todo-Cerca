@@ -73,15 +73,15 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
 
   onExpand() {
-    this.viewMap = !this.viewMap;
-    this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
-    // const listaLocales = document.getElementById('lista-locales');
-    // const mapa = document.getElementById('mapa');
-    // const angularMap = document.getElementById('angular-map');
-    // angularMap.setAttribute("style",'width: 100vh; height: 100vh');
-    // listaLocales.classList.toggle('hide-locales');
-    // mapa.classList.toggle('expand-map');
-    // document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
+    //this.viewMap = !this.viewMap;
+    //this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
+     const listaLocales = document.getElementById('lista-locales');
+     const mapa = document.getElementById('mapa');
+     const angularMap = document.getElementById('angular-map');
+     angularMap.setAttribute("style",'width: 100vh; height: 100vh');
+     listaLocales.classList.toggle('hide-locales');
+     mapa.classList.toggle('expand-map');
+     document.querySelector('#container-commerce-list').scrollIntoView({behavior: 'smooth'});
   }
 
   toggleCategories() {

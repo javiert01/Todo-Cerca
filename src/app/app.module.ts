@@ -88,3 +88,4 @@ import { BannerComponent } from './components/banner/banner.component';
   entryComponents: [MapSearchDialogComponent, WrongCityComponent, OnlyOnceMessageComponent],
 })
 export class AppModule {}
+
