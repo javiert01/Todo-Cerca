@@ -14,6 +14,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() customIcon = false;
   @Input() commerces: any[] = [];
   @Input() allowMapClick = true;
+  @Input() showAlwaysTooltip = false;
   @Output() mapClick = new EventEmitter<LatLng>();
   private _map: Map;
   private _marker: Marker;
@@ -55,7 +56,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       markerOptions.icon = icon;
     }
     this._marker = new Marker(this.center, markerOptions);
-    if (this.customIcon) {
+    if (this.showAlwaysTooltip) {
       const tooltip = new Tooltip({ permanent: true });
       this._marker.bindTooltip(tooltip).setTooltipContent("Tú estás aquí").openTooltip();
     }

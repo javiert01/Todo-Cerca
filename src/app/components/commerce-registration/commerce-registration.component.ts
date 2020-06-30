@@ -15,6 +15,7 @@ import { CategoryService } from "src/app/services/category.service";
 import { Observable, Subscription } from "rxjs";
 import { PlaceService } from "src/app/services/place.service";
 import { LatLng } from "leaflet";
+import { GeoOSMService } from 'src/app/services/GeoOSM/geo-osm.service';
 
 declare let google: any;
 
@@ -110,7 +111,8 @@ export class CommerceRegistrationComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private placeService: PlaceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _geoOSMService: GeoOSMService
   ) {
     this.loadCategoryData();
   }
@@ -383,35 +385,27 @@ export class CommerceRegistrationComponent implements OnInit {
     return `${hours}:${minutes}`;
   }
 
-  onSetCityMap(city) {
+  onSetCityMap(city: string) {
     if (city === "18: Francisco de Orellana") {
-      city = "Orellana";
+      city = "Puerto Francisco de Orellana";
     }
-    city = city + ", EC";
-    const geocoder = new google.maps.Geocoder();
-    geocoder.geocode(
-      {
-        address: city,
-      },
-      (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const [place] = results;
-          const newLat = place.geometry.location.lat();
-          const newLng = place.geometry.location.lng();
-          this.center = new LatLng(newLat, newLng);
-          this.lat = newLat;
-          this.lng = newLng;
-          this.markLat = newLat;
-          this.markLng = newLng;
-          this.registerForm.get("ltd").setValue(this.markLat);
-          this.registerForm.get("lng").setValue(this.markLng);
-          this.mapZoom = 11;
-          this.cdRef.detectChanges();
-        } else {
-          alert("Something got wrong " + status);
-        }
+    const countryCode = "EC";
+    this._geoOSMService.getGeoCoordinates(city, countryCode).subscribe(coordinates => {
+      if (coordinates) {
+        this.center = coordinates;
+        const { lat, lng } = coordinates;
+        this.lat = lat;
+        this.lng = lng;
+        this.markLat = lat;
+        this.markLng = lng;
+        this.registerForm.get("ltd").setValue(this.markLat);
+        this.registerForm.get("lng").setValue(this.markLng);
+        this.mapZoom = 11;
+        this.cdRef.detectChanges();
+      } else {
+        alert("Ups... algo salió mal");
       }
-    );
+    });
   }
 
   onMapClick(latlng: LatLng) {
@@ -428,22 +422,12 @@ export class CommerceRegistrationComponent implements OnInit {
 
   getAddress(lat: number, lng: number) {
     if (navigator.geolocation) {
-      const geocoder = new google.maps.Geocoder();
-      const latlng = new google.maps.LatLng(lat, lng);
-      const request = { latLng: latlng };
-      geocoder.geocode(request, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const result = results[0];
-          const rsltAdrComponent = result.address_components;
-          const resultLength = rsltAdrComponent.length;
-          if (result != null) {
-            this.direccion = result.formatted_address;
-            this.registerForm.get("address").setValue(this.direccion);
-          } else {
-            alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
-            );
-          }
+      this._geoOSMService.getGeoAddress(lat, lng).subscribe(address => {
+        if (address) {
+          this.direccion = address;
+          this.registerForm.get("address").setValue(this.direccion);
+        } else {
+          alert("No hay una dirección disponible en este momento, llénela manualmente");
         }
       });
     }
