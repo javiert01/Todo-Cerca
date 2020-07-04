@@ -8,25 +8,12 @@
             class="background-color3 white center"
             (click)="onSearchCommerce()"
           >
-            x
+            &times;
           </p>
           <h6 class="center color1">
             Para una mejor experiencia, mueve el pin a la ubicación exacta.
           </h6>
-          <app-map-os (mapClick)="onMapClick($event)" [center]="center" class="small-map"></app-map-os>
-          <agm-map
-            [latitude]="lat"
-            [longitude]="lng"
-            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-            [zoom]="mapZoom"
-            [scrollwheel]="null"
-            [gestureHandling]="'cooperative'"
-            [streetViewControl]="false"
-            [mapTypeControl]="true"
-            [styles]="myStyles"
-          >
-            <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
-          </agm-map>
+          <app-map-os (mapClick)="onMapClick($event)" [center]="center" class="small-map" [customIcon]="true"></app-map-os>
 
           <button
           id="confirmar-ubicacion"
