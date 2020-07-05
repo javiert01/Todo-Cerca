@@ -14,10 +14,8 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
   i = 0;
   currentNew;
   newsArray = [
-    '🔴Recuerda en semáforo rojo el toque de queda inicia a las 14h00 🚫',
-    '🟡Recuerda en semáforo amarillo  el toque de queda inicia a las 21h00 🚫',
-    // tslint:disable-next-line: max-line-length
-    '🟡La circulación de autos en semáforo amarillo es 2 veces por semana excepto el domingo 🚙Para volver no olvides lavado frecuente de manos 🧼, uso obligatorio de mascarilla 😷 y 2m de distancia social🧍🏻‍♀️ ⛔️🧍🏽'
+    'Durante la nueva normalidad, si tu localidad se encuentra en semaforo rojo 🔴 #QuédateEnCasa',
+    'Mantén una sana distancia entre personas (1,5 metros a 2 metros), en caso de no poder mantenerla, recuerda usar cubreboca, por ejemplo en el transporte público',
   ]
 
   //========================================
