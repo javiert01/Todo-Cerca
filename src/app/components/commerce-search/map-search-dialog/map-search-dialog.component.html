@@ -8,12 +8,13 @@
             class="background-color3 white center"
             (click)="onSearchCommerce()"
           >
-            x
+            &times;
           </p>
           <h6 class="center color1">
             Para una mejor experiencia, mueve el pin a la ubicación exacta.
           </h6>
-          <app-map-os (mapClick)="onMapClick($event)" [center]="center" class="small-map"></app-map-os>
+          <app-map-os (mapClick)="onMapClick($event)" [center]="center" class="small-map" [customIcon]="true"></app-map-os>
+
           <button
           id="confirmar-ubicacion"
           class="button center-button background-color5 white center confirmar"
