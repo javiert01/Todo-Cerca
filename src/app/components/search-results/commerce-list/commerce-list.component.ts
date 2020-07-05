@@ -122,8 +122,7 @@ export class CommerceListComponent implements OnInit, OnDestroy {
   }
 
   getWhatsappURL(phone) {
-    phone = phone.slice(1, phone.length);
-    phone = "593" + phone;
+    phone = "521" + phone;
     if (window.innerWidth < 551) {
       return `http://api.whatsapp.com/send?phone=${phone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
     }

@@ -6,13 +6,13 @@
   <div class="container">
     <div class="form-container">
       <h2 class="color1 center bebas">
-        Registra tu local comercial
+        Registra tu comercio
       </h2>
       <div style="display: inline-flex;">
         <h2 class="color2 h2-small center bebas">
-          o negocio de la esquina
+          o tiendita de la esquina
           <span class="h2-big bottom"
-            >GRATIS
+            >¡GRATIS!
             <i
               class="fas fa-question-circle fa-lg title-icon"
               matTooltip="Esta es una plataforma de intercambio de bienes y servicios, evita hacer anuncios de compra y venta de bienes usados, servicios ocasionales o temas no relacionados con esta emergencia."
@@ -60,12 +60,12 @@
         </div>
         <div class="col-2-equals">
           <div class="col">
-            <label class="color3">Teléfono celular</label>
+            <label class="color3">Ingresa tu teléfono Whatsapp</label>
 
             <input
               type="text"
               formControlName="phone"
-              placeholder="Ej: 0995975573"
+              placeholder="Ej: 3321646260"
             />
             <span
               *ngIf="registerForm.hasError('pattern', 'phone')"
@@ -269,7 +269,7 @@
           <input
             type="text"
             formControlName="address"
-            placeholder="Ej: Cristobal de Acuña e11 8 y Av. 10 de agosto"
+            placeholder="Ej:  Avenida López Mateos Sur #1481, Chapalita, 45040 Guadalajara, Jal."
           />
         </div>
         <div class="col-1">
@@ -277,19 +277,19 @@
           <input
             type="text"
             formControlName="reference"
-            placeholder="Ej: diagonal al redondel."
+            placeholder="Ej: Diagonal López Mateos"
           />
         </div>
         <div class="col-1">
           <label class="color3">Breve descripción de tu comercio</label>
           <textarea
             formControlName="commerceDescription"
-            placeholder="Ej: Somos una tienda de barrio, donde podrás encontrar todo tipo de alimentos y bebidas. (Máximo 90 caracteres)"
+            placeholder="Ej: Somos una tienda de abarrotes, donde podrás encontrar todo tipo de alimentos y bebidas. (Máximo 90 caracteres)"
           ></textarea>
         </div>
         <div class="col-1">
           <label class="color3"
-            >Ingresa tu correo electrónico de contacto:</label
+            >Dirección de correo electrónico:</label
           >
           <input
             type="email"
@@ -310,10 +310,9 @@
             >*Ingresa una dirección de correo electronico válida</span
           >
         </div>
-
         <div class="col-1">
-          <span class="color3 optional-text">(No obligatorio, sin embargo, podría aumentar el interés de tus clientes)</span>
-          <label class="color3 background-color1 white" style="margin-top: 6px" for="foto"
+          <span class="color3" *ngIf="!imagenSeleccionada">(No obligatorio, sin embargo, podría aumentar el interés de tus clientes)</span>
+          <label class="color3 background-color1 white" for="foto" style="margin-top: 6px;"
             ><i class="fas fa-camera white"></i> Sube una foto de tu producto o
             servicio</label
           >
@@ -331,7 +330,7 @@
             <label class="color3 center" for="useConditionCheck"
               >Acepto las
               <a
-                href="https://todosmascerca.com.ec/politicas-de-uso"
+                href="https://todosmascerca.com.mx/politicas-de-uso"
                 target="_blank"
                 >políticas de uso</a
               >
@@ -394,8 +393,7 @@
     </h2> -->
     <!-- <div class="box-hover-container">
       <a
-        [routerLink]="['/home']"
-        class="button center-button background-color3 white center buscar"
+        class="button center-button background-grey2 white center buscar"
       >
         <i class="fas fa-search"></i> BUSCAR ESTABLECIMIENTO
       </a>

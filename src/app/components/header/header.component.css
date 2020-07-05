@@ -74,3 +74,40 @@ header .header-brand img {
 .puntero {
   cursor: pointer;
 }
+
+/*Tooltip */
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  color: #fff;
+  background-color: gray;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  margin: 0px 0px;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent grey transparent;
+}

@@ -224,6 +224,9 @@ p {
 .background-disabled{
 	background-color: #d9d9d9;
 }
+.background-grey2 {
+  background-color: #6b6b6b;
+}
 .back-face{background-color: #395196;}
 .back-tw{background-color: #00a9ff;}
 .back-ws{background-color: #00bb21;}

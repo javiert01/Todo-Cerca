@@ -40,8 +40,8 @@ export class CommerceRegistrationComponent implements OnInit {
   imgURL: any;
   public message: string;
   // FIN VARAIBLES PREVIEW IMAGEN
-  lat = -0.1840506;
-  lng = -78.503374;
+  lat = 20.662540;
+  lng = -103.348578;
   center = new LatLng(this.lat, this.lng);
   markLat;
   markLng;
@@ -63,32 +63,6 @@ export class CommerceRegistrationComponent implements OnInit {
     },
   ];
   cities: string[] = [];
-  provinces = [
-    "Azuay",
-    "Bolívar",
-    "Cañar",
-    "Carchi",
-    "Chimborazo",
-    "Cotopaxi",
-    "El Oro",
-    "Esmeraldas",
-    "Galápagos",
-    "Guayas",
-    "Imbabura",
-    "Loja",
-    "Los Ríos",
-    "Manabí",
-    "Morona Santiago",
-    "Napo",
-    "Orellana",
-    "Pastaza",
-    "Pichincha",
-    "Santa Elena",
-    "Santo Domingo de los Tsáchilas",
-    "Sucumbíos",
-    "Tungurahua",
-    "Zamora Chinchipe",
-  ];
 
   registerForm: FormGroup;
   commerce;
@@ -132,7 +106,7 @@ export class CommerceRegistrationComponent implements OnInit {
         window.scroll(0, Math.round(scrollHeight * 0.35));
       }
     });
-    this.imgURL = "../../../assets/06-no-image.png";
+    this.imgURL = 'assets/06-no-image.png';
     this.markLat = this.lat;
     this.markLng = this.lng;
     this.searchControl = new FormControl();
@@ -144,7 +118,7 @@ export class CommerceRegistrationComponent implements OnInit {
         }
       );
       autocomplete.setComponentRestrictions({
-        country: ["ec"],
+        country: ["mx"],
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -386,10 +360,7 @@ export class CommerceRegistrationComponent implements OnInit {
   }
 
   onSetCityMap(city: string) {
-    if (city === "18: Francisco de Orellana") {
-      city = "Puerto Francisco de Orellana";
-    }
-    const countryCode = "EC";
+    const countryCode = "MX";
     this._geoOSMService.getGeoCoordinates(city, countryCode).subscribe(coordinates => {
       if (coordinates) {
         this.center = coordinates;
@@ -530,7 +501,7 @@ export class CommerceRegistrationComponent implements OnInit {
 
     // LLAMAMOS A HEROKU PARA QUE FIRME LA PETICION
     return this.http.get<any>(
-      "https://todo-mas-cerca-1.herokuapp.com/image/upload?fName_p=" +
+      'https://todo-mas-cerca-1-mx.herokuapp.com/image/upload?fName_p=' +
         file.fName_p +
         "&fType_p=" +
         file.fType_p
@@ -547,13 +518,13 @@ export class CommerceRegistrationComponent implements OnInit {
   }
   // FIN UPLOAD2 PARA LLAMAR DESDE EL METODO OPERAR
   operar(name: String) {
-    if (this.imagenSeleccionada) {
+    if(this.imagenSeleccionada) {
       this.isLoading = true;
-      name = name.replace(/\s/g, "");
+      name = name.replace(/\s/g, '');
       if (this.imagenSubida) {
         // SI CARGA IMAGEN
         // INICIO-SI-SUBE-IMAGEN
-        this.getSignedRequest2(name).subscribe((data) => {
+        this.getSignedRequest2(name).subscribe(data => {
           // INICIO SE LLAMA AL METODO UPLOAD
           this.onUpload2(this.selectedFile, data.signedRequest, data.url);
           // FIN SE LLAMA AL METODO UPLOAD

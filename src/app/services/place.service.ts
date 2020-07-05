@@ -12,32 +12,10 @@ export interface LocalCoordinates {
 export class PlaceService {
   private _selectedCoordinates: LocalCoordinates;
   private _cities = [
-    "Quito",
-    "Guayaquil",
-    "Cuenca",
-    "Guaranda",
-    "Azogues",
-    "Tulcán",
-    "Riobamba",
-    "Latacunga",
-    "Machala",
-    "Esmeraldas",
-    "Puerto Baquerizo Moreno",
-    "Ibarra",
-    "Loja",
-    "Babahoyo",
-    "Portoviejo",
-    "Macas",
-    "Tena",
-    "Francisco de Orellana",
-    "Puyo",
-    "Santa Elena",
-    "Santo Domingo",
-    "Nueva Loja",
-    "Ambato",
-    "Zamora",
+    'Guadalajara',
+    'Zapopan',
   ];
-  private _allowedCountries = ["Quito", "Guayaquil", "Cuenca", "Sangolquí", "Daule", "Durán", "Chordeleg", "Atarazana", "Salitre", "Samanes"];
+  private _allowedCountries = ['Guadalajara', 'Zapopan'];
   constructor() {}
 
   getCities(): string[] {
