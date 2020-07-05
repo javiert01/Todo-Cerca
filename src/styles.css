@@ -618,7 +618,7 @@ body {
 
 .bubble-container {
   width: 300px;
-  margin: -13px -19px; /* this is to compensate the added margin by leaflet's class leaflet-popup-content */
+  margin: 0px -19px; /* this is to compensate the added margin by leaflet's class leaflet-popup-content */
 }
 
 .bubble-container .col-2 {
@@ -681,6 +681,10 @@ body {
   font-size: 8px;
   margin-top: 0;
   line-height: 5px;
+}
+
+.leaflet-popup-content p {
+  margin: 0;
 }
 
 @media only screen and (max-width: 550px) {
