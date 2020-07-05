@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, SimpleChange } from "@angular/core";
 import { Map, Marker, TileLayer, LeafletMouseEvent, LatLng, Icon, MarkerOptions, Tooltip, Popup } from "leaflet";
 import GestureHandling from "leaflet-gesture-handling";
+import { AnalyticsService } from 'src/app/services/Analytics/analytics.service';
 Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
 
 @Component({
@@ -20,8 +21,9 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   private _marker: Marker;
   private _commerceIcon: Icon;
   private _commercesMarkers: Marker[] = [];
+  private _popupCount = 0;
 
-  constructor() {}
+  constructor(private _analyticsService: AnalyticsService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     this._handlePropChanges(changes);
@@ -75,7 +77,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
       const [lng, lat] = commerce.location.coordinates;
       const commerceMarker = new Marker(new LatLng(lat, lng), { icon: this._commerceIcon });
       this._commercesMarkers.push(commerceMarker);
-      commerceMarker.on({ mouseover: (event) => this._onCommerceMarkeHover(event, commerce) });
+      commerceMarker.on({ mouseover: (event) => this._onCommerceMarkerHover(event, commerce) });
       commerceMarker.addTo(this._map);
     });
   }
@@ -96,11 +98,15 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
     }
   };
 
-  private _onCommerceMarkeHover(event: LeafletMouseEvent, commerce: any) {
+  private _onCommerceMarkerHover(event: LeafletMouseEvent, commerce: any) {
     const { latlng, sourceTarget } = event;
     const popup = new Popup();
     popup.setLatLng(latlng).setContent(this._getCommercePopupView(commerce));
     sourceTarget.bindPopup(popup).openPopup();
+    const whatsAppButtons = document.getElementsByClassName(`map-ws-button-${this._popupCount}`);
+    const whatsAppButton = whatsAppButtons.item(0) as HTMLAnchorElement;
+    whatsAppButton.addEventListener('click', () => this._trackWhatsAppClick());
+    this._popupCount++;
   }
 
   private _getCommercePopupView(commerce) {
@@ -128,7 +134,11 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
             <p class="color3 distancia">
                 <span class="bold">Distancia: </span>${dist.calculated.toFixed(2)}m
             </p>
-            <a href="${this._getWhatsappURL(phone)}" class="button whatsapp-button background-color2" target="_blank">
+            <a
+              href="${this._getWhatsappURL(phone)}"
+              class="button whatsapp-button background-color2 map-ws-button-${this._popupCount}"
+              target="_blank"
+            >
               <div class="col-left center">
                   <i class="fab fa-whatsapp white"></i>
                 </div>
@@ -145,6 +155,10 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
         </div>
       </div>
     `;
+  }
+
+  private _trackWhatsAppClick() {
+    this._analyticsService.incrementWhatsAppClicks(false, true).subscribe();
   }
 
   private _getWhatsappURL(phone: string) {
