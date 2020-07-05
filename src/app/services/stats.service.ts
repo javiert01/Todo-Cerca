@@ -1,23 +1,18 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HOST } from "../shared/var.constants";
-import { map } from "rxjs/operators";
-import { Subject } from 'rxjs';
+import { Observable, of } from "rxjs";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class StatsService {
-  isHomeVisited = false;
-  isHomeVisitedChanged = new Subject<any>();
+  private _isHomeVisited = false;
   constructor() {}
 
-  getIsHomeVisited() {
-    return this.isHomeVisited;
+  getIsHomeVisited(): Observable<boolean> {
+    return of(this._isHomeVisited);
   }
 
-  setIsHomeVisited(flag) {
-    this.isHomeVisited = flag;
-    this.isHomeVisitedChanged.next(this.isHomeVisited);
+  setIsHomeVisited(isHomeVisited: boolean) {
+    this._isHomeVisited = isHomeVisited;
   }
 }

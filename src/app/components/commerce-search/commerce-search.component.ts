@@ -16,6 +16,7 @@ import { WrongCityComponent } from "src/app/dialogs/wrong-city/wrong-city.compon
 import { Subscription } from "rxjs";
 import { OnlyOnceMessageComponent } from "src/app/dialogs/only-once-message/only-once-message.component";
 import { StatsService } from "src/app/services/stats.service";
+import { GeoOSMService } from 'src/app/services/GeoOSM/geo-osm.service';
 
 declare let google: any;
 
@@ -26,7 +27,7 @@ declare let google: any;
 })
 export class CommerceSearchComponent implements OnInit, OnDestroy {
   cities = [];
-  allowedCities = [];
+  allowedCities: string[] = [];
   categories = [];
   lat;
   lng;
@@ -56,17 +57,20 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private statsService: StatsService
-  ) {
-    if (!this.statsService.isHomeVisited) {
-      this.openMessageDialog("home");
-    }
-  }
+    private statsService: StatsService,
+    private _geoOSMService: GeoOSMService
+  ) {}
 
   ngOnInit(): void {
+    this.statsService.getIsHomeVisited()
+      .subscribe(isHomeVisited => {
+        if (!isHomeVisited) {
+          this.openMessageDialog("home");
+        }
+      })
     /* this.cities = this.placeService.getCountryList();
     this.cities = [...this.cities.slice(0,2)]; */
-    this.allowedCities = this.placeService.getAllowedCountryList();
+    this.allowedCities = this.placeService.getAllowedCountries();
     this.loadCategoryData();
     this.searchControl = new FormControl("");
     this.searchCommerceForm = new FormGroup({
@@ -187,71 +191,30 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
   }
 
   getAddress(lat: number, lng: number) {
-    let flag = false;
     if (navigator.geolocation) {
-      const geocoder = new google.maps.Geocoder();
-      const latlng = new google.maps.LatLng(lat, lng);
-      const request = { latLng: latlng };
-      geocoder.geocode(request, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const result = results[0];
-          const rsltAdrComponent = result.address_components;
-          const resultLength = rsltAdrComponent.length;
-          if (result != null) {
-            for (let i = 0; i < this.allowedCities.length; i++) {
-                for(let j = 0; j < result.address_components.length; j++) {
-                  if (result.address_components[j].long_name.includes(this.allowedCities[i])) {
-                    flag = true;
-                    break;
-                  }
-                }
-            }
-            if (!flag) {
-              this.ngZone.run(() => {
-                this.openDialogWrongCity();
-              });
-            } else {
-              return;
-            }
-            /* this.direccion = rsltAdrComponent[0].short_name; */
+      this._geoOSMService.getGeoAddress(lat, lng).subscribe(address => {
+        if (address) {
+          if (!this.allowedCities.some(city => address.includes(city))) {
+            this.ngZone.run(() => {
+              this.openDialogWrongCity();
+            });
           } else {
-            alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
-            );
+            return;
           }
+        } else {
+          alert("No hay una dirección disponible en este momento, llénela manualmente");
         }
       });
     }
   }
 
-  isLocationOnCity(cityList, lat, lng, fn) {
-    let flag = false;
+  isLocationOnCity(cityList: string[], lat: number, lng: number, fn: (flag: boolean) => void) {
     if (navigator.geolocation) {
-      const geocoder = new google.maps.Geocoder();
-      const latlng = new google.maps.LatLng(lat, lng);
-      const request = { latLng: latlng };
-      geocoder.geocode(request, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const result = results[0];
-          const rsltAdrComponent = result.address_components;
-          const resultLength = rsltAdrComponent.length;
-          if (result != null) {
-            console.log("la localizacion es:", result.formatted_address);
-            for (let i = 0; i < cityList.length; i++) {
-              if (result.formatted_address.includes(cityList[i])) {
-                flag = true;
-              }
-            }
-            if (!flag) {
-              fn(false);
-            } else {
-              fn(true);
-            }
-          } else {
-            alert(
-              "No hay dirección disponible en este momento, llenela manualmente"
-            );
-          }
+      this._geoOSMService.getGeoAddress(lat, lng).subscribe(address => {
+        if (address) {
+          fn(cityList.some(city => address.includes(city)));
+        } else {
+          alert("No hay una dirección disponible en este momento, llénela manualmente");
         }
       });
     }
@@ -261,26 +224,20 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
     this.categoryService.setCategorySelected(
       this.searchCommerceForm.get("category").value
     );
-    const def = this;
     if (this.searchControl.value === "") {
       if (navigator.geolocation) {
         if (this.lat && this.lng) {
-          this.isLocationOnCity(
-            this.allowedCities,
-            this.lat,
-            this.lng,
-            function (flag) {
-              if (flag) {
-                def.ngZone.run(() => {
-                  def.openDialogMapSearch("noAddress");
-                });
-              } else {
-                def.ngZone.run(() => {
-                  def.openDialogWrongCity();
-                });
-              }
+          this.isLocationOnCity(this.allowedCities, this.lat, this.lng, flag => {
+            if (flag) {
+              this.ngZone.run(() => {
+                this.openDialogMapSearch("noAddress");
+              });
+            } else {
+              this.ngZone.run(() => {
+                this.openDialogWrongCity();
+              });
             }
-          );
+          });
         } else {
           alert(
             "Debe permitir el acceso a la ubicación o seleccionar una calle para continuar"
@@ -292,22 +249,17 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
             };
             this.lat = pos.lat;
             this.lng = pos.lng;
-            this.isLocationOnCity(
-              this.allowedCities,
-              pos.lat,
-              pos.lng,
-              function (flag) {
-                if (flag) {
-                  def.ngZone.run(() => {
-                    def.openDialogMapSearch("noAddress");
-                  });
-                } else {
-                  def.ngZone.run(() => {
-                    def.openDialogWrongCity();
-                  });
-                }
+            this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, flag => {
+              if (flag) {
+                this.ngZone.run(() => {
+                  this.openDialogMapSearch("noAddress");
+                });
+              } else {
+                this.ngZone.run(() => {
+                  this.openDialogWrongCity();
+                });
               }
-            );
+            });
           });
         }
       } else {
@@ -338,7 +290,6 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
       configuracionDialog
     );
     this.dialogRef3Sub = dialogRef.afterClosed().subscribe((data) => {
-      const def = this;
       this.statsService.setIsHomeVisited(true);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -350,12 +301,10 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
           this.lngMyUb = pos.lng;
           this.lat = pos.lat;
           this.lng = pos.lng;
-          this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, function (
-            flag
-          ) {
+          this.isLocationOnCity(this.allowedCities, pos.lat, pos.lng, flag => {
             if (!flag) {
-              def.ngZone.run(() => {
-                def.openDialogWrongCity();
+              this.ngZone.run(() => {
+                this.openDialogWrongCity();
               });
             }
           });
