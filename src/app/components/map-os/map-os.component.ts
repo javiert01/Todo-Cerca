@@ -9,7 +9,7 @@ Map.addInitHook("addHandler", "gestureHandling", GestureHandling);
   styleUrls: ["./map-os.component.css"],
 })
 export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
-  @Input() center = new LatLng(-0.1840506, -78.503374);
+  @Input() center = new LatLng(20.662540, -103.348578);
   @Input() zoom = 18;
   @Input() customIcon = false;
   @Input() commerces: any[] = [];
@@ -148,7 +148,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   private _getWhatsappURL(phone: string) {
-    const newPhone = `593${phone.slice(1)}`;
+    const newPhone = `521${phone}`;
     if (window.innerWidth < 551) {
       return `http://api.whatsapp.com/send?phone=${newPhone}&text=Buenos%20días,%20encontré%20tu%20negocio%20en%20todosmascerca.com%20y%20quisiera%20hacerte%20un%20pedido.`;
     }

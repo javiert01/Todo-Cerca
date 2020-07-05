@@ -14,8 +14,8 @@ import { LatLng } from "leaflet";
 export class MapSearchDialogComponent implements OnInit {
 
   mapZoom = 18;
-  lat = -0.1840506;
-  lng = -78.503374;
+  lat = 20.662540;
+  lng = -103.348578;
   center = new LatLng(this.lat, this.lng);
   markLat;
   markLng;

@@ -87,7 +87,7 @@ export class CommerceSearchComponent implements OnInit, OnDestroy {
         }
       );
       autocomplete.setComponentRestrictions({
-        country: ["ec"],
+        country: ["mx"],
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
