@@ -34,6 +34,7 @@ import { WrongCityComponent } from './dialogs/wrong-city/wrong-city.component';
 import { WorryComponent } from './components/worry/worry.component';
 import { OnlyOnceMessageComponent } from './dialogs/only-once-message/only-once-message.component';
 import { MapOSComponent } from './components/map-os/map-os.component';
+import { BannerComponent } from './components/banner/banner.component';
 
 /*  */
 
@@ -61,6 +62,7 @@ import { MapOSComponent } from './components/map-os/map-os.component';
     WorryComponent,
     OnlyOnceMessageComponent,
     MapOSComponent,
+    BannerComponent,
   ],
   imports: [
     BrowserModule,
