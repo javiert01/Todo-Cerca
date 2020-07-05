@@ -257,20 +257,7 @@
               [formControl]="searchControl"
             />
           </div>
-          <agm-map
-            [latitude]="lat"
-            [longitude]="lng"
-            (mapClick)="setMarker($event); getAddress(markLat, markLng)"
-            [zoom]="mapZoom"
-            [scrollwheel]="null"
-            [gestureHandling]="'cooperative'"
-            [streetViewControl]="false"
-            [mapTypeControl]="true"
-            [clickableIcons]="false"
-            [styles]="myStyles"
-          >
-            <agm-marker [latitude]="markLat" [longitude]="markLng"></agm-marker>
-          </agm-map>
+          <app-map-os (mapClick)="onMapClick($event)" [center]="center" [zoom]="mapZoom" [customIcon]="true" ></app-map-os>
         </div>
         <div class="col-1">
           <label class="color3"
@@ -401,10 +388,10 @@
         </div>
       </form>
     </div>
-<!--     <h2 class="center color1">
+   <!--  <h2 class="center color1">
       ¿Deseas buscar un establecimiento cerca?
-    </h2>
-    <div class="box-hover-container">
+    </h2> -->
+    <!-- <div class="box-hover-container">
       <a
         class="button center-button background-grey2 white center buscar"
       >

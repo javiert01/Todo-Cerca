@@ -1,38 +1,36 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HOST } from "../shared/var.constants";
-import { map } from "rxjs/operators";
-import { Subject } from 'rxjs';
+import { Observable, of } from "rxjs";
+
+export interface LocalCoordinates {
+  lat: number;
+  lng: number;
+}
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class PlaceService {
-  url = `${HOST}/categories`;
-  selectedCoordinates ;
-  selectedCoordinatesChanged = new Subject<any>();
+  private _selectedCoordinates: LocalCoordinates;
+  private _cities = [
+    'Guadalajara',
+    'Zapopan',
+  ];
+  private _allowedCountries = ['Guadalajara', 'Zapopan'];
   constructor() {}
 
-  getCountryList() {
-    return  [
-      'Guadalajara',
-      'Zapopan'
-    ];
-
+  getCities(): string[] {
+    return this._cities;
   }
 
-  getAllowedCountryList() {
-    return [
-     'Guadalajara',
-     'Zapopan'
-    ];
+  getAllowedCountries(): string[] {
+    return this._allowedCountries;
   }
 
-  setSelectedCoordinates(lat, lng) {
-    this.selectedCoordinates = {lat: lat, lng: lng};
-    this.selectedCoordinatesChanged.next(this.selectedCoordinates);
+  setSelectedCoordinates(lat: number, lng: number) {
+    this._selectedCoordinates = { lat, lng };
   }
-  getSelectedCoordinates() {
-    return this.selectedCoordinates;
+
+  getSelectedCoordinates(): Observable<LocalCoordinates> {
+    return of(this._selectedCoordinates);
   }
 }

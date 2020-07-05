@@ -5,7 +5,7 @@ import {
   ElementRef,
   OnDestroy,
 } from "@angular/core";
-import { PlaceService } from "src/app/services/place.service";
+import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { CommerceService } from "src/app/services/commerce.service";
 import { CategoryService } from "src/app/services/category.service";
 import { Subscription } from "rxjs";
@@ -16,7 +16,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./commerce-results-map.component.css"],
 })
 export class CommerceResultsMapComponent implements OnInit, OnDestroy {
-  initialCoordinates;
+  initialCoordinates: LocalCoordinates;
   commerceCoordinates = [];
   commerceListCopy = [];
   viewAll = false;
@@ -34,7 +34,6 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   // Close subs
   // =========================================
   commerceServiceSub: Subscription;
-  placeServiceSub: Subscription;
 
   constructor(
     private placeService: PlaceService,
@@ -48,12 +47,9 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
         this.commerceCoordinates = data;
       }
     );
-    this.placeServiceSub = this.placeService.selectedCoordinatesChanged.subscribe(
-      (data) => {
-        this.initialCoordinates = data;
-      }
-    );
-    this.initialCoordinates = this.placeService.getSelectedCoordinates();
+    this.placeService.getSelectedCoordinates().subscribe(coordinates => {
+      this.initialCoordinates = coordinates;
+    });
     this.commerceCoordinates = this.commerceService.getTotalCommerceResultList();
   }
 
@@ -94,9 +90,6 @@ export class CommerceResultsMapComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.commerceServiceSub) {
       this.commerceServiceSub.unsubscribe();
-    }
-    if (this.placeServiceSub) {
-      this.placeServiceSub.unsubscribe();
     }
   }
 }

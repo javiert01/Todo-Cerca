@@ -11,6 +11,14 @@ import { Router } from '@angular/router';
 export class SearchHeaderComponent implements OnInit, OnDestroy {
   totalCommerces = 0;
   newsIndex = 0;
+  i = 0;
+  currentNew;
+  newsArray = [
+    '🔴Recuerda en semáforo rojo el toque de queda inicia a las 14h00 🚫',
+    '🟡Recuerda en semáforo amarillo  el toque de queda inicia a las 21h00 🚫',
+    // tslint:disable-next-line: max-line-length
+    '🟡La circulación de autos en semáforo amarillo es 2 veces por semana excepto el domingo 🚙Para volver no olvides lavado frecuente de manos 🧼, uso obligatorio de mascarilla 😷 y 2m de distancia social🧍🏻‍♀️ ⛔️🧍🏽'
+  ]
 
   //========================================
   //Close subscriptions
@@ -20,7 +28,10 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
   constructor(private commmerceService: CommerceService, private router: Router) {}
 
   ngOnInit(): void {
-    //this.showNews();
+    this.currentNew = this.newsArray[this.i];
+    setInterval(() => {
+      this.showNews();
+    }, 5000);
     this.commmerceServiceSub = this.commmerceService
       .getTotalRegisteredCommerces()
       .subscribe((data) => {
@@ -30,19 +41,11 @@ export class SearchHeaderComponent implements OnInit, OnDestroy {
   }
 
   showNews() {
-    let i;
-    const news = document.getElementsByClassName("noticia");
-    for (i = 0; i < news.length; i++) {
-      const c = news[i] as HTMLElement;
-      c.style.display = "none";
-    }
-    this.newsIndex += 1;
-    if (this.newsIndex > news.length) {
-      this.newsIndex = 1;
-    }
-    const n = news[this.newsIndex - 1] as HTMLElement;
-    n.style.display = "flex";
-    setTimeout(this.showNews, 2000); // Change image every 2 seconds
+    this.i++;
+   if (this.i > 2) {
+     this.i = 0;
+   }
+   this.currentNew = this.newsArray[this.i];
   }
 
   onCloseNews() {
