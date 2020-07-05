@@ -6,8 +6,6 @@ import { CategoryService } from 'src/app/services/category.service';
 import { PlaceService } from 'src/app/services/place.service';
 import { LatLng } from "leaflet";
 
-declare let google: any;
-
 @Component({
   selector: "app-map-search-dialog",
   templateUrl: "./map-search-dialog.component.html",
@@ -55,7 +53,6 @@ export class MapSearchDialogComponent implements OnInit {
   onMapClick(latlng: LatLng) {
     this.center = latlng;
     this.setMarker(latlng);
-    this.getAddress(latlng.lat, latlng.lng);
   }
 
   setMarker($event) {
@@ -85,29 +82,6 @@ export class MapSearchDialogComponent implements OnInit {
       alert(
         'Tu navegador no soporta geolocalización! Selecciona tu dirección manualmente'
       );
-    }
-  }
-
-  getAddress(lat: number, lng: number) {
-    if (navigator.geolocation) {
-      const geocoder = new google.maps.Geocoder();
-      const latlng = new google.maps.LatLng(lat, lng);
-      const request = { latLng: latlng };
-      geocoder.geocode(request, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-          const result = results[0];
-          const rsltAdrComponent = result.address_components;
-          const resultLength = rsltAdrComponent.length;
-          if (result != null) {
-            /* this.direccion = result.formatted_address;
-            this.registerForm.get('address').setValue(this.direccion); */
-          } else {
-            alert(
-              'No hay dirección disponible en este momento, llenela manualmente'
-            );
-          }
-        }
-      });
     }
   }
 
