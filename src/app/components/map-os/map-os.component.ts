@@ -158,7 +158,7 @@ export class MapOSComponent implements OnChanges, OnInit, AfterViewInit {
   }
 
   private _trackWhatsAppClick() {
-    this._analyticsService.incrementWhatsAppClicks(false, true).subscribe();
+    this._analyticsService.incrementWhatsAppClicks(false, true, 'EC').subscribe();
   }
 
   private _getWhatsappURL(phone: string) {
