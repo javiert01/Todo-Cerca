@@ -3,6 +3,7 @@ import { CommerceService } from "src/app/services/commerce.service";
 import { PlaceService, LocalCoordinates } from "src/app/services/place.service";
 import { CategoryService } from "src/app/services/category.service";
 import { Subscription } from "rxjs";
+import { AnalyticsService } from 'src/app/services/Analytics/analytics.service';
 
 @Component({
   selector: "app-commerce-list",
@@ -31,7 +32,8 @@ export class CommerceListComponent implements OnInit, OnDestroy {
   constructor(
     private commerceService: CommerceService,
     private placeService: PlaceService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private _analyticsService: AnalyticsService
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +121,10 @@ export class CommerceListComponent implements OnInit, OnDestroy {
         this.commerceService.setCommerceResultList(data["commercesPaginated"]);
         this.commerceService.setTotalCommerces(data["totalCommerces"]);
       });
+  }
+
+  trackWhatsAppClick() {
+    this._analyticsService.incrementWhatsAppClicks(true, false).subscribe();
   }
 
   getWhatsappURL(phone) {
