@@ -124,7 +124,7 @@ export class CommerceListComponent implements OnInit, OnDestroy {
   }
 
   trackWhatsAppClick() {
-    this._analyticsService.incrementWhatsAppClicks(true, false).subscribe();
+    this._analyticsService.incrementWhatsAppClicks(true, false, 'MX').subscribe();
   }
 
   getWhatsappURL(phone) {
