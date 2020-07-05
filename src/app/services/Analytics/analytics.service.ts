@@ -12,8 +12,9 @@ export class AnalyticsService {
 
   constructor(private _http: HttpClient) { }
 
-  incrementWhatsAppClicks(fromCommercesList: boolean, fromCommercesMap: boolean) {
+  incrementWhatsAppClicks(fromCommercesList: boolean, fromCommercesMap: boolean, countryCode: string) {
     this._method = '/whatsappclick';
-    return this._http.post<IncrementWhatsAppClicksResponse>(`${HOST}${this._model}${this._method}`, { fromCommercesList, fromCommercesMap });
+    const body = { fromCommercesList, fromCommercesMap, countryCode };
+    return this._http.post<IncrementWhatsAppClicksResponse>(`${HOST}${this._model}${this._method}`, body);
   }
 }
