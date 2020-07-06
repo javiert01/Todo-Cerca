@@ -73,8 +73,8 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
 
 
   onExpand() {
-    //this.viewMap = !this.viewMap;
-    //this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
+    this.viewMap = !this.viewMap;
+    this.visualizeLabel = !this.viewMap ? "Ver Mapa" : "Ver Lista";
      const listaLocales = document.getElementById('lista-locales');
      const mapa = document.getElementById('mapa');
      const angularMap = document.getElementById('angular-map');
