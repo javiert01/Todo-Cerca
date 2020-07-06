@@ -51,10 +51,10 @@ header .container .col-2-equals .col {
 header .header-brand {
   padding: 5px;
 }
-header .header-brand img {
-  display: block;
+header .header-brand img{
+  height: 80px;
+  width: 170px;
   margin: auto;
-  max-width: 100px;
 }
 
 header .contador-container-out {
