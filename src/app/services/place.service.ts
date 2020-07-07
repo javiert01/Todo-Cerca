@@ -37,7 +37,7 @@ export class PlaceService {
     "Ambato",
     "Zamora",
   ];
-  private _allowedCountries = ["Quito", "Guayaquil", "Cuenca", "Sangolquí", "Daule", "Durán", "Chordeleg", "Atarazana", "Salitre", "Samanes"];
+  private _allowedCountries = ["Quito", "Guayaquil", "Cuenca", "Sangolquí", "Daule", "Durán", "Chordeleg", "Atarazana", "Salitre", "Samanes", "Loja", "Ibarra"];
   constructor() {}
 
   getCities(): string[] {
