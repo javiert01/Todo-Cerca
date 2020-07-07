@@ -21,6 +21,7 @@ export class BannerComponent implements OnInit {
     let dots = document.getElementsByClassName("dot") as HTMLCollectionOf<HTMLElement>;
     for (i = 0; i < slides.length; i++) {
       const slide = slides.item(i);
+      //console.log(slide);
       slide.style.display = "none";
     }
     this.slideIndex++;
@@ -35,7 +36,7 @@ export class BannerComponent implements OnInit {
     const lastDot = dots[this.slideIndex - 1];
     lastSlide.style.display = "block";
     lastDot.classList.add("active");
-    setTimeout(() => this.showSlides(), 9000); // Cambiar el tiempo
+    setTimeout(() => this.showSlides(), 5000); // Cambiar el tiempo
   }
 
 }
