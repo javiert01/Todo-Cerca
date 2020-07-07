@@ -11,7 +11,13 @@ export class DinamicUrlService {
   public url_backend_fija;
   public cities = [];
 
+  private _countryCode: string;
+
   constructor() {}
+
+  getCountryCode() {
+    return this._countryCode;
+  }
 
   setUrlFromCountry(country) {
     let url;
@@ -20,12 +26,14 @@ export class DinamicUrlService {
         url = "https://todo-mas-cerca-1.herokuapp.com";
         this.url_backend_fija = url;
         this.urlSubject.next(url);
+        this._countryCode = 'ec';
         console.log("Set ecuador url");
         break;
       case "mexico":
         url = "https://todo-mas-cerca-1-mx.herokuapp.com";
         this.url_backend_fija = url;
         this.urlSubject.next(url);
+        this._countryCode = 'mx';
         console.log("Set ecuador url");
         break;
 

@@ -433,3 +433,14 @@ li {
   height: 100px;
   width: 200px;
 }
+
+.whatsapp-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #06d755;
+}
+
+.whatsapp-icon {
+  color: #fff;
+}

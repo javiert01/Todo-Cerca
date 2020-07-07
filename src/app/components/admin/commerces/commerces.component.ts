@@ -17,6 +17,7 @@ import { EditCommerceDialogComponent } from "src/app/dialogs/edit-commerce-dialo
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/internal/operators/tap";
 import { DinamicUrlService } from "src/app/services/dinamic-url.service";
+import { AnalyticsService } from 'src/app/services/Analytics/analytics.service';
 @Component({
   selector: "app-commerces",
   templateUrl: "./commerces.component.html",
@@ -88,13 +89,17 @@ export class CommercesComponent implements OnInit, OnDestroy {
   // ==================================================================
   allCommercesPerCategory;
 
+  // Total WhatsApp clicks
+  whatsAppClicks = 0;
+
   constructor(
     private commerceService: CommerceService,
     private authService: AuthService,
     private fileService: FileService,
     private categoryService: CategoryService,
     private dialog: MatDialog,
-    public _dinamicUrl: DinamicUrlService
+    public _dinamicUrl: DinamicUrlService,
+    private _analyticsService: AnalyticsService
   ) {
     setInterval(() => {
       this.fecha = new Date();
@@ -102,6 +107,12 @@ export class CommercesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._analyticsService.countWhatsAppClicksByCountry(this._dinamicUrl.getCountryCode()).subscribe(response => {
+      const { fromCommercesListCount, fromCommercesMapCount } = response;
+      this.whatsAppClicks = fromCommercesListCount + fromCommercesMapCount;
+    }, error => {
+      console.log('xxxErrorWhatsAppClicksCount', error);
+    });
     if (this.authService.isTokenExpired()) {
       this.authService.logoutUser("Admin");
     }
